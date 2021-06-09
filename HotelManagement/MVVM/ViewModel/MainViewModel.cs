@@ -1,6 +1,7 @@
 ﻿using System;
 using HotelManagement.Core;
 
+
 namespace HotelManagement.MVVM.ViewModel
 {
     class MainViewModel : ObservableObject

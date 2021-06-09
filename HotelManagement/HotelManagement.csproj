@@ -88,6 +88,8 @@
     <Compile Include="MVVM\View\RoomsView.xaml.cs">
       <DependentUpon>RoomsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Object\client.cs" />
+    <Compile Include="Object\room.cs" />
     <Compile Include="Object\user.cs" />
     <Compile Include="RegisterWindow.xaml.cs">
       <DependentUpon>RegisterWindow.xaml</DependentUpon>

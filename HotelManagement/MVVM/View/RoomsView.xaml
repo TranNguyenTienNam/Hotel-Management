@@ -105,27 +105,18 @@
             </Grid>
 
             <!--main-->
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="419*"/>
-                    <ColumnDefinition Width="382*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-
-                <!--filter-->
-                <Grid Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,401.6" Grid.RowSpan="2"></Grid>
-
-                <!--list-->
-                <Grid Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,401.6" Grid.RowSpan="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="113*"/>
-                        <ColumnDefinition Width="47*"/>
-                    </Grid.ColumnDefinitions>
-                </Grid>
-            </Grid>
+            <ListView Grid.Column="1" Grid.Row="7" ItemsSource="{Binding rooms}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Room ID" Width="Auto" DisplayMemberBinding="{Binding MaPhong}"/>
+                        <GridViewColumn Header="Room Name" Width="Auto" DisplayMemberBinding="{Binding TenPhong}"/>
+                        <GridViewColumn Header="Type" Width="Auto" DisplayMemberBinding="{Binding LoaiPhong}"/>
+                        <GridViewColumn Header="Unit Price" Width="Auto" DisplayMemberBinding="{Binding DonGia}"/>
+                        <GridViewColumn Header="Maximum" Width="Auto" DisplayMemberBinding="{Binding SoNgToiDa}"/>
+                        <GridViewColumn Header="Notes" Width="Auto" DisplayMemberBinding="{Binding GhiChu}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </Grid>
     </Grid>
 </UserControl>

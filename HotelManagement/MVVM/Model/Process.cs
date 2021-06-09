@@ -18,9 +18,8 @@ namespace HotelManagement.MVVM.Model
         public static SqlCommand cmd;
         public static DataTable data;
         public static SqlDataReader reader;
-        //Link SQL Server nhớ vào AccountPage đổi nữa ..(`~.`)~
-        //public static string connectLink = ConfigurationManager.ConnectionStrings["con"].ToString();
-        public static string connectLink = @"Server=DESKTOP-D8PK1CJ\SQLEXPRESS;Database=HotelManagement;User Id=sa;Password=1;";
+        //Link connect server chinh sua trong file App.config
+        public static string connectLink = ConfigurationManager.ConnectionStrings["con"].ToString();
         static string key { get; set; } = "A!9HHhi%XjjYY4YP2@Nob009X";
 
         public static string Encrypt(string text)
