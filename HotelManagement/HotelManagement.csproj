@@ -85,6 +85,9 @@
     <Compile Include="MVVM\Model\Process.cs" />
     <Compile Include="MVVM\Model\RoomsModel.cs" />
     <Compile Include="MVVM\ViewModel\RoomsViewModel.cs" />
+    <Compile Include="MVVM\View\RoomListItemView.xaml.cs">
+      <DependentUpon>RoomListItemView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\RoomsView.xaml.cs">
       <DependentUpon>RoomsView.xaml</DependentUpon>
     </Compile>
@@ -124,6 +127,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\RoomListItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -207,6 +214,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\girl-and-computer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\search.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets')" />

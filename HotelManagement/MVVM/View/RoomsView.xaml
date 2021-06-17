@@ -12,21 +12,27 @@
              TextElement.FontSize="13"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto"
-             Background="{DynamicResource MaterialDesignPaper}"
+             Background="#f4f5f7"
              FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
 
-            <!--List button-->
-            <Grid Grid.Row="0">
-                <StackPanel Grid.Row="0"
+                <!--List button-->
+                <Grid Grid.Row="0">
+                    <StackPanel Grid.Row="0"
                     Orientation="Horizontal" 
                     HorizontalAlignment="Stretch">
-                    <Button
+                        <Button
                         x:Name="btnAdd"
                         Click="btnAdd_Click"
                         Margin="4"
@@ -38,20 +44,20 @@
                         Background="#FFFE8704"
                         Foreground="White"
                         ToolTip="Add new room">
-                        <Grid Width="80">
-                            <materialDesign:PackIcon
+                            <Grid Width="80">
+                                <materialDesign:PackIcon
                                 Height="18"
                                 Width="18"
                                 Kind="PlusThick" 
                                 Padding="4"/>
-                            <TextBlock 
+                                <TextBlock 
                                 FontSize="18"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Bottom"
                                 Text="Add" Margin="23,0,23,-0.4"></TextBlock>
-                        </Grid>
-                    </Button>
-                    <Button
+                            </Grid>
+                        </Button>
+                        <Button
                         x:Name="btnEdit"
                         Click="btnEdit_Click"
                         Margin="4"
@@ -63,20 +69,20 @@
                         Background="#FFFE8704"
                         Foreground="White"
                         ToolTip="Edit selected room">
-                        <Grid Width="80">
-                            <materialDesign:PackIcon
+                            <Grid Width="80">
+                                <materialDesign:PackIcon
                                 Height="18"
                                 Width="18"
                                 Kind="Pencil" 
                                 Padding="4"/>
-                            <TextBlock 
+                                <TextBlock 
                                 FontSize="18"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Text="Edit"></TextBlock>
-                        </Grid>
-                    </Button>
-                    <Button
+                            </Grid>
+                        </Button>
+                        <Button
                         x:Name="btnRemove"
                         Click="btnRemove_Click"
                         Margin="4"
@@ -88,35 +94,110 @@
                         Background="#FFFE8704"
                         Foreground="White"
                         ToolTip="Remove selected room">
-                        <Grid Width="115">
-                            <materialDesign:PackIcon
+                            <Grid Width="115">
+                                <materialDesign:PackIcon
                                 Height="18"
                                 Width="18"
                                 Kind="MinusThick" 
                                 Padding="4"/>
-                            <TextBlock 
+                                <TextBlock 
                                 FontSize="18"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Text="Remove"></TextBlock>
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+                <!--Search box-->
+                <Border Grid.Row="1" Background="Transparent" Visibility="{Binding Visibility}">
+                    <Border Background="White" Height="46" CornerRadius="12" HorizontalAlignment="Stretch" Margin="4">
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="/Images/search.png" Width="25" Stretch="Uniform"></Image>
+                            <TextBlock Grid.Column="1" Margin="3.4,4,-0.4,4" Text="Search room..." FontWeight="Bold" VerticalAlignment="Center" Foreground="LightGray">
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=searchRoom}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                                <Setter Property="FontSize" Value="14"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBox Grid.Column="1" Width="620" x:Name="searchRoom" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0"></TextBox>
                         </Grid>
-                    </Button>
-                </StackPanel>
+                    </Border>
+                </Border>
+                <!--main-->
+                <ListView x:Name="lv_rooms" Grid.Column="1" Grid.Row="2" ItemsSource="{Binding rooms}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Room ID" x:Name="roomID" Width="120" DisplayMemberBinding="{Binding MaPhong}"/>
+                            <GridViewColumn Header="Name" x:Name="name" Width="Auto" DisplayMemberBinding="{Binding TenPhong}"/>
+                            <GridViewColumn Header="Type" x:Name="type" Width="Auto" DisplayMemberBinding="{Binding LoaiPhong}"/>
+                            <GridViewColumn Header="Unit Price" x:Name="price" Width="Auto" DisplayMemberBinding="{Binding DonGia}"/>
+                            <GridViewColumn Header="Maximum" x:Name="max" Width="140" DisplayMemberBinding="{Binding SoNgToiDa}"/>
+                            <GridViewColumn Header="Notes" x:Name="note" Width="Auto" DisplayMemberBinding="{Binding GhiChu}"/>
+                        </GridView>
+                    </ListView.View>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
+                            <Setter Property="BorderBrush" Value="Blue"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Margin" Value="1"/>
+                            <Setter Property="FontSize" Value="14" />
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
             </Grid>
-
-            <!--main-->
-            <ListView Grid.Column="1" Grid.Row="7" ItemsSource="{Binding rooms}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Room ID" Width="Auto" DisplayMemberBinding="{Binding MaPhong}"/>
-                        <GridViewColumn Header="Room Name" Width="Auto" DisplayMemberBinding="{Binding TenPhong}"/>
-                        <GridViewColumn Header="Type" Width="Auto" DisplayMemberBinding="{Binding LoaiPhong}"/>
-                        <GridViewColumn Header="Unit Price" Width="Auto" DisplayMemberBinding="{Binding DonGia}"/>
-                        <GridViewColumn Header="Maximum" Width="Auto" DisplayMemberBinding="{Binding SoNgToiDa}"/>
-                        <GridViewColumn Header="Notes" Width="Auto" DisplayMemberBinding="{Binding GhiChu}"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+        </Grid>
+        <Grid Grid.Column="1" Background="#FEB865">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="194"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <!--Image-->
+            <Image Grid.Row="0" Name="imgRoom" Width="180" Height="180" Source="/Images/man.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBox Grid.Row="1" Name="tbRoomID" FontSize="14" IsReadOnly="True"
+                materialDesign:HintAssist.Hint="Room ID" Margin="4,0,4,0" Foreground="Black"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                VerticalAlignment="Center" />
+            <TextBox Grid.Row="2" Name="tbRoomName" FontSize="14"
+                materialDesign:HintAssist.Hint="Room Name" Margin="4,0,4,0" Foreground="Black"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                VerticalAlignment="Center" />
+            <TextBox Grid.Row="3" Name="tbRoomType" FontSize="14"
+                materialDesign:HintAssist.Hint="Room Type" Margin="4,0,4,0" Foreground="Black"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                VerticalAlignment="Center" />
+            <TextBox Grid.Row="4" Name="tbPrice" FontSize="14"
+                materialDesign:HintAssist.Hint="Unit Price" Margin="4,0,4,0" Foreground="Black"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                VerticalAlignment="Center" />
+            <TextBox Grid.Row="5" Name="tbMax" FontSize="14"
+                materialDesign:HintAssist.Hint="Maximum" Margin="4,0,4,0" Foreground="Black"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                VerticalAlignment="Center" />
+            <TextBox Grid.Row="6" Name="tbNotes" FontSize="14"
+                materialDesign:HintAssist.Hint="Notes" Margin="4,0,4,0" Foreground="Black"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                VerticalAlignment="Center" />
         </Grid>
     </Grid>
 </UserControl>

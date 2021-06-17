@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HotelManagement.Object;
 
 namespace HotelManagement.MVVM.View
 {
@@ -39,5 +40,22 @@ namespace HotelManagement.MVVM.View
         {
 
         }
+
+        //when select a row in listview
+        private void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var item = sender as ListViewItem;
+            if (item != null && item.IsSelected)
+            {
+                room room = (room)lv_rooms.SelectedItem;
+                tbRoomID.Text = room.MaPhong.ToString();
+                tbRoomName.Text = room.TenPhong;
+                tbRoomType.Text = room.LoaiPhong;
+                tbPrice.Text = room.DonGia.ToString();
+                tbMax.Text = room.SoNgToiDa.ToString();
+                tbNotes.Text = room.GhiChu;
+            }
+        }
+
     }
 }
