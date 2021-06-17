@@ -156,14 +156,15 @@
                         <RadioButton Content="Dashboard"
                                      Style="{StaticResource MenuButtonTheme}"
                                      IsChecked="True"
-                                     Command="{Binding HomeViewCommand}"/>
+                                     Command="{Binding DashboardViewCommand}"/>
 
                         <RadioButton Content="Bookings"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Command="{Binding BookingsViewCommand}"/>
 
                         <RadioButton Content="Rooms"
-                                     Style="{StaticResource MenuButtonTheme}"/>
+                                     Style="{StaticResource MenuButtonTheme}"
+                                     Command="{Binding RoomsViewCommand}"/>
                     </StackPanel>
                 </Border>
 

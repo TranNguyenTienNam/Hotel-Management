@@ -19,27 +19,19 @@
                                        VerticalAlignment="Center"
                                        Margin="30,0,0,0"
                                        FontFamily="/Fonts/#Poppins"/>
-
-                            <Border Background="{TemplateBinding Property=BorderBrush}"
-                                    Width="5"
-                                    Height="45"
-                                    HorizontalAlignment="Left"
-                                    Margin="0,0,0,0"/>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
 
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
         </Style.Setters>
 
         <Style.Triggers>
             <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Background" Value="#FFFFFF"/>
-                <Setter Property="BorderBrush" Value="#EE2E24"/>
-                <Setter Property="Foreground" Value="#EE2E24"/>
+                <Setter Property="Background" Value="#EE2E24"/>
+                <Setter Property="Foreground" Value="#FFFFFF"/>
             </Trigger>
         </Style.Triggers>
     </Style>

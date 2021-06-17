@@ -9,9 +9,13 @@ namespace HotelManagement.MVVM.ViewModel
 
         public RelayCommand BookingsViewCommand { get; set; }
 
-        public HomeViewModel HomeVM { get; set; }
+        public RelayCommand RoomsViewCommand { get; set; }
+
+        public DashboardViewModel HomeVM { get; set; }
 
         public BookingsViewModel BookingsVM { get; set; }
+
+        public RoomsViewModel RoomsVM { get; set; }
 
         private object _currentView;
 
@@ -26,8 +30,9 @@ namespace HotelManagement.MVVM.ViewModel
         }
         public MainViewModel()
         {
-            HomeVM = new HomeViewModel();
+            HomeVM = new DashboardViewModel();
             BookingsVM = new BookingsViewModel();
+            RoomsVM = new RoomsViewModel();
             
             CurrentView = HomeVM;
 
@@ -39,6 +44,11 @@ namespace HotelManagement.MVVM.ViewModel
             BookingsViewCommand = new RelayCommand(o =>
             {
                 CurrentView = BookingsVM;
+            });
+
+            RoomsViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = RoomsVM;
             });
         }
     }

@@ -17,12 +17,16 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
-                <view:HomeView/>
+            <DataTemplate DataType="{x:Type viewModel:DashboardViewModel}">
+                <view:DashboardView/>
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:BookingsViewModel}">
                 <view:BookingsView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:RoomsViewModel}">
+                <view:RoomsView/>
             </DataTemplate>
 
         </ResourceDictionary>
