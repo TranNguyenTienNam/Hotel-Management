@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:HotelManagement.MVVM.ViewModel"
+             xmlns:local="clr-namespace:HotelManagement"
+             xmlns:olocal="clr-namespace:HotelManagement.MVVM.ViewModel"
              mc:Ignorable="d"
              FontFamily="{DynamicResource MaterialDesignFont}">
     <UserControl.Resources>
@@ -13,8 +14,8 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ContentControl}">
                         <!--content-->
-                        <Grid>
-                            <Button Background="Transparent" BorderThickness="0">
+                        <Grid x:Name="container" Background="{StaticResource ForegroundLightBrush}">
+                            <Button x:Name="background" Background="Transparent" BorderThickness="0">
                                 <Button.Content>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -42,12 +43,31 @@
                                 </Button.Content>
                             </Button>
                         </Grid>
-                        
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                <Setter Property="Background" TargetName="background" Value="{StaticResource WordLightGreenBrush}"/>
+                            </DataTrigger>
+
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation To="{StaticResource WordLightGreen}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation To="Transparent" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
     </UserControl.Resources>
 
-    <ContentControl d:DataContext="{x:Static local:RoomListItemViewModel.Instance}" Style="{StaticResource ContentStyle}"/>
+    <ContentControl d:DataContext="{x:Static olocal:RoomListItemViewModel.Instance}" Style="{StaticResource ContentStyle}"/>
 </UserControl>

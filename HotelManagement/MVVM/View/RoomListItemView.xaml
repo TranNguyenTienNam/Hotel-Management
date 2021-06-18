@@ -20,8 +20,8 @@
                         <ColumnDefinition Width="100"/> <!--room id-->
                         <ColumnDefinition Width="120"/>   <!--room name-->
                         <ColumnDefinition Width="120"/>   <!--room type-->
-                        <ColumnDefinition Width="100"/>   <!--unit price-->
-                        <ColumnDefinition Width="140"/>   <!--maximum-->
+                        <ColumnDefinition Width="105"/>   <!--unit price-->
+                        <ColumnDefinition Width="120"/>   <!--maximum-->
                         <ColumnDefinition Width="120"/>   <!--notes-->
                         <ColumnDefinition Width="8"/>
                     </Grid.ColumnDefinitions>
