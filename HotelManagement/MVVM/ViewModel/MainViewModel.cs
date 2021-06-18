@@ -12,9 +12,9 @@ namespace HotelManagement.MVVM.ViewModel
 
         public RelayCommand RoomsViewCommand { get; set; }
 
-        public RelayCommand BillsViewCommand { get; set; }
+        public RelayCommand CheckOutCommand { get; set; }
 
-        public BillsViewModel BillsVM { get; set; }
+        public CheckOutViewModel CheckOutVM { get; set; }
 
         public RoomsViewModel RoomsVM { get; set; }
 
@@ -38,7 +38,7 @@ namespace HotelManagement.MVVM.ViewModel
             HomeVM = new HomeViewModel();
             RoomsVM = new RoomsViewModel();
             BookingsVM = new BookingsViewModel();
-            BillsVM = new BillsViewModel();
+            CheckOutVM = new CheckOutViewModel();
             
             CurrentView = HomeVM;
 
@@ -57,9 +57,9 @@ namespace HotelManagement.MVVM.ViewModel
                 CurrentView = BookingsVM;
             });
 
-            BillsViewCommand = new RelayCommand(o =>
+            CheckOutCommand = new RelayCommand(o =>
             {
-                CurrentView = BillsVM;
+                CurrentView = CheckOutVM;
             });
         }
     }

@@ -82,12 +82,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MVVM\Model\CheckOutModelcs.cs" />
     <Compile Include="MVVM\Model\Process.cs" />
     <Compile Include="MVVM\Model\RoomsModel.cs" />
-    <Compile Include="MVVM\ViewModel\BillsViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\CheckOutViewModel.cs" />
     <Compile Include="MVVM\ViewModel\RoomsViewModel.cs" />
-    <Compile Include="MVVM\View\BillsView.xaml.cs">
-      <DependentUpon>BillsView.xaml</DependentUpon>
+    <Compile Include="MVVM\View\CheckOutView.xaml.cs">
+      <DependentUpon>CheckOutView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\RoomListItemView.xaml.cs">
       <DependentUpon>RoomListItemView.xaml</DependentUpon>
@@ -126,7 +127,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MVVM\View\BillsView.xaml">
+    <Page Include="MVVM\View\CheckOutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

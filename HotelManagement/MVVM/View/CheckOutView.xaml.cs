@@ -18,9 +18,9 @@ namespace HotelManagement.MVVM.View
     /// <summary>
     /// Interaction logic for BillsView.xaml
     /// </summary>
-    public partial class BillsView : UserControl
+    public partial class CheckOutView : UserControl
     {
-        public BillsView()
+        public CheckOutView()
         {
             InitializeComponent();
         }

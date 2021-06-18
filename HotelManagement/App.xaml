@@ -26,8 +26,8 @@
             <DataTemplate DataType="{x:Type viewModel:BookingsViewModel}">
                 <view:BookingsView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:BillsViewModel}">
-                <view:BillsView/>
+            <DataTemplate DataType="{x:Type viewModel:CheckOutViewModel}">
+                <view:CheckOutView/>
             </DataTemplate>
 
         </ResourceDictionary>
