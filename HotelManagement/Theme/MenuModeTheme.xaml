@@ -4,35 +4,31 @@
                     xmlns:local="clr-namespace:HotelManagement.Theme">
     <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
            TargetType="{x:Type RadioButton}"
-           x:Key="MenuButtonTheme">
+           x:Key="MenuModeTheme">
         <Style.Setters>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">
-                        <Grid VerticalAlignment="Stretch"
-                              HorizontalAlignment="Stretch"
-                              Height="50"
-                              Background="{TemplateBinding Background}">
-                            <TextBlock Text="{TemplateBinding Property=Content}"
-                                       Foreground="White"
-                                       FontSize="{TemplateBinding FontSize}"
-                                       VerticalAlignment="Center"
-                                       Margin="30,0,0,0"
-                                       FontFamily="/Fonts/#Poppins"/>
-                        </Grid>
+                        <TextBlock 
+                            Text="{TemplateBinding Property=Content}"
+                            Foreground="{TemplateBinding Foreground}"
+                            FontSize="{TemplateBinding FontSize}"
+                            Margin="10,0,10,0"
+                            VerticalAlignment="Center"
+                            FontFamily="/Fonts/#Poppins"/>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
 
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="Gray"/>
             <Setter Property="BorderThickness" Value="0"/>
         </Style.Setters>
 
         <Style.Triggers>
             <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Background" Value="#EE2E24"/>
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Foreground" Value="#EE2E24"/>
+                <Setter Property="FontSize" Value="22"/>
             </Trigger>
         </Style.Triggers>
     </Style>
