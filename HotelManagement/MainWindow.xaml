@@ -165,6 +165,9 @@
                         <RadioButton Content="Rooms"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Command="{Binding RoomsViewCommand}"/>
+                        <RadioButton Content="Bills"
+                                     Style="{StaticResource MenuButtonTheme}"
+                                     Command="{Binding BillsViewCommand}"/>
                     </StackPanel>
                 </Border>
 

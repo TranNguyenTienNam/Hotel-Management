@@ -84,7 +84,11 @@
     </ApplicationDefinition>
     <Compile Include="MVVM\Model\Process.cs" />
     <Compile Include="MVVM\Model\RoomsModel.cs" />
+    <Compile Include="MVVM\ViewModel\BillsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\RoomsViewModel.cs" />
+    <Compile Include="MVVM\View\BillsView.xaml.cs">
+      <DependentUpon>BillsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\RoomListItemView.xaml.cs">
       <DependentUpon>RoomListItemView.xaml</DependentUpon>
     </Compile>
@@ -119,6 +123,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MVVM\View\AccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\BillsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
