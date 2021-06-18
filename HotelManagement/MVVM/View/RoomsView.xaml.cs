@@ -47,13 +47,6 @@ namespace HotelManagement.MVVM.View
             var item = sender as ListViewItem;
             if (item != null && item.IsSelected)
             {
-                room room = (room)lv_rooms.SelectedItem;
-                tbRoomID.Text = room.MaPhong.ToString();
-                tbRoomName.Text = room.TenPhong;
-                tbRoomType.Text = room.LoaiPhong;
-                tbPrice.Text = room.DonGia.ToString();
-                tbMax.Text = room.SoNgToiDa.ToString();
-                tbNotes.Text = room.GhiChu;
             }
         }
 

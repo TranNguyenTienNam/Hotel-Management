@@ -24,7 +24,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <!--List button-->
@@ -136,28 +136,7 @@
                     </Border>
                 </Border>
                 <!--main-->
-                <ListView x:Name="lv_rooms" Grid.Column="1" Grid.Row="2" ItemsSource="{Binding rooms}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Room ID" x:Name="roomID" Width="120" DisplayMemberBinding="{Binding MaPhong}"/>
-                            <GridViewColumn Header="Name" x:Name="name" Width="Auto" DisplayMemberBinding="{Binding TenPhong}"/>
-                            <GridViewColumn Header="Type" x:Name="type" Width="Auto" DisplayMemberBinding="{Binding LoaiPhong}"/>
-                            <GridViewColumn Header="Unit Price" x:Name="price" Width="Auto" DisplayMemberBinding="{Binding DonGia}"/>
-                            <GridViewColumn Header="Maximum" x:Name="max" Width="140" DisplayMemberBinding="{Binding SoNgToiDa}"/>
-                            <GridViewColumn Header="Notes" x:Name="note" Width="Auto" DisplayMemberBinding="{Binding GhiChu}"/>
-                        </GridView>
-                    </ListView.View>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
-                            <Setter Property="BorderBrush" Value="Blue"/>
-                            <Setter Property="BorderThickness" Value="0"/>
-                            <Setter Property="Margin" Value="1"/>
-                            <Setter Property="FontSize" Value="14" />
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
+                <local:RoomListItemView Grid.Column="0" Grid.Row="2" Margin="4"/>
             </Grid>
         </Grid>
         <Grid Grid.Column="1" Background="#FEB865">

@@ -83,8 +83,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="MVVM\Model\Process.cs" />
+    <Compile Include="MVVM\Model\RoomListModel.cs" />
     <Compile Include="MVVM\Model\RoomsModel.cs" />
+    <Compile Include="MVVM\ViewModel\RoomListItemViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\RoomListViewModel.cs" />
     <Compile Include="MVVM\ViewModel\RoomsViewModel.cs" />
+    <Compile Include="MVVM\View\RoomItemView.xaml.cs">
+      <DependentUpon>RoomItemView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\RoomListItemView.xaml.cs">
       <DependentUpon>RoomListItemView.xaml</DependentUpon>
     </Compile>
@@ -127,6 +133,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\RoomItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

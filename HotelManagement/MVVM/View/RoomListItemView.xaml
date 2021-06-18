@@ -3,11 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewModel="clr-namespace:HotelManagement.MVVM.ViewModel"
              xmlns:local="clr-namespace:HotelManagement.MVVM.View"
              mc:Ignorable="d">
     <Border Background="Transparent" Visibility="{Binding Visibility}">
         <Border Background="White" BorderThickness="0" CornerRadius="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Grid>
+            <Grid DataContext="{x:Static viewModel:RoomListViewModel.Insance}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="*"/>
@@ -16,18 +17,31 @@
                 <!--header-->
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120"/> <!--room id-->
-                        <ColumnDefinition Width="180"/>   <!--room name-->
-                        <ColumnDefinition Width="220"/>   <!--room type-->
-                        <ColumnDefinition Width="180"/>   <!--unit price-->
+                        <ColumnDefinition Width="100"/> <!--room id-->
+                        <ColumnDefinition Width="120"/>   <!--room name-->
+                        <ColumnDefinition Width="120"/>   <!--room type-->
+                        <ColumnDefinition Width="100"/>   <!--unit price-->
                         <ColumnDefinition Width="140"/>   <!--maximum-->
                         <ColumnDefinition Width="120"/>   <!--notes-->
-                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition Width="8"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" 
-                               Text="Room ID" Margin="12" FontWeight="Bold" Foreground="#FFFE8704"/>
+                    <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Room ID" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#FE8704"/>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Name" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#FE8704"/>
+                    <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Type" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#FE8704"/>
+                    <TextBlock Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Price/day" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#FE8704"/>
+                    <TextBlock Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Max people" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#FE8704"/>
+                    <TextBlock Grid.Column="5" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Notes" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#FE8704"/>
+                    <Separator Grid.ColumnSpan="7" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1" BorderBrush="#F0F5F8"/>
                 </Grid>
-                
+                <ScrollViewer Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Stretch" Focusable="False">
+                    <ItemsControl ItemsSource="{Binding Items}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <local:RoomItemView />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
                 
             </Grid>
         </Border>
