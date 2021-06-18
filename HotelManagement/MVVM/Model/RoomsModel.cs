@@ -16,10 +16,8 @@ namespace HotelManagement.MVVM.Model
                 + "lp.DonGia as DonGia, lp.SoNgToiDa as SoNgToiDa, p.GhiChu as GhiChu "
                 + "from PHONG p, LOAIPHONG lp "
                 + "where p.MaLoaiPhong = lp.MaLoaiPhong";
-
             re = Process.createTable(sql_select);
             return re;  //Trả về 1 DataTable hàng hóa có số lượng hàng hóa > 0
         }
-
     }
 }

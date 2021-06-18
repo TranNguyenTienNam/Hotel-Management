@@ -96,6 +96,9 @@
     <Compile Include="MVVM\View\RoomsView.xaml.cs">
       <DependentUpon>RoomsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\View\SearchBillsWindow.xaml.cs">
+      <DependentUpon>SearchBillsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Object\client.cs" />
     <Compile Include="Object\room.cs" />
     <Compile Include="Object\user.cs" />
@@ -144,6 +147,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\RoomsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\SearchBillsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
