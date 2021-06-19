@@ -12,9 +12,12 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="#f4f5f7" MaxWidth="300" MaxHeight="200" MinWidth="300" MinHeight="200"
+        Background="#f4f5f7" MaxWidth="300" MaxHeight="200" MinWidth="300" MinHeight="200" Activated="Window_Activated"
         >
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Label Content="THIRD CLIENT:" HorizontalAlignment="Left" Height="37" Margin="10,10,0,0" VerticalAlignment="Top" Width="148" Background="#00000000" BorderBrush="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}" Foreground="#DD000000" FontSize="20" FontWeight="Bold"/>
         <Label Content="FOREIGNER:" HorizontalAlignment="Left" Height="37" Margin="10,52,0,0" VerticalAlignment="Top" Width="148" Background="#00000000" BorderBrush="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}" Foreground="#DD000000" FontSize="20" FontWeight="Bold"/>
         <Button
@@ -26,7 +29,7 @@
                         BorderThickness="0"
                         Background="#FFFE8704"
                         Foreground="White"
-                        ToolTip="" VerticalAlignment="Top" HorizontalAlignment="Left" Width="146">
+                        ToolTip="" VerticalAlignment="Top" HorizontalAlignment="Left" Width="146" Click="btnUpdate_Click">
             <Grid Width="auto">
                 <TextBlock 
                                 FontSize="18"
@@ -35,11 +38,13 @@
                                 Text="Update" Margin="0,0,0,0"/>
             </Grid>
         </Button>
-        <TextBox x:Name="tb_foreigner_surchangre" FontSize="14" IsReadOnly="True"
+        <TextBox x:Name="tb_foreigner_surchangre" FontSize="14" IsReadOnly="False"
                 materialDesign:HintAssist.Hint=""  Foreground="Black"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="191,52,9.6,81.4"/>
-        <TextBox x:Name="tb_thirdclient_surchangre" FontSize="14" IsReadOnly="True"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="191,40,10,80"
+                
+                />
+        <TextBox x:Name="tb_thirdclient_surchangre" FontSize="14" IsReadOnly="False"
             materialDesign:HintAssist.Hint=""  Foreground="Black"
-            Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="191,10,9.6,123.4"/>
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="191,0,10,123.4"/>
     </Grid>
 </Window>

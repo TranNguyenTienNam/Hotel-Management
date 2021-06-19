@@ -82,7 +82,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="MVVM\Model\CheckOutModelcs.cs" />
+    <Compile Include="MVVM\Model\CheckOutModel.cs" />
     <Compile Include="MVVM\Model\Process.cs" />
     <Compile Include="MVVM\Model\RoomsModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModel.cs" />
@@ -104,6 +104,7 @@
     </Compile>
     <Compile Include="Object\client.cs" />
     <Compile Include="Object\room.cs" />
+    <Compile Include="Object\surcharge.cs" />
     <Compile Include="Object\user.cs" />
     <Compile Include="RegisterWindow.xaml.cs">
       <DependentUpon>RegisterWindow.xaml</DependentUpon>

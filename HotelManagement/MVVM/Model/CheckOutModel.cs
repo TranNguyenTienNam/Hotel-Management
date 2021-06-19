@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.MVVM.Model
 {
-    class CheckOutModelcs
+    class CheckOutModel
     {
+
     }
 }
