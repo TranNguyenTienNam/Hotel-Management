@@ -19,14 +19,8 @@
         <viewModel:MainViewModel/>
     </Window.DataContext>
 
-    <Border Background="#FFFFFF">
-        <Border.Clip>
-            <RectangleGeometry 
-                RadiusX="20"
-                RadiusY="20"
-                Rect="0,0,1080,675"/>
-        </Border.Clip>
-        
+    <Border Background="#FFFFFF"
+            CornerRadius="20">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
@@ -35,134 +29,128 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+                <TextBlock Text="LoiMeoThiTham"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Foreground="#EE2E24"
+                       FontSize="22"
+                       Margin="20,0,0,0"
+                       FontFamily="/Fonts/#Poppins"/>
 
-                <Grid Grid.Column="0">
-                    <StackPanel
-                    Orientation="Horizontal">
+                <TextBox
+                    Width="250"
+                    Height="30"
+                    VerticalContentAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Margin="220,0,0,0"
+                    Style="{StaticResource ModernTextbox}"/>
+
+                <Button 
+                    Width="120"
+                    Height="30"
+                    VerticalContentAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Margin="300,0,0,0"
+                    Content="New Booking"
+                    Foreground="White"
+                    FontSize="16"
+                    Style="{StaticResource RoundedButtonTheme}"
+                    ClickMode="Press"/>
+
+                <StackPanel
+                    Margin="0,0,230,0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right">
+                    <DockPanel>
+                        <Image
+                            Height="20"
+                            Width="20"
+                            Source="Images/problem-solving.png"
+                            DockPanel.Dock="Left"/>
                         <TextBlock 
-                        Text="LoiMeoThiTham"
+                            DockPanel.Dock="Right"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Right"
+                            FontSize="16"
+                            Text="Help"/>
+                    </DockPanel>
+                </StackPanel>
+
+                <StackPanel 
+                    Width="20"
+                    Height="20"
+                    Margin="0,0,175,0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right">
+                    <Image Source="Images/bell.png"/>
+                </StackPanel>
+
+
+                <StackPanel
+                    Margin="0,0,15,0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    Background="Transparent">
+                    <TextBlock         
+                        HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        HorizontalAlignment="Left"
-                        Foreground="#EE2E24"
-                        FontSize="22"
-                        Margin="20,0,0,0"
-                        FontFamily="/Fonts/#Poppins"/>
-
-                        <TextBox
-                        Width="250"
-                        Height="30"
-                        Margin="30,0,0,0"
-                        Style="{StaticResource ModernTextbox}"/>
-                    </StackPanel>
-                </Grid>
-
-                <Grid Grid.Column="1">
-                    <StackPanel 
-                        Orientation="Horizontal"
-                        HorizontalAlignment="Right">
-
-                        <Button 
-                        Width="120"
-                        Height="30"
-                        Margin="0,0,20,0"
-                        Content="New Booking"
-                        Foreground="White"
                         FontSize="16"
-                        Style="{StaticResource RoundedButtonTheme}"
-                        ClickMode="Press"/>
+                        Text="Hi, Tien Nam"/>
 
-                        <Border
-                        Height="36"
-                        Width="2"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Right"
-                        CornerRadius="2"
-                        Background="#D4D4D4"/>
+                    <materialDesign:PopupBox 
+                        PlacementMode="BottomAndAlignCentres"
+                        StaysOpen="False"
+                        HorizontalAlignment="Center">
+                        <StackPanel Width="100">
+                            <Button Content="Profile"/>
+                            <Button Content="Settings"/>
+                            <Button Content="Full Screen"/>
+                            <Button x:Name="btnPopUpLogout" Content="Log out" Click="btnPopUpLogout_Click"/>
+                            <Button x:Name="btnPopUpExit" Content="Exit" Click="btnPopUpExit_Click"/>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+                </StackPanel>
 
-                        <ToggleButton
-                            Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
-                            IsChecked="False"
-                            Margin="10,0,10,0"
-                            Background="PaleVioletRed">
+                <Border
+                    Height="36"
+                    Width="2"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    Margin="0,0,210,0"
+                    CornerRadius="2"
+                    Background="#D4D4D4"/>
 
-                            <materialDesign:PackIcon
-                                Kind="HelpCircle"
-                                Width="25"
-                                Height="25"/>
-                        </ToggleButton>
+                <Border
+                    Height="36"
+                    Width="2"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    Margin="0,0,310,0"
+                    CornerRadius="2"
+                    Background="#D4D4D4"/>
 
-                        <Border
-                        Height="36"
-                        Width="2"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Right"
-                        CornerRadius="2"
-                        Background="#D4D4D4"/>
-
-                        <ToggleButton
-                            Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
-                            IsChecked="False"
-                            Margin="10,0,10,0"
-                            Background="PaleVioletRed">
-
-                            <materialDesign:PackIcon
-                                Kind="NotificationsActive"
-                                Width="25"
-                                Height="25"/>
-                        </ToggleButton>
-
-                        <Border
-                        Height="36"
-                        Width="2"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Right"
-                        CornerRadius="2"
-                        Background="#D4D4D4"/>
-
-                        <materialDesign:Chip
-                            x:Name="ButtonChip"
-                            Content="Hi, Tien Nam"
-                            Margin="20,0,0,0"
-                            Background="Transparent"
-                            Foreground="Red">
-                            <materialDesign:Chip.Icon>
-                                <Image Source="/Images/girl-and-computer.png" />
-                            </materialDesign:Chip.Icon>
-                        </materialDesign:Chip>
-
-                        <materialDesign:PopupBox 
-                            PlacementMode="BottomAndAlignCentres"
-                            StaysOpen="False"
-                            HorizontalAlignment="Center"
-                            Foreground="Red">
-                            <StackPanel Width="100">
-                                <Button Content="Profile"/>
-                                <Button Content="Settings"/>
-                                <Button Content="Full Screen"/>
-                                <Button x:Name="btnPopUpLogout" Content="Log out" Click="btnPopUpLogout_Click"/>
-                                <Button x:Name="btnPopUpExit" Content="Exit" Click="btnPopUpExit_Click"/>
-                            </StackPanel>
-                        </materialDesign:PopupBox>
-                    </StackPanel>
-                </Grid>
+                <Border
+                    Height="36"
+                    Width="2"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    Margin="0,0,160,0"
+                    CornerRadius="2"
+                    Background="#D4D4D4"/>
             </Grid>
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="150"/>
+
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <Grid 
-                    Grid.Column="0"
-                    Width="150"
-                    Background="#FF616D">
+                <Border Grid.Column="0"
+                            Background="#F4F5F7"
+                            CornerRadius="0,0,0,20">
                     <StackPanel Grid.Column="0"
                                 Margin="0,10,0,0">
                         <RadioButton Content="Dashboard"
@@ -178,16 +166,17 @@
                                      Style="{StaticResource MenuButtonTheme}"
                                      Command="{Binding RoomsViewCommand}"/>
                     </StackPanel>
-                </Grid>
+                </Border>
 
-                <Grid 
-                    Grid.Column="1"
-                    Background="#F4F5F7">
-                    <ContentControl 
-                        Grid.Column="1"
-                        Margin="10"
-                        Content="{Binding CurrentView}"/>
-                </Grid>
+                <Border Grid.Column="1"
+                        Background="#D4D4D4"
+                        CornerRadius="0,0,20,0">
+                    <Grid>
+                        <ContentControl Grid.Column="1"
+                                Margin="10"
+                                Content="{Binding CurrentView}"/>
+                    </Grid>
+                </Border>
             </Grid>
         </Grid>
     </Border>

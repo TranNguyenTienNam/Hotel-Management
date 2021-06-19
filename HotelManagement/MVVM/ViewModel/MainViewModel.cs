@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Windows.Input;
 using HotelManagement.Core;
 
 namespace HotelManagement.MVVM.ViewModel
 {
     class MainViewModel : ObservableObject
     {
-        public RelayCommand DashboardViewCommand { get; set; }
+        public ICommand HomeViewCommand { get; set; }
 
-        public RelayCommand BookingsViewCommand { get; set; }
+        public ICommand BookingsViewCommand { get; set; }
 
-        public RelayCommand RoomsViewCommand { get; set; }
+        public ICommand RoomsViewCommand { get; set; }
 
-        public DashboardViewModel DashboardVM { get; set; }
+        public DashboardViewModel HomeVM { get; set; }
 
         public BookingsViewModel BookingsVM { get; set; }
 
@@ -30,26 +31,29 @@ namespace HotelManagement.MVVM.ViewModel
         }
         public MainViewModel()
         {
-            DashboardVM = new DashboardViewModel();
+            HomeVM = new DashboardViewModel();
             BookingsVM = new BookingsViewModel();
             RoomsVM = new RoomsViewModel();
             
-            CurrentView = DashboardVM;
+            CurrentView = HomeVM;
 
-            DashboardViewCommand = new RelayCommand(o => 
+            HomeViewCommand = new RelayCommand<object>((o) =>
             {
-                CurrentView = DashboardVM;
-            });
+                return true;
+            }, (o) =>
+            { CurrentView = HomeVM; });
 
-            BookingsViewCommand = new RelayCommand(o =>
+            BookingsViewCommand = new RelayCommand<object>((o) =>
             {
-                CurrentView = BookingsVM;
-            });
+                return true;
+            }, (o) => 
+            { CurrentView = BookingsVM; });
 
-            RoomsViewCommand = new RelayCommand(o =>
+            RoomsViewCommand = new RelayCommand<object>((o) =>
             {
-                CurrentView = RoomsVM;
-            });
+                return true;
+            }, (o) =>
+            { CurrentView = RoomsVM; });
         }
     }
 }
