@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HotelManagement.MVVM.Model
 {
@@ -23,9 +24,15 @@ namespace HotelManagement.MVVM.Model
         {
             string sql_insert = "insert PHONG(TenPhong, MaLoaiPhong, GhiChu) values " +
                 "(N'" + TenPhong + "'," + MaLoaiPhong + ",N'" + GhiChu + "')";
-
-            if (Process.ExecutiveNonQuery(sql_insert) > 0)
-                return true;
+            try
+            {
+                if (Process.ExecutiveNonQuery(sql_insert) > 0)
+                    return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             return false;
         }
 

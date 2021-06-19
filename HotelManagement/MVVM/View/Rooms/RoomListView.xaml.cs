@@ -16,13 +16,14 @@ using System.Windows.Shapes;
 namespace HotelManagement.MVVM.View
 {
     /// <summary>
-    /// Interaction logic for RoomItemView.xaml
+    /// Interaction logic for RoomListItemView.xaml
     /// </summary>
-    public partial class RoomItemView : UserControl
+    public partial class RoomListView : UserControl
     {
-        public RoomItemView()
+        public RoomListView()
         {
             InitializeComponent();
         }
+
     }
 }

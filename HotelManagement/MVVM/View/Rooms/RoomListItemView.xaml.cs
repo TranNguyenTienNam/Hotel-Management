@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace HotelManagement.MVVM.View
 {
     /// <summary>
-    /// Interaction logic for RoomListItemView.xaml
+    /// Interaction logic for RoomItemView.xaml
     /// </summary>
     public partial class RoomListItemView : UserControl
     {
@@ -24,6 +24,5 @@ namespace HotelManagement.MVVM.View
         {
             InitializeComponent();
         }
-
     }
 }

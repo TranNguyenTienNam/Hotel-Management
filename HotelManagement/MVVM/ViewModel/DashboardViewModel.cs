@@ -8,5 +8,6 @@ namespace HotelManagement.MVVM.ViewModel
 {
     class DashboardViewModel
     {
+
     }
 }

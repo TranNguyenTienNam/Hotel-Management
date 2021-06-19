@@ -61,8 +61,21 @@ namespace HotelManagement.MVVM.ViewModel
                     return true;
             }, (p) =>
             {
-                room rm = new room();
-                MessageBox.Show(RName + Type + Price + MaxPeople + Notes);
+                RoomsModel model = new RoomsModel();
+                int roomTypeID = -1;
+                foreach (roomtype rt in roomTypes)
+                {
+                    if (rt.TenLoaiPhong == Type)
+                    {
+                        roomTypeID = rt.MaLoaiPhong;
+                        break;
+                    }
+                }
+                if (model.Insert_Room(RName, roomTypeID, Notes))
+                {
+                    RoomListViewModel.Instance.loadListRoom();
+                    MessageBox.Show("Room has been added!");
+                }    
             });
         }
 

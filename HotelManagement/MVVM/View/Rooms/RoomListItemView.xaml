@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="HotelManagement.MVVM.View.RoomItemView"
+﻿<UserControl x:Class="HotelManagement.MVVM.View.RoomListItemView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -31,7 +31,7 @@
                                             <!--maximum-->
                                             <ColumnDefinition Width="150"/>
                                             <!--notes-->
-                                            <ColumnDefinition Width="80"/>
+                                            <ColumnDefinition Width="86"/>
                                             <!--notes-->
                                             <ColumnDefinition Width="8"/>
                                         </Grid.ColumnDefinitions>
