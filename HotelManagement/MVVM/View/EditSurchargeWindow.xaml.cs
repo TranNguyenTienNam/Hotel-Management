@@ -10,31 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace HotelManagement.MVVM.View
 {
     /// <summary>
-    /// Interaction logic for BillsView.xaml
+    /// Interaction logic for EditSurchargeWindow.xaml
     /// </summary>
-    public partial class CheckOutView : UserControl
+    public partial class EditSurchargeWindow : Window
     {
-        Window parrent;
-
-        public CheckOutView()
+        public EditSurchargeWindow()
         {
             InitializeComponent();
-        }
-
-        private void btnSearchBills_Click(object sender, RoutedEventArgs e)
-        {         
-            (new SearchBillsWindow()).Show();      
-        }
-
-        private void btnEditSurcharge_Click(object sender, RoutedEventArgs e)
-        {
-            (new EditSurchargeWindow()).Show();
         }
     }
 }

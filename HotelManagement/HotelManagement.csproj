@@ -90,6 +90,9 @@
     <Compile Include="MVVM\View\CheckOutView.xaml.cs">
       <DependentUpon>CheckOutView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\View\EditSurchargeWindow.xaml.cs">
+      <DependentUpon>EditSurchargeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\RoomListItemView.xaml.cs">
       <DependentUpon>RoomListItemView.xaml</DependentUpon>
     </Compile>
@@ -135,6 +138,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\BookingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\EditSurchargeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

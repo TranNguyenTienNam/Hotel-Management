@@ -101,7 +101,7 @@
                         BorderThickness="0"
                         Background="#FFFE8704"
                         Foreground="White"
-                        ToolTip="">
+                        ToolTip="" Click="btnEditSurcharge_Click">
                         <Grid Width="auto">
                             <TextBlock 
                                 FontSize="18"
