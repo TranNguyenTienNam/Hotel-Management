@@ -21,6 +21,18 @@
             </Grid>
         </Border>
         <StackPanel CanVerticallyScroll="True" Orientation="Horizontal" Panel.ZIndex="-3" CanHorizontallyScroll="True"/>
+        <ListView ItemsSource="{Binding rooms}" Height="402" Margin="0,0,63,0">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Room ID" Width="Auto" DisplayMemberBinding="{Binding MaPhong}"/>
+                    <GridViewColumn Header="Room Name" Width="Auto" DisplayMemberBinding="{Binding TenPhong}"/>
+                    <GridViewColumn Header="Type" Width="Auto" DisplayMemberBinding="{Binding LoaiPhong}"/>
+                    <GridViewColumn Header="Unit Price" Width="Auto" DisplayMemberBinding="{Binding DonGia}"/>
+                    <GridViewColumn Header="Maximum" Width="Auto" DisplayMemberBinding="{Binding SoNgToiDa}"/>
+                    <GridViewColumn Header="Notes" Width="Auto" DisplayMemberBinding="{Binding GhiChu}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
         <Border Background="White" CornerRadius="12" Margin="0" Height="150">
             <Grid>
                 <Grid.RowDefinitions>
@@ -67,12 +79,11 @@
                         <TextBox Grid.Row="0" x:Name="tbName" Foreground="#FF009EAE" Text="{Binding RName}"
                                 materialDesign:HintAssist.Hint="Name:" FontSize="14"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                VerticalAlignment="Center" />
+                                VerticalAlignment="Center" CaretBrush="#FF024B48" />
                         <TextBox Grid.Row="1" x:Name="tbPhone" Foreground="#FF009EAE" Text="{Binding Price}"
                                 materialDesign:HintAssist.Hint="Phone number:" FontSize="14" IsReadOnly="True"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="#FF024B48"/>
                     </Grid>
-                    <!--Notes + Max People-->
                     <Grid Grid.Column="2" Margin="4">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -81,12 +92,11 @@
                         <TextBox Grid.Row="0" x:Name="tbIdNumber" Foreground="#FF009EAE" Text="{Binding Notes}"
                                 materialDesign:HintAssist.Hint="Citizen ID:" FontSize="14"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                VerticalAlignment="Center" />
+                                VerticalAlignment="Center" CaretBrush="White" />
                         <TextBox Grid.Row="1" x:Name="tbAddress" Foreground="#FF009EAE" Text="{Binding MaxPeople}"
                                 materialDesign:HintAssist.Hint="Address:" FontSize="14" IsReadOnly="True"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="#FF024B48"/>
                     </Grid>
-                    <!--Button AddRoom-->
                     <Grid Grid.Column="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="3*"/>
