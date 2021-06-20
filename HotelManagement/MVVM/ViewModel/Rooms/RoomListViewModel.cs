@@ -34,7 +34,7 @@ namespace HotelManagement.MVVM.ViewModel
             });
         }
 
-       public void loadListRoom()
+        public void loadListRoom()
         {
             Items = new ObservableCollection<RoomListItemViewModel>();
 

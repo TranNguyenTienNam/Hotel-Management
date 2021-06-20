@@ -15,6 +15,7 @@ namespace HotelManagement.MVVM.ViewModel
 {
     class RoomsViewModel : ObservableObject
     {
+        public static RoomsViewModel Instance => new RoomsViewModel();
         private ObservableCollection<roomtype> _roomTypes;
         public ObservableCollection<roomtype> roomTypes { get { return _roomTypes; } set { _roomTypes = value; OnPropertyChanged(); } }
 
@@ -26,7 +27,7 @@ namespace HotelManagement.MVVM.ViewModel
         private string _rname;
         public string RName { get { return _rname; } set { _rname = value; OnPropertyChanged("RName"); } }
 
-
+        //Textbox Notes
         private string _notes;
         public string Notes { get { return _notes; } set { _notes = value; OnPropertyChanged(); } }
 

@@ -16,9 +16,15 @@ namespace HotelManagement.MVVM.View
 {
     public partial class EditRoomView : Window
     {
-        public EditRoomView()
+        public EditRoomView(int MaPhong, string TenPhong, string LoaiPhong, decimal DonGia, int SoNgToiDa, string GhiChu)
         {
             InitializeComponent();
+            tbRoomId.Text = MaPhong.ToString();
+            tbRoomName.Text = TenPhong;
+            cbbRoomType.SelectedItem = LoaiPhong;
+            tbPrice.Text = DonGia.ToString();
+            tbMax.Text = SoNgToiDa.ToString();
+            tbNote.Text = GhiChu;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -27,6 +33,11 @@ namespace HotelManagement.MVVM.View
             {
                 this.DragMove();
             }
+        }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

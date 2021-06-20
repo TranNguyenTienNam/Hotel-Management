@@ -71,9 +71,9 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <TextBox Grid.Row="0" Name="tbRoomId" Text="Automatically Generated" Foreground="#F44336"
-                             materialDesign:HintAssist.Hint="Room ID:" FontSize="14" IsReadOnly="True"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             VerticalAlignment="Center" />
+                                     materialDesign:HintAssist.Hint="Room ID:" FontSize="14" IsReadOnly="True"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                     VerticalAlignment="Center" />
                                 <Grid Grid.Row="1" VerticalAlignment="Center" Margin="0,12,0,0">
                                     <ComboBox Name="cbbRoomType" ItemsSource="{Binding Types}"
                                     FontSize="14" Foreground="#F44336"

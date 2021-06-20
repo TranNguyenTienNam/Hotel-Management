@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelManagement.MVVM.View"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewModel="clr-namespace:HotelManagement.MVVM.ViewModel"
         mc:Ignorable="d"
-        Height="450" Width="800"
+        Height="600" Width="450"
         WindowStyle="None"
         ResizeMode="NoResize"
         Background="Transparent"
@@ -17,15 +18,84 @@
     <Window.DataContext>
         <viewModel:RoomListItemViewModel/>
     </Window.DataContext>
-    <Border Background="#FF616D">
+    <Border Background="#F44336" BorderThickness="1" BorderBrush="#F44336">
         <Border.Clip>
             <RectangleGeometry 
             RadiusX="20"
             RadiusY="20"
-            Rect="0,0,800,450"/>
+            Rect="0,0,450,600"/>
         </Border.Clip>
         <Grid>
-            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="54"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <!--Header-->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <!--Title-->
+                <TextBlock Text="Edit Room" Foreground="White" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" Margin="10"/>
+                <!--Button close-->
+                <Button Grid.Column="1" Height="38" Width="38"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    BorderBrush="White"
+                    Background="{x:Null}"
+                    ToolTip="Close"
+                    x:Name="btnExit"
+                    Click="btnExit_Click">
+                    <materialDesign:PackIcon 
+                        Kind="Close"
+                        Foreground="White"
+                        Width="30"
+                        Height="30"/>
+                </Button>
+            </Grid>
+            <Border Grid.Row="1" Background="Transparent" Visibility="{Binding Visibility}">
+                <Border Background="White" CornerRadius="20" HorizontalAlignment="Stretch">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBox Grid.Row="0" Name="tbRoomId" Foreground="#F44336" Text="{Binding MaPhong}"
+                            materialDesign:HintAssist.Hint="Room ID:" FontSize="14" IsReadOnly="True"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            VerticalAlignment="Center" Margin="8"/>
+                        <TextBox Grid.Row="1" Name="tbRoomName" Foreground="#F44336" Text="{Binding TenPhong}"
+                             materialDesign:HintAssist.Hint="Room Name:" FontSize="14"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             VerticalAlignment="Center" Margin="8"/>
+                        <Grid Grid.Row="2" VerticalAlignment="Center" Margin="8,16,8,2">
+                            <ComboBox Name="cbbRoomType" ItemsSource="{Binding types}"
+                                FontSize="14" Foreground="#F44336"
+                                materialDesign:TextFieldAssist.PrefixText="Room Type: "
+                                SelectedValue="{Binding LoaiPhong}"
+                                IsEditable="False">
+                            </ComboBox>
+                        </Grid>
+                        <TextBox Grid.Row="3" Name="tbPrice" Foreground="#F44336" Text="{Binding DonGia}"
+                             materialDesign:HintAssist.Hint="Price/Day:" FontSize="14" IsReadOnly="True"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Center" Margin="8"/>
+                        <TextBox Grid.Row="4" Name="tbMax" Foreground="#F44336" Text="{Binding SoNgToiDa}"
+                             materialDesign:HintAssist.Hint="Max People:" FontSize="14" IsReadOnly="True"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 VerticalAlignment="Center" Margin="8"/>
+                        <TextBox Grid.Row="5" Name="tbNote" Foreground="#F44336" Text="{Binding GhiChu}"
+                             materialDesign:HintAssist.Hint="Notes:" FontSize="14"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             VerticalAlignment="Center" Margin="8"/>
+                    </Grid>
+                </Border>
+            </Border>
         </Grid>
     </Border>
 </Window>
