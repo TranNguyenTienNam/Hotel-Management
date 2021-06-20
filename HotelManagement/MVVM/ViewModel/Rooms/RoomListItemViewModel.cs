@@ -9,6 +9,7 @@ using HotelManagement.MVVM.Model;
 using System.Collections.ObjectModel;
 using HotelManagement.Object;
 using System.Windows.Input;
+using HotelManagement.MVVM.View;
 
 namespace HotelManagement.MVVM.ViewModel
 {
@@ -25,7 +26,7 @@ namespace HotelManagement.MVVM.ViewModel
 
         public bool IsSelected { get; set; }
 
-        ICommand EditRoom { get; set; }
+        public ICommand EditRoomCommand { get; set; }
 
         public RoomListItemViewModel()
         {
@@ -35,6 +36,15 @@ namespace HotelManagement.MVVM.ViewModel
             DonGia = (decimal)750000.0000;
             SoNgToiDa = 3;
             GhiChu = "";
+
+            EditRoomCommand = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) => 
+            {
+                EditRoomView wd = new EditRoomView();
+                wd.ShowDialog();
+            });
         }
     }
 }
