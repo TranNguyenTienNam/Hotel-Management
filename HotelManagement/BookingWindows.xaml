@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelManagement"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:View="clr-namespace:HotelManagement.MVVM.View" x:Class="HotelManagement.BookingWindows"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:View="clr-namespace:HotelManagement.MVVM.View" xmlns:viewmodel="clr-namespace:HotelManagement.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:RoomListViewModel}" x:Class="HotelManagement.BookingWindows"
         mc:Ignorable="d"
         Title="BookingWindows" Height="732.387" Width="872.541" WindowStyle="None">
     <StackPanel Margin="0,0,2,2">
@@ -21,7 +21,7 @@
             </Grid>
         </Border>
         <StackPanel CanVerticallyScroll="True" Orientation="Horizontal" Panel.ZIndex="-3" CanHorizontallyScroll="True"/>
-        <ListView ItemsSource="{Binding rooms}" Height="402" Margin="0,0,63,0">
+        <ListView ItemsSource="{Binding Items}" Height="402" Margin="0,0,63,0">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Room ID" Width="Auto" DisplayMemberBinding="{Binding MaPhong}"/>
