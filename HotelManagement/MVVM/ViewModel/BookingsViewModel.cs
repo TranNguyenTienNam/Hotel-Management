@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.MVVM.ViewModel
 {
-    class BookingsViewModel
+    public class BookingsViewModel
     {
+    
     }
 }

@@ -64,6 +64,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BookingWindows.xaml.cs">
+      <DependentUpon>BookingWindows.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\Model\Process.cs" />
     <Compile Include="MVVM\Model\RoomListModel.cs" />
     <Compile Include="MVVM\Model\RoomsModel.cs" />
@@ -86,6 +89,10 @@
     <Compile Include="RegisterWindow.xaml.cs">
       <DependentUpon>RegisterWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="BookingWindows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -211,6 +218,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\girl-and-computer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="search %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\search %282%29.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\search.png" />
