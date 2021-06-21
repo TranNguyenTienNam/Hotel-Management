@@ -67,6 +67,8 @@
     <Compile Include="BookingWindows.xaml.cs">
       <DependentUpon>BookingWindows.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\Model\BookingModel.cs" />
+    <Compile Include="MVVM\Model\BookingRoomModel.cs" />
     <Compile Include="MVVM\Model\Process.cs" />
     <Compile Include="MVVM\Model\RoomListModel.cs" />
     <Compile Include="MVVM\Model\RoomsModel.cs" />
