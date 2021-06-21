@@ -47,20 +47,50 @@ namespace HotelManagement.MVVM.ViewModel
         public RoomListItemViewModel()
         {
             types = RoomsViewModel.Instance.Types;
-            MaPhong = 1000;
-            TenPhong = "Phong VIP";
-            LoaiPhong = "Deluxe (DLX)";
-            DonGia = (decimal)750000.0000;
-            SoNgToiDa = 3;
-            GhiChu = "";
 
             EditRoomCommand = new RelayCommand<object>((p) =>
             {
                 return true;
             }, (p) => 
             {
+                //check room còn trống hay không?
+                
                 EditRoomView wd = new EditRoomView(MaPhong, TenPhong, LoaiPhong, DonGia, SoNgToiDa, GhiChu);
                 wd.ShowDialog();
+            });
+
+            SaveEditCommand = new RelayCommand<object>((p) =>
+            {
+                if (string.IsNullOrEmpty(TenPhong))
+                    return false;
+                else
+                    return true;
+            }, (p) => 
+            {
+                try
+                {
+                    RoomListModel model = new RoomListModel();
+                    int MaLoaiPhong = -1;
+                    foreach (roomtype rt in RoomsViewModel.Instance.roomTypes)
+                    {
+                        if (LoaiPhong == rt.TenLoaiPhong)
+                        {
+                            MaLoaiPhong = rt.MaLoaiPhong;
+                            break;
+                        }
+                    }
+
+                    MessageBox.Show(MaPhong + TenPhong + MaLoaiPhong + GhiChu);
+                    if (model.Save_RoomEdited(MaPhong, TenPhong, MaLoaiPhong, GhiChu))
+                    {
+                        MessageBox.Show("Room has been edited.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                    
             });
         }
 

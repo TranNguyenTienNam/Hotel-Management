@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using HotelManagement.MVVM.ViewModel;
+using System.Windows;
 
 namespace HotelManagement.MVVM.Model
 {
@@ -21,5 +22,23 @@ namespace HotelManagement.MVVM.Model
             re = Process.createTable(sql_select);
             return re;  //Trả về 1 DataTable hàng hóa có số lượng hàng hóa > 0
         }
+        
+        public bool Save_RoomEdited(int MaPhong, string TenPhong, int MaLoaiPhong, string GhiChu)
+        {
+            string sql_update = "update PHONG set TenPhong = N'" + TenPhong + "', " +
+                "MaLoaiPhong = " + MaLoaiPhong + ", GhiChu = N'" + GhiChu + "' where MaPhong = " + MaPhong;
+
+            try
+            {
+                if (Process.ExecutiveNonQuery(sql_update) > 0)
+                    return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return false;
+        }
+        
     }
 }
