@@ -67,14 +67,16 @@
     <Compile Include="BookingWindows.xaml.cs">
       <DependentUpon>BookingWindows.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\Model\BookingModel.cs" />
+    <Compile Include="MVVM\Model\BookingListModel.cs" />
     <Compile Include="MVVM\Model\BookingRoomModel.cs" />
     <Compile Include="MVVM\Model\Process.cs" />
     <Compile Include="MVVM\Model\RoomListModel.cs" />
     <Compile Include="MVVM\Model\RoomsModel.cs" />
+    <Compile Include="MVVM\ViewModel\BookingListViewModel.cs" />
     <Compile Include="MVVM\ViewModel\RoomListItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\RoomListViewModel.cs" />
     <Compile Include="MVVM\ViewModel\RoomsViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\BookingItemViewModel.cs" />
     <Compile Include="MVVM\View\RoomItemView.xaml.cs">
       <DependentUpon>RoomItemView.xaml</DependentUpon>
     </Compile>
@@ -162,7 +164,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MVVM\ViewModel\BookingsViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\BookingViewModel.cs" />
     <Compile Include="MVVM\ViewModel\DashboardViewModel.cs" />
     <Compile Include="MVVM\ViewModel\MainViewModel.cs" />
     <Compile Include="MVVM\View\AccountView.xaml.cs">

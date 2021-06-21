@@ -15,12 +15,12 @@ using HotelManagement.MVVM.Model;
 
 namespace HotelManagement.MVVM.ViewModel
 {
-    public class BookingsViewModel
+    public class BookingViewModel
     {
         public static RoomListViewModel Insance => new RoomListViewModel();
         public List<RoomListItemViewModel> Items { get; set; }
 
-        public BookingsViewModel()
+        public BookingViewModel()
         {
             loadListRoom();
         }

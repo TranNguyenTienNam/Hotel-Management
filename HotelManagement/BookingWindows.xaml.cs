@@ -23,7 +23,7 @@ namespace HotelManagement
         public BookingWindows()
         {
             InitializeComponent();
-            DataContext = new BookingsViewModel();
+            DataContext = new BookingViewModel();
 
             
 

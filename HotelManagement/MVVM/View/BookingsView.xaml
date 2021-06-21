@@ -25,18 +25,10 @@
                 <!--title-->
                 <Border Grid.Column="0" Background="White" CornerRadius="12" HorizontalAlignment="Left" Margin="8,4,4,0">
                     <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" 
-                        Text="  List Room:  " Margin="8" FontSize="20" FontWeight="Bold" Foreground="#FF009EAE"/>
+                        Text="  List Booking:  " Margin="8" FontSize="20" FontWeight="Bold" Foreground="#FF616161"/>
                 </Border>
                 <!--button-->
-                <Grid Grid.Column="1">
-                    <Button Width="126" Height="38" HorizontalAlignment="Right" Margin="0,4,8,0"
-                        Style="{StaticResource MaterialDesignRaisedButton}"
-                        materialDesign:ButtonAssist.CornerRadius="10"
-                        ToolTip="MaterialDesignRaisedButton with Round Corners" Background="#FF009EAE" BorderBrush="#FF8ABCC1">
-                        <TextBlock
-                            Text="Regulations" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Button>
-                </Grid>
+                <Grid Grid.Column="1"/>
             </Grid>
             <!--Add room-->
             <Border Grid.Row="1" Background="Transparent" Visibility="{Binding Visibility}">
@@ -47,76 +39,8 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <!--title of create room container-->
-                        <Grid Grid.Row="0">
-                            <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" 
-                                Text="Create A New Room" Margin="4" FontSize="16" FontWeight="Bold" Foreground="#FF009EAE"/>
-                        </Grid>
+                        <Grid Grid.Row="0"/>
                         <!--room info-->
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="80"/>
-                            </Grid.ColumnDefinitions>
-                            <!--Room ID + Room Type-->
-                            <Grid Grid.Column="0" Margin="8,4,4,4">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <TextBox Grid.Row="0" x:Name="tbRoomId" Text="Automatically Generated" Foreground="#FF009EAE"
-                                    materialDesign:HintAssist.Hint="Room ID:" FontSize="14" IsReadOnly="True"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    VerticalAlignment="Center" CaretBrush="White" />
-                                <Grid Grid.Row="1" VerticalAlignment="Center" Margin="0,12,0,0">
-                                    <ComboBox x:Name="cbbRoomType" ItemsSource="{Binding Types}"
-                                        FontSize="14" Foreground="#FF009EAE"
-                                        materialDesign:TextFieldAssist.PrefixText="Room Type: "
-                                        SelectedValue="{Binding Type}"
-                                        IsEditable="False"/>
-                                </Grid>
-                            </Grid>
-                            <!--Room Name + Price/Day-->
-                            <Grid Grid.Column="1" Margin="4">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <TextBox Grid.Row="0" x:Name="tbRoomName" Foreground="#FF009EAE" Text="{Binding RName}"
-                                    materialDesign:HintAssist.Hint="Room Name:" FontSize="14"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    VerticalAlignment="Center" />
-                                <TextBox Grid.Row="1" x:Name="tbPrice" Foreground="#FF009EAE" Text="{Binding Price}"
-                                    materialDesign:HintAssist.Hint="Price/Day:" FontSize="14" IsReadOnly="True"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                            </Grid>
-                            <!--Notes + Max People-->
-                            <Grid Grid.Column="2" Margin="4">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <TextBox Grid.Row="0" x:Name="tbNote" Foreground="#FF009EAE" Text="{Binding Notes}"
-                                    materialDesign:HintAssist.Hint="Notes:" FontSize="14"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    VerticalAlignment="Center" />
-                                <TextBox Grid.Row="1" x:Name="tbMax" Foreground="#FF009EAE" Text="{Binding MaxPeople}"
-                                    materialDesign:HintAssist.Hint="Max People:" FontSize="14" IsReadOnly="True"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                            </Grid>
-                            <!--Button AddRoom-->
-                            <Grid Grid.Column="3">
-                                <Button x:Name="btAddRoom" Background="#FF009EAE" Margin="0,12,0,0"
-                                    Width="62" Height="62" Command="{Binding AddRoom}"
-                                    IsEnabled="{Binding IsEnabled}"
-                                    materialDesign:ButtonAssist.CornerRadius="31"
-                                    ToolTip="Click to add room" BorderBrush="#FF8ABCC1">
-                                    <materialDesign:PackIcon
-                                        Kind="Plus" Width="45" Height="45" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Button>
-                            </Grid>
-                        </Grid>
                     </Grid>
                 </Border>
             </Border>
@@ -128,8 +52,8 @@
                             <ColumnDefinition Width="50"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="/HotelManagement;component/Images/search.png" Width="25" Stretch="Uniform" OpacityMask="#FF615B5B"/>
-                        <TextBlock Grid.Column="1" Margin="3.4,4,-0.4,4" Text="Search room..." FontWeight="Bold" VerticalAlignment="Center" Foreground="LightGray">
+                        <Image Source="/HotelManagement;component/Images/search (2).png" Width="25" Stretch="Uniform" OpacityMask="#FF615B5B"/>
+                        <TextBlock Grid.Column="1" Margin="3.4,4,-0.4,4" Text="Search Booking..." FontWeight="Bold" VerticalAlignment="Center" Foreground="LightGray">
                             <TextBlock.Style>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Visibility" Value="Collapsed"/>
@@ -142,7 +66,7 @@
                                 </Style>
                             </TextBlock.Style>
                         </TextBlock>
-                        <TextBox Grid.Column="1" Width="800" x:Name="searchRoom" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0"/>
+                        <TextBox Grid.Column="1" Width="800" x:Name="searchRoom" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0" TextChanged="searchRoom_TextChanged"/>
                     </Grid>
                 </Border>
             </Border>
