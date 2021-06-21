@@ -35,9 +35,10 @@ namespace HotelManagement.MVVM.ViewModel
             {
                 var obj = new rentFullInfo()
                 {
+                    
                     MaPhieuThue=(int)row["MaPhieuThue"],
                     NgayBatDau = (DateTime)row["NgayBatDau"],
-                    NgayTraPhong = (DateTime)row["NgayTraPhong"],
+                    NgayTraPhong = (row["NgayTraPhong"] == DBNull.Value ? DateTime.Now.Date : (DateTime)row["NgayTraPhong"]),
                     SoLuongKhach = (int)row["SoLuongKhach"],
                     TinhTrang = (string)row["TinhTrang"],
                     NguoiLapPhieu = (int)row["NguoiLapPhieu"],

@@ -184,7 +184,7 @@
                 <TextBox x:Name="tb_total" FontSize="18" FontWeight="Bold" IsReadOnly="true"
                 materialDesign:HintAssist.Hint=""  Foreground="Black"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                VerticalAlignment="Top" Margin="195,529,9.2,0" Height="50" Grid.ColumnSpan="2" />
+                VerticalAlignment="Top" Margin="192,531,10.2,0" Height="50" Grid.ColumnSpan="2" />
 
             </Grid>
             <TextBox x:Name="tb_address" FontSize="14" IsReadOnly="True"
@@ -227,14 +227,14 @@
                 materialDesign:HintAssist.Hint="Clients"  Foreground="Black"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                 VerticalAlignment="Top" Margin="260,296,10,0" Height="38" />
-            <DatePicker x:Name="datepicker_checkout" Margin="195,374,8.6,0" VerticalAlignment="Top" Height="40" FontSize="14"/>
+            <DatePicker x:Name="datepicker_checkout" Margin="195,374,8.6,0" VerticalAlignment="Top" Height="40" FontSize="14" CalendarClosed="datepicker_checkout_CalendarClosed" />
 
             <Label Content="Check In:" HorizontalAlignment="Left" Height="26" Margin="114,348,0,0" VerticalAlignment="Top" Width="76" FontSize="14" Background="#00000000"/>
             <Label Content="Check Out:" HorizontalAlignment="Left" Height="27" Margin="114,388,0,0" VerticalAlignment="Top" Width="76" FontSize="14"/>
             <Label Content="CLIENT INFORMATION:" HorizontalAlignment="Left" Height="31" Margin="5,10,0,0" VerticalAlignment="Top" Width="243" FontWeight="Bold" FontSize="20"/>
             <Label Content="RENTAL INFORMATION:" HorizontalAlignment="Left" Height="29" Margin="5,230,0,0" VerticalAlignment="Top" Width="243" FontWeight="Bold" FontSize="20"/>
             <Label Content="RENTAL INFORMATION:" HorizontalAlignment="Left" Height="29" Margin="5,230,0,0" VerticalAlignment="Top" Width="243" FontWeight="Bold" FontSize="20"/>
-            <Label Content="TOTAL:" HorizontalAlignment="Left" Height="29" Margin="114,552,0,0" VerticalAlignment="Top" Width="77" FontWeight="Bold" FontSize="20"/>
+            <Label Content="TOTAL:" HorizontalAlignment="Left" Height="29" Margin="97,550,0,0" VerticalAlignment="Top" Width="77" FontWeight="Bold" FontSize="20"/>
             <TextBox x:Name="tb_Deposits" FontSize="14" IsReadOnly="True"
                 materialDesign:HintAssist.Hint="Deposits"  Foreground="Black"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
