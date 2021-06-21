@@ -30,7 +30,8 @@
             <DataTemplate DataType="{x:Type viewModel:RoomsViewModel}">
                 <view:RoomsView/>
             </DataTemplate>
-
+            
+            <viewModel:RoomListViewModel x:Key="RoomListViewModel"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -17,13 +17,14 @@ namespace HotelManagement.MVVM.ViewModel
     {
         public static RoomListViewModel Instance => new RoomListViewModel();
         private ObservableCollection<RoomListItemViewModel> _items;
-        public ObservableCollection<RoomListItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged(); } }
+        public ObservableCollection<RoomListItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged("Items"); } }
 
         public ICommand refreshListRoom { get; set; }
         public ICommand MouseWheelCommand { get; set; }
 
         public RoomListViewModel()
         {
+            Items = new ObservableCollection<RoomListItemViewModel>();
             loadListRoom();
 
             refreshListRoom = new RelayCommand<object>((p) =>
@@ -31,14 +32,15 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
+                //Items.Remove(Items.Where(X => X.MaPhong == 144).Single());
                 loadListRoom();
             });
         }
 
         public void loadListRoom()
         {
-            Items = new ObservableCollection<RoomListItemViewModel>();
-
+            if (Items.Count > 0)
+                Items.Clear();
             RoomsListModel model = new RoomsListModel();
             DataTable data = new DataTable();
             data = model.Load_On();
@@ -54,6 +56,20 @@ namespace HotelManagement.MVVM.ViewModel
                     GhiChu = (row["GhiChu"] == DBNull.Value) ? "" : (string)row["GhiChu"]
                 };
                 Items.Add(obj);
+            }
+        }
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            switch (propertyName)
+            {
+                case "Items":
+                    {
+                        loadListRoom();
+                    }
+                    break;
+                default:
+                    break;
             }
         }
     } 

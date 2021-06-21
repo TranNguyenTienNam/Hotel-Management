@@ -52,7 +52,7 @@
                 </Button>
             </Grid>
             <Border Grid.Row="1" Background="Transparent" Visibility="{Binding Visibility}">
-                <Border Background="White" CornerRadius="20" HorizontalAlignment="Stretch">
+                <Border Background="White" HorizontalAlignment="Stretch">
                     <Grid DataContext="{x:Static viewModel:EditRoomViewModel.Instance}" 
                           FocusManager.FocusedElement="{Binding ElementName=tbRoomId}">
                         <Grid.RowDefinitions>
