@@ -16,11 +16,6 @@ namespace HotelManagement.MVVM.ViewModel
 
         public BookingListViewModel()
         {
-            loadListBooking();
-        }
-
-        void loadListBooking()
-        {
             Items = new List<BookingItemViewModel>();
 
             BookingListModel model = new BookingListModel();
@@ -34,11 +29,14 @@ namespace HotelManagement.MVVM.ViewModel
                     MaPhieuThue = (int)row["MaPhieuThue"],
                     MaPhong = (int)row["MaPhong"],
                     MaKH = (int)row["MaKH"],
-                    NgayBatDau= (DateTime)row["NgayBatDau"],
-                    TienCoc=(int)row["TienCoc"]
+                    NgayBatDau = (DateTime)row["NgayBatDau"],
+                    TienCoc = (decimal)row["TienCoc"]
                 };
                 Items.Add(obj);
             }
+            return;
         }
+
+       
     }
 }

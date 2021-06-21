@@ -70,6 +70,17 @@
                     </Grid>
                 </Border>
             </Border>
+            <ListView ItemsSource="{Binding Items}" Margin="0,5,0,-173" Foreground="#DD000000" BorderBrush="{x:Null}" HorizontalContentAlignment="Center" Grid.Row="3">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID" Width="Auto" DisplayMemberBinding="{Binding MaPhieuThue}"/>
+                        <GridViewColumn Header="RoomID" Width="Auto" DisplayMemberBinding="{Binding MaPhong}"/>
+                        <GridViewColumn Header="CustomerID" Width="Auto" DisplayMemberBinding="{Binding MaKH}"/>
+                        <GridViewColumn Header="Check-in date" Width="Auto" DisplayMemberBinding="{Binding NgayBatDau}"/>
+                        <GridViewColumn Header="Deposit" Width="Auto" DisplayMemberBinding="{Binding TienCoc}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
             <!--main-->
         </Grid>
     </Grid>
