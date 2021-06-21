@@ -28,19 +28,13 @@ namespace HotelManagement.MVVM.Model
             string sql_update = "update PHONG set TenPhong = N'" + TenPhong + "', " +
                 "MaLoaiPhong = " + MaLoaiPhong + ", GhiChu = N'" + GhiChu + "' where MaPhong = " + MaPhong;
 
-            try
-            {
-                if (Process.ExecutiveNonQuery(sql_update) > 0)
-                    return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            if (Process.ExecutiveNonQuery(sql_update) > 0)
+                return true;
+
             return false;
         }
         
-        public DataTable getRoom(int MaPhong)
+        public DataTable GetRoom(int MaPhong)
         {
             DataTable re;
             string sql_select = "select p.MaPhong as MaPhong, p.TenPhong as TenPhong, lp.TenLoaiPhong as TenLoaiPhong, "
@@ -50,6 +44,15 @@ namespace HotelManagement.MVVM.Model
 
             re = Process.createTable(sql_select);
             return re;  //Trả về 1 DataTable
+        }
+
+        public bool RemoveRoom(int MaPhong)
+        {
+            string sql_delete = "delete from PHONG where MaPhong= " + MaPhong;
+
+            if (Process.ExecutiveNonQuery(sql_delete) > 0)
+                return true;
+            return false;
         }
     }
 }

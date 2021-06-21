@@ -24,6 +24,5 @@ namespace HotelManagement.MVVM.View
         {
             InitializeComponent();
         }
-
     }
 }

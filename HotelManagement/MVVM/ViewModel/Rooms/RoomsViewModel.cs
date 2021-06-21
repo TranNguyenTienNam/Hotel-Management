@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using HotelManagement.Core;
 using System.Data;
 using HotelManagement.MVVM.Model;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
+using HotelManagement.MVVM.View;
 
 namespace HotelManagement.MVVM.ViewModel
 {
@@ -75,16 +76,18 @@ namespace HotelManagement.MVVM.ViewModel
                 }
                 if (model.Insert_Room(RName, roomTypeID, Notes))
                 {
+                    App.Current.Dispatcher.BeginInvoke(new Action(() => RoomListViewModel.Instance.loadListRoom()));
                     MessageBox.Show("Room has been added!");
-                }    
+                }
             });
 
             RegulationsCommand = new RelayCommand<object>((p) =>
             {
                 return true;
             }, (p) =>
-            { 
-                
+            {
+                RegulationsView wd = new RegulationsView();
+                wd.ShowDialog();
             });
         }
 

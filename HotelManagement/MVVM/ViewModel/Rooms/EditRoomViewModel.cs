@@ -41,20 +41,18 @@ namespace HotelManagement.MVVM.ViewModel
         public string GhiChu { get { return _ghichu; } set { _ghichu = value; OnPropertyChanged(); } }
 
         public ICommand SaveEditCommand { get; set; }
-        public ICommand testcommand { get; set; }
+        public ICommand RIdLostFocusCommand { get; set; }
 
         public EditRoomViewModel()
         {
             types = RoomsViewModel.Instance.Types;
             Item = RoomListItemViewModel.Instance;
-            MessageBox.Show(MaPhong + TenPhong);
             SaveEditCommand = new RelayCommand<object>((p) =>
             {
                 if (string.IsNullOrEmpty(TenPhong) || GhiChu == null)
                     return false;
                 else
                     return true;
-
             }, (p) =>
             {
                 try
@@ -71,13 +69,13 @@ namespace HotelManagement.MVVM.ViewModel
                             break;
                         }
                     }
-                    MessageBox.Show(TenPhong + GhiChu);
-                    /*
+
+                    //MessageBox.Show(MaPhong + " " + TenPhong + " " + MaLoaiPhong + " " + GhiChu);
+
                     if (model.Save_RoomEdited(MaPhong, TenPhong, MaLoaiPhong, GhiChu))
                     {
                         MessageBox.Show("Room has been edited.");
                     }
-                    */
                 }
                 catch (Exception ex)
                 {
@@ -86,13 +84,12 @@ namespace HotelManagement.MVVM.ViewModel
 
             });
 
-            testcommand = new RelayCommand<TextBox>((p) =>
+            RIdLostFocusCommand = new RelayCommand<TextBox>((p) =>
             {
                 return true;
             }, (p) =>
             {
-                TenPhong = p.Text;
-                MessageBox.Show(p.Text + TenPhong);
+                loadRoom(MaPhong);
             });
         }
 
@@ -100,7 +97,7 @@ namespace HotelManagement.MVVM.ViewModel
         {
             RoomsListModel model = new RoomsListModel();
             DataTable dataTable = new DataTable();
-            dataTable = model.getRoom(MaPhong);
+            dataTable = model.GetRoom(MaPhong);
             foreach (DataRow row in dataTable.Rows)
             {
                 TenPhong = (string)row["TenPhong"];

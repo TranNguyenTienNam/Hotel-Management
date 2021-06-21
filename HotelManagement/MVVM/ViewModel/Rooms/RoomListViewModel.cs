@@ -9,7 +9,7 @@ using HotelManagement.Core;
 using System.Data;
 using HotelManagement.MVVM.Model;
 using System.Windows.Input;
-using System.Windows;
+using System.Windows.Controls;
 
 namespace HotelManagement.MVVM.ViewModel
 {
@@ -20,6 +20,7 @@ namespace HotelManagement.MVVM.ViewModel
         public ObservableCollection<RoomListItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged(); } }
 
         public ICommand refreshListRoom { get; set; }
+        public ICommand MouseWheelCommand { get; set; }
 
         public RoomListViewModel()
         {
@@ -41,7 +42,6 @@ namespace HotelManagement.MVVM.ViewModel
             RoomsListModel model = new RoomsListModel();
             DataTable data = new DataTable();
             data = model.Load_On();
-
             foreach (DataRow row in data.Rows)
             {
                 var obj = new RoomListItemViewModel()
