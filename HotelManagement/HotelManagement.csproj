@@ -104,10 +104,15 @@
     </Compile>
     <Compile Include="Object\bill.cs" />
     <Compile Include="Object\client.cs" />
+    <Compile Include="Object\clientType.cs" />
+    <Compile Include="Object\minh objects\billFullInfo.cs" />
+    <Compile Include="Object\minh objects\rentFullInfo.cs" />
+    <Compile Include="Object\rent.cs" />
     <Compile Include="Object\room.cs" />
     <Compile Include="Object\roomType.cs" />
     <Compile Include="Object\surcharge.cs" />
     <Compile Include="Object\user.cs" />
+    <Compile Include="Object\userInfo.cs" />
     <Compile Include="RegisterWindow.xaml.cs">
       <DependentUpon>RegisterWindow.xaml</DependentUpon>
     </Compile>

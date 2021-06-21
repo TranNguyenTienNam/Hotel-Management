@@ -14,7 +14,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="#f4f5f7"
         
-        FontFamily="{DynamicResource MaterialDesignFont}" MinWidth="1080" MinHeight="675" MaxWidth="1080" MaxHeight="675">
+        FontFamily="{DynamicResource MaterialDesignFont}" MinWidth="1080" MinHeight="675" MaxWidth="1080" MaxHeight="675" Activated="Window_Activated">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="305*"/>

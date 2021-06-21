@@ -20,7 +20,7 @@ namespace HotelManagement.MVVM.View
     /// </summary>
     public partial class CheckOutView : UserControl
     {
-        Window parrent;
+
 
         public CheckOutView()
         {
