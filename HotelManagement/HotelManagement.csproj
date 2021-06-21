@@ -87,10 +87,10 @@
     <Compile Include="MVVM\Model\RoomsModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModel.cs" />
     <Compile Include="MVVM\ViewModel\RoomsViewModel.cs" />
-    <Compile Include="MVVM\View\CheckOutView.xaml.cs">
+    <Compile Include="MVVM\View\Checkout\CheckOutView.xaml.cs">
       <DependentUpon>CheckOutView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\View\EditSurchargeWindow.xaml.cs">
+    <Compile Include="MVVM\View\Checkout\EditSurchargeWindow.xaml.cs">
       <DependentUpon>EditSurchargeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\RoomListItemView.xaml.cs">
@@ -99,9 +99,10 @@
     <Compile Include="MVVM\View\RoomsView.xaml.cs">
       <DependentUpon>RoomsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\View\SearchBillsWindow.xaml.cs">
+    <Compile Include="MVVM\View\Checkout\SearchBillsWindow.xaml.cs">
       <DependentUpon>SearchBillsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Object\bill.cs" />
     <Compile Include="Object\client.cs" />
     <Compile Include="Object\room.cs" />
     <Compile Include="Object\surcharge.cs" />
@@ -134,7 +135,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MVVM\View\CheckOutView.xaml">
+    <Page Include="MVVM\View\Checkout\CheckOutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -142,7 +143,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MVVM\View\EditSurchargeWindow.xaml">
+    <Page Include="MVVM\View\Checkout\EditSurchargeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -158,7 +159,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MVVM\View\SearchBillsWindow.xaml">
+    <Page Include="MVVM\View\Checkout\SearchBillsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

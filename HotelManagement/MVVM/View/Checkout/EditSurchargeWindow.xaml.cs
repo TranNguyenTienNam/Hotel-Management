@@ -58,7 +58,7 @@ namespace HotelManagement.MVVM.View
         {
             float a = float.Parse(this.tb_thirdclient_surchangre.Text);
             float b = float.Parse(this.tb_foreigner_surchangre.Text);
-            if (a <= 0 || b <= 0) MessageBox.Show("Surcharge must be greater than 0 !");
+            if (a < 0 || b < 0) MessageBox.Show("Surcharge must not be less than 0  !");
             else
             {
                 try

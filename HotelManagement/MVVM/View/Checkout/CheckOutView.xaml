@@ -60,7 +60,7 @@
                         <GridView>
                             <GridViewColumn Header="Room" x:Name="roomName" Width="auto" />
                             <GridViewColumn Header="Client" x:Name="clientName" Width="Auto" />
-                            <GridViewColumn Header="Address" x:Name="addrressClient" Width="Auto" />
+                            <GridViewColumn Header="ID Card" x:Name="idCardClient" Width="Auto" />
                             <GridViewColumn Header="Phone" x:Name="phoneClient" Width="Auto" />
                             <GridViewColumn Header="Check in" x:Name="checkin" Width="Auto" />
                         </GridView>
@@ -171,10 +171,10 @@
                     materialDesign:HintAssist.Hint="Gender"  Foreground="Black"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                     VerticalAlignment="Top" Margin="195,32,8.6,0" Height="38" Grid.Column="1"/>
-                <TextBox x:Name="tb_total" FontSize="14" IsReadOnly="True"
+                <TextBox x:Name="tb_total" FontSize="18" FontWeight="Bold" IsReadOnly="true"
                 materialDesign:HintAssist.Hint=""  Foreground="Black"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                VerticalAlignment="Top" Margin="100,540,9.6,0" Height="38" Grid.ColumnSpan="2" />
+                VerticalAlignment="Top" Margin="195,541,9.6,0" Height="38" Grid.ColumnSpan="2" />
 
             </Grid>
             <TextBox x:Name="tb_address" FontSize="14" IsReadOnly="True"
@@ -204,28 +204,37 @@
             <TextBox x:Name="tb_unit_price" FontSize="14" IsReadOnly="True"
                 materialDesign:HintAssist.Hint="Unit Price"  Foreground="Black"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                VerticalAlignment="Top" Margin="10,294,193.6,0" Height="38" />
+                VerticalAlignment="Top" Margin="10,296,193.6,0" Height="38" />
             <TextBox x:Name="tb_surcharge" FontSize="14" IsReadOnly="True"
-                materialDesign:HintAssist.Hint="Surcharger"  Foreground="Black"
+                materialDesign:HintAssist.Hint="Surcharge"  Foreground="Black"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                VerticalAlignment="Top" Margin="194,294,8.6,0" Height="38"/>
+                VerticalAlignment="Top" Margin="193,449,9.6,0" Height="38"/>
             <TextBox x:Name="tb_days" FontSize="14" IsReadOnly="True"
                 materialDesign:HintAssist.Hint="Days"  Foreground="Black"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                VerticalAlignment="Top" Margin="191,337,11.6,0" Height="38"/>
+                VerticalAlignment="Top" Margin="193,296,108.6,0" Height="38"/>
             <TextBox x:Name="tb_client_number" FontSize="14" IsReadOnly="True"
                 materialDesign:HintAssist.Hint="Client Number"  Foreground="Black"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                VerticalAlignment="Top" Margin="10,337,193.6,0" Height="38" />
+                VerticalAlignment="Top" Margin="250,296,9.6,0" Height="38" />
 
-            <DatePicker x:Name="datepicker_checkin" Margin="194,381,9.6,0" VerticalAlignment="Top" Height="44"/>
-            <DatePicker x:Name="datepicker_checkout" Margin="194,432,9.6,0" VerticalAlignment="Top" Height="44"/>
-            <Label Content="Check In:" HorizontalAlignment="Left" Height="26" Margin="113,399,0,0" VerticalAlignment="Top" Width="76" FontSize="14" Background="#00000000"/>
-            <Label Content="Check Out:" HorizontalAlignment="Left" Height="26" Margin="113,450,0,0" VerticalAlignment="Top" Width="76" FontSize="14"/>
+            <DatePicker x:Name="datepicker_checkin" Margin="195,334,8.6,0" VerticalAlignment="Top" Height="40" />
+            <DatePicker x:Name="datepicker_checkout" Margin="195,374,8.6,0" VerticalAlignment="Top" Height="41"/>
+
+            <Label Content="Check In:" HorizontalAlignment="Left" Height="26" Margin="114,348,0,0" VerticalAlignment="Top" Width="76" FontSize="14" Background="#00000000"/>
+            <Label Content="Check Out:" HorizontalAlignment="Left" Height="27" Margin="114,388,0,0" VerticalAlignment="Top" Width="76" FontSize="14"/>
             <Label Content="CLIENT INFORMATION:" HorizontalAlignment="Left" Height="31" Margin="5,10,0,0" VerticalAlignment="Top" Width="243" FontWeight="Bold" FontSize="20"/>
             <Label Content="RENTAL INFORMATION:" HorizontalAlignment="Left" Height="29" Margin="5,230,0,0" VerticalAlignment="Top" Width="243" FontWeight="Bold" FontSize="20"/>
             <Label Content="RENTAL INFORMATION:" HorizontalAlignment="Left" Height="29" Margin="5,230,0,0" VerticalAlignment="Top" Width="243" FontWeight="Bold" FontSize="20"/>
-            <Label Content="TOTAL:" HorizontalAlignment="Left" Height="29" Margin="10,554,0,0" VerticalAlignment="Top" Width="77" FontWeight="Bold" FontSize="20"/>
+            <Label Content="TOTAL:" HorizontalAlignment="Left" Height="29" Margin="114,552,0,0" VerticalAlignment="Top" Width="77" FontWeight="Bold" FontSize="20"/>
+            <TextBox x:Name="tb_Deposits" FontSize="14" IsReadOnly="True"
+                materialDesign:HintAssist.Hint="Deposits"  Foreground="Black"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                VerticalAlignment="Top" Margin="192,487,0,0" Height="38" HorizontalAlignment="Left" Width="215"/>
+            <TextBox x:Name="tb_subtotal" FontSize="14" IsReadOnly="True"
+                materialDesign:HintAssist.Hint="Subtotal"  Foreground="Black"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                VerticalAlignment="Top" Margin="193,416,10.6,0" Height="38" />
 
         </Grid>
     </Grid>

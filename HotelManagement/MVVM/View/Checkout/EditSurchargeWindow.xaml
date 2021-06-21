@@ -18,7 +18,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label Content="THIRD CLIENT:" HorizontalAlignment="Left" Height="37" Margin="10,10,0,0" VerticalAlignment="Top" Width="148" Background="#00000000" BorderBrush="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}" Foreground="#DD000000" FontSize="20" FontWeight="Bold"/>
+        <Label Content="MORE CLIENTS:" HorizontalAlignment="Left" Height="37" Margin="10,10,0,0" VerticalAlignment="Top" Width="148" Background="#00000000" BorderBrush="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}" Foreground="#DD000000" FontSize="20" FontWeight="Bold"/>
         <Label Content="FOREIGNER:" HorizontalAlignment="Left" Height="37" Margin="10,52,0,0" VerticalAlignment="Top" Width="148" Background="#00000000" BorderBrush="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}" Foreground="#DD000000" FontSize="20" FontWeight="Bold"/>
         <Button
                         x:Name="btnUpdate"
