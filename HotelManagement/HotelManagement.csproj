@@ -105,6 +105,7 @@
     <Compile Include="Object\bill.cs" />
     <Compile Include="Object\client.cs" />
     <Compile Include="Object\room.cs" />
+    <Compile Include="Object\roomType.cs" />
     <Compile Include="Object\surcharge.cs" />
     <Compile Include="Object\user.cs" />
     <Compile Include="RegisterWindow.xaml.cs">
