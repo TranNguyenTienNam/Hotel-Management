@@ -19,11 +19,11 @@
                                 <Button.Content>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="50"/>
+                                            <ColumnDefinition Width="60"/>
                                             <!--room id-->
-                                            <ColumnDefinition Width="140"/>
+                                            <ColumnDefinition Width="135"/>
                                             <!--room name-->
-                                            <ColumnDefinition Width="180"/>
+                                            <ColumnDefinition Width="170"/>
                                             <!--room type-->
                                             <ColumnDefinition Width="120"/>
                                             <!--unit price-->
@@ -46,7 +46,7 @@
                                         <TextBlock Grid.Column="4" Margin="5,0,0,0" Text="{Binding SoNgToiDa}" 
                                                    VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Center" Foreground="#FE8704"/>
                                         <TextBlock Grid.Column="5" Margin="5,0,0,0" Text="{Binding GhiChu}" 
-                                                   VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Left" Foreground="#FE8704"/>
+                                                   VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Center" Foreground="#FE8704"/>
                                         <Grid Grid.Column="6">
                                             <Button Height="26" Width="70" Command="{Binding EditRoomCommand}"
                                                 Style="{StaticResource MaterialDesignRaisedButton}"

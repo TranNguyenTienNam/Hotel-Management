@@ -46,14 +46,15 @@ namespace HotelManagement.MVVM.ViewModel
         private bool _isEnabled;
         public bool IsEnabled { get { return _isEnabled; } set { _isEnabled = value; OnPropertyChanged(); } }
 
-        public ICommand AddRoom { get; set; }
+        public ICommand AddRoomCommand { get; set; }
+        public ICommand RegulationsCommand { get; set; }
 
         public RoomsViewModel()
         {
             LoadRoomTypes();
             LoadTypes();
 
-            AddRoom = new RelayCommand<object>((o) =>
+            AddRoomCommand = new RelayCommand<object>((o) =>
             {
                 if (string.IsNullOrEmpty(RName) || string.IsNullOrEmpty(Type)
                     || string.IsNullOrEmpty(Price) || (string.IsNullOrEmpty(MaxPeople)))
@@ -74,10 +75,41 @@ namespace HotelManagement.MVVM.ViewModel
                 }
                 if (model.Insert_Room(RName, roomTypeID, Notes))
                 {
-                    RoomListViewModel.Instance.loadListRoom();
                     MessageBox.Show("Room has been added!");
                 }    
             });
+
+            RegulationsCommand = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            { 
+                
+            });
+        }
+
+        public ObservableCollection<RoomListItemViewModel> loadListRoom()
+        {
+            ObservableCollection<RoomListItemViewModel> Items = new ObservableCollection<RoomListItemViewModel>();
+
+            RoomsListModel model = new RoomsListModel();
+            DataTable data = new DataTable();
+            data = model.Load_On();
+
+            foreach (DataRow row in data.Rows)
+            {
+                var obj = new RoomListItemViewModel()
+                {
+                    MaPhong = (int)row["MaPhong"],
+                    TenPhong = (string)row["TenPhong"],
+                    LoaiPhong = (string)row["TenLoaiPhong"],
+                    DonGia = (decimal)row["DonGia"],
+                    SoNgToiDa = (int)row["SoNgToiDa"],
+                    GhiChu = (row["GhiChu"] == DBNull.Value) ? "" : (string)row["GhiChu"]
+                };
+                Items.Add(obj);
+            }
+            return Items;
         }
 
         void LoadRoomTypes()

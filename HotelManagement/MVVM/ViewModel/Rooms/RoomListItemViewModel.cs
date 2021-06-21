@@ -11,6 +11,7 @@ using HotelManagement.Object;
 using System.Windows.Input;
 using HotelManagement.MVVM.View;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace HotelManagement.MVVM.ViewModel
 {
@@ -18,9 +19,6 @@ namespace HotelManagement.MVVM.ViewModel
     {
         public static RoomListItemViewModel Instance => new RoomListItemViewModel();
         
-        //danh sach loai phong
-        public List<string> types { get; set; }
-
         private int _maphong;
         public int MaPhong { get { return _maphong; } set { _maphong = value; OnPropertyChanged(); } }
 
@@ -28,7 +26,7 @@ namespace HotelManagement.MVVM.ViewModel
         public string TenPhong { get { return _tenphong; } set { _tenphong = value; OnPropertyChanged(); } }
 
         private string _loaiphong;
-        public string LoaiPhong { get { return _loaiphong; } set { _loaiphong = value; OnPropertyChanged("Type"); } }
+        public string LoaiPhong { get { return _loaiphong; } set { _loaiphong = value; OnPropertyChanged("LoaiPhong"); } }
 
         private decimal _dongia;
         public decimal DonGia { get { return _dongia; } set { _dongia = value; OnPropertyChanged(); } }
@@ -42,12 +40,9 @@ namespace HotelManagement.MVVM.ViewModel
         public bool IsSelected { get; set; }
 
         public ICommand EditRoomCommand { get; set; }
-        public ICommand SaveEditCommand { get; set; }
 
         public RoomListItemViewModel()
         {
-            types = RoomsViewModel.Instance.Types;
-
             EditRoomCommand = new RelayCommand<object>((p) =>
             {
                 return true;
@@ -55,63 +50,11 @@ namespace HotelManagement.MVVM.ViewModel
             {
                 //check room còn trống hay không?
                 
-                EditRoomView wd = new EditRoomView(MaPhong, TenPhong, LoaiPhong, DonGia, SoNgToiDa, GhiChu);
+                EditRoomView wd = new EditRoomView(MaPhong);
                 wd.ShowDialog();
             });
-
-            SaveEditCommand = new RelayCommand<object>((p) =>
-            {
-                if (string.IsNullOrEmpty(TenPhong))
-                    return false;
-                else
-                    return true;
-            }, (p) => 
-            {
-                try
-                {
-                    RoomListModel model = new RoomListModel();
-                    int MaLoaiPhong = -1;
-                    foreach (roomtype rt in RoomsViewModel.Instance.roomTypes)
-                    {
-                        if (LoaiPhong == rt.TenLoaiPhong)
-                        {
-                            MaLoaiPhong = rt.MaLoaiPhong;
-                            break;
-                        }
-                    }
-
-                    MessageBox.Show(MaPhong + TenPhong + MaLoaiPhong + GhiChu);
-                    if (model.Save_RoomEdited(MaPhong, TenPhong, MaLoaiPhong, GhiChu))
-                    {
-                        MessageBox.Show("Room has been edited.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                    
-            });
         }
 
-        private void OnPropertyChanged(string propertyName)
-        {
-            try
-            {
-                foreach (roomtype rt in RoomsViewModel.Instance.roomTypes)
-                {
-                    if (LoaiPhong == rt.TenLoaiPhong)
-                    {
-                        DonGia = rt.DonGia;
-                        SoNgToiDa = rt.SoNgToiDa;
-                        break;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+        
     }
 }

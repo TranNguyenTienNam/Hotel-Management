@@ -38,7 +38,7 @@ namespace HotelManagement.MVVM.ViewModel
         {
             Items = new ObservableCollection<RoomListItemViewModel>();
 
-            RoomListModel model = new RoomListModel();
+            RoomsListModel model = new RoomsListModel();
             DataTable data = new DataTable();
             data = model.Load_On();
 
@@ -51,7 +51,7 @@ namespace HotelManagement.MVVM.ViewModel
                     LoaiPhong = (string)row["TenLoaiPhong"],
                     DonGia = (decimal)row["DonGia"],
                     SoNgToiDa = (int)row["SoNgToiDa"],
-                    GhiChu = (row["GhiChu"] != null) ? string.Empty : (string)row["GhiChu"]
+                    GhiChu = (row["GhiChu"] == DBNull.Value) ? "" : (string)row["GhiChu"]
                 };
                 Items.Add(obj);
             }
