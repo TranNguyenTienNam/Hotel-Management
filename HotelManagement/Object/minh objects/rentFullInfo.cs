@@ -8,6 +8,7 @@ namespace HotelManagement.Object.minh_objects
 {
     class rentFullInfo
     {
+        //phiếu thuê
         int maPhieuThue;
         int maPhong;
         int maKH;
@@ -27,7 +28,8 @@ namespace HotelManagement.Object.minh_objects
         public string TinhTrang { get => tinhTrang; set => tinhTrang = value; }
         public int NguoiLapPhieu { get => nguoiLapPhieu; set => nguoiLapPhieu = value; }
         public decimal TienCoc { get => tienCoc; set => tienCoc = value; }
-
+        
+        //khách hàng
         string tenKH;
         string loaiKhach;
         string cMND;
@@ -42,12 +44,14 @@ namespace HotelManagement.Object.minh_objects
         public string DiaChi { get => diaChi; set => diaChi = value; }
         public string GioiTinh { get => gioiTinh; set => gioiTinh = value; }
 
+        //loại khách hàng
         int maLoaiKhach;
         string tenLoaiKhach;
 
         public int MaLoaiKhach { get => maLoaiKhach; set => maLoaiKhach = value; }
         public string TenLoaiKhach { get => tenLoaiKhach; set => tenLoaiKhach = value; }
 
+        //phòng
         string tenPhong;
         decimal donGia;
         int soNgToiDa;
@@ -58,6 +62,7 @@ namespace HotelManagement.Object.minh_objects
         public int SoNgToiDa { get => soNgToiDa; set => soNgToiDa = value; }
         public string GhiChu { get => ghiChu; set => ghiChu = value; }
 
+        //loại phòng
         int maLoaiPhong;
         string tenLoaiPhong;
 

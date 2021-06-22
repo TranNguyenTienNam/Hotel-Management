@@ -24,7 +24,6 @@ namespace HotelManagement.MVVM.View
     public partial class CheckOutView : UserControl
     {
 
-
         public CheckOutView()
         {
             InitializeComponent();
@@ -39,16 +38,15 @@ namespace HotelManagement.MVVM.View
         {
             (new EditSurchargeWindow()).Show();
         }
-        private decimal get_surcharge(decimal subtotal, int clients, int rent)
+        private decimal get_surcharge(decimal subtotal, int clients, int rentid)
         {
             decimal re = 0;
             decimal tilephuthu=0;
             int songtoida = 0;
 
-
             String connect_string = ConfigurationManager.ConnectionStrings["con"].ToString();
             SqlConnection con = new SqlConnection(connect_string);
-
+            //get tỉ lệ phụ thu
             con.Open();
             String query = "select * from PHUTHU";
             SqlCommand cmd = new SqlCommand(query, con);
@@ -57,29 +55,32 @@ namespace HotelManagement.MVVM.View
             {
                 tilephuthu = decimal.Parse(dr["KhachThu3"].ToString());
             }
-
-            string query1 = "select SoNgToiDa" +
-                "from PHIEUTHUEPHONG" +
-                "join PHONG on PHONG.MaPhong=PHIEUTHUEPHONG.MaPhong" +
-                "join LOAIPHONG on LOAIPHONG.MaLoaiPhong=PHONG.MaLoaiPhong" +
-                "where PHIEUTHUEPHONG.MaPhieuThue=" +
-                rent.ToString();
             con.Close();
+            //get số người tối đa của phòng
             con.Open();
-            SqlCommand cmd1 = new SqlCommand(query, con);
+            string query1 = "select SoNgToiDa " +
+                "from PHIEUTHUEPHONG " +
+                "join PHONG on PHONG.MaPhong=PHIEUTHUEPHONG.MaPhong " +
+                "join LOAIPHONG on LOAIPHONG.MaLoaiPhong=PHONG.MaLoaiPhong " +
+                "where PHIEUTHUEPHONG.MaPhieuThue= " +
+                rentid +" ;";
+            SqlCommand cmd1 = new SqlCommand(query1, con);
             SqlDataReader dr1 = cmd1.ExecuteReader();
             if(dr1.Read())
             {
- ////               songtoida = int.Parse(dr1["SoNguoiToiDa"].ToString());
+                songtoida = int.Parse(dr1["SoNgToiDa"].ToString());
             }
             con.Close();
+            //tính phụ ( quá tối đa bao nhiêu người * tỉ lệ * đơn giá )
             if(clients > songtoida)
             {
                 re = (clients - songtoida) * tilephuthu * subtotal;
             }
             return re;
         }
+
         int maphieuthue = 0;
+        //show thông tin khi click vào 1 hàng
         private void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var item = sender as ListViewItem;
@@ -99,26 +100,30 @@ namespace HotelManagement.MVVM.View
                 tb_checkin.Text = rentFullInfo.NgayBatDau.ToShortDateString();
                 datepicker_checkout.SelectedDate = rentFullInfo.NgayTraPhong;
                 tb_client_number.Text = rentFullInfo.SoLuongKhach.ToString();
-
+                //tính số ngày ở
                 tb_days.Text = rentFullInfo.NgayTraPhong.Subtract(rentFullInfo.NgayBatDau).TotalDays.ToString();
-
-
-                decimal _subtotal = Math.Round(decimal.Parse(rentFullInfo.DonGia.ToString()) * decimal.Parse(tb_days.Text),2);
-                tb_subtotal.Text = _subtotal.ToString();
-
-                tb_surcharge.Text = Math.Round(get_surcharge(_subtotal,rentFullInfo.SoLuongKhach,rentFullInfo.MaPhieuThue), 2).ToString();
-
-                decimal _deposits = Math.Round(decimal.Parse(rentFullInfo.TienCoc.ToString()),2);
-                tb_Deposits.Text = _deposits.ToString();
-
-                decimal _total = Math.Round((_subtotal + Math.Round(get_surcharge(_subtotal, rentFullInfo.SoLuongKhach, rentFullInfo.MaPhieuThue), 2) - _deposits), 2);
-
-                tb_total.Text = _total.ToString();
-
+                //tính subtotal
+                decimal _subtotal = rentFullInfo.DonGia * decimal.Parse(tb_days.Text);
+                tb_subtotal.Text = Math.Round(_subtotal,2).ToString();
+                //tính phụ thu
+                decimal _surcharge = get_surcharge(_subtotal, rentFullInfo.SoLuongKhach, rentFullInfo.MaPhieuThue);
+                tb_surcharge.Text = Math.Round(_surcharge, 2).ToString();
+                //tiền cọc
+                decimal _deposits = rentFullInfo.TienCoc;
+                tb_Deposits.Text = Math.Round(_deposits,2).ToString();
+                //tính tổng tiền
+                decimal _total = _subtotal + _surcharge - _deposits;
+                tb_total.Text = Math.Round(_total,2).ToString();
+                //gán mã phiếu thuê vào biến đễ dễ truy xuất ngoài hàm
                 maphieuthue = rentFullInfo.MaPhieuThue;
             }
         }
-            
+        DateTime newcheckout = DateTime.Now.Date;
+        int days = 0;
+        decimal subtotal = 0;
+        decimal surcharge = 0;
+        decimal total = 0;
+        //sau khi chọn ngày checkout ( khi khách trả phòng sớm hơn lúc ban đầu đã book)
         private void datepicker_checkout_CalendarClosed(object sender, RoutedEventArgs e)
         {
             if(DateTime.Parse(datepicker_checkout.SelectedDate.ToString())<DateTime.Parse(tb_checkin.Text))
@@ -128,19 +133,28 @@ namespace HotelManagement.MVVM.View
             else
             {
                 DateTime new_checkout = datepicker_checkout.SelectedDate.Value;
-                //MessageBox.Show(new_checkout.ToString());
 
-                tb_days.Text = new_checkout.Subtract(DateTime.Parse(tb_checkin.Text)).TotalDays.ToString();
-
-                decimal _subtotal = Math.Round(decimal.Parse(tb_unit_price.Text) * decimal.Parse(tb_days.Text), 2);
-                tb_subtotal.Text= _subtotal.ToString();
-
-                decimal _deposits = Math.Round(decimal.Parse(tb_Deposits.Text), 2);
-                tb_Deposits.Text = _deposits.ToString();
-
-                decimal _total = Math.Round((_subtotal + Math.Round(get_surcharge(_subtotal, int.Parse(tb_client_number.Text.ToString()), maphieuthue), 2) - _deposits), 2);
-
-                tb_total.Text = _total.ToString();
+                //tính lại số ngày ở
+                int _days = int.Parse(new_checkout.Subtract(DateTime.Parse(tb_checkin.Text)).TotalDays.ToString());
+                tb_days.Text = _days.ToString();
+                //tính lại subtotal ( số ngày ở * đơn giá)
+                decimal _subtotal = decimal.Parse(tb_unit_price.Text) * decimal.Parse(tb_days.Text);
+                tb_subtotal.Text= Math.Round(_subtotal,2).ToString();
+                //tiền cọc 
+                decimal _deposits = decimal.Parse(tb_Deposits.Text);
+                //tính lại phụ thu
+                int clients = int.Parse(tb_client_number.Text);
+                decimal _surcharge = get_surcharge(_subtotal, clients, maphieuthue);
+                tb_surcharge.Text = Math.Round(_surcharge, 2).ToString();
+                //tính lại tổng tiền 
+                decimal _total = _subtotal +_surcharge  - _deposits;
+                tb_total.Text = Math.Round(_total,2).ToString();
+                //set các giá trị đã thay đổi vào biến toàn cục để dễ update lại phiếu thuê và tạo hóa đơn
+                newcheckout = new_checkout;
+                days = _days;
+                subtotal = _subtotal;
+                surcharge = _surcharge;
+                total = _total;
             }
         }
     }
