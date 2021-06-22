@@ -7,11 +7,10 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModel="clr-namespace:HotelManagement.MVVM.ViewModel"
              xmlns:local="clr-namespace:HotelManagement.MVVM.View"
-             mc:Ignorable="d"
-             DataContext="{StaticResource RoomListViewModel}">
+             mc:Ignorable="d">
     <Border Background="Transparent" Visibility="{Binding Visibility}">
         <Border Background="White" BorderThickness="0" CornerRadius="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Grid>
+            <Grid DataContext="{x:Static viewModel:RoomListViewModel.Instance}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="*"/>
@@ -43,7 +42,7 @@
                     <TextBlock Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Max people" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#F44336"/>
                     <TextBlock Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Notes" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#F44336"/>
                     <Grid Grid.Column="6">
-                        <Button x:Name="btRefresh" Width="92" Command="{Binding refreshListRoom}"
+                        <Button x:Name="btRefresh" Width="92" Command="{Binding RefreshListRoom}"
                             Style="{StaticResource MaterialDesignOutlinedButton}"
                             ToolTip="Click to refresh list room"
                             Content="Refresh" FontSize="15"/>

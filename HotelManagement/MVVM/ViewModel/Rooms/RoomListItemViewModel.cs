@@ -63,12 +63,9 @@ namespace HotelManagement.MVVM.ViewModel
                 //check room còn trống hay không?
 
                 RoomsListModel model = new RoomsListModel();
-                //RoomListViewModel.Instance.Items.Remove(RoomListViewModel.Instance.Items.Where(X => X.MaPhong == MaPhong).Single());
-                //MessageBox.Show(RoomListViewModel.Instance.Items.Where(X => X.MaPhong == MaPhong).Single().MaPhong.ToString());
-                //RoomListViewModel.Instance.Items.RemoveAt();
-                
                 if (model.RemoveRoom(MaPhong))
                 {
+                    EventSystem.Publish<Message>(new Message { message = MaPhong.ToString() });
                     MessageBox.Show("Room has been Removed");
                 }    
                 

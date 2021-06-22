@@ -19,7 +19,7 @@ namespace HotelManagement.MVVM.ViewModel
         private ObservableCollection<RoomListItemViewModel> _items;
         public ObservableCollection<RoomListItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged("Items"); } }
 
-        public ICommand refreshListRoom { get; set; }
+        public ICommand RefreshListRoom { get; set; }
         public ICommand MouseWheelCommand { get; set; }
 
         public RoomListViewModel()
@@ -27,14 +27,23 @@ namespace HotelManagement.MVVM.ViewModel
             Items = new ObservableCollection<RoomListItemViewModel>();
             loadListRoom();
 
-            refreshListRoom = new RelayCommand<object>((p) =>
+            RefreshListRoom = new RelayCommand<object>((p) =>
             {
                 return true;
             }, (p) =>
             {
-                //Items.Remove(Items.Where(X => X.MaPhong == 144).Single());
                 loadListRoom();
             });
+
+            EventSystem.Subscribe<Message>(getMessages);
+        }
+
+        public void getMessages(Message message)
+        {
+            if (message.message == "refresh")
+                loadListRoom();
+            else
+                Items.Remove(Items.Where(X => X.MaPhong == Convert.ToInt32(message.message)).Single());
         }
 
         public void loadListRoom()

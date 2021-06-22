@@ -76,7 +76,8 @@ namespace HotelManagement.MVVM.ViewModel
                 }
                 if (model.Insert_Room(RName, roomTypeID, Notes))
                 {
-                    App.Current.Dispatcher.BeginInvoke(new Action(() => RoomListViewModel.Instance.loadListRoom()));
+                    //send message
+                    EventSystem.Publish<Message>(new Message { message = "refresh" });
                     MessageBox.Show("Room has been added!");
                 }
             });
