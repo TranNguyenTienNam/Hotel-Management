@@ -37,15 +37,48 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.1.2556, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.0.1\lib\net452\MaterialDesignColors.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignThemes.Wpf, Version=4.1.0.2556, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.4.1.0\lib\net452\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism, Version=8.1.97.5141, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.8.1.97\lib\net47\Prism.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.ConfigurationManager, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Configuration.ConfigurationManager.5.0.0\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.5.0.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Permissions.5.0.0\lib\net461\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -64,26 +97,52 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BookingWindows.xaml.cs">
-      <DependentUpon>BookingWindows.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MVVM\Model\BookingListModel.cs" />
-    <Compile Include="MVVM\Model\BookingRoomModel.cs" />
+    <Compile Include="Core\DelegateCommand.cs" />
+    <Compile Include="Core\EventSystem.cs" />
+    <Compile Include="Core\Message.cs" />
+    <Compile Include="MVVM\Model\DashboardModel\AORCardModel.cs" />
+    <Compile Include="MVVM\Model\DashboardModel\AORModel.cs" />
+    <Compile Include="MVVM\Model\DashboardModel\BookingsCardModel.cs" />
+    <Compile Include="MVVM\Model\DashboardModel\BookingsModel.cs" />
+    <Compile Include="MVVM\Model\DashboardModel\CartesianChartModel.cs" />
+    <Compile Include="MVVM\Model\DashboardModel\ChartDataModel.cs" />
+    <Compile Include="MVVM\Model\DashboardModel\GuestsCardModel.cs" />
+    <Compile Include="MVVM\Model\DashboardModel\GuestsModel.cs" />
+    <Compile Include="MVVM\Model\DashboardModel\PieChartModel.cs" />
+    <Compile Include="MVVM\Model\DashboardModel\RevenueCardModel.cs" />
+    <Compile Include="MVVM\Model\DashboardModel\RevenueModel.cs" />
     <Compile Include="MVVM\Model\Process.cs" />
-    <Compile Include="MVVM\Model\RoomListModel.cs" />
-    <Compile Include="MVVM\Model\RoomsModel.cs" />
-    <Compile Include="MVVM\ViewModel\BookingListViewModel.cs" />
-    <Compile Include="MVVM\ViewModel\RoomListItemViewModel.cs" />
-    <Compile Include="MVVM\ViewModel\RoomListViewModel.cs" />
-    <Compile Include="MVVM\ViewModel\RoomsViewModel.cs" />
-    <Compile Include="MVVM\ViewModel\BookingItemViewModel.cs" />
-    <Compile Include="MVVM\View\RoomItemView.xaml.cs">
-      <DependentUpon>RoomItemView.xaml</DependentUpon>
+    <Compile Include="MVVM\Model\DashboardModel\TodayCardModel.cs" />
+    <Compile Include="MVVM\Model\DashboardModel\TodayModel.cs" />
+    <Compile Include="MVVM\Model\Rooms\RoomsListModel.cs" />
+    <Compile Include="MVVM\Model\Rooms\RoomsModel.cs" />
+    <Compile Include="MVVM\Model\Rooms\TypesListModel.cs" />
+    <Compile Include="MVVM\ViewModel\Rooms\EditRoomViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Rooms\ListTypeItemViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Rooms\ListTypeViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Rooms\RegulationsViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Rooms\RoomListItemViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Rooms\RoomListViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Rooms\RoomsViewModel.cs" />
+    <Compile Include="MVVM\View\Rooms\EditRoomView.xaml.cs">
+      <DependentUpon>EditRoomView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\View\RoomListItemView.xaml.cs">
+    <Compile Include="MVVM\View\Rooms\ListTypeItemView.xaml.cs">
+      <DependentUpon>ListTypeItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Rooms\ListTypeView.xaml.cs">
+      <DependentUpon>ListTypeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Rooms\RegulationsView.xaml.cs">
+      <DependentUpon>RegulationsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Rooms\RoomListItemView.xaml.cs">
       <DependentUpon>RoomListItemView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\View\RoomsView.xaml.cs">
+    <Compile Include="MVVM\View\Rooms\RoomListView.xaml.cs">
+      <DependentUpon>RoomListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Rooms\RoomsView.xaml.cs">
       <DependentUpon>RoomsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Object\client.cs" />
@@ -93,10 +152,6 @@
     <Compile Include="RegisterWindow.xaml.cs">
       <DependentUpon>RegisterWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="BookingWindows.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -130,15 +185,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MVVM\View\RoomItemView.xaml">
+    <Page Include="MVVM\View\Rooms\EditRoomView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MVVM\View\RoomListItemView.xaml">
+    <Page Include="MVVM\View\Rooms\ListTypeItemView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MVVM\View\RoomsView.xaml">
+    <Page Include="MVVM\View\Rooms\ListTypeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MVVM\View\Rooms\RegulationsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MVVM\View\Rooms\RoomListItemView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MVVM\View\Rooms\RoomListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MVVM\View\Rooms\RoomsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -154,6 +225,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Theme\MenuModeTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Theme\RoundedButtonTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -164,7 +239,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MVVM\ViewModel\BookingViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\BookingsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\DashboardViewModel.cs" />
     <Compile Include="MVVM\ViewModel\MainViewModel.cs" />
     <Compile Include="MVVM\View\AccountView.xaml.cs">
@@ -224,25 +299,22 @@
     <Resource Include="Images\girl-and-computer.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="search.png" />
+    <Resource Include="Images\caret-arrow-up.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="search %281%29.png" />
+    <Resource Include="Images\caret-arrow-down.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\search %282%29.png" />
+    <Resource Include="Images\revenue.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\search.png" />
+    <Resource Include="Images\coins.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Image1.png" />
+    <Resource Include="Images\calendar.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Background.PNG" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Image2.png" />
+    <Resource Include="Images\guest.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets')" />

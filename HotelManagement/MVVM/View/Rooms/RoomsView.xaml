@@ -36,6 +36,7 @@
                 <Grid Grid.Column="1">
                     <Button Width="126" Height="38" HorizontalAlignment="Right" Margin="0,4,8,0"
                         Style="{StaticResource MaterialDesignRaisedButton}"
+                            Command="{Binding RegulationsCommand}"
                         materialDesign:ButtonAssist.CornerRadius="10"
                         ToolTip="MaterialDesignRaisedButton with Round Corners">
                         <TextBlock
@@ -65,18 +66,18 @@
                                 <ColumnDefinition Width="80"/>
                             </Grid.ColumnDefinitions>
                             <!--Room ID + Room Type-->
-                            <Grid Grid.Column="0" Margin="8,4,4,4">
+                            <Grid Grid.Column="0" Margin="12,8,8,8">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <TextBox Grid.Row="0" Name="tbRoomId" Text="Automatically Generated" Foreground="#F44336"
-                             materialDesign:HintAssist.Hint="Room ID:" FontSize="14" IsReadOnly="True"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             VerticalAlignment="Center" />
+                                <TextBox Grid.Row="0" Name="tbRoomId" Text="Automatically Generated" Foreground="#FE8704"
+                                     materialDesign:HintAssist.Hint="Room ID:" FontSize="14" IsReadOnly="True"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                     VerticalAlignment="Center" />
                                 <Grid Grid.Row="1" VerticalAlignment="Center" Margin="0,12,0,0">
                                     <ComboBox Name="cbbRoomType" ItemsSource="{Binding Types}"
-                                    FontSize="14" Foreground="#F44336"
+                                    FontSize="14" Foreground="#FE8704"
                                     materialDesign:TextFieldAssist.PrefixText="Room Type: "
                                     SelectedValue="{Binding Type}"
                                     IsEditable="False">
@@ -84,37 +85,37 @@
                                 </Grid>
                             </Grid>
                             <!--Room Name + Price/Day-->
-                            <Grid Grid.Column="1" Margin="4">
+                            <Grid Grid.Column="1" Margin="8">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <TextBox Grid.Row="0" Name="tbRoomName" Foreground="#F44336" Text="{Binding RName}"
+                                <TextBox Grid.Row="0" Name="tbRoomName" Foreground="#FE8704" Text="{Binding RName}"
                              materialDesign:HintAssist.Hint="Room Name:" FontSize="14"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              VerticalAlignment="Center" />
-                                <TextBox Grid.Row="1" Name="tbPrice" Foreground="#F44336" Text="{Binding Price}"
+                                <TextBox Grid.Row="1" Name="tbPrice" Foreground="#FE8704" Text="{Binding Price}"
                              materialDesign:HintAssist.Hint="Price/Day:" FontSize="14" IsReadOnly="True"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                             </Grid>
                             <!--Notes + Max People-->
-                            <Grid Grid.Column="2" Margin="4">
+                            <Grid Grid.Column="2" Margin="8">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <TextBox Grid.Row="0" Name="tbNote" Foreground="#F44336" Text="{Binding Notes}"
+                                <TextBox Grid.Row="0" Name="tbNote" Foreground="#FE8704" Text="{Binding Notes}"
                              materialDesign:HintAssist.Hint="Notes:" FontSize="14"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              VerticalAlignment="Center" />
-                                <TextBox Grid.Row="1" Name="tbMax" Foreground="#F44336" Text="{Binding MaxPeople}"
+                                <TextBox Grid.Row="1" Name="tbMax" Foreground="#FE8704" Text="{Binding MaxPeople}"
                              materialDesign:HintAssist.Hint="Max People:" FontSize="14" IsReadOnly="True"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                             </Grid>
                             <!--Button AddRoom-->
                             <Grid Grid.Column="3">
                                 <Button x:Name="btAddRoom" Background="#F44336" Margin="0,12,0,0"
-                                    Width="62" Height="62" Command="{Binding AddRoom}"
+                                    Width="62" Height="62" Command="{Binding AddRoomCommand}"
                                         IsEnabled="{Binding IsEnabled}"
                                     materialDesign:ButtonAssist.CornerRadius="31"
                                     ToolTip="Click to add room">
@@ -152,8 +153,8 @@
                     </Grid>
                 </Border>
             </Border>
-            <!--main-->
-            <local:RoomListItemView Grid.Row="3" Margin="4"/>
+            <!--Listview control-->
+            <local:RoomListView Grid.Row="3" Margin="4" Height="362"/>
         </Grid>
     </Grid>
 </UserControl>
