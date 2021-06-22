@@ -83,7 +83,7 @@
                             BorderThickness="0"
                             Background="#F44336"
                             Foreground="White"
-                            ToolTip="" >
+                            ToolTip="" Click="btnSearchBills_Click" >
                             <Grid Width="auto">
                                 <TextBlock 
                                     FontSize="18"

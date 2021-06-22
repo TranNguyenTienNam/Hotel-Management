@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Markup;
+using HotelManagement.MVVM.View.CheckOutViews;
+
 
 namespace HotelManagement.MVVM.View
 {
@@ -28,7 +30,12 @@ namespace HotelManagement.MVVM.View
 
         private void btnEditSurcharge_Click(object sender, RoutedEventArgs e)
         {
-            
+            (new Surcharge()).Show();
+        }
+
+        private void btnSearchBills_Click(object sender, RoutedEventArgs e)
+        {
+            (new SearchBill()).Show();
         }
     }
 }

@@ -119,6 +119,8 @@
     <Compile Include="MVVM\Model\Rooms\RoomsModel.cs" />
     <Compile Include="MVVM\Model\Rooms\TypesListModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\CheckOutViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\CheckOutViewModels\SearchBillViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\CheckOutViewModels\SurchargeViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\EditRoomViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\ListTypeItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\ListTypeViewModel.cs" />
@@ -128,6 +130,9 @@
     <Compile Include="MVVM\ViewModel\Rooms\RoomsViewModel.cs" />
     <Compile Include="MVVM\View\CheckOutViews\CheckOutView.xaml.cs">
       <DependentUpon>CheckOutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\CheckOutViews\SearchBill.xaml.cs">
+      <DependentUpon>SearchBill.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\CheckOutViews\Surcharge.xaml.cs">
       <DependentUpon>Surcharge.xaml</DependentUpon>
@@ -190,6 +195,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\CheckOutViews\CheckOutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\CheckOutViews\SearchBill.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

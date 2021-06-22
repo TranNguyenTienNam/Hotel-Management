@@ -10,19 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace HotelManagement.MVVM.View.CheckOutViews
 {
     /// <summary>
-    /// Interaction logic for SearchBillView.xaml
+    /// Interaction logic for SearchBill.xaml
     /// </summary>
-    public partial class SearchBillView : UserControl
+    public partial class SearchBill : Window
     {
-        public SearchBillView()
+        public SearchBill()
         {
             InitializeComponent();
+        }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
