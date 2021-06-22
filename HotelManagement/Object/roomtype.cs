@@ -10,12 +10,12 @@ namespace HotelManagement.Object
     {
         int maLoaiPhong;
         string tenLoaiPhong;
-        decimal donGia;
+        int donGia;
         int soNgToiDa;
 
         public int MaLoaiPhong { get => maLoaiPhong; set => maLoaiPhong = value; }
         public string TenLoaiPhong { get => tenLoaiPhong; set => tenLoaiPhong = value; }
-        public decimal DonGia { get => donGia; set => donGia = value; }
+        public int DonGia { get => donGia; set => donGia = value; }
         public int SoNgToiDa { get => soNgToiDa; set => soNgToiDa = value; }
     }
 }

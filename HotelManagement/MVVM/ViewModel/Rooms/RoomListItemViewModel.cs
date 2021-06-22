@@ -28,8 +28,8 @@ namespace HotelManagement.MVVM.ViewModel
         private string _loaiphong;
         public string LoaiPhong { get { return _loaiphong; } set { _loaiphong = value; OnPropertyChanged("LoaiPhong"); } }
 
-        private decimal _dongia;
-        public decimal DonGia { get { return _dongia; } set { _dongia = value; OnPropertyChanged(); } }
+        private int _dongia;
+        public int DonGia { get { return _dongia; } set { _dongia = value; OnPropertyChanged(); } }
 
         private int _soNgtoida;
         public int SoNgToiDa { get { return _soNgtoida; } set { _soNgtoida = value; OnPropertyChanged(); } }

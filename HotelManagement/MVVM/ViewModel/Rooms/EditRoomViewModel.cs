@@ -99,7 +99,7 @@ namespace HotelManagement.MVVM.ViewModel
             {
                 TenPhong = (string)row["TenPhong"];
                 LoaiPhong = (string)row["TenLoaiPhong"];
-                DonGia = (decimal)row["DonGia"];
+                DonGia = (int)row["DonGia"];
                 SoNgToiDa = (int)row["SoNgToiDa"];
                 GhiChu = (row["GhiChu"] == DBNull.Value) ? "" : (string)row["GhiChu"];
             }    

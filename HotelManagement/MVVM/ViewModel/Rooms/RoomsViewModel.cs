@@ -92,30 +92,6 @@ namespace HotelManagement.MVVM.ViewModel
             });
         }
 
-        public ObservableCollection<RoomListItemViewModel> loadListRoom()
-        {
-            ObservableCollection<RoomListItemViewModel> Items = new ObservableCollection<RoomListItemViewModel>();
-
-            RoomsListModel model = new RoomsListModel();
-            DataTable data = new DataTable();
-            data = model.Load_On();
-
-            foreach (DataRow row in data.Rows)
-            {
-                var obj = new RoomListItemViewModel()
-                {
-                    MaPhong = (int)row["MaPhong"],
-                    TenPhong = (string)row["TenPhong"],
-                    LoaiPhong = (string)row["TenLoaiPhong"],
-                    DonGia = (decimal)row["DonGia"],
-                    SoNgToiDa = (int)row["SoNgToiDa"],
-                    GhiChu = (row["GhiChu"] == DBNull.Value) ? "" : (string)row["GhiChu"]
-                };
-                Items.Add(obj);
-            }
-            return Items;
-        }
-
         void LoadRoomTypes()
         {
             roomTypes = new ObservableCollection<roomtype>();
