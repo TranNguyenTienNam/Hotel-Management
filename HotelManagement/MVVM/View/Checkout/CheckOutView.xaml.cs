@@ -63,7 +63,8 @@ namespace HotelManagement.MVVM.View
                 "join PHONG on PHONG.MaPhong=PHIEUTHUEPHONG.MaPhong " +
                 "join LOAIPHONG on LOAIPHONG.MaLoaiPhong=PHONG.MaLoaiPhong " +
                 "where PHIEUTHUEPHONG.MaPhieuThue= " +
-                rentid +" ;";
+                rentid +
+                " ;";
             SqlCommand cmd1 = new SqlCommand(query1, con);
             SqlDataReader dr1 = cmd1.ExecuteReader();
             if(dr1.Read())
@@ -96,7 +97,7 @@ namespace HotelManagement.MVVM.View
                 tb_client_type.Text = rentFullInfo.TenLoaiKhach.ToString();
                 tb_room_name.Text = rentFullInfo.TenPhong.ToString();
                 tb_room_type.Text = rentFullInfo.TenLoaiPhong.ToString();
-                tb_unit_price.Text = rentFullInfo.DonGia.ToString();
+                tb_unit_price.Text = Math.Round(rentFullInfo.DonGia,2).ToString();
                 tb_checkin.Text = rentFullInfo.NgayBatDau.ToShortDateString();
                 datepicker_checkout.SelectedDate = rentFullInfo.NgayTraPhong;
                 tb_client_number.Text = rentFullInfo.SoLuongKhach.ToString();
@@ -156,6 +157,11 @@ namespace HotelManagement.MVVM.View
                 surcharge = _surcharge;
                 total = _total;
             }
+        }
+
+        private void tb_search_to_checkout_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //chưa làm đc :v
         }
     }
 }

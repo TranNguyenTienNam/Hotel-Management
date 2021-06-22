@@ -47,7 +47,7 @@
                                 </Style>
                             </TextBlock.Style>
                         </TextBlock>
-                        <TextBox Grid.Column="1" x:Name="searchName" FontSize="14" VerticalAlignment="Center" BorderThickness="0" Margin="0,10,10,10"/>
+                        <TextBox Grid.Column="1" x:Name="tb_search_to_checkout" FontSize="14" VerticalAlignment="Center" BorderThickness="0" Margin="0,10,10,10" TextChanged="tb_search_to_checkout_TextChanged"/>
                     </Grid>
                 </Border>
             </Grid>

@@ -12,12 +12,7 @@ namespace HotelManagement.MVVM.Model
         public DataTable get_list_bills()
         {
             DataTable re;
-            string query = "select *" +
-                "from HOADON" +
-                "inner join PHIEUTHUEPHONG on HOADON.MaPhieuThue=PHIEUTHUEPHONG.MaPhieuThue" +
-                "inner join PHONG on PHIEUTHUEPHONG.MaPhong=PHONG.MaPhong" +
-                "inner join KHACHHANG on KHACHHANG.MaKH = PHIEUTHUEPHONG.MaKH" +
-                "inner join LOAIKHACHHANG on LOAIKHACHHANG.MaLoaiKhach = KHACHHANG.MaLoaiKhach";
+            string query = "";
             re = Process.createTable(query);
             return re;
         }
