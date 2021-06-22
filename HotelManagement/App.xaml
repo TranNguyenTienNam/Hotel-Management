@@ -8,7 +8,6 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Theme/Colors.xaml"/>
                 <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
                 <ResourceDictionary Source="Theme/TextboxTheme.xaml"/>
                 <ResourceDictionary Source="Theme/RoundedButtonTheme.xaml"/>
@@ -30,6 +29,7 @@
             <DataTemplate DataType="{x:Type viewModel:RoomsViewModel}">
                 <view:RoomsView/>
             </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

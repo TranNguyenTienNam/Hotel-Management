@@ -10,8 +10,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="595" d:DesignWidth="910">
     <StackPanel>
-        <Grid Margin="0,10,0,20">
+        <Grid Margin="0,0,0,20" >
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -20,7 +22,7 @@
             <Grid Grid.Column="0">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock 
-                        Text="Statistic of"
+                        Text="Statistics of"
                         Foreground="Red"
                         FontSize="28"
                         VerticalAlignment="Center"
@@ -30,28 +32,53 @@
                     <DatePicker
                         FontSize="20"
                         Foreground="Black"
-                        SelectedDate="{x:Static sys:DateTime.Now}"
+                        SelectedDate="{Binding SelectedDate}"
                         VerticalAlignment="Center"
                         Margin="10,0,0,0"/>
                 </StackPanel>
             </Grid>
 
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="2">
                 <StackPanel 
-                        Orientation="Horizontal" 
-                        HorizontalAlignment="Right">
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+                    <RadioButton 
+                                Content="Revenue"
+                                Style="{StaticResource MenuModeTheme}"
+                                IsChecked="True"
+                                Command="{Binding PerformanceRadCommand}"
+                                CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+
+                    <RadioButton 
+                                Content="Bookings"
+                                Style="{StaticResource MenuModeTheme}"
+                                Command="{Binding PerformanceRadCommand}"
+                                CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Column="4">
+                <StackPanel 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right">
                     <RadioButton 
                         Content="Daily"
                         Style="{StaticResource MenuModeTheme}"
-                        IsChecked="True"/>
+                        IsChecked="True"
+                        Command="{Binding ModeRadCommand}"
+                        CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
 
                     <RadioButton 
                         Content="Monthly"
-                        Style="{StaticResource MenuModeTheme}"/>
+                        Style="{StaticResource MenuModeTheme}"
+                        Command="{Binding ModeRadCommand}"
+                        CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
 
                     <RadioButton 
                         Content="Annual"
-                        Style="{StaticResource MenuModeTheme}"/>
+                        Style="{StaticResource MenuModeTheme}"
+                        Command="{Binding ModeRadCommand}"
+                        CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
                 </StackPanel>
             </Grid>
         </Grid>
@@ -70,7 +97,7 @@
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                                 <GradientStop Color="Green" Offset="0.0"/>
-                                <GradientStop Color=" #C5E8B7" Offset="1"/>
+                                <GradientStop Color="#C5E8B7" Offset="1"/>
                             </LinearGradientBrush>
                         </Border.Background>
 
@@ -97,7 +124,7 @@
                                         Margin="30,16,0,0"/>
 
                                     <TextBlock 
-                                        Text="10.8M"
+                                        Text="{Binding RevenueCardModel.SelectedRevenue}"
                                         Foreground="White"
                                         FontSize="24"
                                         Margin="30,0,0,0"/>
@@ -110,23 +137,27 @@
                         Orientation="Horizontal"
                         Margin="20,5,0,5"
                         VerticalAlignment="Bottom">
-                        <Image 
+                        <StackPanel 
+                            Width="80"
+                            Orientation="Horizontal">
+                            <Image 
                             Height="16"
-                            Source="/Images/caret-arrow-up.png" />
+                            Source="{Binding RevenueCardModel.Icon}" />
 
-                        <TextBlock 
-                            Text="17.39%"
+                            <TextBlock 
+                            Text="{Binding RevenueCardModel.RevenueRate}"
                             Foreground="Black"
                             FontSize="16"
                             VerticalAlignment="Center"
                             Margin="5,0,0,0"/>
-
+                        </StackPanel>
+                        
                         <TextBlock 
-                            Text="9.2M"
+                            Text="{Binding RevenueCardModel.PreviousRevenue}"
                             Foreground="Black"
                             FontSize="16"
                             VerticalAlignment="Center"
-                            Margin="30,0,0,0"/>
+                            Margin="10,0,0,0"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -164,13 +195,13 @@
 
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock 
-                                        Text="RevPAR"
+                                        Text="AOR"
                                         Foreground="White"
                                         FontSize="16"
                                         Margin="30,16,0,0"/>
 
                                     <TextBlock 
-                                        Text="0.33M"
+                                        Text="{Binding AORCardModel.SelectedAOR}"
                                         Foreground="White"
                                         FontSize="24"
                                         Margin="30,0,0,0"/>
@@ -183,23 +214,27 @@
                         Orientation="Horizontal"
                         Margin="20,5,0,5"
                         VerticalAlignment="Bottom">
-                        <Image 
+                        <StackPanel 
+                            Width="80"
+                            Orientation="Horizontal">
+                            <Image 
                             Height="16"
-                            Source="/HotelManagement;component/Images/caret-arrow-down.png" />
+                            Source="{Binding AORCardModel.Icon}" />
 
-                        <TextBlock 
-                            Text="25.49%"
+                            <TextBlock 
+                            Text="{Binding AORCardModel.AORRate}"
                             Foreground="Black"
                             FontSize="16"
                             VerticalAlignment="Center"
                             Margin="5,0,0,0"/>
-
+                        </StackPanel>
+                            
                         <TextBlock 
-                            Text="0.41M"
+                            Text="{Binding AORCardModel.PreviousAOR}"
                             Foreground="Black"
                             FontSize="16"
                             VerticalAlignment="Center"
-                            Margin="30,0,0,0"/>
+                            Margin="10,0,0,0"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -238,16 +273,16 @@
 
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock 
-                                        Text="New Booking"
+                                        Text="Bookings"
                                         Foreground="White"
                                         FontSize="16"
-                                        Margin="20,16,0,0"/>
+                                        Margin="30,16,0,0"/>
 
                                     <TextBlock 
-                                        Text="64"
+                                        Text="{Binding BookingsCardModel.SelectedBookings}"
                                         Foreground="White"
                                         FontSize="24"
-                                        Margin="40,0,0,0"/>
+                                        Margin="30,0,0,0"/>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
@@ -257,23 +292,27 @@
                         Orientation="Horizontal"
                         Margin="20,5,0,5"
                         VerticalAlignment="Bottom">
-                        <Image 
+                        <StackPanel 
+                            Width="80"
+                            Orientation="Horizontal">
+                            <Image 
                             Height="16"
-                            Source="/HotelManagement;component/Images/caret-arrow-up.png" />
+                            Source="{Binding BookingsCardModel.Icon}" />
 
-                        <TextBlock 
-                            Text="23.08%"
+                            <TextBlock 
+                            Text="{Binding BookingsCardModel.BookingsRate}"
                             Foreground="Black"
                             FontSize="16"
                             VerticalAlignment="Center"
                             Margin="5,0,0,0"/>
+                        </StackPanel>
 
                         <TextBlock 
-                            Text="52"
+                            Text="{Binding BookingsCardModel.PreviousBookings}"
                             Foreground="Black"
                             FontSize="16"
                             VerticalAlignment="Center"
-                            Margin="30,0,0,0"/>
+                            Margin="10,0,0,0"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -316,10 +355,10 @@
                                         Margin="30,16,0,0"/>
 
                                     <TextBlock 
-                                        Text="98"
+                                        Text="{Binding GuestsCardModel.SelectedGuests}"
                                         Foreground="White"
                                         FontSize="24"
-                                        Margin="40,0,0,0"/>
+                                        Margin="30,0,0,0"/>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
@@ -329,26 +368,32 @@
                         Orientation="Horizontal"
                         Margin="20,5,0,5"
                         VerticalAlignment="Bottom">
-                        <Image 
+                        <StackPanel 
+                            Width="80"
+                            Orientation="Horizontal">
+                            <Image 
                             Height="16"
-                            Source="/HotelManagement;component/Images/caret-arrow-down.png" />
+                            Source="{Binding GuestsCardModel.Icon}" />
 
-                        <TextBlock 
-                            Text="4.081%"
+                            <TextBlock 
+                            Text="{Binding GuestsCardModel.GuestsRate}"
                             Foreground="Black"
                             FontSize="16"
                             VerticalAlignment="Center"
                             Margin="5,0,0,0"/>
+                        </StackPanel>
 
                         <TextBlock 
-                            Text="102"
+                            Text="{Binding GuestsCardModel.PreviousGuests}"
                             Foreground="Black"
                             FontSize="16"
                             VerticalAlignment="Center"
-                            Margin="30,0,0,0"/>
+                            Margin="10,0,0,0"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
+            
+            
         </StackPanel>
 
         <Grid>
@@ -360,65 +405,70 @@
 
             <Grid Grid.Column="0">
                 <StackPanel 
-                        Orientation="Vertical"
-                        Margin="0,0,20,0">
-
+                    Orientation="Vertical"
+                    Margin="0,0,20,0">
                     <Border 
-                            Background="White"
-                            Margin="0,0,0,30"
-                            Width="320"
-                            CornerRadius="20">
+                    Background="White"
+                    Margin="0,0,0,20"
+                    Width="320"
+                    CornerRadius="20">
                         <StackPanel 
-                            Orientation="Horizontal" 
-                            HorizontalAlignment="Center">
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Center">
+
+                            <lvc:Gauge 
+                            Height="0" Width="0"
+                            Uses360Mode="True"
+                            From="0" To="1" Value="1" 
+                            Foreground="White" GaugeActiveFill="White"/>
 
                             <StackPanel
                                 Orientation="Vertical"
-                                Margin="0,10,30,10">
+                                Margin="0,10,20,10">
                                 <lvc:Gauge 
                                     Width="88"
                                     Height="88"
                                     Uses360Mode="True"
-                                    From="0" To="100" 
+                                    From="0" To="{Binding TodayCardModel.NumMaxCheckin}" 
                                     HighFontSize="30"
-                                    Value="70">
+                                    Value="{Binding TodayCardModel.NumCheckin}">
                                     <lvc:Gauge.GaugeRenderTransform>
                                         <TransformGroup>
-                                            <RotateTransform Angle="90"></RotateTransform>
-                                            <ScaleTransform ScaleX="1"></ScaleTransform>
+                                            <RotateTransform Angle="90"/>
+                                            <ScaleTransform ScaleX="1"/>
                                         </TransformGroup>
                                     </lvc:Gauge.GaugeRenderTransform>
 
                                     <lvc:Gauge.GaugeActiveFill>
                                         <LinearGradientBrush>
-                                            <GradientStop Color="LightBlue" Offset="0.0" />
+                                            <GradientStop Color="White" Offset="0.0" />
                                             <GradientStop Color="Blue" Offset="1.0" />
                                         </LinearGradientBrush>
                                     </lvc:Gauge.GaugeActiveFill>
                                 </lvc:Gauge>
 
                                 <TextBlock 
-                                    Text="Check in"
-                                    Foreground="Black"
-                                    FontSize="16"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"/>
+                                Text="Check in"
+                                Foreground="Black"
+                                FontSize="16"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
                             </StackPanel>
 
                             <StackPanel
-                                Orientation="Vertical"
-                                Margin="30,10,0,10">
+                            Orientation="Vertical"
+                            Margin="20,10,0,10">
                                 <lvc:Gauge 
-                                    Width="88"
-                                    Height="88"
-                                    Uses360Mode="True"
-                                    From="0" To="100" 
-                                    HighFontSize="30"
-                                    Value="80">
+                                Width="88"
+                                Height="88"
+                                Uses360Mode="True"
+                                From="0" To="{Binding TodayCardModel.NumMaxCheckOut}" 
+                                HighFontSize="30"
+                                Value="{Binding TodayCardModel.NumCheckOut}">
                                     <lvc:Gauge.GaugeRenderTransform>
                                         <TransformGroup>
-                                            <RotateTransform Angle="90"></RotateTransform>
-                                            <ScaleTransform ScaleX="1"></ScaleTransform>
+                                            <RotateTransform Angle="90"/>
+                                            <ScaleTransform ScaleX="1"/>
                                         </TransformGroup>
                                     </lvc:Gauge.GaugeRenderTransform>
 
@@ -432,12 +482,18 @@
                                 </lvc:Gauge>
 
                                 <TextBlock 
-                                    Text="Check Out"
-                                    Foreground="Black"
-                                    FontSize="16"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"/>
+                                Text="Check Out"
+                                Foreground="Black"
+                                FontSize="16"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
                             </StackPanel>
+
+                            <lvc:Gauge 
+                            Height="0" Width="0"
+                            Uses360Mode="True"
+                            From="0" To="1" Value="1" 
+                            Foreground="White" GaugeActiveFill="White"/>
                         </StackPanel>
                     </Border>
 
@@ -447,18 +503,19 @@
                         <StackPanel>
                             <lvc:PieChart
                                 HorizontalAlignment="Left"
-                                Margin="10"
+                                Margin="10,10,10,0"
                                 Height="200"
                                 Width="300" 
                                 LegendLocation="Right"
+                                Series="{Binding PieChartModel.PieSeriesCollection}"
                                 DataClick="Chart_OnDataClick">
-                                <lvc:PieChart.Series>
-                                    <lvc:PieSeries Title="Ventas" Values="25" DataLabels="True" LabelPoint="{Binding PointLabel}"/>
-                                    <lvc:PieSeries Title="Ventas" Values="25" DataLabels="True" LabelPoint="{Binding PointLabel}"/>
-                                    <lvc:PieSeries Title="Ventas" Values="25" DataLabels="True" LabelPoint="{Binding PointLabel}"/>
-                                    <lvc:PieSeries Title="Ventas" Values="25" DataLabels="True" LabelPoint="{Binding PointLabel}"/>
-                                </lvc:PieChart.Series>
                             </lvc:PieChart>
+
+                            <Label 
+                                HorizontalAlignment="Center"
+                                Margin="0,0,0,10"
+                                FontSize="16" 
+                                Content="By Room Type"/>
                         </StackPanel>
                     </Border>
                 </StackPanel>
@@ -466,20 +523,26 @@
 
             <Grid Grid.Column="1">
                 <Border 
-                        CornerRadius="20"
-                        Background="White">
+                    CornerRadius="20"
+                    Background="White">
                     <StackPanel VerticalAlignment="Center">
                         <lvc:CartesianChart
                             Height="350"
-                            Margin="10"
-                            LegendLocation="Bottom"
-                            Background="Transparent"
-                            Series="{Binding SeriesCollection}">
-                            <lvc:CartesianChart.AxisY>
-                                <lvc:Axis Title="Sales" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
-                            </lvc:CartesianChart.AxisY>
+                            Margin="20"
+                            Background="Transparent">
+                            <lvc:CartesianChart.Series>
+                                <lvc:LineSeries
+                                    Title="{Binding SelectedPerformance}"
+                                    Values="{Binding CartesianChartModel.LineSeries}"
+                                    Configuration="{Binding CartesianChartModel.LineSeriesConfiguration}"/>
+                            </lvc:CartesianChart.Series>
+
                             <lvc:CartesianChart.AxisX>
-                                <lvc:Axis Title="Month" Labels="{Binding Labels}"></lvc:Axis>
+                                <lvc:Axis Labels="{Binding CartesianChartModel.LineSeriesLabels}">
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator Step="1"/>
+                                    </lvc:Axis.Separator>
+                                </lvc:Axis>
                             </lvc:CartesianChart.AxisX>
                         </lvc:CartesianChart>
                     </StackPanel>

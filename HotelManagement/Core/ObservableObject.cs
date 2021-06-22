@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace HotelManagement.Core
 {
-    public class ObservableObject : INotifyPropertyChanged
+    class ObservableObject : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
