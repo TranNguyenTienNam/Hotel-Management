@@ -15,8 +15,17 @@ namespace HotelManagement.MVVM.ViewModel
             this.SelectedMode = "Daily";
             this.SelectedPerformance = "Revenue";
 
+            this.RevenueCardModel = new RevenueCardModel(ConvertTimeFormat(this.SelectedDate), this.SelectedMode);
+            this.AORCardModel = new AORCardModel(ConvertTimeFormat(this.SelectedDate), this.SelectedMode);
+            this.BookingsCardModel = new BookingsCardModel(ConvertTimeFormat(this.SelectedDate), this.SelectedMode);
+            this.GuestsCardModel = new GuestsCardModel(ConvertTimeFormat(this.SelectedDate), this.SelectedMode);
+            this.TodayCardModel = new TodayCardModel();
+
             this.CartesianChartModel = new CartesianChartModel(ConvertTimeFormat(this.SelectedDate), this.SelectedMode, this.selectedPerformance);
-            this.PieChartModel = new PieChartModel(ConvertTimeFormat(this.SelectedDate), this.SelectedMode);
+            this.PieChartModel = new PieChartModel(ConvertTimeFormat(this.SelectedDate), this.SelectedMode, this.SelectedPerformance);
+
+            Console.WriteLine(this.TodayCardModel.NumMaxCheckOut);
+            Console.WriteLine(this.TodayCardModel.NumCheckOut);
         }
         // Cartesian Chart
         private CartesianChartModel cartesianChartModel;
@@ -25,6 +34,26 @@ namespace HotelManagement.MVVM.ViewModel
         // Cartesian Chart
         private PieChartModel pieChartModel;
         public PieChartModel PieChartModel { get { return pieChartModel; } set { pieChartModel = value; OnPropertyChanged(); } }
+
+        // Revenue Card
+        private RevenueCardModel revenueCardModel;
+        public RevenueCardModel RevenueCardModel { get { return revenueCardModel; } set { revenueCardModel = value; OnPropertyChanged(); } }
+
+        // AOR Card
+        private AORCardModel aorCardModel;
+        public AORCardModel AORCardModel { get { return aorCardModel; } set { aorCardModel = value; OnPropertyChanged(); } }
+
+        // Bookings Card
+        private BookingsCardModel bookingsCardModel;
+        public BookingsCardModel BookingsCardModel { get { return bookingsCardModel; } set { bookingsCardModel = value; OnPropertyChanged(); } }
+
+        // Guests Card
+        private GuestsCardModel guestsCardModel;
+        public GuestsCardModel GuestsCardModel { get { return guestsCardModel; } set { guestsCardModel = value; OnPropertyChanged(); } }
+
+        // Today Card
+        private TodayCardModel todayCardModel;
+        public TodayCardModel TodayCardModel { get { return todayCardModel; } set { todayCardModel = value; OnPropertyChanged(); } }
 
         // DatePicker
         private DateTime selectedDate;
@@ -91,8 +120,14 @@ namespace HotelManagement.MVVM.ViewModel
 
         protected void OnPropertyChanged(string propertyName)
         {
+            this.RevenueCardModel = new RevenueCardModel(ConvertTimeFormat(this.SelectedDate), this.SelectedMode);
+            this.AORCardModel = new AORCardModel(ConvertTimeFormat(this.SelectedDate), this.SelectedMode);
+            this.BookingsCardModel = new BookingsCardModel(ConvertTimeFormat(this.SelectedDate), this.SelectedMode);
+            this.GuestsCardModel = new GuestsCardModel(ConvertTimeFormat(this.SelectedDate), this.SelectedMode);
+            this.TodayCardModel = new TodayCardModel();
+
             this.CartesianChartModel = new CartesianChartModel(ConvertTimeFormat(this.SelectedDate), this.SelectedMode, this.selectedPerformance);
-            this.PieChartModel = new PieChartModel(ConvertTimeFormat(this.SelectedDate), this.SelectedMode);
+            this.PieChartModel = new PieChartModel(ConvertTimeFormat(this.SelectedDate), this.SelectedMode, this.SelectedPerformance);
         }
     }
 }

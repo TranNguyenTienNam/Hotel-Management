@@ -89,12 +89,20 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Core\DelegateCommand.cs" />
+    <Compile Include="MVVM\Model\AORCardModel.cs" />
+    <Compile Include="MVVM\Model\AORModel.cs" />
+    <Compile Include="MVVM\Model\BookingsCardModel.cs" />
+    <Compile Include="MVVM\Model\BookingsModel.cs" />
     <Compile Include="MVVM\Model\CartesianChartModel.cs" />
     <Compile Include="MVVM\Model\ChartDataModel.cs" />
+    <Compile Include="MVVM\Model\GuestsCardModel.cs" />
+    <Compile Include="MVVM\Model\GuestsModel.cs" />
     <Compile Include="MVVM\Model\PieChartModel.cs" />
+    <Compile Include="MVVM\Model\RevenueCardModel.cs" />
     <Compile Include="MVVM\Model\RevenueModel.cs" />
     <Compile Include="MVVM\Model\Process.cs" />
-    <Compile Include="MVVM\Model\AORModel.cs" />
+    <Compile Include="MVVM\Model\TodayCardModel.cs" />
+    <Compile Include="MVVM\Model\TodayModel.cs" />
     <Compile Include="MVVM\ViewModel\RoomsViewModel.cs" />
     <Compile Include="MVVM\View\RoomsView.xaml.cs">
       <DependentUpon>RoomsView.xaml</DependentUpon>

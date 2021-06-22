@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.MVVM.Model
 {
-    class RevenueModel
+    class RevenueModel 
     {
         public DataTable DailyRevenue(string TargetMonth)
         {
@@ -80,6 +80,60 @@ namespace HotelManagement.MVVM.Model
                 + "group by TenLoaiPhong order by sum(TongTien) asc";
             RevByRoomType = Process.createTable(sql_select);
             return RevByRoomType;
+        }
+        public int SelectedDateRevenue(string selectedDate)
+        {
+            int Revenue;
+            string sql_select =
+                "SELECT sum(TongTien) from HOADON join PHIEUTHUEPHONG on " +
+                "HOADON.MaPhieuThue = PHIEUTHUEPHONG.MaPhieuThue where NgayTraPhong = '" + selectedDate + "'";
+            Revenue = Process.getNumber(sql_select);
+            return Revenue;
+        }
+        public int SelectedMonthRevenue(string selectedMonth)
+        {
+            int Revenue;
+            string sql_select =
+                "SELECT sum(TongTien) from HOADON join PHIEUTHUEPHONG on HOADON.MaPhieuThue = PHIEUTHUEPHONG.MaPhieuThue "
+                + "where MONTH(NgayTraPhong) = MONTH('" + selectedMonth + "') and YEAR(NgayTraPhong) = YEAR('" + selectedMonth + "')";
+            Revenue = Process.getNumber(sql_select);
+            return Revenue;
+        }
+        public int SelectedYearRevenue(string selectedYear)
+        {
+            int Revenue;
+            string sql_select =
+                "SELECT sum(TongTien) from HOADON join PHIEUTHUEPHONG on HOADON.MaPhieuThue = PHIEUTHUEPHONG.MaPhieuThue "
+                + "where YEAR(NgayTraPhong) = YEAR('" + selectedYear + "')";
+            Revenue = Process.getNumber(sql_select);
+            return Revenue;
+        }
+        public int PreviousDateRevenue(string selectedDate)
+        {
+            int Revenue;
+            string sql_select =
+                "SELECT sum(TongTien) from HOADON join PHIEUTHUEPHONG on HOADON.MaPhieuThue = PHIEUTHUEPHONG.MaPhieuThue " +
+                "where NgayTraPhong = DATEADD(DAY,-1,'" + selectedDate + "')";
+            Revenue = Process.getNumber(sql_select);
+            return Revenue;
+        }
+        public int PreviousMonthRevenue(string selectedMonth)
+        {
+            int Revenue;
+            string sql_select =
+                "SELECT sum(TongTien) from HOADON join PHIEUTHUEPHONG on HOADON.MaPhieuThue = PHIEUTHUEPHONG.MaPhieuThue "
+                + "where MONTH(NgayTraPhong) = MONTH(DATEADD(MONTH,-1,'" + selectedMonth + "')) and YEAR(NgayTraPhong) = YEAR('" + selectedMonth + "')";
+            Revenue = Process.getNumber(sql_select);
+            return Revenue;
+        }
+        public int PreviousYearRevenue(string selectedYear)
+        {
+            int Revenue;
+            string sql_select =
+                "SELECT sum(TongTien) from HOADON join PHIEUTHUEPHONG on HOADON.MaPhieuThue = PHIEUTHUEPHONG.MaPhieuThue "
+                + "where YEAR(NgayTraPhong) = YEAR(DATEADD(YEAR,-1,'" + selectedYear + "'))";
+            Revenue = Process.getNumber(sql_select);
+            return Revenue;
         }
     }
 }

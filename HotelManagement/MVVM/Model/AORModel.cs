@@ -9,44 +9,72 @@ namespace HotelManagement.MVVM.Model
 {
     class AORModel
     {
-        public DataTable DailyAOR(string TargetMonth)
+        public int NumRooms()
         {
-            DataTable AOR;
+            int numRooms;
+            string sql_select = "SELECT COUNT(*) from PHONG";
+            numRooms = Process.getNumber(sql_select);
+            return numRooms;
+        }
+        public int SelectedDateAOR(string selectedDate)
+        {
+            int AOR;
             string sql_select =
-                "SELECT TOP 100 PERCENT DAY(NgayTraPhong) as N'Date', MONTH(NgayTraPhong) as N'Month', YEAR(NgayTraPhong) as N'Year', "
-                + "CAST(COUNT(PHONG.MaPhong) as float)/CAST((SELECT COUNT(*) from PHONG) as float)*100 as N'AOR' "
-                + "from PHONG inner join PHIEUTHUEPHONG on PHONG.MaPhong = PHIEUTHUEPHONG.MaPhong "
-                + "where MONTH(NgayTraPhong) = MONTH('" + TargetMonth + "') and YEAR(NgayTraPhong) = YEAR('" + TargetMonth + "') "
-                + "and PHIEUTHUEPHONG.TinhTrang <> 'booked' "
-                + "group by DAY(NgayTraPhong), MONTH(NgayTraPhong), YEAR(NgayTraPhong) "
-                + "order by DAY(NgayTraPhong), MONTH(NgayTraPhong), YEAR(NgayTraPhong) asc";
-            AOR = Process.createTable(sql_select);
+                "SELECT COUNT(PHONG.MaPhong) from PHONG inner join PHIEUTHUEPHONG on PHONG.MaPhong = PHIEUTHUEPHONG.MaPhong "
+                + "where NgayTraPhong >= '" + selectedDate + "' and NgayBatDau <= '" + selectedDate + "' and PHIEUTHUEPHONG.TinhTrang <> 'booked'";
+            AOR = Process.getNumber(sql_select);
             return AOR;
         }
-        public DataTable MonthlyAOR(string TargetYear)
+        public int SelectedMonthAOR(string selectedMonth)
         {
-            DataTable AOR;
+            int AOR;
             string sql_select =
-                "SELECT TOP 100 PERCENT MONTH(NgayTraPhong) as N'Month', YEAR(NgayTraPhong) as N'Year', "
-                + "CAST(COUNT(PHONG.MaPhong) as float)/CAST((SELECT COUNT(*) from PHONG) as float)*100 as N'AOR' "
-                + "from PHONG inner join PHIEUTHUEPHONG on PHONG.MaPhong = PHIEUTHUEPHONG.MaPhong "
-                + "where YEAR(NgayTraPhong) = YEAR('" + TargetYear + "') "
-                + "and PHIEUTHUEPHONG.TinhTrang <> 'booked' "
-                + "group by MONTH(NgayTraPhong), YEAR(NgayTraPhong) "
-                + "order by MONTH(NgayTraPhong), YEAR(NgayTraPhong) asc";
-            AOR = Process.createTable(sql_select);
+                "SELECT COUNT(PHONG.MaPhong) from PHONG inner join PHIEUTHUEPHONG on PHONG.MaPhong = PHIEUTHUEPHONG.MaPhong "
+                + "where (MONTH(NgayTraPhong) = MONTH('" + selectedMonth + "') and YEAR(NgayTraPhong) = YEAR('" + selectedMonth
+                + "')) or (MONTH(NgayBatDau) = MONTH('" + selectedMonth + "') and YEAR(NgayBatDau) = YEAR('" 
+                + selectedMonth + "')) and PHIEUTHUEPHONG.TinhTrang <> 'booked'";
+            AOR = Process.getNumber(sql_select);
             return AOR;
         }
-        public DataTable AnnualAOR()
+        public int SelectedYearAOR(string selectedYear)
         {
-            DataTable AOR;
+            int AOR;
             string sql_select =
-                "SELECT TOP 100 PERCENT YEAR(NgayTraPhong) as N'Year', "
-                + "CAST(COUNT(PHONG.MaPhong) as float)/CAST((SELECT COUNT(*) from PHONG) as float)*100 as N'AOR' "
-                + "from PHONG inner join PHIEUTHUEPHONG on PHONG.MaPhong = PHIEUTHUEPHONG.MaPhong "
-                + "where PHIEUTHUEPHONG.TinhTrang <> 'booked' "
-                + "group by YEAR(NgayTraPhong) order by YEAR(NgayTraPhong) asc";
-            AOR = Process.createTable(sql_select);
+                "SELECT COUNT(PHONG.MaPhong) from PHONG inner join PHIEUTHUEPHONG on PHONG.MaPhong = PHIEUTHUEPHONG.MaPhong "
+                + "where (YEAR(NgayTraPhong) = YEAR('" + selectedYear + "') or YEAR(NgayBatDau) = YEAR('"                
+                + selectedYear + "')) and PHIEUTHUEPHONG.TinhTrang <> 'booked'";
+            AOR = Process.getNumber(sql_select);
+            return AOR;
+        }
+        public int PreviousDateAOR(string selectedDate)
+        {
+            int AOR;
+            string sql_select =
+                "SELECT COUNT(PHONG.MaPhong) from PHONG inner join PHIEUTHUEPHONG on PHONG.MaPhong = PHIEUTHUEPHONG.MaPhong "
+                + "where NgayTraPhong >= DATEADD(DAY,-1,'" + selectedDate + "') and NgayBatDau <=  DATEADD(DAY,-1,'" 
+                + selectedDate + "') and PHIEUTHUEPHONG.TinhTrang <> 'booked'";
+            AOR = Process.getNumber(sql_select);
+            return AOR;
+        }
+        public int PreviousMonthAOR(string selectedMonth)
+        {
+            int AOR;
+            string sql_select =
+                "SELECT COUNT(PHONG.MaPhong) from PHONG inner join PHIEUTHUEPHONG on PHONG.MaPhong = PHIEUTHUEPHONG.MaPhong "
+                + "where (MONTH(NgayTraPhong) = MONTH(DATEADD(MONTH,-1,'" + selectedMonth + "')) and YEAR(NgayTraPhong) = YEAR('" + selectedMonth
+                + "')) or (MONTH(NgayBatDau) = MONTH(DATEADD(MONTH,-1,'" + selectedMonth + "')) and YEAR(NgayBatDau) = YEAR('"
+                + selectedMonth + "')) and PHIEUTHUEPHONG.TinhTrang <> 'booked'";
+            AOR = Process.getNumber(sql_select);
+            return AOR;
+        }
+        public int PreiousYearAOR(string selectedYear)
+        {
+            int AOR;
+            string sql_select =
+                "SELECT COUNT(PHONG.MaPhong) from PHONG inner join PHIEUTHUEPHONG on PHONG.MaPhong = PHIEUTHUEPHONG.MaPhong "
+                + "where (YEAR(NgayTraPhong) = YEAR(DATEADD(YEAR,-1,'" + selectedYear + "')) or YEAR(NgayBatDau) = YEAR(DATEADD(YEAR,-1,'"
+                + selectedYear + "'))) and PHIEUTHUEPHONG.TinhTrang <> 'booked'";
+            AOR = Process.getNumber(sql_select);
             return AOR;
         }
     }

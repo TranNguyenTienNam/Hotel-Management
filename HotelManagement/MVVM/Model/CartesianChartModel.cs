@@ -50,20 +50,20 @@ namespace HotelManagement.MVVM.Model
                             break;
                     }
                     break;
-                case "AOR":
-                    AORModel _AORModel = new AORModel();
+                case "Bookings":
+                    BookingsModel bookingsModel = new BookingsModel();
                     switch (selectedMode)
                     {
                         case "Daily":
-                            dataTable = _AORModel.DailyAOR(selectedDate);
+                            dataTable = bookingsModel.DailyBookings(selectedDate);
                             LoadData(dataTable, selectedMode, selectedPerformance);
                             break;
                         case "Monthly":
-                            dataTable = _AORModel.MonthlyAOR(selectedDate);
+                            dataTable = bookingsModel.MonthlyBookings(selectedDate);
                             LoadData(dataTable, selectedMode, selectedPerformance);
                             break;
                         case "Annual":
-                            dataTable = _AORModel.AnnualAOR();
+                            dataTable = bookingsModel.AnnualBookings();
                             LoadData(dataTable, selectedMode, selectedPerformance);
                             break;
                         default:
