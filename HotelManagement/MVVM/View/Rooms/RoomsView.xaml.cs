@@ -46,6 +46,5 @@ namespace HotelManagement.MVVM.View
 
         }
 
-
     }
 }

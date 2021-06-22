@@ -45,7 +45,7 @@
                                 </Style>
                             </TextBlock.Style>
                         </TextBlock>
-                        <TextBox Grid.Column="1" x:Name="tb_search_to_checkout" FontSize="14" VerticalAlignment="Center" BorderThickness="0" Margin="0,10,10,10" />
+                        <TextBox Grid.Column="1" x:Name="tb_search_to_checkout" FontSize="14" VerticalAlignment="Center" BorderThickness="0" Margin="0,0,0,0" />
                     </Grid>
                 </Border>
                 <Border Height="461" Margin="0,10,0,0" CornerRadius="12" Background="White">
@@ -102,7 +102,7 @@
                             BorderThickness="0"
                             Background="#F44336"
                             Foreground="White"
-                            ToolTip="" >
+                            ToolTip="" Click="btnEditSurcharge_Click" >
                             <Grid Width="auto">
                                 <TextBlock 
                                     FontSize="18"

@@ -10,25 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Windows.Markup;
 
-namespace HotelManagement.MVVM.View
+namespace HotelManagement.MVVM.View.CheckOutViews
 {
     /// <summary>
-    /// Interaction logic for CheckOutView.xaml
+    /// Interaction logic for Surcharge.xaml
     /// </summary>
-    public partial class CheckOutView : UserControl
+    public partial class Surcharge : Window
     {
-        public CheckOutView()
+        public Surcharge()
         {
             InitializeComponent();
         }
 
-        private void btnEditSurcharge_Click(object sender, RoutedEventArgs e)
+        private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-            
+            this.Close();
         }
     }
 }
