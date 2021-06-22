@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelManagement.MVVM.ViewModel
+namespace HotelManagement.MVVM.ViewModel.CheckOutViewModels
 {
-    class BookingsViewModel
+    class SurchargeViewModel
     {
-
     }
 }
