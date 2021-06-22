@@ -126,7 +126,7 @@
     <Compile Include="MVVM\ViewModel\Rooms\RoomListItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\RoomListViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\RoomsViewModel.cs" />
-    <Compile Include="MVVM\View\CheckOutView.xaml.cs">
+    <Compile Include="MVVM\View\CheckOutViews\CheckOutView.xaml.cs">
       <DependentUpon>CheckOutView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Rooms\EditRoomView.xaml.cs">
@@ -186,7 +186,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MVVM\View\CheckOutView.xaml">
+    <Page Include="MVVM\View\CheckOutViews\CheckOutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
