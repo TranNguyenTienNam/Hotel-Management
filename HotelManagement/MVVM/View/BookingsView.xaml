@@ -4,10 +4,163 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HotelManagement.MVVM.View"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:viewmodel="clr-namespace:HotelManagement.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:RoomListViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-             Background="Red">
-    <Grid>
+             d:DesignHeight="450" d:DesignWidth="800" Width="930" Height="615">
 
-    </Grid>
+    <StackPanel Background="White" Orientation="Horizontal">
+        <StackPanel Width="643">
+            <StackPanel  Width="620" Height="614">
+                <Grid Height="100">
+                    <Grid Margin="0,54,0,0">
+                        <Grid.Background>
+                            <ImageBrush ImageSource="/HotelManagement;component/Images/Background.PNG"/>
+                        </Grid.Background>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="57*"/>
+                            <ColumnDefinition Width="575*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="/Images/search.png" Width="25" Stretch="Uniform" Margin="12,0"/>
+                        <TextBlock Grid.Column="1" Margin="3,14,0,13" Text="Search retal..." FontWeight="Bold" VerticalAlignment="Center" Foreground="LightGray" Grid.ColumnSpan="2">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=searchRoom}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Setter Property="FontSize" Value="14"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <TextBox Grid.Column="1" Width="620" x:Name="searchRoom" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0" Grid.ColumnSpan="2" Margin="0,10,0,9"/>
+                    </Grid>
+                    <Label Content="List Retals:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Height="30" Width="264" FontWeight="Bold" FontSize="16"/>
+                </Grid>
+                <Grid Height="414">
+                    <ListView ItemsSource="{Binding Items}" HorizontalContentAlignment="Stretch" Margin="-11,0,-11,-116" VerticalContentAlignment="Stretch" FontSize="10" >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Rental ID" Width="Auto" DisplayMemberBinding="{Binding MaPhieuThue}" />
+                                <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding TenKH}"/>
+                                <GridViewColumn Header="Phone" Width="Auto" DisplayMemberBinding="{Binding SoDienThoai}"/>
+                                <GridViewColumn Header="Room" Width="Auto" DisplayMemberBinding="{Binding MaPhong}"/>
+                                <GridViewColumn Header="Check-in date" Width="Auto" DisplayMemberBinding="{Binding NgayLapPhieu}"/>
+                                <GridViewColumn Header="Deposit" Width="Auto" DisplayMemberBinding="{Binding TienCoc}"/>
+
+                            </GridView>
+                        </ListView.View>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="BorderBrush" Value="LightGray"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Margin" Value="1"/>
+                                <Setter Property="FontSize" Value="14" />
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+
+                    </ListView>
+                </Grid>
+            </StackPanel>
+        </StackPanel>
+        <Border BorderBrush="Black" BorderThickness="1" Width="280">
+            <Grid Margin="-1,-1,-9,-1">
+                <Grid.Background>
+                    <ImageBrush ImageSource="/HotelManagement;component/Images/Background.PNG"/>
+                </Grid.Background>
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="tb_client_name" IsReadOnly="False"
+                        materialDesign:HintAssist.Hint="Name:"  Foreground="Black"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Top" Margin="10,61,147,0" Height="36" Grid.Column="1" FontWeight="Bold" />
+
+                </Grid>
+                <TextBox x:Name="tb_address" IsReadOnly="False"
+                    materialDesign:HintAssist.Hint="Address:"  Foreground="Black"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    VerticalAlignment="Top" Margin="10,97,10,0" Height="38" FontWeight="Bold" />
+                <TextBox x:Name="tb_cmnd" IsReadOnly="False"
+                    materialDesign:HintAssist.Hint="Identity Card Number:"  Foreground="Black"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    VerticalAlignment="Top" Margin="7,147,13,0" Height="39" FontWeight="Bold" />
+                <TextBox x:Name="tb_phone"                      
+
+                    materialDesign:HintAssist.Hint="Phone Number:"  Foreground="Black"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    VerticalAlignment="Top" Margin="7,194,149,0" Height="36" FontWeight="Bold" />
+                <TextBox x:Name="tb_client_type" IsReadOnly="False"
+                    materialDesign:HintAssist.Hint="Nationality:"  Foreground="Black"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    VerticalAlignment="Top" Margin="170,195,13,0" Height="35" FontWeight="Bold"/>
+                <TextBox x:Name="tb_room_name" IsReadOnly="False"
+                    materialDesign:HintAssist.Hint="Room ID:"  Foreground="Black"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    VerticalAlignment="Top" Margin="8,354,173,0" Height="38" FontWeight="Bold" />
+                <TextBox x:Name="tb_room_type" IsReadOnly="False"
+                    materialDesign:HintAssist.Hint="Type Room:"  Foreground="Black"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    VerticalAlignment="Top" Margin="144,354,13,0" Height="38" FontWeight="Bold"/>
+                <TextBox x:Name="tb_unit_price" IsReadOnly="False"
+                    materialDesign:HintAssist.Hint="Price:"  Foreground="Black"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    VerticalAlignment="Top" Margin="8,406,172,0" Height="35" TextChanged="tb_unit_price_TextChanged" FontWeight="Bold" />
+                <DatePicker x:Name="datepicker_checkout" Margin="84,485,13,0" VerticalAlignment="Top" Height="34"/>
+                <Label Content="Check Out:" HorizontalAlignment="Left" Height="27" Margin="9,494,0,0" VerticalAlignment="Top" Width="76" FontWeight="Bold"/>
+                <Label Content="CLIENT INFORMATION:" HorizontalAlignment="Left" Height="31" Margin="5,18,0,0" VerticalAlignment="Top" Width="243" FontWeight="Bold" FontSize="20"/>
+                <Label Content="RENTAL INFORMATION:" HorizontalAlignment="Left" Height="33" Margin="0,260,0,0" VerticalAlignment="Top" Width="243" FontWeight="Bold" FontSize="20" RenderTransformOrigin="0.494,0.97"/>
+                <TextBox x:Name="tb_Deposits" IsReadOnly="False"
+                    materialDesign:HintAssist.Hint="Deposit:"  Foreground="Black"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    VerticalAlignment="Top" Margin="144,406,0,0" Height="35" HorizontalAlignment="Left" Width="131" FontWeight="Bold"/>
+                <Label Content="Check In:" HorizontalAlignment="Left" Height="27" Margin="10,458,0,0" VerticalAlignment="Top" Width="76" FontWeight="Bold"/>
+                <DatePicker x:Name="datepicker_checkin" Margin="84,448,13,0" VerticalAlignment="Top" Height="33" />
+                <ComboBox x:Name="cbbGender" Foreground="Black"
+                    materialDesign:TextFieldAssist.PrefixText="Gender: "
+                    SelectedValue="{Binding Type}"
+                    IsEditable="False" Margin="170,74,13,518" VerticalAlignment="Stretch" RenderTransformOrigin="0.534,0.087">
+                    <ComboBoxItem Content="Male"/>
+                    <ComboBoxItem Content="Female"/>
+                    <ComboBoxItem Content="Other"/>
+
+                </ComboBox>
+                <TextBox x:Name="tbCreationDate" IsReadOnly="False"
+                    materialDesign:HintAssist.Hint="Creation date:"  Foreground="#DA000000"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    VerticalAlignment="Top" Margin="7,311,174,0" Height="38" FontStyle="Italic" FontWeight="Bold" />
+                <TextBox x:Name="tbCreator" IsReadOnly="False"
+                    materialDesign:HintAssist.Hint="Creator:"  Foreground="#D8000000"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    VerticalAlignment="Top" Margin="144,312,13,0" Height="36" FontStyle="Italic" FontWeight="Bold"/>
+                <Button Height="Auto" Margin="26,533,36,48"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    materialDesign:ButtonAssist.CornerRadius="10"
+                    ToolTip="MaterialDesignRaisedButton with Round Corners" Background="#FFF7B363" BorderBrush="LightGray" Foreground="{x:Null}">
+                    <TextBlock
+                        Text="Check-out Now" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                </Button>
+                <Button Width="87" Height="Auto" HorizontalAlignment="Right" Margin="0,579,173,10"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    materialDesign:ButtonAssist.CornerRadius="10"
+                    ToolTip="MaterialDesignRaisedButton with Round Corners" BorderBrush="#FF4D4D4D" Foreground="{x:Null}" Background="#FF323232">
+                    <TextBlock
+                        Text="Edit" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DDFFFFFF"/>
+                </Button>
+                <Button Width="87" Height="Auto" HorizontalAlignment="Right" Margin="0,579,42,10"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    materialDesign:ButtonAssist.CornerRadius="10"
+                    ToolTip="MaterialDesignRaisedButton with Round Corners" BorderBrush="#FF4D4D4D" Foreground="{x:Null}" Background="#FFEE8080">
+                    <TextBlock
+                        Text="Delete" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DDFFFFFF"/>
+                </Button>
+
+            </Grid>
+        </Border>
+    </StackPanel>
 </UserControl>

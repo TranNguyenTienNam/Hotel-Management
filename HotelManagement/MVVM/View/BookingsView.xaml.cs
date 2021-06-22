@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HotelManagement.MVVM.ViewModel;
+
 
 namespace HotelManagement.MVVM.View
 {
@@ -23,6 +25,22 @@ namespace HotelManagement.MVVM.View
         public BookingsView()
         {
             InitializeComponent();
+            DataContext = new BookingListViewModel();
+        }
+
+        private void searchRoom_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void tb_unit_price_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

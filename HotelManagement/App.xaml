@@ -12,7 +12,6 @@
                 <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
                 <ResourceDictionary Source="Theme/TextboxTheme.xaml"/>
                 <ResourceDictionary Source="Theme/RoundedButtonTheme.xaml"/>
-                <ResourceDictionary Source="Theme/MenuModeTheme.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Red.xaml" />
@@ -23,7 +22,7 @@
                 <view:DashboardView/>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type viewModel:BookingsViewModel}">
+            <DataTemplate DataType="{x:Type viewModel:BookingViewModel}">
                 <view:BookingsView/>
             </DataTemplate>
 
