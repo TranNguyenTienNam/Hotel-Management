@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelManagement.MVVM.ViewModel
+namespace HotelManagement.Core
 {
-    class DashboardViewModel
+    public class Message
     {
-
+        public string message { get; set; }
     }
 }
