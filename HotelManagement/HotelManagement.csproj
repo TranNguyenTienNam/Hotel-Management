@@ -100,6 +100,7 @@
     <Compile Include="Core\DelegateCommand.cs" />
     <Compile Include="Core\EventSystem.cs" />
     <Compile Include="Core\Message.cs" />
+    <Compile Include="MVVM\Model\CheckOutModelcs.cs" />
     <Compile Include="MVVM\Model\DashboardModel\AORCardModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel\AORModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel\BookingsCardModel.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="MVVM\Model\Rooms\RoomsListModel.cs" />
     <Compile Include="MVVM\Model\Rooms\RoomsModel.cs" />
     <Compile Include="MVVM\Model\Rooms\TypesListModel.cs" />
+    <Compile Include="MVVM\ViewModel\CheckOutViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\EditRoomViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\ListTypeItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\ListTypeViewModel.cs" />
@@ -124,6 +126,9 @@
     <Compile Include="MVVM\ViewModel\Rooms\RoomListItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\RoomListViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\RoomsViewModel.cs" />
+    <Compile Include="MVVM\View\CheckOutView.xaml.cs">
+      <DependentUpon>CheckOutView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\Rooms\EditRoomView.xaml.cs">
       <DependentUpon>EditRoomView.xaml</DependentUpon>
     </Compile>
@@ -178,6 +183,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\BookingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\CheckOutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -315,6 +324,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\guest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\search.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets')" />
