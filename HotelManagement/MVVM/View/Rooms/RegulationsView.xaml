@@ -4,26 +4,24 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelManagement.MVVM.View" 
+        xmlns:viewModel="clr-namespace:HotelManagement.MVVM.ViewModel"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Height="450" Width="600"
+        Height="450" Width="620"
         WindowStyle="None"
         ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         MouseDown="Window_MouseDown">
-    <Border Background="#F44336" BorderThickness="1" BorderBrush="#F44336">
-        <Border.Clip>
-            <RectangleGeometry 
-            RadiusX="20"
-            RadiusY="20"
-            Rect="0,0,600,450"/>
-        </Border.Clip>
+    
+    <Border Background="#F44336" CornerRadius="20" BorderThickness="1" BorderBrush="#F44336">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="48"/>
                 <RowDefinition/>
+                <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
             <!--Header-->
             <Grid Grid.Row="0">
@@ -50,10 +48,10 @@
             </Grid>
             <Border Grid.Row="1" Background="Transparent" Visibility="{Binding Visibility}">
                 <Border Background="White" HorizontalAlignment="Stretch">
-                    <Grid>
+                    <Grid DataContext="{x:Static viewModel:RegulationsViewModel.Instance}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="86"/>
-                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <!--Textbox-->
@@ -68,14 +66,15 @@
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
                                 <TextBox Grid.Row="0" Name="tbTypeId" Foreground="#F44336"
-                                     materialDesign:HintAssist.Hint="ID:" FontSize="14" 
+                                     materialDesign:HintAssist.Hint="ID:" FontSize="14" Text="{Binding Id}"
+                                         IsReadOnly="True"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     VerticalAlignment="Bottom" Margin="12,0,4,0">
+                                     VerticalAlignment="Bottom" Margin="16,0,8,0">
                                 </TextBox>
                                 <TextBox Grid.Row="1" Name="tbPrice" Foreground="#F44336"
-                                     materialDesign:HintAssist.Hint="Price/Day:" FontSize="14" 
+                                     materialDesign:HintAssist.Hint="Price/Day:" FontSize="14"  Text="{Binding Price}"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     VerticalAlignment="Bottom" Margin="12,0,4,0">
+                                     VerticalAlignment="Bottom" Margin="16,0,8,0">
                                 </TextBox>
                             </Grid>
                             <Grid Grid.Column="1">
@@ -84,22 +83,28 @@
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
                                 <TextBox Grid.Row="0" Name="tbTypeName" Foreground="#F44336"
-                                     materialDesign:HintAssist.Hint="Name:" FontSize="14" 
+                                     materialDesign:HintAssist.Hint="Name:" FontSize="14" Text="{Binding TypeName}"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     VerticalAlignment="Bottom" Margin="4,0,12,0">
+                                     VerticalAlignment="Bottom" Margin="8,0,16,0">
                                 </TextBox>
                                 <TextBox Grid.Row="1" Name="tbMaxPeople" Foreground="#F44336"
-                                     materialDesign:HintAssist.Hint="Max People:" FontSize="14" 
+                                     materialDesign:HintAssist.Hint="Max People:" FontSize="14" Text="{Binding MaxPeople}"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     VerticalAlignment="Bottom" Margin="4,0,12,0">
+                                     VerticalAlignment="Bottom" Margin="8,0,16,0">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="PreviewTextInput">
+                                            <i:InvokeCommandAction Command="{Binding InputNumericCommand}"
+                                        CommandParameter="{Binding ElementName=tbMaxPeople}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                 </TextBox>
                             </Grid>
                         </Grid>
-                        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="4" HorizontalAlignment="Right">
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="4,12,4,4" HorizontalAlignment="Right">
                             <Button Width="80" Height="36" HorizontalAlignment="Center" Padding="0" Margin="4,0,4,0"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 materialDesign:ButtonAssist.CornerRadius="10"
-                                    Command="{Binding SaveEditCommand}"
+                                    Command="{Binding AddRoomTypeCommand}"
                                 ToolTip="Click to create new Regulation">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                     <materialDesign:PackIcon Kind="Plus" Height="24" Width="24"/>
@@ -108,19 +113,33 @@
                                         Text="Add" FontSize="18" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
+                            <ToggleButton Padding="0" Margin="12,0,12,0"
+                                Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                IsChecked="{Binding IsChecked}"
+                                ToolTip="Click to change status">
+                                <materialDesign:PackIcon
+                                    Kind="Plus" Height="20" Width="20"/>
+                                <materialDesign:ToggleButtonAssist.OnContent>
+                                    <materialDesign:PackIcon
+                                        Kind="Pencil" Height="20" Width="20"/>
+                                </materialDesign:ToggleButtonAssist.OnContent>
+                            </ToggleButton>
                             <Button Width="80" Height="36" HorizontalAlignment="Center" Padding="0" Margin="4,0,4,0"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 materialDesign:ButtonAssist.CornerRadius="10"
-                                    Command="{Binding SaveEditCommand}"
+                                    Command="{Binding EditRoomTypeCommand}"
                                 ToolTip="Click to create new Regulation">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <materialDesign:PackIcon Kind="Plus" Height="24" Width="24"/>
+                                    <materialDesign:PackIcon Kind="Pencil" Height="24" Width="24"/>
                                     <Grid Width="4"></Grid>
                                     <TextBlock
                                         Text="Edit" FontSize="18" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
                         </StackPanel>
+                        <Grid Grid.Row="2">
+                            <local:ListTypeView Height="240"/>
+                        </Grid>
                     </Grid>
                 </Border>
             </Border>

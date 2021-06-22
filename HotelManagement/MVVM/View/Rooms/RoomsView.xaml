@@ -153,7 +153,7 @@
                     </Grid>
                 </Border>
             </Border>
-            <!--main-->
+            <!--Listview control-->
             <local:RoomListView Grid.Row="3" Margin="4" Height="362"/>
         </Grid>
     </Grid>

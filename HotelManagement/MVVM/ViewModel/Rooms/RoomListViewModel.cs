@@ -20,7 +20,6 @@ namespace HotelManagement.MVVM.ViewModel
         public ObservableCollection<RoomListItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged("Items"); } }
 
         public ICommand RefreshListRoom { get; set; }
-        public ICommand MouseWheelCommand { get; set; }
 
         public RoomListViewModel()
         {

@@ -82,12 +82,22 @@
     <Compile Include="Core\EventSystem.cs" />
     <Compile Include="Core\Message.cs" />
     <Compile Include="MVVM\Model\Process.cs" />
-    <Compile Include="MVVM\Model\RoomsListModel.cs" />
-    <Compile Include="MVVM\Model\RoomsModel.cs" />
+    <Compile Include="MVVM\Model\Rooms\RoomsListModel.cs" />
+    <Compile Include="MVVM\Model\Rooms\RoomsModel.cs" />
+    <Compile Include="MVVM\Model\Rooms\TypesListModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\EditRoomViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Rooms\ListTypeItemViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Rooms\ListTypeViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Rooms\RegulationsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\RoomListItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\RoomListViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\RoomsViewModel.cs" />
+    <Compile Include="MVVM\View\Rooms\ListTypeItemView.xaml.cs">
+      <DependentUpon>ListTypeItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Rooms\ListTypeView.xaml.cs">
+      <DependentUpon>ListTypeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\Rooms\RoomListItemView.xaml.cs">
       <DependentUpon>RoomListItemView.xaml</DependentUpon>
     </Compile>
@@ -140,6 +150,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\DashboardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Rooms\ListTypeItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Rooms\ListTypeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
