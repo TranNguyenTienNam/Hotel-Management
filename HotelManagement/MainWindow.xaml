@@ -169,11 +169,9 @@
                 </Border>
 
                 <Border Grid.Column="1"
-                        Background="#D4D4D4"
                         CornerRadius="0,0,20,0">
                     <Grid>
-                        <ContentControl Grid.Column="1"
-                                Margin="10"
+                        <ContentControl
                                 Content="{Binding CurrentView}"/>
                     </Grid>
                 </Border>
