@@ -49,6 +49,12 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=4.1.0.2556, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.4.1.0\lib\net452\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism, Version=8.1.97.5141, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.8.1.97\lib\net47\Prism.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.ConfigurationManager, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -70,6 +76,9 @@
     </Reference>
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -89,6 +98,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Core\DelegateCommand.cs" />
+    <Compile Include="Core\EventSystem.cs" />
+    <Compile Include="Core\Message.cs" />
     <Compile Include="MVVM\Model\DashboardModel\AORCardModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel\AORModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel\BookingsCardModel.cs" />
@@ -103,8 +114,35 @@
     <Compile Include="MVVM\Model\Process.cs" />
     <Compile Include="MVVM\Model\DashboardModel\TodayCardModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel\TodayModel.cs" />
-    <Compile Include="MVVM\ViewModel\RoomsViewModel.cs" />
-    <Compile Include="MVVM\View\RoomsView.xaml.cs">
+    <Compile Include="MVVM\Model\Rooms\RoomsListModel.cs" />
+    <Compile Include="MVVM\Model\Rooms\RoomsModel.cs" />
+    <Compile Include="MVVM\Model\Rooms\TypesListModel.cs" />
+    <Compile Include="MVVM\ViewModel\Rooms\EditRoomViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Rooms\ListTypeItemViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Rooms\ListTypeViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Rooms\RegulationsViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Rooms\RoomListItemViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Rooms\RoomListViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Rooms\RoomsViewModel.cs" />
+    <Compile Include="MVVM\View\Rooms\EditRoomView.xaml.cs">
+      <DependentUpon>EditRoomView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Rooms\ListTypeItemView.xaml.cs">
+      <DependentUpon>ListTypeItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Rooms\ListTypeView.xaml.cs">
+      <DependentUpon>ListTypeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Rooms\RegulationsView.xaml.cs">
+      <DependentUpon>RegulationsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Rooms\RoomListItemView.xaml.cs">
+      <DependentUpon>RoomListItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Rooms\RoomListView.xaml.cs">
+      <DependentUpon>RoomListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Rooms\RoomsView.xaml.cs">
       <DependentUpon>RoomsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Object\client.cs" />
@@ -147,13 +185,41 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MVVM\View\RoomsView.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="MVVM\View\Rooms\EditRoomView.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MVVM\View\Rooms\ListTypeItemView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MVVM\View\Rooms\ListTypeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MVVM\View\Rooms\RegulationsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MVVM\View\Rooms\RoomListItemView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MVVM\View\Rooms\RoomListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MVVM\View\Rooms\RoomsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="RegisterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Theme\MenuButtonTheme.xaml">
       <SubType>Designer</SubType>
