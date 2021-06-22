@@ -9,10 +9,6 @@ using HotelManagement.Core;
 using System.Data;
 using HotelManagement.MVVM.Model;
 
-
-
-
-
 namespace HotelManagement.MVVM.ViewModel
 {
     public class BookingViewModel
@@ -29,7 +25,7 @@ namespace HotelManagement.MVVM.ViewModel
         {
             Items = new List<RoomListItemViewModel>();
 
-            RoomListModel model = new RoomListModel();
+            RoomsListModel model = new RoomsListModel();
             DataTable data = new DataTable();
             data = model.Load_On();
 
@@ -40,7 +36,7 @@ namespace HotelManagement.MVVM.ViewModel
                     MaPhong = (int)row["MaPhong"],
                     TenPhong = (string)row["TenPhong"],
                     LoaiPhong = (string)row["TenLoaiPhong"],
-                    DonGia = (decimal)row["DonGia"],
+                    DonGia = (int)row["DonGia"],
                     SoNgToiDa = (int)row["SoNgToiDa"],
                     GhiChu = (row["GhiChu"] != null) ? string.Empty : (string)row["GhiChu"]
                 };
