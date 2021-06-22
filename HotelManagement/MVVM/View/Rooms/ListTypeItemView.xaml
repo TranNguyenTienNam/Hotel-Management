@@ -1,13 +1,12 @@
-﻿<UserControl x:Class="HotelManagement.MVVM.View.RoomListItemView"
+﻿<UserControl x:Class="HotelManagement.MVVM.View.ListTypeItemView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:HotelManagement"
+             xmlns:local="clr-namespace:HotelManagement.MVVM.View"
              xmlns:olocal="clr-namespace:HotelManagement.MVVM.ViewModel"
-             mc:Ignorable="d"
-             FontFamily="{DynamicResource MaterialDesignFont}">
+             mc:Ignorable="d">
     <UserControl.Resources>
         <Style x:Key="ContentStyle" TargetType="{x:Type ContentControl}">
             <Setter Property="Template">
@@ -19,45 +18,28 @@
                                 <Button.Content>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="60"/>
-                                            <!--room id-->
-                                            <ColumnDefinition Width="135"/>
-                                            <!--room name-->
-                                            <ColumnDefinition Width="170"/>
-                                            <!--room type-->
-                                            <ColumnDefinition Width="120"/>
+                                            <!--type id-->
+                                            <ColumnDefinition Width="50"/>
+                                            <!--type name-->
+                                            <ColumnDefinition Width="156"/>
                                             <!--unit price-->
                                             <ColumnDefinition Width="120"/>
                                             <!--maximum-->
+                                            <ColumnDefinition Width="120"/>
+                                            <!--refresh button-->
                                             <ColumnDefinition Width="150"/>
-                                            <!--notes-->
-                                            <ColumnDefinition Width="86"/>
-                                            <!--notes-->
                                             <ColumnDefinition Width="8"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Margin="2,0,0,0" Text="{Binding MaPhong}" 
+                                        <TextBlock Grid.Column="0" Margin="2,0,0,0" Text="{Binding Id}" 
                                                    VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Left" Foreground="#FE8704"/>
-                                        <TextBlock Grid.Column="1" Margin="5,0,0,0" Text="{Binding TenPhong}" 
+                                        <TextBlock Grid.Column="1" Margin="5,0,0,0" Text="{Binding TypeName}" 
                                                    VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Center" Foreground="#FE8704"/>
-                                        <TextBlock Grid.Column="2" Margin="5,0,0,0" Text="{Binding LoaiPhong}" 
+                                        <TextBlock Grid.Column="2" Margin="5,0,0,0" Text="{Binding Price}" 
                                                    VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Center" Foreground="#FE8704"/>
-                                        <TextBlock Grid.Column="3" Margin="5,0,0,0" Text="{Binding DonGia}" 
+                                        <TextBlock Grid.Column="3" Margin="5,0,0,0" Text="{Binding MaxPeople}" 
                                                    VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Center" Foreground="#FE8704"/>
-                                        <TextBlock Grid.Column="4" Margin="5,0,0,0" Text="{Binding SoNgToiDa}" 
-                                                   VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Center" Foreground="#FE8704"/>
-                                        <TextBlock Grid.Column="5" Margin="5,0,0,0" Text="{Binding GhiChu}" 
-                                                   VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Center" Foreground="#FE8704"/>
-                                        <Grid Grid.Column="6">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition/>
-                                                <ColumnDefinition/>
-                                            </Grid.ColumnDefinitions>
-                                            <Button Grid.Column="0" Background="#F44336" Padding="0"
-                                                Width="30" Height="30" Command="{Binding EditRoomCommand}"
-                                                ToolTip="Click to edit room">
-                                                <materialDesign:PackIcon Kind="Pencil" Height="20" Width="20"/>
-                                            </Button>
-                                            <Button Grid.Column="1" Background="#F44336" Padding="0"
+                                        <Grid Grid.Column="4">
+                                            <Button Background="#F44336" Padding="0"
                                                 Width="30" Height="30" Command="{Binding RemoveRoomCommand}"
                                                 ToolTip="Click to edit room">
                                                 <materialDesign:PackIcon Kind="Close" Height="24" Width="24"/>
@@ -93,5 +75,5 @@
         </Style>
     </UserControl.Resources>
 
-    <ContentControl d:DataContext="{x:Static olocal:RoomListItemViewModel.Instance}" Style="{StaticResource ContentStyle}"/>
+    <ContentControl d:DataContext="{x:Static olocal:ListTypeItemViewModel.Instance}" Style="{StaticResource ContentStyle}"/>
 </UserControl>

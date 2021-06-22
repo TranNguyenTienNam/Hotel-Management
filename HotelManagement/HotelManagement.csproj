@@ -52,6 +52,9 @@
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
+    <Reference Include="Prism, Version=8.1.97.5141, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.8.1.97\lib\net47\Prism.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -76,13 +79,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Core\EventSystem.cs" />
+    <Compile Include="Core\Message.cs" />
     <Compile Include="MVVM\Model\Process.cs" />
-    <Compile Include="MVVM\Model\RoomsListModel.cs" />
-    <Compile Include="MVVM\Model\RoomsModel.cs" />
+    <Compile Include="MVVM\Model\Rooms\RoomsListModel.cs" />
+    <Compile Include="MVVM\Model\Rooms\RoomsModel.cs" />
+    <Compile Include="MVVM\Model\Rooms\TypesListModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\EditRoomViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Rooms\ListTypeItemViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Rooms\ListTypeViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Rooms\RegulationsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\RoomListItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\RoomListViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\RoomsViewModel.cs" />
+    <Compile Include="MVVM\View\Rooms\ListTypeItemView.xaml.cs">
+      <DependentUpon>ListTypeItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Rooms\ListTypeView.xaml.cs">
+      <DependentUpon>ListTypeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Rooms\RegulationsView.xaml.cs">
+      <DependentUpon>RegulationsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\Rooms\RoomListItemView.xaml.cs">
       <DependentUpon>RoomListItemView.xaml</DependentUpon>
     </Compile>
@@ -134,6 +152,18 @@
     <Page Include="MVVM\View\DashboardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Rooms\ListTypeItemView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MVVM\View\Rooms\ListTypeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MVVM\View\Rooms\RegulationsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MVVM\View\Rooms\RoomListItemView.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -40,6 +40,7 @@ namespace HotelManagement.MVVM.ViewModel
         public bool IsSelected { get; set; }
 
         public ICommand EditRoomCommand { get; set; }
+        public ICommand RemoveRoomCommand { get; set; }
 
         public RoomListItemViewModel()
         {
@@ -50,8 +51,24 @@ namespace HotelManagement.MVVM.ViewModel
             {
                 //check room còn trống hay không?
                 
-                EditRoomView wd = new EditRoomView(MaPhong);
+                EditRoomView wd = new EditRoomView(MaPhong, TenPhong, LoaiPhong, DonGia, SoNgToiDa, GhiChu);
                 wd.ShowDialog();
+            });
+
+            RemoveRoomCommand = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                //check room còn trống hay không?
+
+                RoomsListModel model = new RoomsListModel();
+                if (model.RemoveRoom(MaPhong))
+                {
+                    EventSystem.Publish<Message>(new Message { message = MaPhong.ToString() });
+                    MessageBox.Show("Room has been Removed");
+                }    
+                
             });
         }
 

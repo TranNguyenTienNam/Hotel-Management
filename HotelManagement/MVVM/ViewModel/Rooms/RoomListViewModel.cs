@@ -9,7 +9,7 @@ using HotelManagement.Core;
 using System.Data;
 using HotelManagement.MVVM.Model;
 using System.Windows.Input;
-using System.Windows;
+using System.Windows.Controls;
 
 namespace HotelManagement.MVVM.ViewModel
 {
@@ -17,31 +17,41 @@ namespace HotelManagement.MVVM.ViewModel
     {
         public static RoomListViewModel Instance => new RoomListViewModel();
         private ObservableCollection<RoomListItemViewModel> _items;
-        public ObservableCollection<RoomListItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged(); } }
+        public ObservableCollection<RoomListItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged("Items"); } }
 
-        public ICommand refreshListRoom { get; set; }
+        public ICommand RefreshListRoom { get; set; }
 
         public RoomListViewModel()
         {
+            Items = new ObservableCollection<RoomListItemViewModel>();
             loadListRoom();
 
-            refreshListRoom = new RelayCommand<object>((p) =>
+            RefreshListRoom = new RelayCommand<object>((p) =>
             {
                 return true;
             }, (p) =>
             {
                 loadListRoom();
             });
+
+            EventSystem.Subscribe<Message>(getMessages);
+        }
+
+        public void getMessages(Message message)
+        {
+            if (message.message == "refresh")
+                loadListRoom();
+            else
+                Items.Remove(Items.Where(X => X.MaPhong == Convert.ToInt32(message.message)).Single());
         }
 
         public void loadListRoom()
         {
-            Items = new ObservableCollection<RoomListItemViewModel>();
-
+            if (Items.Count > 0)
+                Items.Clear();
             RoomsListModel model = new RoomsListModel();
             DataTable data = new DataTable();
             data = model.Load_On();
-
             foreach (DataRow row in data.Rows)
             {
                 var obj = new RoomListItemViewModel()
@@ -54,6 +64,20 @@ namespace HotelManagement.MVVM.ViewModel
                     GhiChu = (row["GhiChu"] == DBNull.Value) ? "" : (string)row["GhiChu"]
                 };
                 Items.Add(obj);
+            }
+        }
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            switch (propertyName)
+            {
+                case "Items":
+                    {
+                        loadListRoom();
+                    }
+                    break;
+                default:
+                    break;
             }
         }
     } 

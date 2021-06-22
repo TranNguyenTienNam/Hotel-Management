@@ -66,7 +66,7 @@
                                 <ColumnDefinition Width="80"/>
                             </Grid.ColumnDefinitions>
                             <!--Room ID + Room Type-->
-                            <Grid Grid.Column="0" Margin="8,4,4,4">
+                            <Grid Grid.Column="0" Margin="12,8,8,8">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
@@ -85,7 +85,7 @@
                                 </Grid>
                             </Grid>
                             <!--Room Name + Price/Day-->
-                            <Grid Grid.Column="1" Margin="4">
+                            <Grid Grid.Column="1" Margin="8">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
@@ -99,7 +99,7 @@
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                             </Grid>
                             <!--Notes + Max People-->
-                            <Grid Grid.Column="2" Margin="4">
+                            <Grid Grid.Column="2" Margin="8">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
@@ -153,8 +153,8 @@
                     </Grid>
                 </Border>
             </Border>
-            <!--main-->
-            <local:RoomListView Grid.Row="3" Margin="4" Height="370"/>
+            <!--Listview control-->
+            <local:RoomListView Grid.Row="3" Margin="4" Height="362"/>
         </Grid>
     </Grid>
 </UserControl>
