@@ -28,9 +28,9 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <!--title-->
-                <Border Grid.Column="0" Background="White" CornerRadius="12" HorizontalAlignment="Left" Margin="8,4,4,0">
+                <Border Grid.Column="0" Background="White" CornerRadius="12" HorizontalAlignment="Left" Margin="4,4,4,0">
                     <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" 
-                               Text="  List Room:  " Margin="8" FontSize="20" FontWeight="Bold" Foreground="#F44336"/>
+                               Text="  List Room:  " Margin="4" FontSize="20" FontWeight="Bold" Foreground="#F44336"/>
                 </Border>
                 <!--button-->
                 <Grid Grid.Column="1">
@@ -135,8 +135,8 @@
                             <ColumnDefinition Width="50"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="/Images/search.png" Width="25" Stretch="Uniform"></Image>
-                        <TextBlock Grid.Column="1" Margin="3.4,4,-0.4,4" Text="Search room..." FontWeight="Bold" VerticalAlignment="Center" Foreground="LightGray">
+                        <materialDesign:PackIcon Kind="Magnify" Height="40" Width="40" Foreground="#FE8704" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="1" Margin="3.4,4,-0.4,4" Text="Search room..." FontWeight="Bold" VerticalAlignment="Center" Foreground="#FEC782">
                             <TextBlock.Style>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Visibility" Value="Collapsed"/>
@@ -149,7 +149,7 @@
                                 </Style>
                             </TextBlock.Style>
                         </TextBlock>
-                        <TextBox Grid.Column="1" Width="800" x:Name="searchRoom" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0"></TextBox>
+                        <TextBox Grid.Column="1" Width="800" x:Name="searchRoom" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0" Foreground="#F44336"></TextBox>
                     </Grid>
                 </Border>
             </Border>
