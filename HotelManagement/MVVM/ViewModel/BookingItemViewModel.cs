@@ -20,6 +20,9 @@ namespace HotelManagement.MVVM.ViewModel
         public string TinhTrang { get; set; }
         public int NguoiLapPhieu { get; set; }
         public decimal TienCoc { get; set; }
+        public string TenKH { get; set; }
+        public string SoDienThoai { get; set; }
+        public DateTime NgayLapPhieu { get; set; }
 
 
 

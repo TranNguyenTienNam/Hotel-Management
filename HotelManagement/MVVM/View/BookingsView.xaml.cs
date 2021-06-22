@@ -25,6 +25,7 @@ namespace HotelManagement.MVVM.View
         public BookingsView()
         {
             InitializeComponent();
+            DataContext = new BookingListViewModel();
         }
 
         private void searchRoom_TextChanged(object sender, TextChangedEventArgs e)
