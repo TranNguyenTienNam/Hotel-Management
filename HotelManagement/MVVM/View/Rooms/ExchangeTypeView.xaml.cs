@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,18 +15,13 @@ using System.Windows.Shapes;
 namespace HotelManagement.MVVM.View
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for ExchangeTypeView.xaml
     /// </summary>
-    public partial class RegulationsView : Window
+    public partial class ExchangeTypeView : Window
     {
-        public RegulationsView()
+        public ExchangeTypeView()
         {
             InitializeComponent();
-        }
-
-        private void btnExit_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -38,10 +32,9 @@ namespace HotelManagement.MVVM.View
             }
         }
 
-        private void tb_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
+            this.Close();
         }
     }
 }

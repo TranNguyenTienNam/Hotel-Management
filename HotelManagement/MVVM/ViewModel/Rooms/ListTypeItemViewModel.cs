@@ -20,8 +20,8 @@ namespace HotelManagement.MVVM.ViewModel
         private string _typeName;
         public string TypeName { get { return _typeName; } set { _typeName = value; OnPropertyChanged(); } }
 
-        private decimal _price;
-        public decimal Price { get { return _price; } set { _price = value; OnPropertyChanged(); } }
+        private int _price;
+        public int Price { get { return _price; } set { _price = value; OnPropertyChanged(); } }
 
         private int _maxPeople;
         public int MaxPeople { get { return _maxPeople; } set { _maxPeople = value; OnPropertyChanged(); } }
@@ -30,7 +30,7 @@ namespace HotelManagement.MVVM.ViewModel
 
         public ListTypeItemViewModel()
         {
-            TypesListModel model = new TypesListModel();
+            RegulationsModel model = new RegulationsModel();
             RemoveRoomCommand = new RelayCommand<object>((p) =>
             {
                 if (model.CheckTypeIdExistInRoom(Id))
