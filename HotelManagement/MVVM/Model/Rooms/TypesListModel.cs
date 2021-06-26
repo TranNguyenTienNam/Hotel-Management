@@ -38,5 +38,13 @@ namespace HotelManagement.MVVM.Model
                 return true;
             return false;
         }
+
+        public bool Insert_Type(string TenLoaiPhong, ulong DonGia, uint SoNgToiDa)
+        {
+            string sql_insert = "";
+
+
+            return true;
+        }
     }
 }
