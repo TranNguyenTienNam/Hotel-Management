@@ -14,7 +14,7 @@ namespace HotelManagement.MVVM.ViewModel
 
         public DashboardViewModel DashboardVM { get; set; }
 
-        public BookingsViewModel BookingsVM { get; set; }
+        public BookingViewModel BookingsVM { get; set; }
 
         public RoomsViewModel RoomsVM { get; set; }
 
@@ -32,7 +32,7 @@ namespace HotelManagement.MVVM.ViewModel
         public MainViewModel()
         {
             DashboardVM = new DashboardViewModel();
-            BookingsVM = new BookingsViewModel();
+            BookingsVM = new BookingViewModel();
             RoomsVM = new RoomsViewModel();
             
             CurrentView = DashboardVM;

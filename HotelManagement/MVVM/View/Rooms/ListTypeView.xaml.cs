@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HotelManagement.Object;
 
 namespace HotelManagement.MVVM.View
 {
@@ -23,6 +24,31 @@ namespace HotelManagement.MVVM.View
         public ListTypeView()
         {
             InitializeComponent();
+        }
+
+        private void roomListItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("clicked");
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnRemove_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RoomListItemView_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
