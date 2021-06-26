@@ -17,11 +17,11 @@ namespace HotelManagement.MVVM.ViewModel
         private string _typeName;
         public string TypeName { get { return _typeName; } set { _typeName = value; OnPropertyChanged(); } }
 
-        private uint _price;
-        public uint Price { get { return _price; } set { _price = value; OnPropertyChanged(); } }
+        private ulong _price;
+        public ulong Price { get { return _price; } set { _price = value; OnPropertyChanged(); } }
 
-        private ulong _maxPeople;
-        public ulong MaxPeople { get { return _maxPeople; } set { _maxPeople = value; OnPropertyChanged(); } }
+        private uint _maxPeople;
+        public uint MaxPeople { get { return _maxPeople; } set { _maxPeople = value; OnPropertyChanged(); } }
 
         public ICommand AddRoomTypeCommand { get; set; }
 
@@ -35,7 +35,11 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                MessageBox.Show(TypeName + Price.ToString() + MaxPeople.ToString());
+                RegulationsModel model = new RegulationsModel();
+                if (model.Insert_Type(TypeName, Price, MaxPeople))
+                {
+                    MessageBox.Show("Type of Room has been added!");
+                }
             });
         }
     }

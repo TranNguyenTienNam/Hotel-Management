@@ -41,7 +41,7 @@
                                         <Grid Grid.Column="4">
                                             <Button Background="#F44336" Padding="0"
                                                 Width="30" Height="30" Command="{Binding RemoveRoomCommand}"
-                                                ToolTip="Click to edit room">
+                                                ToolTip="Click to remove this type">
                                                 <materialDesign:PackIcon Kind="Close" Height="24" Width="24"/>
                                             </Button>
                                         </Grid>

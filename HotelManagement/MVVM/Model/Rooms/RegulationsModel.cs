@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.MVVM.Model
 {
-    class TypesListModel
+    class RegulationsModel
     {
         public DataTable Load_On()   //Đầu vào cần 1 mã Ukey 
         {
@@ -41,10 +41,12 @@ namespace HotelManagement.MVVM.Model
 
         public bool Insert_Type(string TenLoaiPhong, ulong DonGia, uint SoNgToiDa)
         {
-            string sql_insert = "";
+            string sql_insert = "insert LOAIPHONG(TenLoaiPhong, DonGia, SoNgToiDa) values " + 
+                "(N'" + TenLoaiPhong + "'," + DonGia + "," + SoNgToiDa + ")";
 
-
-            return true;
+            if (Process.ExecutiveNonQuery(sql_insert) > 0)
+                return true;
+            return false;
         }
     }
 }

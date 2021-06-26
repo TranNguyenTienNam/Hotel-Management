@@ -34,11 +34,19 @@
                 </Border>
                 <!--button-->
                 <Grid Grid.Column="1">
+                    <Button Width="110" Height="38" HorizontalAlignment="Center" Margin="0,4,8,0"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                            Command="{Binding ConvertTypeCommand}"
+                        materialDesign:ButtonAssist.CornerRadius="10"
+                        ToolTip="Convert type">
+                        <TextBlock
+                            Text="Exchange" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Button>
                     <Button Width="126" Height="38" HorizontalAlignment="Right" Margin="0,4,8,0"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                             Command="{Binding RegulationsCommand}"
                         materialDesign:ButtonAssist.CornerRadius="10"
-                        ToolTip="MaterialDesignRaisedButton with Round Corners">
+                        ToolTip="Regulations">
                         <TextBlock
                             Text="Regulations" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Button>

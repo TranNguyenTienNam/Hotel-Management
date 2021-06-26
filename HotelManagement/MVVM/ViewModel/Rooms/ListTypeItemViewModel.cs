@@ -30,7 +30,7 @@ namespace HotelManagement.MVVM.ViewModel
 
         public ListTypeItemViewModel()
         {
-            TypesListModel model = new TypesListModel();
+            RegulationsModel model = new RegulationsModel();
             RemoveRoomCommand = new RelayCommand<object>((p) =>
             {
                 if (model.CheckTypeIdExistInRoom(Id))

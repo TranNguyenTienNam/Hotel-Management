@@ -49,6 +49,7 @@ namespace HotelManagement.MVVM.ViewModel
 
         public ICommand AddRoomCommand { get; set; }
         public ICommand RegulationsCommand { get; set; }
+        public ICommand ConvertTypeCommand { get; set; }
 
         public RoomsViewModel()
         {
@@ -84,10 +85,21 @@ namespace HotelManagement.MVVM.ViewModel
 
             RegulationsCommand = new RelayCommand<object>((p) =>
             {
+                //Phan quyen
                 return true;
             }, (p) =>
             {
                 RegulationsView wd = new RegulationsView();
+                wd.ShowDialog();
+            });
+
+            ConvertTypeCommand = new RelayCommand<object>((p) =>
+            {
+                //Phan quyen
+                return true;
+            }, (p) =>
+            {
+                ExchangeTypeView wd = new ExchangeTypeView();
                 wd.ShowDialog();
             });
         }

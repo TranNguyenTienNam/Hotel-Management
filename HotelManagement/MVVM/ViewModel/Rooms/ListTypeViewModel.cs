@@ -37,7 +37,7 @@ namespace HotelManagement.MVVM.ViewModel
         {
             if (Items.Count > 0)
                 Items.Clear();
-            TypesListModel model = new TypesListModel();
+            RegulationsModel model = new RegulationsModel();
             DataTable data = new DataTable();
             data = model.Load_On();
             foreach (DataRow row in data.Rows)
