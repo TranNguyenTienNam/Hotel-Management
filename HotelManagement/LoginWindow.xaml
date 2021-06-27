@@ -4,12 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewModel="clr-namespace:HotelManagement.MVVM.ViewModel"
         xmlns:local="clr-namespace:HotelManagement"
         mc:Ignorable="d"
         Height="450" Width="800"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize">
+    <Window.DataContext>
+        <viewModel:LoginViewModel/>
+    </Window.DataContext>
     <Grid MouseDown="Border_MouseDown">
         <Grid.Background>
             <LinearGradientBrush
@@ -60,6 +64,7 @@
 
                         <TextBox
                             x:Name="txtUserName"
+                            Text="{Binding Username}"
                             Margin="10,0,0,0"
                             materialDesign:HintAssist.Hint="Enter Username / Email"
                             Foreground="White"
