@@ -4,19 +4,17 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using HotelManagement.Core;
 using System.Data;
 using HotelManagement.MVVM.Model;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Threading;
-using HotelManagement.MVVM.View;
 
 namespace HotelManagement.MVVM.ViewModel
 {
     class RoomsViewModel : ObservableObject
     {
-        public static RoomsViewModel Instance => new RoomsViewModel();
         private ObservableCollection<roomtype> _roomTypes;
         public ObservableCollection<roomtype> roomTypes { get { return _roomTypes; } set { _roomTypes = value; OnPropertyChanged(); } }
 
@@ -28,7 +26,7 @@ namespace HotelManagement.MVVM.ViewModel
         private string _rname;
         public string RName { get { return _rname; } set { _rname = value; OnPropertyChanged("RName"); } }
 
-        //Textbox Notes
+
         private string _notes;
         public string Notes { get { return _notes; } set { _notes = value; OnPropertyChanged(); } }
 
@@ -47,15 +45,14 @@ namespace HotelManagement.MVVM.ViewModel
         private bool _isEnabled;
         public bool IsEnabled { get { return _isEnabled; } set { _isEnabled = value; OnPropertyChanged(); } }
 
-        public ICommand AddRoomCommand { get; set; }
-        public ICommand RegulationsCommand { get; set; }
+        public ICommand AddRoom { get; set; }
 
         public RoomsViewModel()
         {
             LoadRoomTypes();
             LoadTypes();
 
-            AddRoomCommand = new RelayCommand<object>((o) =>
+            AddRoom = new RelayCommand<object>((o) =>
             {
                 if (string.IsNullOrEmpty(RName) || string.IsNullOrEmpty(Type)
                     || string.IsNullOrEmpty(Price) || (string.IsNullOrEmpty(MaxPeople)))
@@ -64,56 +61,9 @@ namespace HotelManagement.MVVM.ViewModel
                     return true;
             }, (p) =>
             {
-                RoomsModel model = new RoomsModel();
-                int roomTypeID = -1;
-                foreach (roomtype rt in roomTypes)
-                {
-                    if (rt.TenLoaiPhong == Type)
-                    {
-                        roomTypeID = rt.MaLoaiPhong;
-                        break;
-                    }
-                }
-                if (model.Insert_Room(RName, roomTypeID, Notes))
-                {
-                    //send message
-                    EventSystem.Publish<Message>(new Message { message = "refresh" });
-                    MessageBox.Show("Room has been added!");
-                }
+                room rm = new room();
+                MessageBox.Show(RName + Type + Price + MaxPeople + Notes);
             });
-
-            RegulationsCommand = new RelayCommand<object>((p) =>
-            {
-                return true;
-            }, (p) =>
-            {
-                RegulationsView wd = new RegulationsView();
-                wd.ShowDialog();
-            });
-        }
-
-        public ObservableCollection<RoomListItemViewModel> loadListRoom()
-        {
-            ObservableCollection<RoomListItemViewModel> Items = new ObservableCollection<RoomListItemViewModel>();
-
-            RoomsListModel model = new RoomsListModel();
-            DataTable data = new DataTable();
-            data = model.Load_On();
-
-            foreach (DataRow row in data.Rows)
-            {
-                var obj = new RoomListItemViewModel()
-                {
-                    MaPhong = (int)row["MaPhong"],
-                    TenPhong = (string)row["TenPhong"],
-                    LoaiPhong = (string)row["TenLoaiPhong"],
-                    DonGia = (decimal)row["DonGia"],
-                    SoNgToiDa = (int)row["SoNgToiDa"],
-                    GhiChu = (row["GhiChu"] == DBNull.Value) ? "" : (string)row["GhiChu"]
-                };
-                Items.Add(obj);
-            }
-            return Items;
         }
 
         void LoadRoomTypes()
@@ -130,7 +80,7 @@ namespace HotelManagement.MVVM.ViewModel
                 {
                     MaLoaiPhong = (int)row["MaLoaiPhong"],
                     TenLoaiPhong = (string)row["TenLoaiPhong"],
-                    DonGia = (int)row["DonGia"],
+                    DonGia = (decimal)row["DonGia"],
                     SoNgToiDa = (int)row["SoNgToiDa"]
                 };
                 roomTypes.Add(obj);

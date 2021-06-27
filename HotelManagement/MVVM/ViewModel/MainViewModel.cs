@@ -6,15 +6,15 @@ namespace HotelManagement.MVVM.ViewModel
 {
     class MainViewModel : ObservableObject
     {
-        public ICommand DashboardViewCommand { get; set; }
+        public ICommand HomeViewCommand { get; set; }
 
         public ICommand BookingsViewCommand { get; set; }
 
         public ICommand RoomsViewCommand { get; set; }
 
-        public DashboardViewModel DashboardVM { get; set; }
+        public DashboardViewModel HomeVM { get; set; }
 
-        public BookingsViewModel BookingsVM { get; set; }
+        public BookingViewModel BookingsVM { get; set; }
 
         public RoomsViewModel RoomsVM { get; set; }
 
@@ -31,26 +31,29 @@ namespace HotelManagement.MVVM.ViewModel
         }
         public MainViewModel()
         {
-            DashboardVM = new DashboardViewModel();
-            BookingsVM = new BookingsViewModel();
+            HomeVM = new DashboardViewModel();
+            BookingsVM = new BookingViewModel();
             RoomsVM = new RoomsViewModel();
             
-            CurrentView = DashboardVM;
+            CurrentView = HomeVM;
 
-            DashboardViewCommand = new RelayCommand<object>((o) =>
+            HomeViewCommand = new RelayCommand<object>((o) =>
             {
                 return true;
-            }, (o) => { CurrentView = DashboardVM; });
+            }, (o) =>
+            { CurrentView = HomeVM; });
 
             BookingsViewCommand = new RelayCommand<object>((o) =>
             {
                 return true;
-            }, (o) => { CurrentView = BookingsVM; });
+            }, (o) => 
+            { CurrentView = BookingsVM; });
 
             RoomsViewCommand = new RelayCommand<object>((o) =>
             {
                 return true;
-            }, (o) => { CurrentView = RoomsVM; });
+            }, (o) =>
+            { CurrentView = RoomsVM; });
         }
     }
 }

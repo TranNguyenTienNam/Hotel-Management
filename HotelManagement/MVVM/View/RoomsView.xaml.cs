@@ -46,6 +46,9 @@ namespace HotelManagement.MVVM.View
 
         }
 
+        private void RoomListItemView_Loaded(object sender, RoutedEventArgs e)
+        {
 
+        }
     }
 }

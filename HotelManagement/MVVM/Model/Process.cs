@@ -166,6 +166,7 @@ namespace HotelManagement.MVVM.Model
             }
             return user;
         }
+
         public static bool CheckVietKey(string chucodau)
         {
             const string FindText = "áàảãạâấầẩẫậăắằẳẵặđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ";
@@ -179,5 +180,50 @@ namespace HotelManagement.MVVM.Model
             }
             return true;
         }
+        /*
+        public static List<CTHD> GetCTHDs(string sql)
+        {
+            conn = new SqlConnection(connectLink);
+            conn.Open();
+            cmd = new SqlCommand(sql, conn);
+            reader = cmd.ExecuteReader();
+            List<CTHD> CTHDs = new List<CTHD>();
+
+            while (reader.Read())
+            {
+                CTHD f = new CTHD();
+                f.MAHANG = reader["MAHANG"].ToString();
+                f.TENHANG = reader["TENHANG"].ToString();
+                f.SOLUONG = (int)reader["SOLUONG"];
+                f.DONGIA = Convert.ToInt32(splitPoint(reader["DONGIA"].ToString()));
+
+                CTHDs.Add(f);
+            }
+            return CTHDs;
+        }
+
+        public static string splitPoint(string str)
+        {
+            string[] temp = str.Split('.');
+            return temp[0];
+        }
+
+        
+
+        public static int getNewKEY(string sql)
+        {
+            using (var con = new SqlConnection(connectLink))
+            {
+                int newKEY = 0;
+                using (var insertCommand = new SqlCommand(sql, con))
+                {
+                    insertCommand.Parameters.AddWithValue("@Value", "bar");
+                    con.Open();
+                    newKEY = (int)insertCommand.ExecuteScalar();
+                }
+                return newKEY;
+            }
+        }
+        */
     }
 }
