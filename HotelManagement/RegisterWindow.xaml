@@ -4,12 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewModel="clr-namespace:HotelManagement.MVVM.ViewModel"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:HotelManagement"
+        Name="registerWindow"
         mc:Ignorable="d"
         Height="450" Width="800"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize">
+    <Window.DataContext>
+        <viewModel:RegisterViewModel/>
+    </Window.DataContext>
     <Grid MouseDown="Border_MouseDown">
         <Grid.Background>
             <LinearGradientBrush
@@ -53,13 +59,14 @@
                         Orientation="Horizontal"
                         Margin="10">
                         <materialDesign:PackIcon 
-                            Kind="User"
+                            Kind="SmartCardOutline"
                             Width="25"
                             Height="25"
                             Foreground="White"/>
 
                         <TextBox
                             x:Name="txtFirstName"
+                            Text="{Binding Ho}"
                             Margin="10,0,10,0"
                             materialDesign:HintAssist.Hint="First name"
                             Foreground="White"
@@ -70,10 +77,32 @@
 
                         <TextBox
                             x:Name="txtLastName"
+                            Text="{Binding Ten}"
                             Margin="20,0,0,0"
                             materialDesign:HintAssist.Hint="Last name"
                             Foreground="White"
                             Width="110"
+                            BorderBrush="White"
+                            CaretBrush="#FFD94448"
+                            SelectionBrush="#FFD94448"/>
+                    </StackPanel>
+
+                    <StackPanel 
+                        Orientation="Horizontal"
+                        Margin="10">
+                        <materialDesign:PackIcon 
+                            Kind="User"
+                            Width="25"
+                            Height="25"
+                            Foreground="White"/>
+
+                        <TextBox
+                            x:Name="txtUsername"
+                            Text="{Binding Username}"
+                            Margin="10,0,10,0"
+                            materialDesign:HintAssist.Hint="Username"
+                            Foreground="White"
+                            Width="250"
                             BorderBrush="White"
                             CaretBrush="#FFD94448"
                             SelectionBrush="#FFD94448"/>
@@ -96,7 +125,14 @@
                             Width="250"
                             BorderBrush="White"
                             CaretBrush="#FFD94448"
-                            SelectionBrush="#FFD94448"/>
+                            SelectionBrush="#FFD94448">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PasswordChanged">
+                                    <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
+                                   CommandParameter="{Binding ElementName=txtPassword}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </PasswordBox>
                     </StackPanel>
 
                     <StackPanel 
@@ -116,7 +152,14 @@
                             Width="250"
                             BorderBrush="White"
                             CaretBrush="#FFD94448"
-                            SelectionBrush="#FFD94448"/>
+                            SelectionBrush="#FFD94448">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PasswordChanged">
+                                    <i:InvokeCommandAction Command="{Binding ConfirmPasswordChangedCommand}" 
+                                   CommandParameter="{Binding ElementName=txtConfirmPassword}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </PasswordBox>
                     </StackPanel>
 
                     <StackPanel 
@@ -130,6 +173,7 @@
 
                         <TextBox
                             x:Name="txtEmail"
+                            Text="{Binding Email}"
                             Margin="10,0,10,0"
                             materialDesign:HintAssist.Hint="Enter your email"
                             Foreground="White"
@@ -145,7 +189,8 @@
                         HorizontalAlignment="Center">
                         <Button
                             x:Name="btnFinish"
-                            Click="btnFinish_Click"
+                            Command="{Binding FinishCommand}"
+                            CommandParameter="{Binding ElementName=registerWindow}"
                             Margin="0,0,10,0"
                             Width="100"
                             Height="40"
@@ -160,7 +205,8 @@
 
                         <Button
                             x:Name="btnCancel"
-                            Click="btnCancel_Click"
+                            Command="{Binding CancelCommand}"
+                            CommandParameter="{Binding ElementName=registerWindow}"
                             Margin="10,0,0,0"
                             Width="100"
                             Height="40"
