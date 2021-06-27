@@ -54,5 +54,27 @@ namespace HotelManagement.MVVM.Model
                 return true;
             return false;
         }
+
+        public DataTable Search_RoomID(string MaPhong)
+        {
+            DataTable re;
+            string sql_select = "select p.MaPhong as MaPhong, p.TenPhong as TenPhong, lp.TenLoaiPhong as TenLoaiPhong, "
+                + "lp.DonGia as DonGia, lp.SoNgToiDa as SoNgToiDa, p.GhiChu as GhiChu "
+                + "from PHONG p, LOAIPHONG lp "
+                + "where p.MaLoaiPhong = lp.MaLoaiPhong and CHARINDEX('" + MaPhong + "', p.MaPhong) != 0";
+            re = Process.createTable(sql_select);
+            return re;
+        }
+
+        public DataTable Search_RoomName(string TenPhong)
+        {
+            DataTable re;
+            string sql_select = "select p.MaPhong as MaPhong, p.TenPhong as TenPhong, lp.TenLoaiPhong as TenLoaiPhong, "
+                + "lp.DonGia as DonGia, lp.SoNgToiDa as SoNgToiDa, p.GhiChu as GhiChu "
+                + "from PHONG p, LOAIPHONG lp "
+                + "where p.MaLoaiPhong = lp.MaLoaiPhong and CHARINDEX(N'" + TenPhong + "', p.TenPhong) != 0";
+            re = Process.createTable(sql_select);
+            return re;
+        }
     }
 }
