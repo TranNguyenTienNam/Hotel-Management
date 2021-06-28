@@ -40,7 +40,7 @@
                                                    VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Center" Foreground="#FE8704"/>
                                         <Grid Grid.Column="4">
                                             <Button Background="#F44336" Padding="0"
-                                                Width="30" Height="30" Command="{Binding RemoveRoomCommand}"
+                                                Width="30" Height="30" Command="{Binding RemoveRoomTypeCommand}"
                                                 ToolTip="Click to remove this type">
                                                 <materialDesign:PackIcon Kind="Close" Height="24" Width="24"/>
                                             </Button>

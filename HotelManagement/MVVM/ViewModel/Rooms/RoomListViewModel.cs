@@ -10,6 +10,7 @@ using System.Data;
 using HotelManagement.MVVM.Model;
 using System.Windows.Input;
 using System.Windows.Controls;
+using System.Windows;
 
 namespace HotelManagement.MVVM.ViewModel
 {
@@ -39,20 +40,30 @@ namespace HotelManagement.MVVM.ViewModel
 
         public void getMessages(Message message)
         {
-            if (message.message == "refresh")
-                loadListRoom();
-            else if (message.message.Contains("ID|"))
+            try
             {
-                string[] vs = message.message.Split('|');
-                loadSearchRoombyId(vs[1]);
-            }   
-            else if (message.message.Contains("Name|"))
+                if (message.message == "refresh")
+                    loadListRoom();
+                else if (message.message.Contains("ID|"))
+                {
+                    string[] vs = message.message.Split('|');
+                    loadSearchRoombyId(vs[1]);
+                }
+                else if (message.message.Contains("Name|"))
+                {
+                    string[] vs = message.message.Split('|');
+                    loadSearchRoombyName(vs[1]);
+                }
+                else if (message.message.Contains("RemoveRoom|"))
+                {
+                    string[] vs = message.message.Split('|');
+                    Items.Remove(Items.Where(X => X.MaPhong == Convert.ToInt32(vs[1])).Single());
+                }    
+            }
+            catch (Exception ex)
             {
-                string[] vs = message.message.Split('|');
-                loadSearchRoombyName(vs[1]);
-            }    
-            else
-                Items.Remove(Items.Where(X => X.MaPhong == Convert.ToInt32(message.message)).Single());
+                MessageBox.Show(ex.Message);
+            }
         }
 
         void loadSearchRoombyId(string MaPhong)

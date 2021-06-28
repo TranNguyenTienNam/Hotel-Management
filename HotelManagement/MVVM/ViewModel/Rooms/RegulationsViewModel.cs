@@ -35,12 +35,18 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                RegulationsModel model = new RegulationsModel();
-                if (model.Insert_Type(TypeName, Price, MaxPeople))
-                {
-                    MessageBox.Show("Type of Room has been added!");
-                }
+                addNewRoomType();
             });
+        }
+
+        void addNewRoomType()
+        {
+            RegulationsModel model = new RegulationsModel();
+            if (model.Insert_Type(TypeName, Price, MaxPeople))
+            {
+                EventSystem.Publish<Message>(new Message { message = "RefreshType"});
+                MessageBox.Show("Type of Room has been added!");
+            }
         }
     }
 }

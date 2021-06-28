@@ -39,6 +39,7 @@ namespace HotelManagement.MVVM.ViewModel
 
         public ICommand SaveEditCommand { get; set; }
         public ICommand RIdLostFocusCommand { get; set; }
+        public ICommand ClickExitCommand { get; set; }
 
         public EditRoomViewModel()
         {
@@ -49,36 +50,10 @@ namespace HotelManagement.MVVM.ViewModel
                 if (string.IsNullOrEmpty(TenPhong) || GhiChu == null)
                     return false;
                 else
-                    return true;
+                    return checkRoomExistInBill();
             }, (p) =>
             {
-                try
-                {
-                    RoomsListModel model = new RoomsListModel();
-
-                    //get MaLoaiPhong
-                    int MaLoaiPhong = -1;
-                    foreach (roomtype rt in RoomsViewModel.Instance.roomTypes)
-                    {
-                        if (LoaiPhong == rt.TenLoaiPhong)
-                        {
-                            MaLoaiPhong = rt.MaLoaiPhong;
-                            break;
-                        }
-                    }
-
-                    //MessageBox.Show(MaPhong + " " + TenPhong + " " + MaLoaiPhong + " " + GhiChu);
-
-                    if (model.Save_RoomEdited(MaPhong, TenPhong, MaLoaiPhong, GhiChu))
-                    {
-                        MessageBox.Show("Room has been edited.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-
+                saveRoomEdited();
             });
 
             RIdLostFocusCommand = new RelayCommand<TextBox>((p) =>
@@ -88,6 +63,50 @@ namespace HotelManagement.MVVM.ViewModel
             {
                 loadRoom(MaPhong);
             });
+
+            ClickExitCommand = new RelayCommand<Window>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                p.Close();
+                EventSystem.Publish<Message>(new Message { message = "refresh" });
+            });
+        }
+
+        void saveRoomEdited()
+        {
+            try
+            {
+                RoomsListModel model = new RoomsListModel();
+
+                //get MaLoaiPhong
+                int MaLoaiPhong = -1;
+                foreach (roomtype rt in RoomsViewModel.Instance.roomTypes)
+                {
+                    if (LoaiPhong == rt.TenLoaiPhong)
+                    {
+                        MaLoaiPhong = rt.MaLoaiPhong;
+                        break;
+                    }
+                }
+
+                //MessageBox.Show(MaPhong + " " + TenPhong + " " + MaLoaiPhong + " " + GhiChu);
+
+                if (model.Save_RoomEdited(MaPhong, TenPhong, MaLoaiPhong, GhiChu))
+                {
+                    MessageBox.Show("Room has been edited.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        bool checkRoomExistInBill()
+        {
+            return true;
         }
 
         public void loadRoom(int MaPhong)

@@ -80,22 +80,7 @@ namespace HotelManagement.MVVM.ViewModel
                     return true;
             }, (p) =>
             {
-                RoomsModel model = new RoomsModel();
-                int roomTypeID = -1;
-                foreach (roomtype rt in roomTypes)
-                {
-                    if (rt.TenLoaiPhong == Type)
-                    {
-                        roomTypeID = rt.MaLoaiPhong;
-                        break;
-                    }
-                }
-                if (model.Insert_Room(RName, roomTypeID, Notes))
-                {
-                    //send message
-                    EventSystem.Publish<Message>(new Message { message = "refresh" });
-                    MessageBox.Show("Room has been added!");
-                }
+                addRoom();
             });
 
             RegulationsCommand = new RelayCommand<object>((p) =>
@@ -104,8 +89,7 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                RegulationsView wd = new RegulationsView();
-                wd.ShowDialog();
+                showRegulationView();
             });
 
             SearchCommand = new RelayCommand<object>((p) =>
@@ -115,18 +99,49 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                if (ItemSearchSelected == "Room ID")
-                {
-                    //send message
-                    EventSystem.Publish<Message>(new Message { message = "ID|" + SearchText });
-                }
-                else
-                {
-                    //send message
-                    EventSystem.Publish<Message>(new Message { message = "Name|" + SearchText });
-                } 
+                sendMessageToSearch();
                     
             });
+        }
+
+        void sendMessageToSearch()
+        {
+            if (ItemSearchSelected == "Room ID")
+            {
+                //send message
+                EventSystem.Publish<Message>(new Message { message = "ID|" + SearchText });
+            }
+            else
+            {
+                //send message
+                EventSystem.Publish<Message>(new Message { message = "Name|" + SearchText });
+            }
+        }
+
+        void addRoom()
+        {
+            RoomsModel model = new RoomsModel();
+            int roomTypeID = -1;
+            foreach (roomtype rt in roomTypes)
+            {
+                if (rt.TenLoaiPhong == Type)
+                {
+                    roomTypeID = rt.MaLoaiPhong;
+                    break;
+                }
+            }
+            if (model.Insert_Room(RName, roomTypeID, Notes))
+            {
+                //send message
+                EventSystem.Publish<Message>(new Message { message = "refresh" });
+                MessageBox.Show("Room has been added!");
+            }
+        }
+
+        void showRegulationView()
+        {
+            RegulationsView wd = new RegulationsView();
+            wd.ShowDialog();
         }
 
         void LoadRoomTypes()

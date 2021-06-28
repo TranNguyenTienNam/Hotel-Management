@@ -26,29 +26,37 @@ namespace HotelManagement.MVVM.ViewModel
         private int _maxPeople;
         public int MaxPeople { get { return _maxPeople; } set { _maxPeople = value; OnPropertyChanged(); } }
 
-        public ICommand RemoveRoomCommand { get; set; }
+        public ICommand RemoveRoomTypeCommand { get; set; }
 
         public ListTypeItemViewModel()
         {
-            RegulationsModel model = new RegulationsModel();
-            RemoveRoomCommand = new RelayCommand<object>((p) =>
+            
+            RemoveRoomTypeCommand = new RelayCommand<object>((p) =>
             {
-                if (model.CheckTypeIdExistInRoom(Id))
-                    return false;
-                else
-                    return true;
+                return checkTypeIdExistInRoom();
             }, (p) =>
             {
-                //check room còn trống hay không?
-
-                
-                if (model.RemoveType(Id))
-                {
-                    EventSystem.Publish<Message>(new Message { message = Id.ToString() });
-                    MessageBox.Show("Room has been Removed");
-                }
-
+                removeRoomType();
             });
+        }
+
+        bool checkTypeIdExistInRoom()
+        {
+            RegulationsModel model = new RegulationsModel();
+            if (model.CheckTypeIdExistInRoom(Id))
+                return false;
+            else
+                return true;
+        }
+
+        void removeRoomType()
+        {
+            RegulationsModel model = new RegulationsModel();
+            if (model.RemoveType(Id))
+            {
+                EventSystem.Publish<Message>(new Message { message = "RemoveType|" + Id.ToString() });
+                MessageBox.Show("Room has been Removed");
+            }
         }
     }
 }
