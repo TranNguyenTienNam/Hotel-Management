@@ -25,7 +25,7 @@ namespace HotelManagement.MVVM.ViewModel
         {
             Items = new List<RoomListItemViewModel>();
 
-            RoomsListModel model = new RoomsListModel();
+            RoomListModel model = new RoomListModel();
             DataTable data = new DataTable();
             data = model.Load_On();
 

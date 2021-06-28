@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace HotelManagement.MVVM.Model
 {
-    class RoomsListModel
+    class RoomListModel
     {
         public DataTable Load_On()   //Đầu vào cần 1 mã Ukey 
         {

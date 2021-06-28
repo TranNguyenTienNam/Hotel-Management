@@ -78,7 +78,7 @@ namespace HotelManagement.MVVM.ViewModel
         {
             try
             {
-                RoomsListModel model = new RoomsListModel();
+                RoomListModel model = new RoomListModel();
 
                 //get MaLoaiPhong
                 int MaLoaiPhong = -1;
@@ -111,7 +111,7 @@ namespace HotelManagement.MVVM.ViewModel
 
         public void loadRoom(int MaPhong)
         {
-            RoomsListModel model = new RoomsListModel();
+            RoomListModel model = new RoomListModel();
             DataTable dataTable = new DataTable();
             dataTable = model.GetRoom(MaPhong);
             foreach (DataRow row in dataTable.Rows)

@@ -121,7 +121,7 @@
     <Compile Include="MVVM\Model\DashboardModel\TodayCardModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel\TodayModel.cs" />
     <Compile Include="MVVM\Model\RegisterModel.cs" />
-    <Compile Include="MVVM\Model\Rooms\RoomsListModel.cs" />
+    <Compile Include="MVVM\Model\Rooms\RoomListModel.cs" />
     <Compile Include="MVVM\Model\Rooms\RoomsModel.cs" />
     <Compile Include="MVVM\Model\Rooms\RegulationsModel.cs" />
     <Compile Include="MVVM\ViewModel\BookingItemViewModel.cs" />

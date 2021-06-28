@@ -70,7 +70,7 @@ namespace HotelManagement.MVVM.ViewModel
         {
             if (Items.Count > 0)
                 Items.Clear();
-            RoomsListModel model = new RoomsListModel();
+            RoomListModel model = new RoomListModel();
             DataTable data = new DataTable();
             data = model.Search_RoomID(MaPhong);
 
@@ -93,7 +93,7 @@ namespace HotelManagement.MVVM.ViewModel
         {
             if (Items.Count > 0)
                 Items.Clear();
-            RoomsListModel model = new RoomsListModel();
+            RoomListModel model = new RoomListModel();
             DataTable data = new DataTable();
             data = model.Search_RoomName(TenPhong);
 
@@ -116,7 +116,7 @@ namespace HotelManagement.MVVM.ViewModel
         {
             if (Items.Count > 0)
                 Items.Clear();
-            RoomsListModel model = new RoomsListModel();
+            RoomListModel model = new RoomListModel();
             DataTable data = new DataTable();
             data = model.Load_On();
             foreach (DataRow row in data.Rows)
