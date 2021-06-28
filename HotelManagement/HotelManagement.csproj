@@ -101,6 +101,7 @@
     <Compile Include="Core\EventSystem.cs" />
     <Compile Include="Core\Message.cs" />
     <Compile Include="MVVM\Model\CheckOut\CheckOutModel.cs" />
+    <Compile Include="MVVM\Model\CheckOut\RentModel.cs" />
     <Compile Include="MVVM\Model\CheckOut\SearchBillModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel\AORCardModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel\AORModel.cs" />
