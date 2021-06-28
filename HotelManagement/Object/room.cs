@@ -13,7 +13,7 @@ namespace HotelManagement.Object
         string loaiPhong;
         decimal donGia;
         int soNgToiDa;
-        string ghiChu;
+        string ghiChu;       
 
         public int MaPhong { get => maPhong; set => maPhong = value; }
         public string TenPhong { get => tenPhong; set => tenPhong = value; }

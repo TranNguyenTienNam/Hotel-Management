@@ -14,6 +14,7 @@
         Background="Transparent"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
+        MouseDown="Window_MouseDown"
         >
     <Border Background="#F44336" CornerRadius="12" Margin="0,0,0,0">
         <Grid>
@@ -90,6 +91,26 @@
                                     Text="Print Bill" Margin="0,0,0,0"/>
                                 </Grid>
                             </Button>
+                            <Button
+                                x:Name="btnDeleteBill"
+                                Margin="10,10"
+                                Height="Auto"
+                                Width="102"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                materialDesign:ButtonAssist.CornerRadius="10"
+                                BorderThickness="0"
+                                Background="#F44336"
+                                Foreground="White"
+                                ToolTip="">
+                                <Grid Width="auto">
+                                    <TextBlock 
+                                        FontSize="18"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Bottom"
+                                        Text="Delete" Margin="0,0,0,0"/>
+                                </Grid>
+                            </Button>
+
                         </StackPanel>
                     </Border>
                 </StackPanel>
@@ -160,7 +181,7 @@
                             <TextBox x:Name="tb_checkin" FontSize="14" IsReadOnly="True"
                         materialDesign:HintAssist.Hint=""  Foreground="Black"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Top" Margin="192,314,10,0" Height="38"/>
+                        VerticalAlignment="Top" Margin="192,333,9.6,0" Height="38"/>
                             <Label Content="Check-in:" HorizontalAlignment="Left" Height="26" Margin="110,344,0,0" VerticalAlignment="Top" Width="76" FontSize="14" Background="#00000000"/>
                             <DatePicker x:Name="datepicker_checkout" Margin="192,370,10.6,0" VerticalAlignment="Top" Height="40" FontSize="14" />
                             <Label Content="Check-out:" HorizontalAlignment="Left" Height="27" Margin="110,383,0,0" VerticalAlignment="Top" Width="76" FontSize="14"/>

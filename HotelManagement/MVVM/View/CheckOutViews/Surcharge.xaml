@@ -47,7 +47,7 @@
                 </Button>
             </Grid>
             <Border Grid.Row="1" Background="Transparent" Visibility="{Binding Visibility}" Margin="0,0,0,18" Grid.RowSpan="2">
-                <Border Background="White" HorizontalAlignment="Stretch" Margin="0,0,0.4,0.2">
+                <Border Background="White" HorizontalAlignment="Stretch" Margin="0,0,0,0">
                     <Grid DataContext="{x:Static viewModel:RegulationsViewModel.Instance}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="200"/>
@@ -62,7 +62,7 @@
                             <TextBox x:Name="tb_foreign_client" Foreground="#F44336"
                                 materialDesign:HintAssist.Hint="Foreign Client:" FontSize="18"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                VerticalAlignment="Bottom" Margin="129,0,10,140"/>
+                                VerticalAlignment="Bottom" Margin="120,0,10,140"/>
                         </Grid>
                         <Grid Margin="0,100,0,0.2">
                             <Button Width="125" Height="Auto" HorizontalAlignment="Center" Padding="0" Margin="65,-21,58,75.8"
