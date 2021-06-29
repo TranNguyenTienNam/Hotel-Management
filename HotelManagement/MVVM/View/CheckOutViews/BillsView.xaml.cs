@@ -17,9 +17,9 @@ namespace HotelManagement.MVVM.View.CheckOutViews
     /// <summary>
     /// Interaction logic for SearchBill.xaml
     /// </summary>
-    public partial class SearchBill : Window
+    public partial class BillsView : Window
     {
-        public SearchBill()
+        public BillsView()
         {
             InitializeComponent();
         }

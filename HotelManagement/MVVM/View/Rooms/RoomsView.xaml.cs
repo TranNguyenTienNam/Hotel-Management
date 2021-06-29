@@ -46,5 +46,9 @@ namespace HotelManagement.MVVM.View
 
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

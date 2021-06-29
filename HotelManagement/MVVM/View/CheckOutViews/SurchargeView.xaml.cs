@@ -17,9 +17,9 @@ namespace HotelManagement.MVVM.View.CheckOutViews
     /// <summary>
     /// Interaction logic for Surcharge.xaml
     /// </summary>
-    public partial class Surcharge : Window
+    public partial class SurchargeView : Window
     {
-        public Surcharge()
+        public SurchargeView()
         {
             InitializeComponent();
         }

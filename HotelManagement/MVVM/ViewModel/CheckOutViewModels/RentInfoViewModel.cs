@@ -14,10 +14,11 @@ using System;
 
 namespace HotelManagement.MVVM.ViewModel.CheckOutViewModels
 {
-    public class RentInfo:ObservableObject
-    {
-        
-        public static RentInfo rentInfo => new RentInfo();
+    public class RentInfoViewModel:ObservableObject
+    {   
+        public static RentInfoViewModel Instance => new RentInfoViewModel();
+        private ObservableCollection<RentInfoViewModel> _items;
+        public ObservableCollection<RentInfoViewModel> Items { get { return _items; } set { _items = value;OnPropertyChanged("Items"); } }
         int _maPhieuThue;
         public int MaPhieuThue { get { return _maPhieuThue; } set { _maPhieuThue = value; OnPropertyChanged(); } }
 
@@ -89,11 +90,6 @@ namespace HotelManagement.MVVM.ViewModel.CheckOutViewModels
 
         String _tenLoaiPhong;
         public String TenLoaiPhong { get { return _tenLoaiPhong; } set { _tenLoaiPhong = value;OnPropertyChanged(); } }
-
-
-
-
-
-
+        
     }
 }

@@ -28,14 +28,14 @@ namespace HotelManagement.MVVM.View
             InitializeComponent();
         }
 
-        private void btnEditSurcharge_Click(object sender, RoutedEventArgs e)
+        private void btnBills_Click(object sender, RoutedEventArgs e)
         {
-            (new Surcharge()).Show();
+            (new BillsView()).ShowDialog();
         }
 
-        private void btnSearchBills_Click(object sender, RoutedEventArgs e)
+        private void btnEditSurcharge_Click(object sender, RoutedEventArgs e)
         {
-            (new SearchBill()).Show();
+            (new SurchargeView()).ShowDialog();
         }
     }
 }

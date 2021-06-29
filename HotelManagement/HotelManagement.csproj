@@ -101,7 +101,6 @@
     <Compile Include="Core\EventSystem.cs" />
     <Compile Include="Core\Message.cs" />
     <Compile Include="MVVM\Model\CheckOut\CheckOutModel.cs" />
-    <Compile Include="MVVM\Model\CheckOut\RentModel.cs" />
     <Compile Include="MVVM\Model\CheckOut\SearchBillModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel\AORCardModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel\AORModel.cs" />
@@ -121,7 +120,7 @@
     <Compile Include="MVVM\Model\Rooms\RoomsModel.cs" />
     <Compile Include="MVVM\Model\Rooms\TypesListModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\CheckOutViewModel.cs" />
-    <Compile Include="MVVM\ViewModel\CheckOutViewModels\RentInfo.cs" />
+    <Compile Include="MVVM\ViewModel\CheckOutViewModels\RentInfoViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\SearchBillViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\SurchargeViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\EditRoomViewModel.cs" />
@@ -134,11 +133,11 @@
     <Compile Include="MVVM\View\CheckOutViews\CheckOutView.xaml.cs">
       <DependentUpon>CheckOutView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\View\CheckOutViews\SearchBill.xaml.cs">
-      <DependentUpon>SearchBill.xaml</DependentUpon>
+    <Compile Include="MVVM\View\CheckOutViews\BillsView.xaml.cs">
+      <DependentUpon>BillsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\View\CheckOutViews\Surcharge.xaml.cs">
-      <DependentUpon>Surcharge.xaml</DependentUpon>
+    <Compile Include="MVVM\View\CheckOutViews\SurchargeView.xaml.cs">
+      <DependentUpon>SurchargeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Rooms\EditRoomView.xaml.cs">
       <DependentUpon>EditRoomView.xaml</DependentUpon>
@@ -201,11 +200,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MVVM\View\CheckOutViews\SearchBill.xaml">
+    <Page Include="MVVM\View\CheckOutViews\BillsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MVVM\View\CheckOutViews\Surcharge.xaml">
+    <Page Include="MVVM\View\CheckOutViews\SurchargeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
