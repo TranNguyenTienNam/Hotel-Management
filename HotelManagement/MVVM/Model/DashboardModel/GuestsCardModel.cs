@@ -34,7 +34,7 @@ namespace HotelManagement.MVVM.Model
                     break;
                 case "Annual":
                     this.SelectedGuests = guestsModel.SelectedYearGuests(selectedDate);
-                    this.PreviousGuests = guestsModel.PreiousYearGuests(selectedDate);
+                    this.PreviousGuests = guestsModel.PreviousYearGuests(selectedDate);
                     CalcRate(this.SelectedGuests, this.PreviousGuests);
                     break;
                 default:

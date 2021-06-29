@@ -58,7 +58,7 @@ namespace HotelManagement.MVVM.Model
             Guests = Process.getNumber(sql_select);
             return Guests;
         }
-        public int PreiousYearGuests(string selectedYear)
+        public int PreviousYearGuests(string selectedYear)
         {
             int Guests;
             string sql_select =
