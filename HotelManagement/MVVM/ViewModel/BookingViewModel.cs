@@ -13,8 +13,8 @@ namespace HotelManagement.MVVM.ViewModel
 {
     public class BookingViewModel
     {
-        public static RoomListViewModel Insance => new RoomListViewModel();
-        public List<RoomListItemViewModel> Items { get; set; }
+        public static BookRoomItemViewModel Insance => new BookRoomItemViewModel();
+        public List<BookRoomItemViewModel> Items { get; set; }
 
         public BookingViewModel()
         {
@@ -23,15 +23,15 @@ namespace HotelManagement.MVVM.ViewModel
 
         void loadListRoom()
         {
-            Items = new List<RoomListItemViewModel>();
+            Items = new List<BookRoomItemViewModel>();
 
-            RoomsListModel model = new RoomsListModel();
+            BookingRoomModel model = new BookingRoomModel();
             DataTable data = new DataTable();
             data = model.Load_On();
 
             foreach (DataRow row in data.Rows)
             {
-                var obj = new RoomListItemViewModel()
+                var obj = new BookRoomItemViewModel()
                 {
                     MaPhong = (int)row["MaPhong"],
                     TenPhong = (string)row["TenPhong"],

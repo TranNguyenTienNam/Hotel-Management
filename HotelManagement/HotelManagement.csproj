@@ -125,6 +125,7 @@
     <Compile Include="MVVM\ViewModel\BookingItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\BookingListViewModel.cs" />
     <Compile Include="MVVM\ViewModel\BookingViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\BookRoomItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\EditRoomViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\ListTypeItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\ListTypeViewModel.cs" />
