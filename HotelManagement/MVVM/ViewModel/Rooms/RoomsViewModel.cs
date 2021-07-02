@@ -102,6 +102,17 @@ namespace HotelManagement.MVVM.ViewModel
                 sendMessageToSearch();
                     
             });
+
+            EventSystem.Subscribe<Message>(getMessages);
+        }
+
+        public void getMessages(Message message)
+        {
+            if (message.message == "TypeAdded")
+            {
+                LoadRoomTypes();
+                LoadTypes();
+            }    
         }
 
         void sendMessageToSearch()

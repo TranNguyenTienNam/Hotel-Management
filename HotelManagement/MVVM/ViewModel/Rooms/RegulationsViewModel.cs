@@ -24,18 +24,28 @@ namespace HotelManagement.MVVM.ViewModel
         public uint MaxPeople { get { return _maxPeople; } set { _maxPeople = value; OnPropertyChanged(); } }
 
         public ICommand AddRoomTypeCommand { get; set; }
+        public ICommand ClickExitCommand { get; set; }
 
         public RegulationsViewModel()
         {
 
             AddRoomTypeCommand = new RelayCommand<object>((p) =>
             {
-                if (string.IsNullOrEmpty(TypeName) || Price <= 1000 || MaxPeople <= 0)
-                    return false;
                 return true;
             }, (p) =>
             {
+                if (string.IsNullOrEmpty(TypeName) || Price <= 1000 || MaxPeople <= 0)
+                    MessageBox.Show("Input field is empty");
                 addNewRoomType();
+            });
+
+            ClickExitCommand = new RelayCommand<Window>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                EventSystem.Publish<Message>(new Message { message = "TypeAdded" });    //refresh list roomTypes
+                p.Close();
             });
         }
 
