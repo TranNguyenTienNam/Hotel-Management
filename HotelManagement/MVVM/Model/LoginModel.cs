@@ -20,9 +20,9 @@ namespace HotelManagement.MVVM.Model
             return false;
         }
 
-        public int GetStatusAccount(string Username, string Password)
+        public int GetStatusAccount(string Username)
         {
-            string sql_select = "select TinhTrangTK from NGUOIDUNG where TenTaiKhoan = '" + Username + "' and MatKhau = '" + Password + "'";
+            string sql_select = "select TinhTrangTK from NGUOIDUNG where TenTaiKhoan = '" + Username + "'";
 
             return Process.getNumber(sql_select);
         }

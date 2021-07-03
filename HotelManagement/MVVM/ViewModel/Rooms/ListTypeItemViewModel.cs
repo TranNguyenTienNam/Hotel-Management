@@ -54,6 +54,7 @@ namespace HotelManagement.MVVM.ViewModel
             RegulationsModel model = new RegulationsModel();
             if (model.RemoveType(Id))
             {
+                //Gửi message đến RoomListViewModel
                 EventSystem.Publish<Message>(new Message { message = "RemoveType|" + Id.ToString() });
                 MessageBox.Show("Room has been Removed");
             }

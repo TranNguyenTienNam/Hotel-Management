@@ -99,11 +99,11 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
+                //Gửi message đến RoomListViewModel
                 sendMessageToSearch();
-                    
             });
 
-            EventSystem.Subscribe<Message>(getMessages);
+            EventSystem.Subscribe<Message>(getMessages);    //Nhận message từ RegulationsViewModel
         }
 
         public void getMessages(Message message)

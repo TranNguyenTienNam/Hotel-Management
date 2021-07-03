@@ -33,6 +33,7 @@ namespace HotelManagement.MVVM.ViewModel
                 loadListRoomType();
             });
 
+            //Nhận message từ RegulationsViewModel
             EventSystem.Subscribe<Message>(getMessages);
         }
 

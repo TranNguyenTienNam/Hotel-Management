@@ -61,7 +61,7 @@ namespace HotelManagement.MVVM.ViewModel
             LoginModel model = new LoginModel();
             if (model.LoginWithUsernameAndPassword(Username, Password))
             {
-                if (model.GetStatusAccount(Username, Password) == 1)
+                if (model.GetStatusAccount(Username) == 1)
                 {
                     p.Hide();
                     new MainWindow().Show();

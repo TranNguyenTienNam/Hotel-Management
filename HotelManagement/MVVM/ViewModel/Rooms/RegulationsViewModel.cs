@@ -44,6 +44,7 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
+                //Gửi message đến RoomViewModel
                 EventSystem.Publish<Message>(new Message { message = "TypeAdded" });    //refresh list roomTypes
                 p.Close();
             });
@@ -54,6 +55,7 @@ namespace HotelManagement.MVVM.ViewModel
             RegulationsModel model = new RegulationsModel();
             if (model.Insert_Type(TypeName, Price, MaxPeople))
             {
+                //Gửi message đến ListTypeViewModel
                 EventSystem.Publish<Message>(new Message { message = "RefreshType"});
                 MessageBox.Show("Type of Room has been added!");
             }

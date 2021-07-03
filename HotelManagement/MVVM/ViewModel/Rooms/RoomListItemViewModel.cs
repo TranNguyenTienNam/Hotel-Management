@@ -79,6 +79,7 @@ namespace HotelManagement.MVVM.ViewModel
             RoomListModel model = new RoomListModel();
             if (model.RemoveRoom(MaPhong))
             {
+                //Gửi message đến RoomListVIewModel
                 EventSystem.Publish<Message>(new Message { message = "RemoveRoom|" + MaPhong.ToString() });
                 MessageBox.Show("Room has been Removed");
             }

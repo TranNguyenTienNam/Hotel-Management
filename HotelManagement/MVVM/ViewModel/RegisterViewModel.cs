@@ -1,4 +1,5 @@
 ﻿using HotelManagement.Core;
+using HotelManagement.MVVM.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,8 +76,32 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-
+                Register(p);
             });
+        }
+
+        void Register(Window p)
+        {
+            RegisterModel model = new RegisterModel();
+
+            if (model.CheckExistUsername(Username))
+            {
+                MessageBox.Show("This username has already existed");
+            }    
+            else
+            {
+                if (Password == ConfirmPassword)
+                {
+                    int isID = model.RegisterWithUsernameAndPassword(Username, Password);
+                    if (isID != -1)
+                    {
+                        if (model.InsertInfoUser(isID, Ho, Ten, Email))
+                        {
+
+                        }    
+                    }    
+                }    
+            }
         }
     }
 }
