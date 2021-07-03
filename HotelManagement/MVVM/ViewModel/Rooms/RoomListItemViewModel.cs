@@ -46,32 +46,43 @@ namespace HotelManagement.MVVM.ViewModel
         {
             EditRoomCommand = new RelayCommand<object>((p) =>
             {
-                return true;
+                return checkRoomFree();
             }, (p) => 
-            {
-                //check room còn trống hay không?
-                
-                EditRoomView wd = new EditRoomView(MaPhong, TenPhong, LoaiPhong, DonGia, SoNgToiDa, GhiChu);
-                wd.ShowDialog();
+            {  
+
+                showEditRoomView();
             });
 
             RemoveRoomCommand = new RelayCommand<object>((p) =>
             {
-                return true;
+                return checkRoomFree();
             }, (p) =>
             {
-                //check room còn trống hay không?
-
-                RoomsListModel model = new RoomsListModel();
-                if (model.RemoveRoom(MaPhong))
-                {
-                    EventSystem.Publish<Message>(new Message { message = MaPhong.ToString() });
-                    MessageBox.Show("Room has been Removed");
-                }    
+                removeRoom();
                 
             });
         }
 
-        
+        bool checkRoomFree()
+        {
+            return true;
+        }
+
+        void showEditRoomView()
+        {
+            EditRoomView wd = new EditRoomView(MaPhong, TenPhong, LoaiPhong, DonGia, SoNgToiDa, GhiChu);
+            wd.ShowDialog();
+        }
+
+        void removeRoom()
+        {
+            RoomListModel model = new RoomListModel();
+            if (model.RemoveRoom(MaPhong))
+            {
+                //Gửi message đến RoomListVIewModel
+                EventSystem.Publish<Message>(new Message { message = "RemoveRoom|" + MaPhong.ToString() });
+                MessageBox.Show("Room has been Removed");
+            }
+        }
     }
 }

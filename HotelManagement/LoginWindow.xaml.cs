@@ -24,13 +24,6 @@ namespace HotelManagement
             InitializeComponent();
         }
 
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
-            (new MainWindow()).Show();
-            this.Close();
-        }
-
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -42,13 +35,6 @@ namespace HotelManagement
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
-        }
-
-        private void btnRegister_Click(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
-            (new RegisterWindow()).Show();
-            this.Close();
         }
     }
 }

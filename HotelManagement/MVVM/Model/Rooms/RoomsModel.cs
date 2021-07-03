@@ -29,6 +29,5 @@ namespace HotelManagement.MVVM.Model
                 return true;
             return false;
         }
-
     }
 }

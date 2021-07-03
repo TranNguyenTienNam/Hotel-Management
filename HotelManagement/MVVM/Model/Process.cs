@@ -166,18 +166,19 @@ namespace HotelManagement.MVVM.Model
             }
             return user;
         }
-        public static bool CheckVietKey(string chucodau)
+
+        public static bool CheckVietKey(string chuCoDau)
         {
-            const string FindText = "áàảãạâấầẩẫậăắằẳẵặđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ";
+            const string FindText = ":;\"?`!@#$%^&*()~<>[\\]+-_=,.|/ áàảãạâấầẩẫậăắằẳẵặđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ";
             int n;
-            int m = chucodau.Length;
-            char[] arrS = chucodau.ToCharArray();
+            int m = chuCoDau.Length;
+            char[] arrS = chuCoDau.ToCharArray();
             for (int i = 0; i < m; i++)
             {
                 n = FindText.IndexOf(arrS[i]);
-                if (n != -1) return false;
+                if (n != -1) return false;  //Tìm thấy kí tự có dấu trong dãy FindText
             }
-            return true;
+            return true;    //Không tìm thấy kí tự có dấu
         }
     }
 }

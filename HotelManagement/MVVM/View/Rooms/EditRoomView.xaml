@@ -8,6 +8,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewModel="clr-namespace:HotelManagement.MVVM.ViewModel"
         mc:Ignorable="d"
+        Name="windowEditRoom"
         Height="450" Width="450"
         WindowStyle="None"
         ResizeMode="NoResize"
@@ -15,6 +16,9 @@
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         MouseDown="Window_MouseDown">
+    <Window.DataContext>
+        <viewModel:EditRoomViewModel/>
+    </Window.DataContext>
     <Border Background="#F44336" BorderThickness="1" BorderBrush="#F44336">
         <Border.Clip>
             <RectangleGeometry 
@@ -43,7 +47,8 @@
                     Background="{x:Null}"
                     ToolTip="Close"
                     x:Name="btnExit"
-                    Click="btnExit_Click">
+                    Command="{Binding ClickExitCommand}"
+                    CommandParameter="{Binding ElementName=windowEditRoom}">
                     <materialDesign:PackIcon 
                         Kind="Close"
                         Foreground="White"
@@ -53,8 +58,7 @@
             </Grid>
             <Border Grid.Row="1" Background="Transparent" Visibility="{Binding Visibility}">
                 <Border Background="White" HorizontalAlignment="Stretch">
-                    <Grid DataContext="{x:Static viewModel:EditRoomViewModel.Instance}" 
-                          FocusManager.FocusedElement="{Binding ElementName=tbRoomId}">
+                    <Grid FocusManager.FocusedElement="{Binding ElementName=tbRoomId}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
