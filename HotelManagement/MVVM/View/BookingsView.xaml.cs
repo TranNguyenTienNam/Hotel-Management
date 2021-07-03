@@ -42,5 +42,10 @@ namespace HotelManagement.MVVM.View
         {
 
         }
+
+        private void tb_Deposits_Copy_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

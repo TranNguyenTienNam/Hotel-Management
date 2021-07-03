@@ -102,23 +102,23 @@
                 <TextBox x:Name="tb_room_name" IsReadOnly="False"
                     materialDesign:HintAssist.Hint="Room ID:"  Foreground="Black"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    VerticalAlignment="Top" Margin="8,354,173,0" Height="38" FontWeight="Bold" />
+                    VerticalAlignment="Top" Margin="8,334,173,0" Height="38" FontWeight="Bold" />
                 <TextBox x:Name="tb_room_type" IsReadOnly="False"
                     materialDesign:HintAssist.Hint="Type Room:"  Foreground="Black"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    VerticalAlignment="Top" Margin="144,354,13,0" Height="38" FontWeight="Bold"/>
+                    VerticalAlignment="Top" Margin="144,334,13,0" Height="38" FontWeight="Bold"/>
                 <TextBox x:Name="tb_unit_price" IsReadOnly="False"
                     materialDesign:HintAssist.Hint="Price:"  Foreground="Black"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    VerticalAlignment="Top" Margin="8,406,172,0" Height="35" TextChanged="tb_unit_price_TextChanged" FontWeight="Bold" />
+                    VerticalAlignment="Top" Margin="8,386,172,0" Height="35" TextChanged="tb_unit_price_TextChanged" FontWeight="Bold" />
                 <DatePicker x:Name="datepicker_checkout" Margin="84,485,13,0" VerticalAlignment="Top" Height="34"/>
                 <Label Content="Check Out:" HorizontalAlignment="Left" Height="27" Margin="9,494,0,0" VerticalAlignment="Top" Width="76" FontWeight="Bold"/>
                 <Label Content="CLIENT INFORMATION:" HorizontalAlignment="Left" Height="31" Margin="5,18,0,0" VerticalAlignment="Top" Width="243" FontWeight="Bold" FontSize="20"/>
-                <Label Content="RENTAL INFORMATION:" HorizontalAlignment="Left" Height="33" Margin="0,260,0,0" VerticalAlignment="Top" Width="243" FontWeight="Bold" FontSize="20" RenderTransformOrigin="0.494,0.97"/>
+                <Label Content="RENTAL INFORMATION:" HorizontalAlignment="Left" Height="33" Margin="0,252,0,0" VerticalAlignment="Top" Width="243" FontWeight="Bold" FontSize="20" RenderTransformOrigin="0.494,0.97"/>
                 <TextBox x:Name="tb_Deposits" IsReadOnly="False"
                     materialDesign:HintAssist.Hint="Deposit:"  Foreground="Black"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    VerticalAlignment="Top" Margin="144,406,0,0" Height="35" HorizontalAlignment="Left" Width="131" FontWeight="Bold"/>
+                    VerticalAlignment="Top" Margin="144,386,0,0" Height="35" HorizontalAlignment="Left" Width="131" FontWeight="Bold"/>
                 <Label Content="Check In:" HorizontalAlignment="Left" Height="27" Margin="10,458,0,0" VerticalAlignment="Top" Width="76" FontWeight="Bold"/>
                 <DatePicker x:Name="datepicker_checkin" Margin="84,448,13,0" VerticalAlignment="Top" Height="33" />
                 <ComboBox x:Name="cbbGender" Foreground="Black"
@@ -133,11 +133,11 @@
                 <TextBox x:Name="tbCreationDate" IsReadOnly="False"
                     materialDesign:HintAssist.Hint="Creation date:"  Foreground="#DA000000"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    VerticalAlignment="Top" Margin="7,311,174,0" Height="38" FontStyle="Italic" FontWeight="Bold" />
+                    VerticalAlignment="Top" Margin="7,291,174,0" Height="38" FontStyle="Italic" FontWeight="Bold" />
                 <TextBox x:Name="tbCreator" IsReadOnly="False"
                     materialDesign:HintAssist.Hint="Creator:"  Foreground="#D8000000"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    VerticalAlignment="Top" Margin="144,312,13,0" Height="36" FontStyle="Italic" FontWeight="Bold"/>
+                    VerticalAlignment="Top" Margin="144,292,13,0" Height="36" FontStyle="Italic" FontWeight="Bold"/>
                 <Button Height="Auto" Margin="26,533,36,48"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     materialDesign:ButtonAssist.CornerRadius="10"
@@ -159,6 +159,10 @@
                     <TextBlock
                         Text="Delete" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DDFFFFFF"/>
                 </Button>
+                <TextBox x:Name="tb_Deposits_Copy" IsReadOnly="False"
+                    materialDesign:HintAssist.Hint="Amount:"  Foreground="Black"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    VerticalAlignment="Top" Margin="9,419,0,0" Height="35" HorizontalAlignment="Left" Width="107" FontWeight="Bold" TextChanged="tb_Deposits_Copy_TextChanged"/>
 
             </Grid>
         </Border>

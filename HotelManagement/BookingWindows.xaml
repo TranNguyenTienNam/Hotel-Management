@@ -107,7 +107,7 @@
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="#FF024B48" Margin="0,56,0,31" Grid.RowSpan="2"/>
                             <ComboBox x:Name="cbbStatus" 
                             FontSize="14" Foreground="#FF009CAC"
-                            materialDesign:TextFieldAssist.PrefixText="Gender: "
+                            materialDesign:TextFieldAssist.PrefixText="Amount: "
                             SelectedValue="{Binding Status}"
                             IsEditable="False" Margin="0,52,0,-20" Grid.Row="1" VerticalAlignment="Stretch">
                                 <ComboBoxItem Content="Booked"/>
