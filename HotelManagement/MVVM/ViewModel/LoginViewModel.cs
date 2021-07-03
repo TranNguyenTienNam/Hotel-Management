@@ -22,6 +22,21 @@ namespace HotelManagement.MVVM.ViewModel
         private string _password;
         public string Password { get { return _password; } set { _password = value; OnPropertyChanged(); } }
 
+        //invalid username and password
+        private string _invalidUsenamePassword;
+        public string InvalidUsernamePassword 
+        { 
+            get 
+            { 
+                return _invalidUsenamePassword; 
+            } 
+            set 
+            { 
+                _invalidUsenamePassword = value; 
+                OnPropertyChanged(); 
+            }
+        }
+
         public ICommand PasswordChangedCommand { get; set; }
         public ICommand LoginCommand { get; set; }
         public ICommand RegisterCommand { get; set; }
@@ -41,7 +56,7 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                login(p);
+                Login(p);
             });
 
             RegisterCommand = new RelayCommand<Window>((p) =>
@@ -49,11 +64,11 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                register(p);
+                Register(p);
             });
         }
 
-        void login(Window p)
+        void Login(Window p)
         {
             if (p == null)
                 return;
@@ -74,11 +89,11 @@ namespace HotelManagement.MVVM.ViewModel
             }
             else
             {
-                MessageBox.Show("Invalid username or password.");
+                InvalidUsernamePassword = "Invalid username or password";
             }    
         }
 
-        void register(Window p)
+        void Register(Window p)
         {
             if (p == null)
                 return;

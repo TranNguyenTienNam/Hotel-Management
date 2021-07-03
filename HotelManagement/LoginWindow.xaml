@@ -50,11 +50,11 @@
                 <StackPanel Margin="20,40,20,40">
                     <TextBlock 
                         Text="User Login"
-                        Margin="20"
+                        Margin="20,20,20,10"
                         Foreground="White"
                         TextAlignment="Center"
                         FontSize="38"/>
-
+                    <TextBlock Text="{Binding InvalidUsernamePassword}" Padding="45,2,2,0" FontSize="12" Foreground="Red"/>
                     <StackPanel 
                         Orientation="Horizontal"
                         Margin="10">
@@ -68,7 +68,7 @@
                             x:Name="txtUserName"
                             Text="{Binding Username}"
                             Margin="10,0,0,0"
-                            materialDesign:HintAssist.Hint="Enter Username / Email"
+                            materialDesign:HintAssist.Hint="Enter Username"
                             Foreground="White"
                             Width="250"
                             BorderBrush="White"

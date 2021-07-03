@@ -33,7 +33,7 @@ namespace HotelManagement.MVVM.Model
             return -1;
         }
 
-        public bool InsertInfoUser(int MaNgDung , string Ho, string Ten, string Email)
+        public bool InsertInfoUser(int MaNgDung, string Ho, string Ten, string Email)
         {
             string sql_insert = "insert TTNguoiDung(MaNgDung, Ho, Ten, Email, QuyenHan) values " +
                 "(" + MaNgDung + ", N'" + Ho + "', N'" + Ten + "', '" + Email + "', 2)";
@@ -55,6 +55,15 @@ namespace HotelManagement.MVVM.Model
             {
                 return false;
             }
+        }
+
+        public bool IsSpecialChar(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return true;
+            if (Process.CheckVietKey(text))
+                return true;
+            return false;
         }
     }
 }

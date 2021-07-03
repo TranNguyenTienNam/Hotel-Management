@@ -50,7 +50,7 @@
                 <StackPanel Margin="20,40,20,40">
                     <TextBlock 
                         Text="User Register"
-                        Margin="20"
+                        Margin="8"
                         Foreground="White"
                         TextAlignment="Center"
                         FontSize="38"/>
@@ -87,102 +87,127 @@
                             SelectionBrush="#FFD94448"/>
                     </StackPanel>
 
-                    <StackPanel 
-                        Orientation="Horizontal"
-                        Margin="10">
-                        <materialDesign:PackIcon 
-                            Kind="User"
-                            Width="25"
-                            Height="25"
-                            Foreground="White"/>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel 
+                            Orientation="Horizontal"
+                            Margin="10,10,10,0">
+                            <materialDesign:PackIcon 
+                                Kind="User"
+                                Width="25"
+                                Height="25"
+                                Foreground="White"/>
 
-                        <TextBox
-                            x:Name="txtUsername"
-                            Text="{Binding Username}"
-                            Margin="10,0,10,0"
-                            materialDesign:HintAssist.Hint="Username"
-                            Foreground="White"
-                            Width="250"
-                            BorderBrush="White"
-                            CaretBrush="#FFD94448"
-                            SelectionBrush="#FFD94448"/>
+                            <TextBox
+                                x:Name="txtUsername"
+                                Text="{Binding Username}"
+                                Margin="10,0,10,0"
+                                materialDesign:HintAssist.Hint="Username"
+                                Foreground="White"
+                                Width="250"
+                                BorderBrush="White"
+                                CaretBrush="#FFD94448"
+                                SelectionBrush="#FFD94448">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="TextChanged">
+                                        <i:InvokeCommandAction Command="{Binding UsernameTextChangedCommand}" 
+                                            CommandParameter="{Binding ElementName=txtUsername}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+                        </StackPanel>
+                        <TextBlock Text="{Binding SpecialCharUsername}" Padding="45,2,2,0" FontSize="10" Foreground="Red"/>
                     </StackPanel>
 
-                    <StackPanel 
-                        Orientation="Horizontal"
-                        Margin="10">
-                        <materialDesign:PackIcon 
-                            Kind="Key"
-                            Width="25"
-                            Height="25"
-                            Foreground="White"/>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel 
+                            Orientation="Horizontal"
+                            Margin="10,10,10,0">
+                            <materialDesign:PackIcon 
+                                Kind="Key"
+                                Width="25"
+                                Height="25"
+                                Foreground="White"/>
 
-                        <PasswordBox
-                            x:Name="txtPassword"
-                            Margin="10,0,0,0"
-                            materialDesign:HintAssist.Hint="Password"
-                            Foreground="White"
-                            Width="250"
-                            BorderBrush="White"
-                            CaretBrush="#FFD94448"
-                            SelectionBrush="#FFD94448">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="PasswordChanged">
-                                    <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
-                                   CommandParameter="{Binding ElementName=txtPassword}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </PasswordBox>
+                            <PasswordBox
+                                x:Name="txtPassword"
+                                Margin="10,0,0,0"
+                                materialDesign:HintAssist.Hint="Password"
+                                Foreground="White"
+                                Width="250"
+                                BorderBrush="White"
+                                CaretBrush="#FFD94448"
+                                SelectionBrush="#FFD94448">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PasswordChanged">
+                                        <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
+                                       CommandParameter="{Binding ElementName=txtPassword}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </PasswordBox>
+                        </StackPanel>
+                        <TextBlock Text="{Binding SpecialCharPassword}" Padding="45,2,2,0" FontSize="10" Foreground="Red"/>
                     </StackPanel>
 
-                    <StackPanel 
-                        Orientation="Horizontal"
-                        Margin="10">
-                        <materialDesign:PackIcon 
-                            Kind="Lock"
-                            Width="25"
-                            Height="25"
-                            Foreground="White"/>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel 
+                            Orientation="Horizontal"
+                            Margin="10,10,10,0">
+                            <materialDesign:PackIcon 
+                                Kind="Lock"
+                                Width="25"
+                                Height="25"
+                                Foreground="White"/>
 
-                        <PasswordBox
-                            x:Name="txtConfirmPassword"
-                            Margin="10,0,0,0"
-                            materialDesign:HintAssist.Hint="Confirm"
-                            Foreground="White"
-                            Width="250"
-                            BorderBrush="White"
-                            CaretBrush="#FFD94448"
-                            SelectionBrush="#FFD94448">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="PasswordChanged">
-                                    <i:InvokeCommandAction Command="{Binding ConfirmPasswordChangedCommand}" 
-                                   CommandParameter="{Binding ElementName=txtConfirmPassword}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </PasswordBox>
+                            <PasswordBox
+                                x:Name="txtConfirmPassword"
+                                Margin="10,0,0,0"
+                                materialDesign:HintAssist.Hint="Confirm"
+                                Foreground="White"
+                                Width="250"
+                                BorderBrush="White"
+                                CaretBrush="#FFD94448"
+                                SelectionBrush="#FFD94448">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PasswordChanged">
+                                        <i:InvokeCommandAction Command="{Binding ConfirmPasswordChangedCommand}" 
+                                       CommandParameter="{Binding ElementName=txtConfirmPassword}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </PasswordBox>
+                        </StackPanel>
+                        <TextBlock Text="{Binding SpecialCharConfirmPassword}" Padding="45,2,2,0" FontSize="10" Foreground="Red"/>
                     </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel 
+                            Orientation="Horizontal"
+                            Margin="10,10,10,0">
+                            <materialDesign:PackIcon 
+                                Kind="Gmail"
+                                Width="25"
+                                Height="25"
+                                Foreground="White"/>
 
-                    <StackPanel 
-                        Orientation="Horizontal"
-                        Margin="10">
-                        <materialDesign:PackIcon 
-                            Kind="Gmail"
-                            Width="25"
-                            Height="25"
-                            Foreground="White"/>
-
-                        <TextBox
-                            x:Name="txtEmail"
-                            Text="{Binding Email}"
-                            Margin="10,0,10,0"
-                            materialDesign:HintAssist.Hint="Enter your email"
-                            Foreground="White"
-                            Width="250"
-                            BorderBrush="White"
-                            CaretBrush="#FFD94448"
-                            SelectionBrush="#FFD94448"/>
+                            <TextBox
+                                x:Name="txtEmail"
+                                Text="{Binding Email}"
+                                Margin="10,0,10,0"
+                                materialDesign:HintAssist.Hint="Enter your email"
+                                Foreground="White"
+                                Width="250"
+                                BorderBrush="White"
+                                CaretBrush="#FFD94448"
+                                SelectionBrush="#FFD94448">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="TextChanged">
+                                        <i:InvokeCommandAction Command="{Binding EmailTextChangedCommand}" 
+                                            CommandParameter="{Binding ElementName=txtEmail}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+                        </StackPanel>
+                        <TextBlock Text="{Binding InvalidMail}" Padding="45,2,2,0" FontSize="10" Foreground="Red"/>
                     </StackPanel>
-
+                    
                     <StackPanel
                         Margin="10"
                         Orientation="Horizontal"
@@ -191,6 +216,7 @@
                             x:Name="btnFinish"
                             Command="{Binding FinishCommand}"
                             CommandParameter="{Binding ElementName=registerWindow}"
+                            
                             Margin="0,0,10,0"
                             Width="100"
                             Height="40"

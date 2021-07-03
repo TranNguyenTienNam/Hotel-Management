@@ -94,7 +94,7 @@ namespace HotelManagement.MVVM.ViewModel
 
             SearchCommand = new RelayCommand<object>((p) =>
             {
-                if (string.IsNullOrEmpty(SearchText) || string.IsNullOrEmpty(ItemSearchSelected))
+                if (string.IsNullOrEmpty(ItemSearchSelected))
                     return false;
                 return true;
             }, (p) =>

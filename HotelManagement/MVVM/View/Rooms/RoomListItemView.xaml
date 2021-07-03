@@ -20,19 +20,12 @@
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="60"/>
-                                            <!--room id-->
                                             <ColumnDefinition Width="135"/>
-                                            <!--room name-->
                                             <ColumnDefinition Width="170"/>
-                                            <!--room type-->
                                             <ColumnDefinition Width="120"/>
-                                            <!--unit price-->
                                             <ColumnDefinition Width="120"/>
-                                            <!--maximum-->
-                                            <ColumnDefinition Width="150"/>
-                                            <!--notes-->
+                                            <ColumnDefinition Width="170"/>
                                             <ColumnDefinition Width="86"/>
-                                            <!--notes-->
                                             <ColumnDefinition Width="8"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0" Margin="2,0,0,0" Text="{Binding MaPhong}" 
