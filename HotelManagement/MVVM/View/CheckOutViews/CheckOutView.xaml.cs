@@ -27,15 +27,5 @@ namespace HotelManagement.MVVM.View
         {
             InitializeComponent();
         }
-
-        private void btnBills_Click(object sender, RoutedEventArgs e)
-        {
-            (new BillsView()).ShowDialog();
-        }
-
-        private void btnEditSurcharge_Click(object sender, RoutedEventArgs e)
-        {
-            (new SurchargeView()).ShowDialog();
-        }
     }
 }
