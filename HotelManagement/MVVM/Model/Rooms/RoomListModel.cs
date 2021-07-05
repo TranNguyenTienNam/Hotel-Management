@@ -20,7 +20,7 @@ namespace HotelManagement.MVVM.Model
                 + "where p.MaLoaiPhong = lp.MaLoaiPhong";
 
             re = Process.createTable(sql_select);
-            return re;  //Trả về 1 DataTable
+            return re;  
         }
         
         public bool Save_RoomEdited(int MaPhong, string TenPhong, int MaLoaiPhong, string GhiChu)

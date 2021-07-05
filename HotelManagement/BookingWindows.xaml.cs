@@ -23,12 +23,17 @@ namespace HotelManagement
         public BookingWindows()
         {
             InitializeComponent();
-            DataContext = new BookingViewModel();
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void tbPhone_Copy_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

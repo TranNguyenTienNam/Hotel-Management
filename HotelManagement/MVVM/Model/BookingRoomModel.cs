@@ -20,5 +20,25 @@ namespace HotelManagement.MVVM.Model
             re = Process.createTable(sql_select);
             return re;
         }
+
+        public int Save_Client(string TenKH, int MaLoaiKhach, int CMND, int SDT,string DiaChi,string GioiTinh)
+        {
+            string sql_update = "insert KHACHHANG(TenKH,MaLoaiKhach,CMND,SoDienThoai,DiaChi,GioiTinh) values"
+                + "('" + TenKH + "'," + MaLoaiKhach + "," + CMND + "," + SDT + ",'" + DiaChi + "','" + GioiTinh + "');SELECT SCOPE_IDENTITY();";
+
+            int i = Process.insertUser(sql_update);
+            if (i!=0) return i;
+            return 0;
+        }
+
+        public bool Save_Booking(int MaPhong, string TenPhong, int MaLoaiPhong, string GhiChu)
+        {
+            string sql_update = "insert PHIEUTHUEPHONG(MaPhong,MaKH,NgayLapPhieu,NgayBatDau,NgayTraPhong,SoLuongKhach,TinhTrang,NguoiLapPhieu,TienCoc) values";
+             //(102, 1002, 7 / 2 / 2021, 7 / 2 / 2021, 7 / 24 / 2021, 3, 'Checkin', 1001, 200000),
+            if (Process.ExecutiveNonQuery(sql_update) > 0)
+                return true;
+
+            return false;
+        }
     }
 }
