@@ -183,7 +183,6 @@
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                         VerticalAlignment="Top" Margin="192,333,9.6,0" Height="38"/>
                             <Label Content="Check-in:" HorizontalAlignment="Left" Height="26" Margin="110,344,0,0" VerticalAlignment="Top" Width="76" FontSize="14" Background="#00000000"/>
-                            <DatePicker x:Name="datepicker_checkout" Margin="192,370,10.6,0" VerticalAlignment="Top" Height="40" FontSize="14" />
                             <Label Content="Check-out:" HorizontalAlignment="Left" Height="27" Margin="110,383,0,0" VerticalAlignment="Top" Width="76" FontSize="14"/>
                             <TextBox x:Name="tb_subtotal" FontSize="14" IsReadOnly="False"
                         materialDesign:HintAssist.Hint="Subtotal"  Foreground="Black"
@@ -211,6 +210,10 @@
                             materialDesign:HintAssist.Hint="Rental ID"  Foreground="Black"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                             VerticalAlignment="Top" Margin="10,38,208.6,0" Height="38" />
+                            <TextBox x:Name="tb_checkout" FontSize="14" IsReadOnly="False"
+                                materialDesign:HintAssist.Hint=""  Foreground="Black"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Top" Margin="191,372,10.6,0" Height="38"/>
                         </Grid>
                     </StackPanel>
                 </Border>

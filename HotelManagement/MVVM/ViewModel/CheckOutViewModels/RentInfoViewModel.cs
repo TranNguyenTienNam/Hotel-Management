@@ -91,5 +91,6 @@ namespace HotelManagement.MVVM.ViewModel.CheckOutViewModels
         String _tenLoaiPhong;
         public String TenLoaiPhong { get { return _tenLoaiPhong; } set { _tenLoaiPhong = value;OnPropertyChanged(); } }
         
+
     }
 }

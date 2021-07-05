@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace HotelManagement.MVVM.Model.CheckOut
 {
-    class SearchBillModel
+    class BillsModel
     {
     }
 }

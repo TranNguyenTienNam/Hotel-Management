@@ -11,7 +11,7 @@ namespace HotelManagement.MVVM.Model
 {
     class CheckOutModel
     {
-        public DataTable get_list_rent_checkout()
+        public DataTable load_list_rent()
         {
             DataTable re;
             string query = "select MaPhieuThue, NgayBatDau, NgayTraPhong, SoLuongKhach, TinhTrang, NguoiLapPhieu, TienCoc, " +
@@ -27,6 +27,14 @@ namespace HotelManagement.MVVM.Model
                 "inner join NGUOIDUNG on NGUOIDUNG.MaNgDung=PHIEUTHUEPHONG.NguoiLapPhieu " +
                 "where TinhTrang='Checkin'";
 
+            re = Process.createTable(query);
+            return re;
+        }
+
+        public DataTable change_checkout_date(DateTime date, int maPhieuThue) //date dạng yyyy/mm/dd
+        {
+            DataTable re;
+            string query = "UPDATE PHIEUTHUEPHONG SET NgayTraPhong = '" + date + "' WHERE MaPhieuThue = "+maPhieuThue;
             re = Process.createTable(query);
             return re;
         }

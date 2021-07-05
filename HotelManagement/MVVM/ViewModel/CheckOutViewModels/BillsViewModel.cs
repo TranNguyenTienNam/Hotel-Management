@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.MVVM.ViewModel.CheckOutViewModels
 {
-    class SearchBillViewModel
+    class BillsViewModel
     {
 
     }

@@ -101,7 +101,7 @@
     <Compile Include="Core\EventSystem.cs" />
     <Compile Include="Core\Message.cs" />
     <Compile Include="MVVM\Model\CheckOut\CheckOutModel.cs" />
-    <Compile Include="MVVM\Model\CheckOut\SearchBillModel.cs" />
+    <Compile Include="MVVM\Model\CheckOut\BillsModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel\AORCardModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel\AORModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel\BookingsCardModel.cs" />
@@ -121,7 +121,7 @@
     <Compile Include="MVVM\Model\Rooms\TypesListModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\CheckOutViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\RentInfoViewModel.cs" />
-    <Compile Include="MVVM\ViewModel\CheckOutViewModels\SearchBillViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\CheckOutViewModels\BillsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\SurchargeViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\EditRoomViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\ListTypeItemViewModel.cs" />
