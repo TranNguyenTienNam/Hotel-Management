@@ -24,9 +24,6 @@ namespace HotelManagement
         {
             InitializeComponent();
             DataContext = new BookingViewModel();
-
-            
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

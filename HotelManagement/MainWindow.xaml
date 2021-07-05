@@ -61,6 +61,7 @@
 
                         <Button 
                         Width="120"
+                            Command="{Binding NewBookingCommand}"
                         Height="30"
                         Margin="0,0,20,0"
                         Content="New Booking"
