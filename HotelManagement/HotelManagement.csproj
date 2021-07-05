@@ -63,6 +63,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Net" />
     <Reference Include="System.Security" />
     <Reference Include="System.Security.AccessControl, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -102,6 +104,7 @@
     <Compile Include="Core\Message.cs" />
     <Compile Include="MVVM\Model\CheckOut\CheckOutModel.cs" />
     <Compile Include="MVVM\Model\CheckOut\BillsModel.cs" />
+    <Compile Include="MVVM\Model\CheckOut\SurchargeModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel\AORCardModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel\AORModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel\BookingsCardModel.cs" />
@@ -122,6 +125,7 @@
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\CheckOutViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\CheckOutItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\BillsViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\CheckOutViewModels\SurchargeItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\SurchargeViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\EditRoomViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\ListTypeItemViewModel.cs" />

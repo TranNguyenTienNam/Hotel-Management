@@ -24,11 +24,6 @@ namespace HotelManagement.MVVM.View.CheckOutViews
             InitializeComponent();
         }
 
-        private void btnExit_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)

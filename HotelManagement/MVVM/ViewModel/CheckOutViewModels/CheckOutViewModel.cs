@@ -1,28 +1,20 @@
 ﻿using HotelManagement.Object;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using HotelManagement.Core;
 using System.Data;
 using HotelManagement.MVVM.Model;
-using System.Windows;
 using System.Windows.Input;
-using System.Windows.Threading;
-using HotelManagement.MVVM.View;
-using HotelManagement.MVVM.ViewModel.CheckOutViewModels;
-using HotelManagement.Object;
-using HotelManagement.MVVM.View;
 using HotelManagement.MVVM.View.CheckOutViews;
+using HotelManagement.MVVM.ViewModel.CheckOutViewModels;
 
 namespace HotelManagement.MVVM.ViewModel
 {
     class CheckOutViewModel: ObservableObject
     {
         public static CheckOutViewModel Instance => new CheckOutViewModel();
-        private ObservableCollection<RentFullItem> _items;
-        public ObservableCollection<RentFullItem> Items { get { return _items; } set { _items = value; OnPropertyChanged("Items"); } }
+        private ObservableCollection<CheckOutItemViewModel> _items;
+        public ObservableCollection<CheckOutItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged("Items"); } }
 
         public ICommand BillsCommand { get; set; }
         public ICommand SurchargeCommand { get; set; }
@@ -52,7 +44,7 @@ namespace HotelManagement.MVVM.ViewModel
 
         void loadListRent()
         {
-            Items = new ObservableCollection<RentFullItem>();
+            Items = new ObservableCollection<CheckOutItemViewModel>();
             DataTable data = new DataTable();
             CheckOutModel model = new CheckOutModel();
 
@@ -60,7 +52,7 @@ namespace HotelManagement.MVVM.ViewModel
 
             foreach(DataRow row in data.Rows)
             {
-                var obj = new RentFullItem()
+                var obj = new CheckOutItemViewModel()
                 {
                     MaPhieuThue = (int)row["MaPhieuThue"],
                     NgayLapPhieu = (DateTime)row["NgayLapPhieu"],

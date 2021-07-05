@@ -32,7 +32,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Image Source="/Images/search.png" Width="25" Stretch="Uniform"></Image>
-                        <TextBlock Grid.Column="1" Margin="3.4,4,-0.4,4" Text="Search name..." FontWeight="Bold" VerticalAlignment="Center" Foreground="LightGray">
+                        <TextBlock Grid.Column="1" Margin="3.4,4,0,4" Text="Search name..." FontWeight="Bold" VerticalAlignment="Center" Foreground="LightGray">
                             <TextBlock.Style>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Visibility" Value="Collapsed"/>

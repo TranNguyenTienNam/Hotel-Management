@@ -11,5 +11,6 @@ namespace HotelManagement.MVVM.Model.CheckOut
 {
     class BillsModel
     {
+        
     }
 }
