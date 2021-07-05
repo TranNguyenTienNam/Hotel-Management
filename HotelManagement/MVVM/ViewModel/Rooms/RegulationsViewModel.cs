@@ -4,6 +4,7 @@ using HotelManagement.Object;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -49,6 +50,18 @@ namespace HotelManagement.MVVM.ViewModel
                 p.Close();
             });
         }
+
+
+        #region View Event Handling
+
+        //Không nhận ký tự khác ngoài số khi nhập textbox
+        public void PreviewTextInputViewModel(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        #endregion
 
         void addNewRoomType()
         {
