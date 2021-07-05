@@ -83,8 +83,20 @@ namespace HotelManagement.MVVM.Model
             return ck;      //trả về số hàng đã đọc được. Nếu không có hàng nào thì trả về 0
         }
 
-        //Function lấy Ukey từ table
-        public static int getNumber(string sql)
+
+        public static int insertUser(string sql)
+        {
+            int i = 0;
+            conn = new SqlConnection(connectLink);
+            conn.Open();
+            cmd = new SqlCommand(sql, conn);
+            int modified = Convert.ToInt32(cmd.ExecuteScalar());
+            return modified;
+
+        }
+
+            //Function lấy Ukey từ table
+            public static int getNumber(string sql)
         {
             int i = 0;
             conn = new SqlConnection(connectLink);

@@ -34,8 +34,6 @@ namespace HotelManagement.MVVM.ViewModel
                     TienCoc = (int)row["TienCoc"],
                     TenKH = (string)row["TenKH"],
                     SoDienThoai = (string)row["SoDienThoai"]
-
-
                 };
                 Items.Add(obj);
             }

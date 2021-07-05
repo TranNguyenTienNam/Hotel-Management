@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HotelManagement.MVVM.View"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:viewmodel="clr-namespace:HotelManagement.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:RoomListViewModel}"
+             xmlns:viewModel="clr-namespace:HotelManagement.MVVM.ViewModel"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Width="930" Height="615">
 
@@ -39,7 +40,7 @@
                     </Grid>
                     <Label Content="List Retals:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Height="30" Width="264" FontWeight="Bold" FontSize="16"/>
                 </Grid>
-                <Grid Height="414">
+                <Grid Height="414" DataContext="{x:Static viewModel:BookingListViewModel.Insance}">
                     <ListView ItemsSource="{Binding Items}" HorizontalContentAlignment="Stretch" Margin="-11,0,-11,-116" VerticalContentAlignment="Stretch" FontSize="10" >
                         <ListView.View>
                             <GridView>

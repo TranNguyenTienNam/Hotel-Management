@@ -15,7 +15,6 @@ namespace HotelManagement.MVVM.ViewModel
     public class BookRoomItemViewModel : ObservableObject
     {
         public static BookRoomItemViewModel Instance => new BookRoomItemViewModel();
-
         public int MaPhong { get; set; }
         public string TenPhong { get; set; }
         public string LoaiPhong { get; set; }
