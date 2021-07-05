@@ -31,10 +31,10 @@ namespace HotelManagement.MVVM.Model
             return 0;
         }
 
-        public bool Save_Booking(int MaPhong, string TenPhong, int MaLoaiPhong, string GhiChu)
+        public bool Save_Booking(int MaPhong, int MaKH,string NgayLapPhieu, string NgayBatDau,string NgayTraphong,int SoLuongKhach,string TinhTrang,int NguoiLapPhieu,int TienCoc)
         {
-            string sql_update = "insert PHIEUTHUEPHONG(MaPhong,MaKH,NgayLapPhieu,NgayBatDau,NgayTraPhong,SoLuongKhach,TinhTrang,NguoiLapPhieu,TienCoc) values";
-             //(102, 1002, 7 / 2 / 2021, 7 / 2 / 2021, 7 / 24 / 2021, 3, 'Checkin', 1001, 200000),
+            string sql_update = "insert PHIEUTHUEPHONG(MaPhong,MaKH,NgayLapPhieu,NgayBatDau,NgayTraPhong,SoLuongKhach,TinhTrang,NguoiLapPhieu,TienCoc) values"
+                + "(" + MaPhong + "," + MaKH + ",'" + NgayLapPhieu + "','" + NgayBatDau + "','" + NgayTraphong + "'," + SoLuongKhach + ",'" + TinhTrang + "'," + NguoiLapPhieu + ","+TienCoc+ ")"; 
             if (Process.ExecutiveNonQuery(sql_update) > 0)
                 return true;
 

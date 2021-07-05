@@ -19,6 +19,8 @@ namespace HotelManagement.MVVM.ViewModel
         public static BookRoomItemViewModel Insance => new BookRoomItemViewModel();
         public List<BookRoomItemViewModel> Items { get; set; }
 
+        public int CreatorID = 1000;
+
         private int _id;
         public int RoomId { get { return _id; } set { _id = value; OnPropertyChanged(); } }
 
@@ -57,20 +59,69 @@ namespace HotelManagement.MVVM.ViewModel
         private string _status;
         public string Status { get { return _status; } set { _status = value; OnPropertyChanged(); } }
 
-        public ICommand SelectedDateChangedCommand { get; set; }
+        public ICommand CheckOutDate { get; set; }
+        public ICommand CheckInDate { get; set; }
         public ICommand SelectedChangedCommand { get; set; }
         public ICommand HandleBooking { get; set; }
+        public ICommand GenderChanged { get; set; }
+        public ICommand StatusChanged { get; set; }
+        public ICommand NationalityChanged { get; set; }
+
+        public string checkout { get; set; }
+        public string checkin { get; set; }
 
         public BookingViewModel()
         {
             loadListRoom();
 
-            SelectedDateChangedCommand = new RelayCommand<DatePicker>((p) =>
+
+            GenderChanged = new RelayCommand<ComboBox>((p) =>
             {
                 return true;
             }, (p) =>
             {
-                MessageBox.Show(p.Text);
+                var item = (ComboBoxItem)p.SelectedValue;
+                var content = (string)item.Content;
+                Gender = content;
+            });
+
+
+            StatusChanged = new RelayCommand<ComboBox>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                var item = (ComboBoxItem)p.SelectedValue;
+                var content = (string)item.Content;
+                Status = content;
+            });
+
+
+            NationalityChanged = new RelayCommand<ComboBox>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                var item = (ComboBoxItem)p.SelectedValue;
+                var content = (string)item.Content;
+                Nation = content;
+            });
+
+
+            CheckOutDate = new RelayCommand<DatePicker>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                checkout = p.SelectedDate.Value.ToString("yyyy-MM-dd HH:mm:ss");
+            });
+
+            CheckInDate = new RelayCommand<DatePicker>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                checkin = p.SelectedDate.Value.ToString("yyyy-MM-dd HH:mm:ss");
             });
 
             SelectedChangedCommand = new RelayCommand<ListView>((p) =>
@@ -87,20 +138,30 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-               
-                    int n = 1;
-                    BookingRoomModel md = new BookingRoomModel();
-                    int i = md.Save_Client(Name, n, CitizenID, Phone, Address, "Nam");
-                    if (i!=0)
-                    {
-                        MessageBox.Show(i.ToString());
-                     };
+                int ination = 2;
+                if (Nation == "Other") ination = 1;
+                MessageBox.Show(checkin,"Nhận phòng");
+                MessageBox.Show( checkout,"Trả phòng");
+
+                BookingRoomModel md = new BookingRoomModel();
+                int i = md.Save_Client(Name, ination, CitizenID, Phone, Address, "Nam");
+                if (i != 0)
+                {
+                    MessageBox.Show(i.ToString());
+                };
+
+                DateTime now = DateTime.Now;
+                MessageBox.Show(now.ToString("yyyy-MM-dd HH:mm:ss"));
 
 
+                if (md.Save_Booking(RoomId,i,now.ToString("yyyy-MM-dd HH:mm:ss"),checkin,checkout,Amount,Status,CreatorID,Deposit))
+                {
+                    MessageBox.Show("Booking Created");
+                }
+            })
+            {
 
-            });
-
-
+            };
         }
 
         void loadListRoom()

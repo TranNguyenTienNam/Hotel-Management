@@ -35,16 +35,24 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Label Content="Check-in date:" Margin="10,3,142,0" Foreground="#FF009EAE" BorderBrush="#FF009EAE" FontSize="18" FontFamily="Calibri" VerticalContentAlignment="Bottom" Height="43" VerticalAlignment="Top"/>
-                    <DatePicker Name="dpDate" VerticalAlignment="Stretch" Margin="130,12,10,12" Foreground="#FF009EAE" BorderBrush="#FF009EAE">
+                    <DatePicker Name="dpCheckIn" VerticalAlignment="Stretch" Margin="130,12,10,12" Foreground="#FF009EAE" BorderBrush="#FF009EAE">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectedDateChanged">
-                                <i:InvokeCommandAction Command="{Binding SelectedDateChangedCommand}" 
-                                            CommandParameter="{Binding ElementName=dpDate}"/>
+                                <i:InvokeCommandAction Command="{Binding CheckInDate}" 
+                                            CommandParameter="{Binding ElementName=dpCheckIn}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </DatePicker>
                     <Label Content="Check-out date:" Margin="28,16,189,0" Foreground="#FFB45609" BorderBrush="#FF009EAE" FontSize="18" FontFamily="Calibri" Grid.Column="1" Height="30" VerticalAlignment="Top"/>
-                    <DatePicker VerticalAlignment="Stretch" Margin="158,12,16,12" Foreground="#FF998D1A" BorderBrush="#FFB45609" FontWeight="Bold" Grid.Column="1"/>
+                    <DatePicker Name="dpCheckOut" VerticalAlignment="Stretch" Margin="158,12,16,12" Foreground="#FF998D1A" BorderBrush="#FFB45609" FontWeight="Bold" Grid.Column="1">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectedDateChanged">
+                                <i:InvokeCommandAction Command="{Binding CheckOutDate}" 
+                                            CommandParameter="{Binding ElementName=dpCheckOut}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                    </DatePicker>
                 </Grid>
             </Border>
             <StackPanel CanVerticallyScroll="True" Orientation="Horizontal" Panel.ZIndex="-3" CanHorizontallyScroll="True"/>
@@ -76,21 +84,31 @@
                             <TextBox Grid.Row="1" x:Name="tbPhone" Foreground="#FF009CAC" Text="{Binding Phone}"
                             materialDesign:HintAssist.Hint="Phone number:" FontSize="14"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="#FF024B48" Margin="0,14,0,10"/>
-                            <ComboBox x:Name="cbbTypeofGuest" 
+                            <ComboBox x:Name="cbbNationality" 
                             FontSize="14" Foreground="#FF009CAC"
                             materialDesign:TextFieldAssist.PrefixText="Nationality: "
-                            SelectedValue="{Binding Nation}"
                             IsEditable="False" Margin="0,84,0,-46" Grid.Row="1" VerticalAlignment="Stretch">
                                 <ComboBoxItem Content="Vietnames"/>
                                 <ComboBoxItem Content="Other"/>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding NationalityChanged}" 
+                                CommandParameter="{Binding ElementName=cbbNationality}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                             </ComboBox>
                             <ComboBox x:Name="cbbStatus" 
                             FontSize="14" Foreground="#FF009CAC"
                             materialDesign:TextFieldAssist.PrefixText="Status: "
-                            SelectedValue="{Binding Status}"
                             IsEditable="False" Margin="0,134,0,-95" Grid.Row="1" VerticalAlignment="Stretch">
                                 <ComboBoxItem Content="Booked"/>
                                 <ComboBoxItem Content="Check-in"/>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding StatusChanged}" 
+                                CommandParameter="{Binding ElementName=cbbStatus}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                             </ComboBox>
                         </Grid>
                         <!--Room Name + Price/Day-->
@@ -105,12 +123,16 @@
                             <ComboBox x:Name="cbbGender" 
                             FontSize="14" Foreground="#FF009CAC"
                             materialDesign:TextFieldAssist.PrefixText="Gender: "
-                            SelectedValue="{Binding Gender}"
                             IsEditable="False" Margin="0,29,0,-10" Grid.Row="1" VerticalAlignment="Stretch">
                                 <ComboBoxItem Content="Male"/>
                                 <ComboBoxItem Content="Female"/>
                                 <ComboBoxItem Content="Other"/>
-
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding GenderChanged}" 
+                                CommandParameter="{Binding ElementName=cbbGender}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                             </ComboBox>
                             <TextBox Grid.Row="1" x:Name="tbDeposit" Foreground="#FF009CAC" Text="{Binding Deposit}"
                             materialDesign:HintAssist.Hint="Deposit:" FontSize="14" IsReadOnly="False"
