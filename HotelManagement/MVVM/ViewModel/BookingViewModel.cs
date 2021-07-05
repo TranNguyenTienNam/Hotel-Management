@@ -11,6 +11,8 @@ using HotelManagement.MVVM.Model;
 using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows;
+using System.Text.RegularExpressions;
+
 
 namespace HotelManagement.MVVM.ViewModel
 {
@@ -58,6 +60,13 @@ namespace HotelManagement.MVVM.ViewModel
 
         private string _status;
         public string Status { get { return _status; } set { _status = value; OnPropertyChanged(); } }
+        public void IsAllowedInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+
 
         public ICommand CheckOutDate { get; set; }
         public ICommand CheckInDate { get; set; }
@@ -66,6 +75,7 @@ namespace HotelManagement.MVVM.ViewModel
         public ICommand GenderChanged { get; set; }
         public ICommand StatusChanged { get; set; }
         public ICommand NationalityChanged { get; set; }
+        public ICommand HandleOnlyNumber { get; set; }
 
         public string checkout { get; set; }
         public string checkin { get; set; }
@@ -75,6 +85,15 @@ namespace HotelManagement.MVVM.ViewModel
             loadListRoom();
 
 
+       /*     HandleOnlyNumber = new RelayCommand<TextBox>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                Regex regex = new Regex("[^0-9]+");
+                 = regex.IsMatch(p.Text);
+            });
+            */
             GenderChanged = new RelayCommand<ComboBox>((p) =>
             {
                 return true;
@@ -134,29 +153,39 @@ namespace HotelManagement.MVVM.ViewModel
             });
 
             HandleBooking = new RelayCommand<object>((p) =>
-            {
+            {   
+                if(
+                   string.IsNullOrEmpty(Name) || (RoomId == 0) || (CitizenID == 0) 
+                || (Phone == 0) || string.IsNullOrEmpty(Gender) || string.IsNullOrEmpty(Address) 
+                || string.IsNullOrEmpty(Nation) || (Deposit == 0) || (Amount == 0) || string.IsNullOrEmpty(Status) 
+                || string.IsNullOrEmpty(checkout) || string.IsNullOrEmpty(checkin)
+                )   return false;
                 return true;
             }, (p) =>
             {
                 int ination = 2;
                 if (Nation == "Other") ination = 1;
-                MessageBox.Show(checkin,"Nhận phòng");
-                MessageBox.Show( checkout,"Trả phòng");
+                //MessageBox.Show(checkin,"Nhận phòng");
+                //MessageBox.Show( checkout,"Trả phòng");
 
                 BookingRoomModel md = new BookingRoomModel();
-                int i = md.Save_Client(Name, ination, CitizenID, Phone, Address, "Nam");
+                int i = md.Save_Client(Name,ination, CitizenID, Phone, Address, "Nam");
                 if (i != 0)
                 {
-                    MessageBox.Show(i.ToString());
+                    MessageBox.Show("Client Created","Notify");
                 };
 
                 DateTime now = DateTime.Now;
-                MessageBox.Show(now.ToString("yyyy-MM-dd HH:mm:ss"));
 
+                //MessageBox.Show(now.ToString("yyyy-MM-dd HH:mm:ss"));
+                //MessageBox.Show(CitizenID.ToString(),"CitizenID:");
+                //MessageBox.Show(Phone.ToString(),"Phone:");
+                //MessageBox.Show(Amount.ToString(),"Amount:");
+                //MessageBox.Show(Deposit.ToString(),"Deposit:");
 
                 if (md.Save_Booking(RoomId,i,now.ToString("yyyy-MM-dd HH:mm:ss"),checkin,checkout,Amount,Status,CreatorID,Deposit))
                 {
-                    MessageBox.Show("Booking Created");
+                    MessageBox.Show("Booking Created","Notify");
                 }
             })
             {
