@@ -19,8 +19,14 @@
         <viewModel:MainViewModel/>
     </Window.DataContext>
 
-    <Border Background="#FFFFFF"
-            CornerRadius="20">
+    <Border Background="#FFFFFF">
+        <Border.Clip>
+            <RectangleGeometry 
+                RadiusX="20"
+                RadiusY="20"
+                Rect="0,0,1080,675"/>
+        </Border.Clip>
+        
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
