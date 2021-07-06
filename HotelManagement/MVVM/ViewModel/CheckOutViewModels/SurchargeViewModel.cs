@@ -20,19 +20,10 @@ namespace HotelManagement.MVVM.ViewModel.CheckOutViewModels
         public ObservableCollection<SurchargeItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged("Items"); } }
 
         public ICommand UpdateSrcharge { get; set; }
-        public ICommand ClickExitCommand { get; set; }
 
         public SurchargeViewModel()
         {
             LoadSurcharge();
-
-            ClickExitCommand = new RelayCommand<Window>((p) =>
-            {
-                return true;
-            }, (p) =>
-            {
-                p.Close();
-            });
 
         }
 

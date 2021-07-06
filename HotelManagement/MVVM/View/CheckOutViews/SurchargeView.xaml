@@ -35,12 +35,11 @@
                 <!--Button close-->
                 <Button Grid.Column="1" Height="38" Width="38"
                     Style="{StaticResource MaterialDesignFloatingActionButton}"
-                    Command="{Binding ClickExitCommand }"
                     CommandParameter="{Binding ElementName = windowSurcharge}"
                     BorderBrush="White"
                     Background="{x:Null}"
                     ToolTip="Close"
-                    x:Name="btnExit" 
+                    x:Name="btnExit" Click="btnExit_Click" 
                     >
                     <materialDesign:PackIcon 
                         Kind="Close"
