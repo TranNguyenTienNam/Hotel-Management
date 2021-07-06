@@ -24,23 +24,41 @@ namespace HotelManagement.MVVM.ViewModel
         public uint MaxPeople { get { return _maxPeople; } set { _maxPeople = value; OnPropertyChanged(); } }
 
         public ICommand AddRoomTypeCommand { get; set; }
+        public ICommand ClickExitCommand { get; set; }
 
         public RegulationsViewModel()
         {
 
             AddRoomTypeCommand = new RelayCommand<object>((p) =>
             {
-                if (string.IsNullOrEmpty(TypeName) || Price <= 1000 || MaxPeople <= 0)
-                    return false;
                 return true;
             }, (p) =>
             {
-                RegulationsModel model = new RegulationsModel();
-                if (model.Insert_Type(TypeName, Price, MaxPeople))
-                {
-                    MessageBox.Show("Type of Room has been added!");
-                }
+                if (string.IsNullOrEmpty(TypeName) || Price <= 1000 || MaxPeople <= 0)
+                    MessageBox.Show("Input field is empty");
+                addNewRoomType();
             });
+
+            ClickExitCommand = new RelayCommand<Window>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                //Gửi message đến RoomViewModel
+                EventSystem.Publish<Message>(new Message { message = "TypeAdded" });    //refresh list roomTypes
+                p.Close();
+            });
+        }
+
+        void addNewRoomType()
+        {
+            RegulationsModel model = new RegulationsModel();
+            if (model.Insert_Type(TypeName, Price, MaxPeople))
+            {
+                //Gửi message đến ListTypeViewModel
+                EventSystem.Publish<Message>(new Message { message = "RefreshType"});
+                MessageBox.Show("Type of Room has been added!");
+            }
         }
     }
 }

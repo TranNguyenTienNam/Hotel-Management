@@ -30,19 +30,7 @@ namespace HotelManagement
                 this.DragMove();
             }
         }
-        private void btnFinish_Click(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
-            (new MainWindow()).Show();
-            this.Close();
-        }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
-            (new LoginWindow()).Show();
-            this.Close();
-        }
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

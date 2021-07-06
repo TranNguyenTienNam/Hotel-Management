@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace HotelManagement.MVVM.ViewModel
@@ -22,18 +23,41 @@ namespace HotelManagement.MVVM.ViewModel
         public ListTypeViewModel()
         {
             Items = new ObservableCollection<ListTypeItemViewModel>();
-            loadListItem();
+            loadListRoomType();
 
             RefreshListRoom = new RelayCommand<object>((p) =>
             {
                 return true;
             }, (p) =>
             {
-                loadListItem();
+                loadListRoomType();
             });
+
+            //Nhận message từ RegulationsViewModel
+            EventSystem.Subscribe<Message>(getMessages);
         }
 
-        void loadListItem()
+        public void getMessages(Message message)
+        {
+            try
+            {
+                if (message.message == "RefreshType")
+                {
+                    loadListRoomType();
+                }    
+                else if (message.message.Contains("RemoveType|"))
+                {
+                    string[] vs = message.message.Split('|');
+                    Items.Remove(Items.Where(X => X.Id == Convert.ToInt32(vs[1])).Single());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        void loadListRoomType()
         {
             if (Items.Count > 0)
                 Items.Clear();

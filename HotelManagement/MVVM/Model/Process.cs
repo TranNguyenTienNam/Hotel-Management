@@ -83,8 +83,20 @@ namespace HotelManagement.MVVM.Model
             return ck;      //trả về số hàng đã đọc được. Nếu không có hàng nào thì trả về 0
         }
 
-        //Function lấy Ukey từ table
-        public static int getNumber(string sql)
+
+        public static int insertUser(string sql)
+        {
+            int i = 0;
+            conn = new SqlConnection(connectLink);
+            conn.Open();
+            cmd = new SqlCommand(sql, conn);
+            int modified = Convert.ToInt32(cmd.ExecuteScalar());
+            return modified;
+
+        }
+
+            //Function lấy Ukey từ table
+            public static int getNumber(string sql)
         {
             int i = 0;
             conn = new SqlConnection(connectLink);
@@ -166,18 +178,19 @@ namespace HotelManagement.MVVM.Model
             }
             return user;
         }
-        public static bool CheckVietKey(string chucodau)
+
+        public static bool CheckVietKey(string chuCoDau)
         {
-            const string FindText = "áàảãạâấầẩẫậăắằẳẵặđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ";
+            const string FindText = ":;\"?`!@#$%^&*()~<>[\\]+-_=,.|/ áàảãạâấầẩẫậăắằẳẵặđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ";
             int n;
-            int m = chucodau.Length;
-            char[] arrS = chucodau.ToCharArray();
+            int m = chuCoDau.Length;
+            char[] arrS = chuCoDau.ToCharArray();
             for (int i = 0; i < m; i++)
             {
                 n = FindText.IndexOf(arrS[i]);
-                if (n != -1) return false;
+                if (n != -1) return false;  //Tìm thấy kí tự có dấu trong dãy FindText
             }
-            return true;
+            return true;    //Không tìm thấy kí tự có dấu
         }
     }
 }

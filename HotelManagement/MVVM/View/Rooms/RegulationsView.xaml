@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:HotelManagement.MVVM.View" 
         xmlns:viewModel="clr-namespace:HotelManagement.MVVM.ViewModel"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
+        Name="windowRegulations"
         Height="450" Width="620"
         WindowStyle="None"
         ResizeMode="NoResize"
@@ -15,7 +15,9 @@
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         MouseDown="Window_MouseDown">
-    
+    <Window.DataContext>
+        <viewModel:RegulationsViewModel/>
+    </Window.DataContext>
     <Border Background="#F44336" CornerRadius="20" BorderThickness="1" BorderBrush="#F44336">
         <Grid>
             <Grid.RowDefinitions>
@@ -38,7 +40,8 @@
                     Background="{x:Null}"
                     ToolTip="Close"
                     x:Name="btnExit"
-                    Click="btnExit_Click">
+                    Command="{Binding ClickExitCommand}"
+                    CommandParameter="{Binding ElementName=windowRegulations}">
                     <materialDesign:PackIcon 
                         Kind="Close"
                         Foreground="White"
@@ -48,7 +51,7 @@
             </Grid>
             <Border Grid.Row="1" Background="Transparent" Visibility="{Binding Visibility}">
                 <Border Background="White" HorizontalAlignment="Stretch">
-                    <Grid DataContext="{x:Static viewModel:RegulationsViewModel.Instance}">
+                    <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="86"/>
                             <RowDefinition Height="Auto"/>

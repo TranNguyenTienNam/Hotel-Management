@@ -18,7 +18,7 @@
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
-
+    
     <Border Background="#FFFFFF">
         <Border.Clip>
             <RectangleGeometry 
@@ -26,7 +26,6 @@
                 RadiusY="20"
                 Rect="0,0,1080,675"/>
         </Border.Clip>
-        
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
@@ -68,6 +67,7 @@
 
                         <Button 
                         Width="120"
+                            Command="{Binding NewBookingCommand}"
                         Height="30"
                         Margin="0,0,20,0"
                         Content="New Booking"

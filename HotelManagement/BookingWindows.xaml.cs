@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using HotelManagement.MVVM.ViewModel;
+using System.Text.RegularExpressions;
 
 namespace HotelManagement
 {
@@ -23,15 +24,21 @@ namespace HotelManagement
         public BookingWindows()
         {
             InitializeComponent();
-            DataContext = new BookingViewModel();
-
-            
 
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void tbPhone_Copy_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void tbPhone_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+
         }
     }
 }
