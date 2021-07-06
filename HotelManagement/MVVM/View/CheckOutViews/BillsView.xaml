@@ -24,7 +24,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" Margin="0,0,0,0">
                 <StackPanel Margin="0,0,0,0">
-                    <Border Background="White" Height="48" CornerRadius="12" HorizontalAlignment="Stretch" Margin="10,10,0,0">
+                    <Border Background="White" Height="48" CornerRadius="12" HorizontalAlignment="Stretch" Margin="5,5,0,0">
                         <Grid Grid.Row="1" Margin="0,0,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="50"/>
@@ -47,7 +47,7 @@
                             <TextBox Grid.Column="1" x:Name="tb_search_to_checkout" FontSize="14" VerticalAlignment="Center" BorderThickness="0" Margin="0,0,0,0" />
                         </Grid>
                     </Border>
-                    <Border Height="455" Margin="13,10,0,0" CornerRadius="12" Background="White">
+                    <Border Height="473" Margin="5,5,0,0" CornerRadius="12" Background="White">
                         <ListView x:Name="lv_checkin"  Margin="0,0,0,-0.2"  >
                             <ListView.View>
                                 <GridView>
@@ -68,7 +68,7 @@
                             </ListView.ItemContainerStyle>
                         </ListView>
                     </Border>
-                    <Border Margin="10,10,0,10" Background="White" CornerRadius="12" Height="56">
+                    <Border Margin="5,5,0,5" Background="White" CornerRadius="12" Height="56">
                         <StackPanel Grid.Row="2"
                         Orientation="Horizontal" 
                         HorizontalAlignment="Stretch" Margin="0,0,0,0">
@@ -116,16 +116,16 @@
                 </StackPanel>
             </Grid>
             <Grid Grid.Column="1">
-                <Border Background="#fff" CornerRadius="12" Margin="10,10,10,10">
+                <Border Background="#fff" CornerRadius="12" Margin="5,5,5,5">
                     <StackPanel>
                         <Grid Height="586" Margin="0,0,-0.2,0">
-                            <Button Height="38" Width="38"
+                            <Button Height="Auto" Width="Auto"
                             Style="{StaticResource MaterialDesignFloatingActionButton}"
                             BorderBrush="Red"
                             Background="White"
                             ToolTip="Close"
                             x:Name="btnExit"
-                            Margin="342,10,10.6,538" Click="btnExit_Click">
+                            Margin="347,10,14,536" Click="btnExit_Click">
                                 <materialDesign:PackIcon 
                                 Kind="Close"
                                 Foreground="red"
@@ -200,7 +200,7 @@
                         materialDesign:HintAssist.Hint=""  Foreground="Black"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                         VerticalAlignment="Top" Margin="192,515,10,0" Height="50" />
-                            <Label Content="TOTAL:" HorizontalAlignment="Left" Height="29" Margin="111,536,0,0" VerticalAlignment="Top" Width="77" FontWeight="Bold" FontSize="20"/>
+                            <Label Content="TOTAL:" HorizontalAlignment="Left" Height="33" Margin="110,532,0,0" VerticalAlignment="Top" Width="77" FontWeight="Bold" FontSize="20"/>
                             <Label Content="CLIENT INFORMATION:" HorizontalAlignment="Left" Height="33" Margin="9,85,0,0" VerticalAlignment="Top" Width="243" FontWeight="Bold" FontSize="20"/>
                             <TextBox x:Name="tb_bill_id" FontSize="14" IsReadOnly="False"
                             materialDesign:HintAssist.Hint="Bill ID"  Foreground="Black"
