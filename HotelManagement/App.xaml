@@ -31,6 +31,10 @@
                 <view:RoomsView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:CheckOutViewModel}">
+                <view:CheckOutView/>
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -12,6 +12,8 @@ namespace HotelManagement.MVVM.ViewModel
 
         public ICommand RoomsViewCommand { get; set; }
 
+        public ICommand CheckOutViewCommand { get; set; }
+
         //Button New Booking
         public ICommand NewBookingCommand { get; set; }
 
@@ -20,6 +22,8 @@ namespace HotelManagement.MVVM.ViewModel
         public BookingViewModel BookingsVM { get; set; }
 
         public RoomsViewModel RoomsVM { get; set; }
+
+        public CheckOutViewModel CheckOutVM { get; set; }
 
         private object _currentView;
 
@@ -37,6 +41,7 @@ namespace HotelManagement.MVVM.ViewModel
             DashboardVM = new DashboardViewModel();
             BookingsVM = new BookingViewModel();
             RoomsVM = new RoomsViewModel();
+            CheckOutVM = new CheckOutViewModel();
             
             CurrentView = DashboardVM;
 
@@ -54,6 +59,11 @@ namespace HotelManagement.MVVM.ViewModel
             {
                 return true;
             }, (o) => { CurrentView = RoomsVM; });
+
+            CheckOutViewCommand = new RelayCommand<object>((o) =>
+            {
+                return true;
+            }, (o) => { CurrentView = CheckOutVM; });
 
             NewBookingCommand = new RelayCommand<object>((o) =>
             {
