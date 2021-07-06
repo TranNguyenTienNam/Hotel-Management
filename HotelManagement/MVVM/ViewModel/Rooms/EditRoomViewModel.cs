@@ -3,6 +3,7 @@ using HotelManagement.MVVM.Model;
 using HotelManagement.Object;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,6 +11,9 @@ using System.Windows.Input;
 
 namespace HotelManagement.MVVM.ViewModel
 {
+    /// <summary>
+    /// Interaction logic for EditRoomView.xaml
+    /// </summary>
     class EditRoomViewModel : ObservableObject
     {
         public static EditRoomViewModel Instance => new EditRoomViewModel();
@@ -17,37 +21,46 @@ namespace HotelManagement.MVVM.ViewModel
         public RoomListItemViewModel Item { get { return _item; } set { _item = value; OnPropertyChanged(); } }
 
         //danh sach loai phong
-        public List<string> types { get; set; }
+        private int indexOfTypes { get; set; }
+        public ObservableCollection<string> types { get; set; }
 
-        private int _maphong;
-        public int MaPhong { get { return _maphong; } set { _maphong = value; OnPropertyChanged(); } }
+        //Textbox Room ID
+        private int _id;
+        public int ID { get { return _id; } set { _id = value; OnPropertyChanged(); } }
 
-        private string _tenphong;
-        public string TenPhong { get { return _tenphong; } set { _tenphong = value; OnPropertyChanged(); } }
+        //Textbox Room name
+        private string _rname;
+        public string RoomName { get { return _rname; } set { _rname = value; OnPropertyChanged(); } }
 
-        private string _loaiphong;
-        public string LoaiPhong { get { return _loaiphong; } set { _loaiphong = value; OnPropertyChanged("LoaiPhong"); } }
+        //Textbox Notes
+        private string _notes;
+        public string Notes { get { return _notes; } set { _notes = value; OnPropertyChanged(); } }
 
-        private decimal _dongia;
-        public decimal DonGia { get { return _dongia; } set { _dongia = value; OnPropertyChanged(); } }
+        //Selected value of combobox
+        private string _type;
+        public string Type { get { return _type; } set { _type = value; OnPropertyChanged(); } }
 
-        private int _soNgtoida;
-        public int SoNgToiDa { get { return _soNgtoida; } set { _soNgtoida = value; OnPropertyChanged(); } }
+        //Textbox Price/Day
+        private int _price;
+        public int Price { get { return _price; } set { _price = value; OnPropertyChanged(); } }
 
-        private string _ghichu;
-        public string GhiChu { get { return _ghichu; } set { _ghichu = value; OnPropertyChanged(); } }
+        //Textbox Max People
+        private int _maxPeople;
+        public int MaxPeople { get { return _maxPeople; } set { _maxPeople = value; OnPropertyChanged(); } }
 
         public ICommand SaveEditCommand { get; set; }
         public ICommand RIdLostFocusCommand { get; set; }
         public ICommand ClickExitCommand { get; set; }
+        public ICommand RoomTypeSelectionChangedCommand { get; set; }
 
         public EditRoomViewModel()
         {
             types = RoomsViewModel.Instance.Types;
             Item = RoomListItemViewModel.Instance;
+
             SaveEditCommand = new RelayCommand<object>((p) =>
             {
-                if (string.IsNullOrEmpty(TenPhong) || GhiChu == null)
+                if (string.IsNullOrEmpty(RoomName) || Notes == null)
                     return false;
                 else
                     return checkRoomExistInBill();
@@ -61,7 +74,7 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                loadRoom(MaPhong);
+                loadRoom(ID);
             });
 
             ClickExitCommand = new RelayCommand<Window>((p) =>
@@ -72,6 +85,26 @@ namespace HotelManagement.MVVM.ViewModel
                 p.Close();
                 EventSystem.Publish<Message>(new Message { message = "refresh" });
             });
+
+            RoomTypeSelectionChangedCommand = new RelayCommand<ComboBox>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                try
+                {
+                    indexOfTypes = p.SelectedIndex;
+                    if (indexOfTypes >= 0 && indexOfTypes < RoomsViewModel.Instance.RoomTypes.Count)
+                    {
+                        Price = RoomsViewModel.Instance.RoomTypes[indexOfTypes].DonGia;
+                        MaxPeople = RoomsViewModel.Instance.RoomTypes[indexOfTypes].SoNgToiDa;
+                    }    
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("EditRoomViewModel RoomTypeSelectionChangedCommand\n" + ex.Message);
+                }
+            });
         }
 
         void saveRoomEdited()
@@ -80,27 +113,14 @@ namespace HotelManagement.MVVM.ViewModel
             {
                 RoomListModel model = new RoomListModel();
 
-                //get MaLoaiPhong
-                int MaLoaiPhong = -1;
-                foreach (roomtype rt in RoomsViewModel.Instance.roomTypes)
-                {
-                    if (LoaiPhong == rt.TenLoaiPhong)
-                    {
-                        MaLoaiPhong = rt.MaLoaiPhong;
-                        break;
-                    }
-                }
-
-                //MessageBox.Show(MaPhong + " " + TenPhong + " " + MaLoaiPhong + " " + GhiChu);
-
-                if (model.Save_RoomEdited(MaPhong, TenPhong, MaLoaiPhong, GhiChu))
+                if (model.Save_RoomEdited(ID, RoomName, RoomsViewModel.Instance.RoomTypes[indexOfTypes].MaLoaiPhong, Notes))
                 {
                     MessageBox.Show("Room has been edited.");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("EditRoomViewModel saveRoomEdited\n" + ex.Message);
             }
         }
 
@@ -116,41 +136,16 @@ namespace HotelManagement.MVVM.ViewModel
             dataTable = model.GetRoom(MaPhong);
             foreach (DataRow row in dataTable.Rows)
             {
-                TenPhong = (string)row["TenPhong"];
-                LoaiPhong = (string)row["TenLoaiPhong"];
-                DonGia = (int)row["DonGia"];
-                SoNgToiDa = (int)row["SoNgToiDa"];
-                GhiChu = (row["GhiChu"] == DBNull.Value) ? "" : (string)row["GhiChu"];
+                RoomName = (string)row["TenPhong"];
+                Type = (string)row["TenLoaiPhong"];
+                Price = (int)row["DonGia"];
+                MaxPeople = (int)row["SoNgToiDa"];
+                Notes = (row["GhiChu"] == DBNull.Value) ? "" : (string)row["GhiChu"];
             }    
         }
 
         private void OnPropertyChanged(string propertyName)
         {
-            switch (propertyName)
-            {
-                case "LoaiPhong":
-                    {
-                        try
-                        {
-                            foreach (roomtype rt in RoomsViewModel.Instance.roomTypes)
-                            {
-                                if (LoaiPhong == rt.TenLoaiPhong)
-                                {
-                                    DonGia = rt.DonGia;
-                                    SoNgToiDa = rt.SoNgToiDa;
-                                    break;
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-                    }
-                    break;
-                default:
-                    break;
-            }
 
         }
     }

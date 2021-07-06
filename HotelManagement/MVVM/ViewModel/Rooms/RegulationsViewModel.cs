@@ -11,6 +11,9 @@ using System.Windows.Input;
 
 namespace HotelManagement.MVVM.ViewModel
 {
+    /// <summary>
+    /// Interaction logic for RegulationsView.xaml
+    /// </summary>
     class RegulationsViewModel : ObservableObject
     {
         public static RegulationsViewModel Instance => new RegulationsViewModel();
@@ -29,15 +32,19 @@ namespace HotelManagement.MVVM.ViewModel
 
         public RegulationsViewModel()
         {
-
+            int TypeAdded = 0;
             AddRoomTypeCommand = new RelayCommand<object>((p) =>
             {
                 return true;
             }, (p) =>
             {
                 if (string.IsNullOrEmpty(TypeName) || Price <= 1000 || MaxPeople <= 0)
+                {
                     MessageBox.Show("Input field is empty");
+                    return;
+                }    
                 addNewRoomType();
+                TypeAdded = 1;
             });
 
             ClickExitCommand = new RelayCommand<Window>((p) =>
@@ -45,8 +52,11 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                //Gửi message đến RoomViewModel
-                EventSystem.Publish<Message>(new Message { message = "TypeAdded" });    //refresh list roomTypes
+                if (TypeAdded == 1)
+                {
+                    //Gửi message đến RoomViewModel
+                    EventSystem.Publish<Message>(new Message { message = "TypeAdded" });    //refresh list roomTypes
+                } 
                 p.Close();
             });
         }
