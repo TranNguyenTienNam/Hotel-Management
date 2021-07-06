@@ -14,10 +14,6 @@
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         MouseDown="Window_MouseDown">
-
-    <Window.DataContext>
-        <viewModel:MainViewModel/>
-    </Window.DataContext>
     <Border Background="#FFFFFF"
             CornerRadius="20">
         <Grid>
@@ -120,7 +116,7 @@
 
                         <materialDesign:Chip
                             x:Name="ButtonChip"
-                            Content="Hi, Tien Nam"
+                            Content="{Binding NameContent}"
                             Margin="20,0,0,0"
                             Background="Transparent"
                             Foreground="Red">

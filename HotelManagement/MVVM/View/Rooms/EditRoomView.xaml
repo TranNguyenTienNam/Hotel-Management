@@ -80,6 +80,8 @@
                             </i:Interaction.Triggers>
                         </TextBox>
                         <TextBox Grid.Row="1" Name="tbRoomName" Foreground="#F44336" Text="{Binding RoomName}"
+                                 MaxLength="30"
+                            materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                              materialDesign:HintAssist.Hint="Room Name:" FontSize="14" 
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              VerticalAlignment="Center" Margin="8">
@@ -107,6 +109,8 @@
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  VerticalAlignment="Center" Margin="8"/>
                         <TextBox Grid.Row="5" Name="tbNote" Foreground="#F44336" Text="{Binding Notes}"
+                                 MaxLength="100"
+                            materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                              materialDesign:HintAssist.Hint="Notes:" FontSize="14"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              VerticalAlignment="Center" Margin="8"/>

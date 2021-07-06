@@ -76,15 +76,19 @@ namespace HotelManagement.MVVM.ViewModel
             LoginModel model = new LoginModel();
             if (model.LoginWithUsernameAndPassword(Username, Password))
             {
+                //GetStatusAccount(Username) == 1 => Active
+                //GetStatusAccount(Username) != 1 => Block
                 if (model.GetStatusAccount(Username) == 1)
                 {
                     p.Hide();
-                    new MainWindow().Show();
+                    MainWindow wd = new MainWindow();
+                    wd.DataContext = new MainViewModel(model.GetIdAccount(Username));
+                    wd.Show();
                     p.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Account has been locked!");
+                    InvalidUsernamePassword = "Account has been locked!";
                 }    
             }
             else

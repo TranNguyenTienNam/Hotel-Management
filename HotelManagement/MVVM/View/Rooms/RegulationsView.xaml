@@ -77,6 +77,7 @@
                                      VerticalAlignment="Bottom" Margin="16,0,8,0">
                                 </TextBox>
                                 <TextBox Grid.Row="1" Name="tbPrice" Foreground="#F44336"
+                                         materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                      materialDesign:HintAssist.Hint="Price/Day:" FontSize="14"  Text="{Binding Price}"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="19"
                                      VerticalAlignment="Bottom" Margin="16,0,8,0">
@@ -93,11 +94,14 @@
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
                                 <TextBox Grid.Row="0" Name="tbTypeName" Foreground="#F44336"
+                                         MaxLength="30"
+                                        materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                      materialDesign:HintAssist.Hint="Name:" FontSize="14" Text="{Binding TypeName}"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                                      VerticalAlignment="Bottom" Margin="8,0,16,0">
                                 </TextBox>
                                 <TextBox Grid.Row="1" Name="tbMaxPeople" Foreground="#F44336" MaxLength="9"
+                                         materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                      materialDesign:HintAssist.Hint="Max People:" FontSize="14" Text="{Binding MaxPeople}"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                      VerticalAlignment="Bottom" Margin="8,0,16,0">

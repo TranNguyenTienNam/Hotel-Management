@@ -26,5 +26,12 @@ namespace HotelManagement.MVVM.Model
 
             return Process.getNumber(sql_select);
         }
+
+        public int GetIdAccount(string Username)
+        {
+            string sql_select = "select MaNgDung from NGUOIDUNG where TenTaiKhoan = '" + Username + "'";
+
+            return Process.getNumber(sql_select);
+        }
     }
 }

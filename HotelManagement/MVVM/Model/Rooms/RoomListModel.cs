@@ -76,5 +76,16 @@ namespace HotelManagement.MVVM.Model
             re = Process.createTable(sql_select);
             return re;
         }
+
+        public bool RoomExistInBooking(int MaPhong)
+        {
+            string sql_select = "select MaPhieuThue from PHIEUTHUEPHONG where MaPhong = '" + MaPhong + "'";
+
+            if (Process.ExecutiveReader(sql_select) > 0)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

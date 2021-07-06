@@ -86,7 +86,6 @@ namespace HotelManagement.MVVM.Model
 
         public static int insertUser(string sql)
         {
-            int i = 0;
             conn = new SqlConnection(connectLink);
             conn.Open();
             cmd = new SqlCommand(sql, conn);

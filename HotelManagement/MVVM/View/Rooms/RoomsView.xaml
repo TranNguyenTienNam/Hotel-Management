@@ -100,12 +100,14 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <TextBox Grid.Row="0" Name="tbRoomName" Foreground="#FE8704" Text="{Binding RName}"
-                             materialDesign:HintAssist.Hint="Room Name:" FontSize="14"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             VerticalAlignment="Center" />
+                                    MaxLength="30"
+                                    materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                    materialDesign:HintAssist.Hint="Room Name:" FontSize="14"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    VerticalAlignment="Center" />
                                 <TextBox Grid.Row="1" Name="tbPrice" Foreground="#FE8704" Text="{Binding Price}"
-                             materialDesign:HintAssist.Hint="Price/Day:" FontSize="14" IsReadOnly="True"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                    materialDesign:HintAssist.Hint="Price/Day:" FontSize="14" IsReadOnly="True"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                             </Grid>
                             <!--Notes + Max People-->
                             <Grid Grid.Column="2" Margin="8">
@@ -114,12 +116,14 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <TextBox Grid.Row="0" Name="tbNote" Foreground="#FE8704" Text="{Binding Notes}"
-                             materialDesign:HintAssist.Hint="Notes:" FontSize="14"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             VerticalAlignment="Center" />
+                                    MaxLength="100"
+                                    materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                    materialDesign:HintAssist.Hint="Notes:" FontSize="14"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    VerticalAlignment="Center" />
                                 <TextBox Grid.Row="1" Name="tbMax" Foreground="#FE8704" Text="{Binding MaxPeople}"
-                             materialDesign:HintAssist.Hint="Max People:" FontSize="14" IsReadOnly="True"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                    materialDesign:HintAssist.Hint="Max People:" FontSize="14" IsReadOnly="True"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                             </Grid>
                             <!--Button AddRoom-->
                             <Grid Grid.Column="3">

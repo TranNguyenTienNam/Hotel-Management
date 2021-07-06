@@ -117,6 +117,7 @@
     <Compile Include="MVVM\Model\DashboardModel\RevenueCardModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel\RevenueModel.cs" />
     <Compile Include="MVVM\Model\LoginModel.cs" />
+    <Compile Include="MVVM\Model\MainModel.cs" />
     <Compile Include="MVVM\Model\Process.cs" />
     <Compile Include="MVVM\Model\DashboardModel\TodayCardModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel\TodayModel.cs" />

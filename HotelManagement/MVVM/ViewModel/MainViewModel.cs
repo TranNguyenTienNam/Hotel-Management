@@ -1,11 +1,28 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using HotelManagement.Core;
+using HotelManagement.MVVM.Model;
 
 namespace HotelManagement.MVVM.ViewModel
 {
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
     class MainViewModel : ObservableObject
     {
+        //Content of Chip card
+        private string _nameContent;
+        public string NameContent { get { return _nameContent; } set { _nameContent = value; OnPropertyChanged(); } }
+
+        /// <summary>
+        /// Permission of Account: 
+        /// 0 => master(admin)
+        /// 1 => Manager
+        /// 2 => Staff
+        /// </summary>
+        int PermissionOfAccount { get; set; }
+
         public ICommand DashboardViewCommand { get; set; }
 
         public ICommand BookingsViewCommand { get; set; }
@@ -22,7 +39,6 @@ namespace HotelManagement.MVVM.ViewModel
         public RoomsViewModel RoomsVM { get; set; }
 
         private object _currentView;
-
         public object CurrentView
         {
             get { return _currentView; }
@@ -32,12 +48,16 @@ namespace HotelManagement.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-        public MainViewModel()
+
+        public MainViewModel(int UserId)
         {
             DashboardVM = new DashboardViewModel();
             BookingsVM = new BookingViewModel();
             RoomsVM = new RoomsViewModel();
-            
+            MainModel model = new MainModel();
+
+            PermissionOfAccount = model.GetPermissionAccount(UserId);
+            NameContent = model.GetNameAccount(UserId);
             CurrentView = DashboardVM;
 
             DashboardViewCommand = new RelayCommand<object>((o) =>
