@@ -15,12 +15,12 @@ namespace HotelManagement.MVVM.ViewModel
     {
         RegisterModel model;
         //Họ của người dùng
-        private string _ho;
-        public string Ho { get { return _ho; } set { _ho = value; OnPropertyChanged(); } }
+        private string _firstName;
+        public string FirstName { get { return _firstName; } set { _firstName = value; OnPropertyChanged(); } }
         
         //Tên của người dùng
-        private string _ten;
-        public string Ten { get { return _ten; } set { _ten = value; OnPropertyChanged(); } }
+        private string _lastName;
+        public string LastName { get { return _lastName; } set { _lastName = value; OnPropertyChanged(); } }
         
         //Tên của người dùng
         private string _email;
@@ -156,7 +156,7 @@ namespace HotelManagement.MVVM.ViewModel
             FinishCommand = new RelayCommand<Window>((p) =>
             {
                 if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(ConfirmPassword)
-                    || string.IsNullOrEmpty(Ho) || string.IsNullOrEmpty(Ten) || string.IsNullOrEmpty(Email))
+                    || string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName) || string.IsNullOrEmpty(Email))
                     return false;
                 if (SpecialCharConfirmPassword != "" || SpecialCharPassword != "" || SpecialCharUsername != "" || InvalidMail != "")
                     return false;
@@ -184,7 +184,7 @@ namespace HotelManagement.MVVM.ViewModel
                     int isID = model.RegisterWithUsernameAndPassword(Username, Password);
                     if (isID != -1)
                     {
-                        if (model.InsertInfoUser(isID, Ho, Ten, Email))
+                        if (model.InsertInfoUser(isID, FirstName, LastName, Email))
                         {
                             MessageBox.Show("Registration success");
                             p.Hide();

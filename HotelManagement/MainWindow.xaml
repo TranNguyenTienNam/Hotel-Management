@@ -167,6 +167,9 @@
                         <RadioButton Content="Rooms"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Command="{Binding RoomsViewCommand}"/>
+                        <RadioButton Content="Profile"
+                                     Style="{StaticResource MenuButtonTheme}"
+                                     Command="{Binding ProfileViewCommand}"/>
                     </StackPanel>
                 </Grid>
 

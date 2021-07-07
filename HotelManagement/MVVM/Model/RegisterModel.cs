@@ -22,7 +22,7 @@ namespace HotelManagement.MVVM.Model
         public int RegisterWithUsernameAndPassword(string Username, string Password)
         {
             string sql_insert = "insert NGUOIDUNG(TenTaiKhoan, MatKhau, TinhTrangTK) values " +
-                "('" + Username + "', '" + Password + "', 1)";
+                "('" + Username + "', '" + Process.Encrypt(Password) + "', 1)";
 
             //Lấy MaNgDung mới insert vào
             string sql_select = "select MaNgDung from NGUOIDUNG where TenTaiKhoan = '" + Username + "'";

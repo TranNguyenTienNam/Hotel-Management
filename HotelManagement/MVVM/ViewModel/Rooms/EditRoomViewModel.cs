@@ -63,7 +63,7 @@ namespace HotelManagement.MVVM.ViewModel
                 if (string.IsNullOrEmpty(RoomName) || Notes == null)
                     return false;
                 else
-                    return checkRoomExistInBill();
+                    return true;
             }, (p) =>
             {
                 saveRoomEdited();
@@ -124,16 +124,13 @@ namespace HotelManagement.MVVM.ViewModel
             }
         }
 
-        bool checkRoomExistInBill()
-        {
-            return true;
-        }
-
         public void loadRoom(int MaPhong)
         {
             RoomListModel model = new RoomListModel();
             DataTable dataTable = new DataTable();
+
             dataTable = model.GetRoom(MaPhong);
+
             foreach (DataRow row in dataTable.Rows)
             {
                 RoomName = (string)row["TenPhong"];

@@ -23,20 +23,28 @@ namespace HotelManagement.MVVM.ViewModel
         /// </summary>
         int PermissionOfAccount { get; set; }
 
+        //Button New Booking
+        public ICommand NewBookingCommand { get; set; }
+
+        #region View and Command Binding
+
         public ICommand DashboardViewCommand { get; set; }
 
         public ICommand BookingsViewCommand { get; set; }
 
         public ICommand RoomsViewCommand { get; set; }
 
-        //Button New Booking
-        public ICommand NewBookingCommand { get; set; }
+        public ICommand ProfileViewCommand { get; set; }
 
         public DashboardViewModel DashboardVM { get; set; }
 
         public BookingViewModel BookingsVM { get; set; }
 
         public RoomsViewModel RoomsVM { get; set; }
+
+        public ProfileViewModel ProfileVM { get; set; }
+
+        #endregion
 
         private object _currentView;
         public object CurrentView
@@ -51,11 +59,13 @@ namespace HotelManagement.MVVM.ViewModel
 
         public MainViewModel(int UserId)
         {
+            MainModel model = new MainModel();
             DashboardVM = new DashboardViewModel();
             BookingsVM = new BookingViewModel();
             RoomsVM = new RoomsViewModel();
-            MainModel model = new MainModel();
+            ProfileVM = new ProfileViewModel();
 
+            //Chưa phân quyền
             PermissionOfAccount = model.GetPermissionAccount(UserId);
             NameContent = model.GetNameAccount(UserId);
             CurrentView = DashboardVM;
@@ -74,6 +84,11 @@ namespace HotelManagement.MVVM.ViewModel
             {
                 return true;
             }, (o) => { CurrentView = RoomsVM; });
+
+            ProfileViewCommand = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) => { CurrentView = ProfileVM; });
 
             NewBookingCommand = new RelayCommand<object>((o) =>
             {

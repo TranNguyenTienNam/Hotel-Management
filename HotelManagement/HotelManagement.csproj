@@ -121,6 +121,7 @@
     <Compile Include="MVVM\Model\Process.cs" />
     <Compile Include="MVVM\Model\DashboardModel\TodayCardModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel\TodayModel.cs" />
+    <Compile Include="MVVM\Model\Profile\ProfileModel.cs" />
     <Compile Include="MVVM\Model\RegisterModel.cs" />
     <Compile Include="MVVM\Model\Rooms\RoomListModel.cs" />
     <Compile Include="MVVM\Model\Rooms\RoomsModel.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="MVVM\ViewModel\BookingViewModel.cs" />
     <Compile Include="MVVM\ViewModel\BookRoomItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\LoginViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Profile\ProfileViewModel.cs" />
     <Compile Include="MVVM\ViewModel\RegisterViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\EditRoomViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\ListTypeItemViewModel.cs" />
@@ -138,6 +140,9 @@
     <Compile Include="MVVM\ViewModel\Rooms\RoomListItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\RoomListViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\RoomsViewModel.cs" />
+    <Compile Include="MVVM\View\Profile\ProfileView.xaml.cs">
+      <DependentUpon>ProfileView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\Rooms\EditRoomView.xaml.cs">
       <DependentUpon>EditRoomView.xaml</DependentUpon>
     </Compile>
@@ -200,6 +205,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\DashboardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Profile\ProfileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

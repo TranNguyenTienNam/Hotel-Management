@@ -11,7 +11,7 @@ namespace HotelManagement.MVVM.Model
     {
         public bool LoginWithUsernameAndPassword(string Username, string Password)
         {
-            string sql_select = "select MaNgDung from NGUOIDUNG where TenTaiKhoan = '" + Username + "' and MatKhau = '" + Password + "'";
+            string sql_select = "select MaNgDung from NGUOIDUNG where TenTaiKhoan = '" + Username + "' and MatKhau = '" + Process.Encrypt(Password) + "'";
 
             if (Process.ExecutiveReader(sql_select) > 0)
             {
