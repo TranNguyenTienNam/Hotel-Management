@@ -15,12 +15,25 @@ namespace HotelManagement.MVVM.ViewModel
     public class BookRoomItemViewModel : ObservableObject
     {
         public static BookRoomItemViewModel Instance => new BookRoomItemViewModel();
-        public int MaPhong { get; set; }
-        public string TenPhong { get; set; }
-        public string LoaiPhong { get; set; }
-        public int DonGia { get; set; }
-        public int SoNgToiDa { get; set; }
-        public string GhiChu { get; set; }
-    
+
+        private int _maphong;
+        public int MaPhong { get { return _maphong; } set { _maphong = value; OnPropertyChanged(); } }
+
+        private string _tenphong;
+        public string TenPhong { get { return _tenphong; } set { _tenphong = value; OnPropertyChanged(); } }
+
+        private string _loaiphong;
+        public string LoaiPhong { get { return _loaiphong; } set { _loaiphong = value; OnPropertyChanged(); } }
+
+        private int _dongia;
+        public int DonGia { get { return _dongia; } set { _dongia = value; OnPropertyChanged(); } }
+
+        private int _soNgtoida;
+        public int SoNgToiDa { get { return _soNgtoida; } set { _soNgtoida = value; OnPropertyChanged(); } }
+
+        private string _ghichu;
+        public string GhiChu { get { return _ghichu; } set { _ghichu = value; OnPropertyChanged(); } }
+
+
     }
 }
