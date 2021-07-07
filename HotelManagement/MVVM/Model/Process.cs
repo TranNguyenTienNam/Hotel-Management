@@ -144,35 +144,43 @@ namespace HotelManagement.MVVM.Model
                 if (reader.Read() == false) break;
                 if (!reader.IsDBNull(0))
                 {
-                    user.Ho = reader.GetValue(0).ToString();
+                    user.MaNgDung = reader.GetInt32(0);
                 }
                 if (!reader.IsDBNull(1))
                 {
-                    user.Ten = reader.GetValue(1).ToString();
+                    user.Ho = reader.GetValue(1).ToString();
                 }
                 if (!reader.IsDBNull(2))
                 {
-                    user.SoDienThoai = reader.GetValue(2).ToString();
+                    user.Ten = reader.GetValue(2).ToString();
                 }
                 if (!reader.IsDBNull(3))
                 {
-                    user.GioiTinh = reader.GetValue(3).ToString();
+                    user.SoDienThoai = reader.GetValue(3).ToString();
                 }
                 if (!reader.IsDBNull(4))
                 {
-                    user.Email = reader.GetValue(4).ToString();
+                    user.GioiTinh = reader.GetValue(4).ToString();
                 }
                 if (!reader.IsDBNull(5))
                 {
-                    user.NgaySinh = reader.GetDateTime(5);
+                    user.Email = reader.GetValue(5).ToString();
                 }
-                if (!reader.IsDBNull(5))
+                if (!reader.IsDBNull(6))
                 {
-                    user.QuyenHan = reader.GetValue(6).ToString();
+                    user.NgaySinh = reader.GetDateTime(6);
                 }
-                if (!reader.IsDBNull(5))
+                if (!reader.IsDBNull(7))
                 {
-                    user.TinhTrangTK = reader.GetValue(7).ToString();
+                    user.QuyenHan = reader.GetInt32(7);
+                }
+                if (!reader.IsDBNull(8))
+                {
+                    user.UserName = reader.GetValue(8).ToString();
+                }
+                if (!reader.IsDBNull(9))
+                {
+                    user.TinhTrangTK = reader.GetValue(9).ToString();
                 }
             }
             return user;

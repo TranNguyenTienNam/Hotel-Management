@@ -9,13 +9,13 @@ namespace HotelManagement.MVVM.Model
 {
     class ProfileModel
     {
-        public DataTable Load_Profile(int MaNgDung)
+        public user Load_Profile(int MaNgDung)
         {
-            DataTable re;
-            string sql_select = "select * from TTNguoiDung where MaNgDung = " + MaNgDung;
+            string sql_select = "select TTNguoiDung.MaNgDung, Ho, Ten, SoDienThoai, GioiTinh, Email, NgaySinh, QuyenHan, NGUOIDUNG.TenTaiKhoan, TinhTrangTK " +
+                "from TTNguoiDung inner join NGUOIDUNG on TTNguoiDung.MaNgDung = NGUOIDUNG.MaNgDung " +
+                "where TTNguoiDung.MaNgDung = " + MaNgDung;
 
-            re = Process.createTable(sql_select);
-            return re;  //Trả về 1 DataTable Thông tin người dùng
+            return Process.getInfo(sql_select);
         }
     }
 }

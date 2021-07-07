@@ -6,9 +6,8 @@
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HotelManagement.MVVM.View"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:viewModel="clr-namespace:HotelManagement.MVVM.ViewModel"
+             xmlns:viewModel="clr-namespace:HotelManagement.MVVM.ViewModel" 
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="15"
              TextOptions.TextFormattingMode="Ideal"
@@ -24,28 +23,28 @@
             <Border Background="White" CornerRadius="12" HorizontalAlignment="Stretch" Margin="4">
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="80"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="174"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" 
-                                    Text="Create A New Room" Margin="8" FontSize="22" FontWeight="Bold" Foreground="#F44336"/>
+                                    Text="Create A New Room" Margin="8" FontSize="24" FontWeight="Bold" Foreground="#F44336"/>
                     </Grid>
                     <StackPanel Grid.Row="1" Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal" Margin="8">
+                        <StackPanel Orientation="Horizontal" Margin="10">
                             <TextBlock Width="120" Margin="8,0,0,0" Text="First Name: " FontWeight="Bold" VerticalAlignment="Center" Foreground="#FE8704"/>
-                            <TextBox Width="460"
+                            <TextBox Width="420"
                                 x:Name="txtFirstName"
                                 MaxLength="30"
                                 materialDesign:HintAssist.Hint="First Name"
                                 materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                 Text="{Binding FirstName}"/>
                         </StackPanel>
-                        
-                        <StackPanel Orientation="Horizontal" Margin="8">
+
+                        <StackPanel Orientation="Horizontal" Margin="10">
                             <TextBlock Width="120" Margin="8,0,0,0" Text="Last Name: " FontWeight="Bold" VerticalAlignment="Center" Foreground="#FE8704"/>
-                            <TextBox Width="460"
+                            <TextBox Width="420"
                                 x:Name="txtLastName"
                                 MaxLength="30"
                                 materialDesign:HintAssist.Hint="Last Name"
@@ -53,9 +52,9 @@
                                 Text="{Binding LastName}"/>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" Margin="8">
+                        <StackPanel Orientation="Horizontal" Margin="10">
                             <TextBlock Width="120" Margin="8,0,0,0" Text="Phone: " FontWeight="Bold" VerticalAlignment="Center" Foreground="#FE8704"/>
-                            <TextBox Width="460"
+                            <TextBox Width="420"
                                 x:Name="txtPhone"
                                 MaxLength="10"
                                 materialDesign:HintAssist.Hint="Phone"
@@ -63,18 +62,15 @@
                                 Text="{Binding Phone}"/>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" Margin="8">
+                        <StackPanel Orientation="Horizontal" Margin="10">
                             <TextBlock Width="120" Margin="8,0,0,0" Text="Gender: " FontWeight="Bold" VerticalAlignment="Center" Foreground="#FE8704"/>
-                            <ComboBox x:Name="cbbGender" Width="200"
+                            <ComboBox x:Name="cbbGender" Width="200" ItemsSource="{Binding ListGender}"
                                 SelectedValue="{Binding Gender}"
                                 IsEditable="False" VerticalAlignment="Stretch" RenderTransformOrigin="0.534,0.087">
-                                <ComboBoxItem Content="Male"/>
-                                <ComboBoxItem Content="Female"/>
-                                <ComboBoxItem Content="Other"/>
                             </ComboBox>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" Margin="8">
+                        <StackPanel Orientation="Horizontal" Margin="10">
                             <TextBlock Width="120" Margin="8,0,0,0" Text="Birthday: " FontWeight="Bold" VerticalAlignment="Center" Foreground="#FE8704"/>
                             <DatePicker
                                 Width="200"
@@ -87,9 +83,9 @@
                             </DatePicker>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" Margin="8">
+                        <StackPanel Orientation="Horizontal" Margin="10">
                             <TextBlock Width="120" Margin="8,0,0,0" Text="Email: " FontWeight="Bold" VerticalAlignment="Center" Foreground="#FE8704"/>
-                            <TextBox Width="460"
+                            <TextBox Width="420"
                                 x:Name="txtEmail"
                                 MaxLength="100"
                                 materialDesign:HintAssist.Hint="Email"
@@ -97,15 +93,42 @@
                                 Text="{Binding Email}"/>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" Margin="8">
+                        <StackPanel Orientation="Horizontal" Margin="10">
                             <TextBlock Width="120" Margin="8,0,0,0" Text="Position: " FontWeight="Bold" VerticalAlignment="Center" Foreground="#FE8704"/>
-                            <TextBox Width="460" IsReadOnly="True"
+                            <TextBox Width="420" IsReadOnly="True"
                                 x:Name="txtPosition"
                                 materialDesign:HintAssist.Hint="Position"
                                 materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                 Text="{Binding Position}"/>
                         </StackPanel>
                     </StackPanel>
+                    <StackPanel Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                        <Button Grid.Column="2" Width="100" Height="38" HorizontalAlignment="Right" Padding="0"
+                            Style="{StaticResource MaterialDesignRaisedButton}" Margin="10"
+                            Command="{Binding SaveProfileCommand}"
+                            materialDesign:ButtonAssist.CornerRadius="10"
+                            ToolTip="Search">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="ContentSave" Width="26" Height="26" Margin="0,0,8,0"/>
+                                <TextBlock Text="Save" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Border>
+        <Border Grid.Column="1" Background="Transparent" Visibility="{Binding Visibility}">
+            <Border Background="White" CornerRadius="12" HorizontalAlignment="Stretch" Margin="0,4,4,4">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="154"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                    Text="Change Password" Margin="8" FontSize="22" FontWeight="Bold" Foreground="#F44336"/>
+                    </Grid>
                 </Grid>
             </Border>
         </Border>

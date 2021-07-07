@@ -23,6 +23,10 @@ namespace HotelManagement.MVVM.ViewModel
         /// </summary>
         int PermissionOfAccount { get; set; }
 
+        //Collapse the button according to the permission
+        private string _visibility;
+        public string Visibility { get { return _visibility; } set { _visibility = value; OnPropertyChanged(); } }
+
         //Button New Booking
         public ICommand NewBookingCommand { get; set; }
 
@@ -63,11 +67,24 @@ namespace HotelManagement.MVVM.ViewModel
             DashboardVM = new DashboardViewModel();
             BookingsVM = new BookingViewModel();
             RoomsVM = new RoomsViewModel();
-            ProfileVM = new ProfileViewModel();
+            ProfileVM = new ProfileViewModel(UserId);
 
             //Chưa phân quyền
             PermissionOfAccount = model.GetPermissionAccount(UserId);
-            NameContent = model.GetNameAccount(UserId);
+            if (PermissionOfAccount == 2)
+            {
+                NameContent = model.GetNameAccount(UserId);
+                Visibility = "Collapsed";
+            }    
+            else if (PermissionOfAccount == 1)
+            {
+                
+            }    
+            else
+            {
+                NameContent = "Admin";
+            }    
+
             CurrentView = DashboardVM;
 
             DashboardViewCommand = new RelayCommand<object>((o) =>
