@@ -135,7 +135,7 @@
                             <TextBox x:Name="tb_client_name" FontSize="14" IsReadOnly="False"
                         materialDesign:HintAssist.Hint="Client Name"  Foreground="Black"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Top" Margin="10,118,233.6,0" Height="38" />
+                        VerticalAlignment="Top" Margin="10,118,233,0" Height="38" />
                             <TextBox x:Name="tb_gender" FontSize="14" IsReadOnly="False"
                         materialDesign:HintAssist.Hint="Gender"  Foreground="Black"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -177,7 +177,7 @@
                             <TextBox x:Name="tb_client_number" FontSize="14" IsReadOnly="False"
                         materialDesign:HintAssist.Hint="Clients"  Foreground="Black"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Top" Margin="288,295,11.6,0" Height="38" />
+                        VerticalAlignment="Top" Margin="288,294,11.6,0" Height="38" />
                             <TextBox x:Name="tb_checkin" FontSize="14" IsReadOnly="False"
                         materialDesign:HintAssist.Hint=""  Foreground="Black"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"

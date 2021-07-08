@@ -140,7 +140,7 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                checkin = p.SelectedDate.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                checkin = p.SelectedDate.Value.ToString("yyyy-MM-dd HH:mm:ss"); 
             });
 
             SelectedChangedCommand = new RelayCommand<ListView>((p) =>

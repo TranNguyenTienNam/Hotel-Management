@@ -50,7 +50,7 @@
             </Grid>
             <Border Grid.Row="1" Background="Transparent" Visibility="{Binding Visibility}" Margin="0,0,0,18" Grid.RowSpan="2">
                 <Border Background="White" HorizontalAlignment="Stretch" Margin="0,0,0,0">
-                    <Grid DataContext="{x:Static viewModel:RegulationsViewModel.Instance}">
+                    <Grid DataContext="{Binding Items}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="200"/>
 

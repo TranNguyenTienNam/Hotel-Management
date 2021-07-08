@@ -10,14 +10,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using HotelManagement.Object;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace HotelManagement.MVVM.ViewModel.CheckOutViewModels
 {
     class SurchargeViewModel : ObservableObject
     {
         public static SurchargeViewModel Instance => new SurchargeViewModel();
-        private ObservableCollection<SurchargeItemViewModel> _items;
-        public ObservableCollection<SurchargeItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged("Items"); } }
+        private surcharge _items;
+        public surcharge Items { get { return _items; } set { _items = value; OnPropertyChanged("Items"); } }
+
+        private int _khachThu3;
+        public int KhachThu3 { get { return _khachThu3; } set { _khachThu3 = value; OnPropertyChanged(); } }
+
+        private int _khachNuocNgoai;
+        public int KhachNuocNgoai { get { return _khachNuocNgoai; } set { _khachNuocNgoai = value; OnPropertyChanged(); } }
 
         public ICommand UpdateSrcharge { get; set; }
 
@@ -27,23 +36,9 @@ namespace HotelManagement.MVVM.ViewModel.CheckOutViewModels
 
         }
 
-        void LoadSurcharge()
+        private void LoadSurcharge()
         {
-            Items = new ObservableCollection<SurchargeItemViewModel>();
-            DataTable data = new DataTable();
-            SurchargeModel model = new SurchargeModel();
-
-            data = model.load_surcharge();
-
-            foreach (DataRow row in data.Rows)
-            {
-                var obj = new SurchargeItemViewModel()
-                {
-                    KhachThu3 = (int)row["KhachThu3"],
-                    KhachNuocNgoai = (int)row["KhachNuocNgoai"]
-                };
-                Items.Add(obj);
-            }
+            
         }
 
     }

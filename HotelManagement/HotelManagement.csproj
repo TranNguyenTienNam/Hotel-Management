@@ -135,7 +135,6 @@
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\BillsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\CheckOutItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\CheckOutViewModel.cs" />
-    <Compile Include="MVVM\ViewModel\CheckOutViewModels\SurchargeItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\SurchargeViewModel.cs" />
     <Compile Include="MVVM\ViewModel\LoginViewModel.cs" />
     <Compile Include="MVVM\ViewModel\RegisterViewModel.cs" />
@@ -179,6 +178,7 @@
     <Compile Include="Object\client.cs" />
     <Compile Include="Object\room.cs" />
     <Compile Include="Object\roomtype.cs" />
+    <Compile Include="Object\surcharge.cs" />
     <Compile Include="Object\user.cs" />
     <Compile Include="RegisterWindow.xaml.cs">
       <DependentUpon>RegisterWindow.xaml</DependentUpon>

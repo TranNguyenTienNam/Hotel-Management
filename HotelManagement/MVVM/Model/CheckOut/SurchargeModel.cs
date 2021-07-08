@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace HotelManagement.MVVM.Model.CheckOut
 {
     class SurchargeModel
     {
-        public DataTable load_surcharge()
+        public static string con_string = ConfigurationManager.ConnectionStrings["con"].ToString();
+        public DataTable Load_surcharge()
         {
             DataTable re;
             string query = "select * from PHUTHU";
@@ -17,13 +20,38 @@ namespace HotelManagement.MVVM.Model.CheckOut
             return re;
         }
 
-        public DataTable update_surcharge(int _khachthu3, int _khachnuocngoai)
+        public int Get_surcharge_more_client()
         {
-            DataTable re;
-            string query = "update PHUTHU " +
-                "set KhachThu3 = " + _khachthu3 + ", KhachNuocNgoai = " + _khachnuocngoai;
-            re = Process.createTable(query);
+            int re = 1;
+            SqlConnection con = new SqlConnection(con_string);
+            con.Open();
+            String query = "select * from PHUTHU";
+            SqlCommand cmd = new SqlCommand(query, con);
+            SqlDataReader dr = cmd.ExecuteReader();
+            if (dr.Read())
+            {
+                re = (int)dr["KhachThu3"];
+            }
+            con.Close();
+            return re;
+        }
+        public int Get_maximun_clients(int maLoaiPhong)
+        {
+            int re = 2;
+            SqlConnection con = new SqlConnection(con_string);
+            con.Open();
+            String query = "select SoNgToiDa " +
+                "from LOAIPHONG " +
+                "where MaLoaiPhong = " + maLoaiPhong;
+            SqlCommand cmd = new SqlCommand(query, con);
+            SqlDataReader dr = cmd.ExecuteReader();
+            if (dr.Read())
+            {
+                re = (int)dr["SoNgToiDa"];
+            }
+            con.Close();
             return re;
         }
     }
+            
 }
