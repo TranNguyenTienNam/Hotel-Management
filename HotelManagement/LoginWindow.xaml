@@ -57,7 +57,7 @@
                     <TextBlock Text="{Binding InvalidUsernamePassword}" Padding="45,2,2,0" FontSize="12" Foreground="Red"/>
                     <StackPanel 
                         Orientation="Horizontal"
-                        Margin="10">
+                        Margin="10" FocusManager.FocusedElement="{Binding ElementName=txtUserName}">
                         <materialDesign:PackIcon 
                             Kind="User"
                             Width="25"

@@ -8,6 +8,7 @@
              xmlns:core="clr-namespace:HotelManagement.Core"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:viewModel="clr-namespace:HotelManagement.MVVM.ViewModel" 
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              mc:Ignorable="d" 
              TextElement.FontWeight="Regular"
              TextElement.FontSize="15"
@@ -26,16 +27,44 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="80"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="158"/>
+                        <RowDefinition Height="138"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
-                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" 
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" 
                                     Text="Create A New Room" Margin="8" FontSize="24" FontWeight="Bold" Foreground="#F44336"/>
+                        <Grid Grid.Column="1" HorizontalAlignment="Right">
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,0,10,0">
+                                <TextBlock Margin="5" Text="View" FontWeight="Bold" VerticalAlignment="Center" Foreground="#F44336"/>
+                                <ToggleButton VerticalAlignment="Center" x:Name="tgbtMode"
+                                Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                ToolTip="Change mode">
+                                    <materialDesign:PackIcon
+                                    Kind="Eye">
+                                    </materialDesign:PackIcon>
+                                    <materialDesign:ToggleButtonAssist.OnContent>
+                                        <materialDesign:PackIcon Kind="Pencil" />
+                                    </materialDesign:ToggleButtonAssist.OnContent>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click">
+                                            <i:InvokeCommandAction Command="{Binding ToggleButtonClickCommand}" 
+                                                CommandParameter="{Binding ElementName=tgbtMode}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ToggleButton>
+                                <TextBlock Margin="5" Text="Edit" FontWeight="Bold" VerticalAlignment="Center" Foreground="#F44336"/>
+                            </StackPanel>
+                        </Grid>
+                        
                     </Grid>
                     <StackPanel Grid.Row="1" Orientation="Vertical">
+                        <TextBlock Text="{Binding EditedProfileMessage}" Margin="2,10,2,2" HorizontalAlignment="Center" FontSize="11" Foreground="Red"/>
                         <StackPanel Orientation="Horizontal" Margin="10">
                             <TextBlock Width="120" Margin="8,0,0,0" Text="First Name: " FontWeight="Bold" VerticalAlignment="Center" Foreground="#FE8704"/>
-                            <TextBox Width="420"
+                            <TextBox Width="420" IsReadOnly="{Binding IsReadOnly}"
                                 x:Name="txtFirstName"
                                 MaxLength="30"
                                 materialDesign:HintAssist.Hint="First Name"
@@ -45,7 +74,7 @@
 
                         <StackPanel Orientation="Horizontal" Margin="10">
                             <TextBlock Width="120" Margin="8,0,0,0" Text="Last Name: " FontWeight="Bold" VerticalAlignment="Center" Foreground="#FE8704"/>
-                            <TextBox Width="420"
+                            <TextBox Width="420" IsReadOnly="{Binding IsReadOnly}"
                                 x:Name="txtLastName"
                                 MaxLength="30"
                                 materialDesign:HintAssist.Hint="Last Name"
@@ -55,18 +84,24 @@
 
                         <StackPanel Orientation="Horizontal" Margin="10">
                             <TextBlock Width="120" Margin="8,0,0,0" Text="Phone: " FontWeight="Bold" VerticalAlignment="Center" Foreground="#FE8704"/>
-                            <TextBox Width="420"
+                            <TextBox Width="420" IsReadOnly="{Binding IsReadOnly}"
                                 x:Name="txtPhone"
                                 MaxLength="10"
                                 materialDesign:HintAssist.Hint="Phone"
                                 materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
-                                Text="{Binding Phone}"/>
+                                Text="{Binding Phone}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewTextInput">
+                                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewTextInputViewModel" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="10">
                             <TextBlock Width="120" Margin="8,0,0,0" Text="Gender: " FontWeight="Bold" VerticalAlignment="Center" Foreground="#FE8704"/>
                             <ComboBox x:Name="cbbGender" Width="200" ItemsSource="{Binding ListGender}"
-                                SelectedValue="{Binding Gender}"
+                                SelectedValue="{Binding Gender}" IsEnabled="{Binding IsEnabled}"
                                 IsEditable="False" VerticalAlignment="Stretch" RenderTransformOrigin="0.534,0.087">
                             </ComboBox>
                         </StackPanel>
@@ -74,7 +109,7 @@
                         <StackPanel Orientation="Horizontal" Margin="10">
                             <TextBlock Width="120" Margin="8,0,0,0" Text="Birthday: " FontWeight="Bold" VerticalAlignment="Center" Foreground="#FE8704"/>
                             <DatePicker
-                                Width="200"
+                                Width="200" IsEnabled="{Binding IsEnabled}"
                                 FontSize="18" Focusable="False"
                                 Foreground="Black"
                                 SelectedDateFormat="Short"
@@ -87,7 +122,7 @@
                         <StackPanel Orientation="Horizontal" Margin="10">
                             <TextBlock Width="120" Margin="8,0,0,0" Text="Email: " FontWeight="Bold" VerticalAlignment="Center" Foreground="#FE8704"/>
                             <TextBox Width="420"
-                                x:Name="txtEmail"
+                                x:Name="txtEmail" IsReadOnly="{Binding IsReadOnly}"
                                 MaxLength="100"
                                 materialDesign:HintAssist.Hint="Email"
                                 materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
@@ -114,7 +149,7 @@
                     <StackPanel Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                         <Button Grid.Column="2" Width="100" Height="38" HorizontalAlignment="Right" Padding="0"
                             Style="{StaticResource MaterialDesignRaisedButton}" Margin="10"
-                            Command="{Binding SaveProfileCommand}"
+                            Command="{Binding SaveProfileCommand}" IsEnabled="{Binding IsEnabled}"
                             materialDesign:ButtonAssist.CornerRadius="10"
                             ToolTip="Search">
                             <StackPanel Orientation="Horizontal">
@@ -139,7 +174,7 @@
                                     Text="Change Password" Margin="8" FontSize="22" FontWeight="Bold" Foreground="#F44336"/>
                     </Grid>
                     <StackPanel Grid.Row="1" Orientation="Vertical">
-                        <TextBlock Text="{Binding ChangePasswordError}" Margin="2,2,2,10" HorizontalAlignment="Center" FontSize="11" Foreground="Red"/>
+                        <TextBlock Text="{Binding ChangePasswordErrorMessage}" Margin="2,2,2,10" HorizontalAlignment="Center" FontSize="11" Foreground="Red"/>
                         <StackPanel Orientation="Horizontal" Margin="10,0,0,5">
                             <TextBlock Width="133" Text="Current Password:" FontWeight="Bold" VerticalAlignment="Center" Foreground="#FE8704"/>
                             <PasswordBox

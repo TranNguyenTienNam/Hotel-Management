@@ -14,29 +14,28 @@ namespace HotelManagement.MVVM.ViewModel
     class RegisterViewModel : ObservableObject
     {
         RegisterModel model;
-        //Họ của người dùng
+
         private string _firstName;
         public string FirstName { get { return _firstName; } set { _firstName = value; OnPropertyChanged(); } }
         
-        //Tên của người dùng
         private string _lastName;
         public string LastName { get { return _lastName; } set { _lastName = value; OnPropertyChanged(); } }
         
-        //Tên của người dùng
         private string _email;
         public string Email { get { return _email; } set { _email = value; OnPropertyChanged(); } }
 
-        //tên tài khoản
         private string _username;
         public string Username { get { return _username; } set { _username = value; OnPropertyChanged("username"); } }
 
-        //mật khẩu
         private string _password;
         public string Password { get { return _password; } set { _password = value; OnPropertyChanged(); } }
 
-        //xác nhận mật khẩu
         private string _confirmPassword;
         public string ConfirmPassword { get { return _confirmPassword; } set { _confirmPassword = value; OnPropertyChanged(); } }
+        
+        //xác nhận mật khẩu
+        private string _registerErrorMessage;
+        public string RegisterErrorMessage { get { return _registerErrorMessage; } set { _registerErrorMessage = value; OnPropertyChanged(); } }
 
         //label notice special char Username
         private string _specialCharUsername;
@@ -87,6 +86,11 @@ namespace HotelManagement.MVVM.ViewModel
             }, (p) =>
             {
                 Password = p.Password;
+
+                if (p.Password.Length > 0)
+                {
+                    RegisterErrorMessage = "";
+                }
                 if (!model.IsVietKey(p.Password))
                 {
                     SpecialCharPassword = "Password contains vietkey characters";
@@ -103,6 +107,11 @@ namespace HotelManagement.MVVM.ViewModel
             }, (p) =>
             {
                 ConfirmPassword = p.Password;
+
+                if (p.Password.Length > 0)
+                {
+                    RegisterErrorMessage = "";
+                }
                 if (!model.IsVietKey(p.Password))
                 {
                     SpecialCharConfirmPassword = "Confirm password contains vietkey characters";
@@ -117,7 +126,11 @@ namespace HotelManagement.MVVM.ViewModel
             {
                 return true;
             }, (p) =>
-            { 
+            {
+                if (p.Text.Length > 0)
+                {
+                    RegisterErrorMessage = "";
+                }
                 if (!model.IsVietKey(p.Text) || !model.IsSpecialChar(p.Text))
                 {
                     SpecialCharUsername = "Username contains special characters";
@@ -153,7 +166,7 @@ namespace HotelManagement.MVVM.ViewModel
                 p.Close();
             });
 
-            FinishCommand = new RelayCommand<Window>((p) =>
+            FinishCommand = new RelayCommand<object[]>((p) =>
             {
                 if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(ConfirmPassword)
                     || string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName) || string.IsNullOrEmpty(Email))
@@ -167,14 +180,28 @@ namespace HotelManagement.MVVM.ViewModel
             });
         }
 
-        void Register(Window p)
+        /// <summary>
+        /// ChangePasswordCommand have 4 parameter (object[])
+        /// 0 => <include file='RegisterWindow.xaml' path='[@ElementName="registerWindow"]'/>
+        /// 1 => <include file='RegisterWindow.xaml' path='[@ElementName="txtUsername"]'/>
+        /// 2 => <include file='RegisterWindow.xaml' path='[@ElementName="txtPassword"]'/>
+        /// 3 => <include file='RegisterWindow.xaml' path='[@ElementName="txtConfirmPassword"]'/>
+        /// </summary>
+        void Register(object[] p)
         {
             if (p == null)
                 return;
+            //Get array parameter
+            var values = (object[])p;
+            Window registerWindow = values[0] as Window;    
+            TextBox txtUsername = values[1] as TextBox;
+            PasswordBox txtPassword = values[2] as PasswordBox;
+            PasswordBox txtConfirmPassword = values[3] as PasswordBox;
 
             if (model.CheckExistUsername(Username))
             {
-                MessageBox.Show("This username has already existed");
+                RegisterErrorMessage = "This username has already existed";
+                txtUsername.Text = "";
                 return;
             }    
             else
@@ -186,16 +213,18 @@ namespace HotelManagement.MVVM.ViewModel
                     {
                         if (model.InsertInfoUser(isID, FirstName, LastName, Email))
                         {
-                            MessageBox.Show("Registration success");
-                            p.Hide();
+                            MessageBox.Show("Registration success", "Notice");
+                            registerWindow.Hide();
                             (new LoginWindow()).Show();
-                            p.Close();
+                            registerWindow.Close();
                         }    
                     }    
                 }
                 else
                 {
-                    MessageBox.Show("Password and confirm password are different");
+                    RegisterErrorMessage = "Password and confirm password are different";
+                    txtPassword.Password = "";
+                    txtConfirmPassword.Password = "";
                     return;
                 }    
             }

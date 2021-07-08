@@ -140,10 +140,5 @@ namespace HotelManagement.MVVM.ViewModel
                 Notes = (row["GhiChu"] == DBNull.Value) ? "" : (string)row["GhiChu"];
             }    
         }
-
-        private void OnPropertyChanged(string propertyName)
-        {
-
-        }
     }
 }

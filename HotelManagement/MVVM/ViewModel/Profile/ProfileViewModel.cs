@@ -3,8 +3,10 @@ using HotelManagement.MVVM.Model;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 namespace HotelManagement.MVVM.ViewModel
@@ -36,18 +38,41 @@ namespace HotelManagement.MVVM.ViewModel
         private string _email;
         public string Email { get { return _email; } set { _email = value; OnPropertyChanged(); } }
 
+        private string _position;
+        public string Position { get { return _position; } set { _position = value; OnPropertyChanged(); } }
+
+        //label notice profile edited
+        private string _editedProfileMessage;
+        public string EditedProfileMessage { get { return _editedProfileMessage; } set { _editedProfileMessage = value; OnPropertyChanged(); } }
+
         //label notice invalid email
         private string _noticeInvalidEmail;
         public string NoticeInvalidEmail { get { return _noticeInvalidEmail; } set { _noticeInvalidEmail = value; OnPropertyChanged(); } }
         
-        private string _position;
-        public string Position { get { return _position; } set { _position = value; OnPropertyChanged(); } }
+        //value IsReadOnly of textbox
+        private bool _isReadOnly;
+        public bool IsReadOnly { get { return _isReadOnly; } set { _isReadOnly = value; OnPropertyChanged(); } }
+        
+        //value IsEnabled of datepicker, combobox
+        private bool _isEnabled;
+        public bool IsEnabled { get { return _isEnabled; } set { _isEnabled = value; OnPropertyChanged(); } }
         #endregion
 
         #region Change Password
         //label notice when change password error
-        private string _changePasswordError;
-        public string ChangePasswordError { get { return _changePasswordError; } set { _changePasswordError = value; OnPropertyChanged(); } }
+        private string _changePasswordErrorMessage;
+        public string ChangePasswordErrorMessage 
+        { 
+            get 
+            { 
+                return _changePasswordErrorMessage; 
+            } 
+            set 
+            { 
+                _changePasswordErrorMessage = value; 
+                OnPropertyChanged(); 
+            } 
+        }
 
         private string _currentPassword;
         public string CurrentPassword { get { return _currentPassword; } set { _currentPassword = value; OnPropertyChanged(); } }
@@ -95,6 +120,7 @@ namespace HotelManagement.MVVM.ViewModel
 
         public ICommand SaveProfileCommand { get; set; }
         public ICommand ChangePasswordCommand { get; set; }
+        public ICommand ToggleButtonClickCommand { get; set; }
         public ICommand EmailTextChangedCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
         public ICommand NewPasswordChangedCommand { get; set; }
@@ -102,14 +128,7 @@ namespace HotelManagement.MVVM.ViewModel
 
         public ProfileViewModel(int UserId)
         {
-            ListGender = new List<string>();
-            ListGender.Add("Male");
-            ListGender.Add("Female");
-            ListGender.Add("Other");
-            ChangePasswordError = "";
-            SpecialCharCurrentPassword = "";
-            SpecialCharNewPassword = "";
-            SpecialCharConfirmPassword = "";
+            initProperty();
             loadProfile(UserId);
 
             SaveProfileCommand = new RelayCommand<object>((p) =>
@@ -117,12 +136,29 @@ namespace HotelManagement.MVVM.ViewModel
                 if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName)
                     || string.IsNullOrEmpty(Phone) || string.IsNullOrEmpty(Email))
                     return false;
+                if (NoticeInvalidEmail != "")
+                    return false;
                 return true;
             }, (p) => 
-            { 
-                
-            });
+            {
+                ProfileModel model = new ProfileModel();
+                user user = new user()
+                {
+                    MaNgDung = UserId,
+                    Ho = FirstName,
+                    Ten = LastName,
+                    SoDienThoai = Phone,
+                    GioiTinh = Gender,
+                    NgaySinh = Birthday,
+                    Email = Email,
+                };
 
+                if (model.EditProfile(user))
+                {
+                    MessageBox.Show("Profile has been changed successfully");
+                    //EditedProfileMessage = "Profile has been changed successfully";
+                }    
+            });
 
             /// <summary>
             /// ChangePasswordCommand have 3 parameter (object[])
@@ -140,34 +176,56 @@ namespace HotelManagement.MVVM.ViewModel
             }, (p) =>
             {
                 ProfileModel model = new ProfileModel();
+                //Get array parameter
+                var values = (object[])p;
+                PasswordBox txtPassword = values[0] as PasswordBox;
+                PasswordBox txtNewPassword = values[1] as PasswordBox;
+                PasswordBox txtConfirmPassword = values[2] as PasswordBox;
 
                 if (NewPassword != ConfirmPassword)
                 {
-                    ChangePasswordError = "New password and confirm password are different";
+                    ChangePasswordErrorMessage = "New password and confirm password are different";
+                    txtNewPassword.Password = "";
+                    txtConfirmPassword.Password = "";
                     return;
                 }    
 
                 if (!model.CheckCurrentPassword(UserId, CurrentPassword))   //Current Password wrong
                 {
-                    ChangePasswordError = "Current password is wrong";
+                    ChangePasswordErrorMessage = "Current password is wrong";
+                    txtPassword.Password = "";
                     return;
                 }
                 else
                 {
-                    //Get array parameter
-                    var values = (object[])p;
-
                     if (model.ChangePassword(UserId, ConfirmPassword))
                     {
-                        ChangePasswordError = "Password change success!";
-                        
-                        foreach (var value in values)
-                        {
-                            var pwbox = value as PasswordBox;
-                            pwbox.Password = "";
-                        }    
+                        ChangePasswordErrorMessage = "Password change success!";
+                        txtPassword.Password = "";
+                        txtNewPassword.Password = "";
+                        txtConfirmPassword.Password = "";
                     }    
                 }
+            });
+
+            ToggleButtonClickCommand = new RelayCommand<ToggleButton>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                if (p.IsChecked == true)
+                {
+                    IsEnabled = true;
+                    IsReadOnly = false;
+                }   
+                else
+                {
+                    loadProfile(UserId);
+                    IsEnabled = false;
+                    IsReadOnly = true;
+                    NoticeInvalidEmail = "";
+                    EditedProfileMessage = "";
+                }    
             });
 
             EmailTextChangedCommand = new RelayCommand<TextBox>((p) =>
@@ -194,11 +252,10 @@ namespace HotelManagement.MVVM.ViewModel
                 RegisterModel model = new RegisterModel();
                 CurrentPassword = p.Password;
 
-                if (p.Password.Length > 0)
+                if (p.Password.Length > 0)  //remove message when re-type current password
                 {
-                    ChangePasswordError = "";
+                    ChangePasswordErrorMessage = "";
                 }    
-
                 if (!model.IsVietKey(p.Password))
                 {
                     SpecialCharCurrentPassword = "Password contains vietkey character";
@@ -217,11 +274,10 @@ namespace HotelManagement.MVVM.ViewModel
                 RegisterModel model = new RegisterModel();
                 NewPassword = p.Password;
 
-                if (p.Password.Length > 0)
+                if (p.Password.Length > 0)  //remove message when re-type new password
                 {
-                    ChangePasswordError = "";
+                    ChangePasswordErrorMessage = "";
                 }
-
                 if (!model.IsVietKey(p.Password))
                 {
                     SpecialCharNewPassword = "Password contains vietkey character";
@@ -240,11 +296,10 @@ namespace HotelManagement.MVVM.ViewModel
                 RegisterModel model = new RegisterModel();
                 ConfirmPassword = p.Password;
 
-                if (p.Password.Length > 0)
+                if (p.Password.Length > 0)  //remove message when re-type confirm password
                 {
-                    ChangePasswordError = "";
+                    ChangePasswordErrorMessage = "";
                 }
-
                 if (!model.IsVietKey(p.Password))
                 {
                     SpecialCharConfirmPassword = "Password contains vietkey character";
@@ -254,6 +309,32 @@ namespace HotelManagement.MVVM.ViewModel
                     SpecialCharConfirmPassword = "";
                 }
             });
+        }
+
+        #region View Event Handling
+
+        //Không nhận ký tự khác ngoài số khi nhập textbox
+        public void PreviewTextInputViewModel(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        #endregion
+
+        void initProperty()
+        {
+            ListGender = new List<string>();
+            ListGender.Add("Male");
+            ListGender.Add("Female");
+            ListGender.Add("Other");
+
+            IsEnabled = false;
+            IsReadOnly = true;
+            ChangePasswordErrorMessage = "";
+            SpecialCharCurrentPassword = "";
+            SpecialCharNewPassword = "";
+            SpecialCharConfirmPassword = "";
         }
 
         void loadProfile(int UserId)
