@@ -35,23 +35,6 @@ namespace HotelManagement.MVVM.Model.CheckOut
             con.Close();
             return re;
         }
-        public int Get_maximun_clients(int maLoaiPhong)
-        {
-            int re = 2;
-            SqlConnection con = new SqlConnection(con_string);
-            con.Open();
-            String query = "select SoNgToiDa " +
-                "from LOAIPHONG " +
-                "where MaLoaiPhong = " + maLoaiPhong;
-            SqlCommand cmd = new SqlCommand(query, con);
-            SqlDataReader dr = cmd.ExecuteReader();
-            if (dr.Read())
-            {
-                re = (int)dr["SoNgToiDa"];
-            }
-            con.Close();
-            return re;
-        }
-    }
-            
+
+    }          
 }

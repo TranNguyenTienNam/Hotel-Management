@@ -16,29 +16,25 @@ using System.Configuration;
 
 namespace HotelManagement.MVVM.ViewModel.CheckOutViewModels
 {
-    class SurchargeViewModel : ObservableObject
+    class SurchargeViewModel:ObservableObject
     {
         public static SurchargeViewModel Instance => new SurchargeViewModel();
-        private surcharge _items;
-        public surcharge Items { get { return _items; } set { _items = value; OnPropertyChanged("Items"); } }
 
         private int _khachThu3;
-        public int KhachThu3 { get { return _khachThu3; } set { _khachThu3 = value; OnPropertyChanged(); } }
+        public int KhachThu3 { get { return _khachThu3; } set { _khachThu3 = value;  } }
 
-        private int _khachNuocNgoai;
-        public int KhachNuocNgoai { get { return _khachNuocNgoai; } set { _khachNuocNgoai = value; OnPropertyChanged(); } }
 
         public ICommand UpdateSrcharge { get; set; }
 
         public SurchargeViewModel()
         {
             LoadSurcharge();
-
         }
 
         private void LoadSurcharge()
         {
-            
+            SurchargeModel model = new SurchargeModel();
+            KhachThu3 = model.Get_surcharge_more_client();
         }
 
     }

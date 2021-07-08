@@ -122,13 +122,13 @@
                             <Button Height="Auto" Width="Auto"
                             Style="{StaticResource MaterialDesignFloatingActionButton}"
                             BorderBrush="Red"
-                            Background="White"
+                            Background="Red"
                             ToolTip="Close"
                             x:Name="btnExit"
                             Margin="347,10,14,536" Click="btnExit_Click">
                                 <materialDesign:PackIcon 
                                 Kind="Close"
-                                Foreground="red"
+                                Foreground="White"
                                 Width="30"
                                 Height="30"/>
                             </Button>

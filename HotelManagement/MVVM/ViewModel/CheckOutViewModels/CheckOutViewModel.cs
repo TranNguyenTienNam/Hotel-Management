@@ -19,6 +19,10 @@ namespace HotelManagement.MVVM.ViewModel
         private ObservableCollection<CheckOutItemViewModel> _items;
         public ObservableCollection<CheckOutItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged("Items"); } }
 
+        private string _searchText = "";
+        public string SearchText { get { return _searchText; } set { _searchText = value; OnPropertyChanged(); } }
+
+        //thuộc tính phiếu thuê
         private int _maPhieuThue;
         public int MaPhieuThue { get { return _maPhieuThue; } set { _maPhieuThue = value; OnPropertyChanged(); } }
 
@@ -87,6 +91,7 @@ namespace HotelManagement.MVVM.ViewModel
 
         private String _tenLoaiPhong;
         public String TenLoaiPhong { get { return _tenLoaiPhong; } set { _tenLoaiPhong = value; OnPropertyChanged(); } }
+
         // thuộc tính thêm 
         private int _soNgayThue;
         public int SoNgayThue { get { return _soNgayThue; } set { _soNgayThue = value; OnPropertyChanged(); } }
@@ -100,24 +105,37 @@ namespace HotelManagement.MVVM.ViewModel
         private int _tongTien;
         public int TongTien { get { return _tongTien; } set { _tongTien = value; OnPropertyChanged(); } }
 
+        //command
         public ICommand BillsCommand { get; set; }
         public ICommand SurchargeCommand { get; set; }
         public ICommand SearchCommand { get; set; }
         public ICommand CheckOutCommand { get; set; }
+        public ICommand RefreshCommand { get; set; }
 
         public ICommand SelectRowCommand { get; set; }
-        public ICommand PickCheckOutDate { get; set; }
+        public ICommand PickCheckOutDateCommand { get; set; }
 
         public CheckOutViewModel()
         {
-            loadListRent();
+            Items = new ObservableCollection<CheckOutItemViewModel>();
+            LoadListRent();
+
+            RefreshCommand = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                Items.Clear();
+                LoadListRent();
+            });
 
             BillsCommand = new RelayCommand<object>((p) =>
             {
                 return true;
             }, (p) =>
             {
-                showBillsView();
+                BillsView bv = new BillsView();
+                bv.ShowDialog();
             });
 
             SurchargeCommand = new RelayCommand<object>((p) =>
@@ -125,21 +143,42 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                showSurchargeView();
+                SurchargeView sv = new SurchargeView();
+                sv.ShowDialog();
             });
 
-            SelectRowCommand = new RelayCommand<ListView>((p) =>
-            {               
-                if(p.Items.IsEmpty)
-                {
-                    return false;
-                }                
+            SearchCommand = new RelayCommand<object>((p) =>
+            {
                 return true;
             }, (p) =>
             {
-                var Item = p.SelectedItem as CheckOutItemViewModel;
+                try
+                {
+                    if (SearchText == "") 
+                    {
+                        Items.Clear();
+                        LoadListRent(); 
+                    }else
+                    {
+                        LoadSearcgRoomName();
+                    }
+                }catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            });
+
+            SelectRowCommand = new RelayCommand<ListView>((p) =>
+            {
+                return !p.Items.IsEmpty;
+            }, (p) =>
+            {
+                CheckOutItemViewModel Item = p.SelectedItem as CheckOutItemViewModel;
+                MaPhieuThue = Item.MaPhieuThue;
+                MaKH = Item.MaKH;
                 TenKH = Item.TenKH;
                 GioiTinh = Item.GioiTinh;
+                MaLoaiKhach = Item.MaLoaiKhach;
                 TenLoaiKhach = Item.TenLoaiKhach;
                 DiaChi = Item.DiaChi;
                 CMND = Item.CMND;
@@ -147,64 +186,102 @@ namespace HotelManagement.MVVM.ViewModel
                 TenPhong = Item.TenPhong;
                 TenLoaiPhong = Item.TenLoaiPhong;
                 DonGia = Item.DonGia;
+                SoNgToiDa = Item.SoNgToiDa;
                 SoLuongKhach = Item.SoLuongKhach;
+                NgayLapPhieu = Item.NgayLapPhieu;
                 NgayBatDau = Item.NgayBatDau;
                 NgayTraPhong = Item.NgayTraPhong;
                 TienCoc = Item.TienCoc;
-                SoNgayThue = getDays(Item.NgayBatDau, Item.NgayTraPhong);
+                SoNgayThue = GetDays(Item.NgayBatDau, Item.NgayTraPhong);
                 TongTienPhong = Item.DonGia * SoNgayThue;
-                PhuThu = getSurchargeMoney(SoLuongKhach, SoNgayThue, TongTienPhong, Item.MaLoaiPhong);
+                PhuThu = GetSurchargeMoney(SoLuongKhach, SoNgayThue, TongTienPhong, SoNgToiDa);
                 TongTien = TongTienPhong + PhuThu - TienCoc;
             });
 
-            PickCheckOutDate = new RelayCommand<DatePicker>((p) =>
+            PickCheckOutDateCommand = new RelayCommand<DatePicker>((p) =>
             {
                 if (p.SelectedDate < NgayBatDau)
                 {
                     MessageBox.Show("Ngày Check-out không được nhỏ hơn ngày Check-in !");
                     return false;
                 }
-                if(string.IsNullOrEmpty(TenKH))
-                {
-                    return false;
-                }
-
-                return true;
+                return !string.IsNullOrEmpty(TenKH);
             }, (p) =>
             {
-                NgayTraPhong = (p.SelectedDate.HasValue ? p.SelectedDate.Value.Date : NgayBatDau);
-                SoNgayThue = getDays(NgayBatDau, NgayTraPhong);
+                NgayTraPhong = p.SelectedDate.HasValue ? p.SelectedDate.Value.Date : NgayBatDau;
+                SoNgayThue = GetDays(NgayBatDau, NgayTraPhong);
                 TongTienPhong = DonGia * SoNgayThue;
-                PhuThu = getSurchargeMoney(SoLuongKhach, SoNgayThue, TongTienPhong, MaLoaiPhong);
+                PhuThu = GetSurchargeMoney(SoLuongKhach, SoNgayThue, TongTienPhong, SoNgToiDa);
                 TongTien = TongTienPhong + PhuThu - TienCoc;
             });
 
         }
-        public int getDays(DateTime ngayBD, DateTime ngayTP )
+
+        private int GetDays(DateTime ngayBD, DateTime ngayTP )
         {
             DateTime bd = ngayBD.Date;
             DateTime tp = ngayTP.Date;
             string re = tp.Subtract(bd).TotalDays.ToString();
             return int.Parse(re);
         }
-        public int getSurchargeMoney(int soLuongkhach, int soNgayThue, int tongTienPhong, int maLoaiPhog)
+
+        private int GetSurchargeMoney(int soLuongkhach, int soNgayThue, int tongTienPhong, int soNguoiToiDa)
         {
-            int re = 0;
             SurchargeModel surchargeModel = new SurchargeModel();
             int tyLePhuThu = surchargeModel.Get_surcharge_more_client();
-            int soNguoiToiDa = surchargeModel.Get_maximun_clients(maLoaiPhog);
-            if(soLuongkhach > soNguoiToiDa)
+            if (soLuongkhach > soNguoiToiDa)
             {
-                re = (soLuongkhach - soNguoiToiDa) * tyLePhuThu * tongTienPhong;
+                return (soLuongkhach - soNguoiToiDa) * tyLePhuThu * tongTienPhong / 100;
             }
-            return re/100;
+            return 0;
         }
-        void loadListRent()
+
+        private void LoadSearcgRoomName()
         {
-            Items = new ObservableCollection<CheckOutItemViewModel>();
+            if (Items.Count > 0)
+            {
+                Items.Clear();
+            }
+            CheckOutModel model = new CheckOutModel();
+            DataTable data = new DataTable();
+            data = model.Load_List_Rent_By_Room(SearchText);
+
+            foreach (DataRow row in data.Rows)
+            {
+                var obj = new CheckOutItemViewModel()
+                {
+                    MaPhieuThue = (int)row["MaPhieuThue"],
+                    NgayLapPhieu = (DateTime)row["NgayLapPhieu"],
+                    NgayBatDau = (DateTime)row["NgayBatDau"],
+                    NgayTraPhong = (row["NgayTraPhong"] == DBNull.Value ? DateTime.Now.Date : (DateTime)row["NgayTraPhong"]),
+                    SoLuongKhach = (int)row["SoLuongKhach"],
+                    TinhTrang = (string)row["TinhTrang"],
+                    NguoiLapPhieu = (int)row["NguoiLapPhieu"],
+                    TienCoc = (int)row["TienCoc"],
+                    MaKH = (int)row["MaKH"],
+                    TenKH = (string)row["TenKH"],
+                    CMND = (string)row["CMND"],
+                    SoDienThoai = (string)row["SoDienThoai"],
+                    DiaChi = (string)row["DiaChi"],
+                    GioiTinh = (string)row["GioiTinh"],
+                    MaLoaiKhach = (int)row["MaLoaiKhach"],
+                    TenLoaiKhach = (string)row["TenLoaiKhach"],
+                    MaPhong = (int)row["MaPhong"],
+                    TenPhong = (string)row["TenPhong"],
+                    GhiChu = (row["GhiChu"] == DBNull.Value) ? string.Empty : (string)row["GhiChu"],
+                    MaLoaiPhong = (int)row["MaLoaiPhong"],
+                    TenLoaiPhong = (string)row["TenLoaiPhong"],
+                    DonGia = (int)row["DonGia"],
+                    SoNgToiDa = (int)row["SoNgToiDa"]
+                };
+                Items.Add(obj);
+            }
+        }
+
+        private void LoadListRent()
+        {
             DataTable data = new DataTable();
             CheckOutModel model = new CheckOutModel();
-
             data = model.Load_List_Rent();
 
             foreach (DataRow row in data.Rows)
@@ -219,22 +296,17 @@ namespace HotelManagement.MVVM.ViewModel
                     TinhTrang = (string)row["TinhTrang"],
                     NguoiLapPhieu = (int)row["NguoiLapPhieu"],
                     TienCoc = (int)row["TienCoc"],
-
                     MaKH = (int)row["MaKH"],
                     TenKH = (string)row["TenKH"],
                     CMND = (string)row["CMND"],
                     SoDienThoai = (string)row["SoDienThoai"],
                     DiaChi = (string)row["DiaChi"],
                     GioiTinh = (string)row["GioiTinh"],
-
                     MaLoaiKhach = (int)row["MaLoaiKhach"],
                     TenLoaiKhach = (string)row["TenLoaiKhach"],
-
                     MaPhong = (int)row["MaPhong"],
                     TenPhong = (string)row["TenPhong"],
-
                     GhiChu = (row["GhiChu"] == DBNull.Value) ? string.Empty : (string)row["GhiChu"],
-
                     MaLoaiPhong = (int)row["MaLoaiPhong"],
                     TenLoaiPhong = (string)row["TenLoaiPhong"],
                     DonGia = (int)row["DonGia"],
@@ -243,15 +315,6 @@ namespace HotelManagement.MVVM.ViewModel
                 Items.Add(obj);
             }
         }
-        void showBillsView()
-        {
-            BillsView bv = new BillsView();
-            bv.ShowDialog();
-        }
-        void showSurchargeView()
-        {
-            SurchargeView sv = new SurchargeView();
-            sv.ShowDialog();
-        }
+
     }
 }
