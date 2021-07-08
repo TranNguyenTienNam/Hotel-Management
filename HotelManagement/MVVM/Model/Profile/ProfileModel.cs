@@ -17,5 +17,24 @@ namespace HotelManagement.MVVM.Model
 
             return Process.getInfo(sql_select);
         }
+
+        public bool CheckCurrentPassword(int MaNgDung, string MatKhau)
+        {
+            string sql_select = "select MaNgDung from NGUOIDUNG where MaNgDung = " + MaNgDung + 
+                " and MatKhau = '" + Process.Encrypt(MatKhau) + "'";
+
+            if (Process.ExecutiveReader(sql_select) > 0)
+                return true;
+            return false;
+        }
+
+        public bool ChangePassword(int MaNgDung, string MatKhau)
+        {
+            string sql_update = "update NGUOIDUNG set MatKhau = '" + Process.Encrypt(MatKhau) + "' where MaNgDung = " + MaNgDung;
+
+            if (Process.ExecutiveNonQuery(sql_update) > 0)
+                return true;
+            return false;
+        }
     }
 }

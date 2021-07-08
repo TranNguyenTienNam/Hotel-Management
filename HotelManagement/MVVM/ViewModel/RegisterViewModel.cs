@@ -46,7 +46,7 @@ namespace HotelManagement.MVVM.ViewModel
         private string _specialCharPassword;
         public string SpecialCharPassword { get { return _specialCharPassword; } set { _specialCharPassword = value; OnPropertyChanged(); } }
 
-        //label notice special char Password
+        //label notice special char Confirm Password
         private string _specialCharConfirmPassword;
         public string SpecialCharConfirmPassword 
         { 
@@ -87,9 +87,9 @@ namespace HotelManagement.MVVM.ViewModel
             }, (p) =>
             {
                 Password = p.Password;
-                if (!model.IsSpecialChar(p.Password))
+                if (!model.IsVietKey(p.Password))
                 {
-                    SpecialCharPassword = "Password contains special characters";
+                    SpecialCharPassword = "Password contains vietkey characters";
                 }
                 else
                 {
@@ -103,9 +103,9 @@ namespace HotelManagement.MVVM.ViewModel
             }, (p) =>
             {
                 ConfirmPassword = p.Password;
-                if (!model.IsSpecialChar(p.Password))
+                if (!model.IsVietKey(p.Password))
                 {
-                    SpecialCharConfirmPassword = "Confirm password contains special characters";
+                    SpecialCharConfirmPassword = "Confirm password contains vietkey characters";
                 }
                 else
                 {
@@ -118,10 +118,10 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             { 
-                if (!model.IsSpecialChar(p.Text))
+                if (!model.IsVietKey(p.Text) || !model.IsSpecialChar(p.Text))
                 {
                     SpecialCharUsername = "Username contains special characters";
-                }    
+                }  
                 else
                 {
                     SpecialCharUsername = "";

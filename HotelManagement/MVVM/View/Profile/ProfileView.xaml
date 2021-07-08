@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HotelManagement.MVVM.View"
+             xmlns:core="clr-namespace:HotelManagement.Core"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:viewModel="clr-namespace:HotelManagement.MVVM.ViewModel" 
              mc:Ignorable="d" 
@@ -25,7 +26,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="80"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="174"/>
+                        <RowDefinition Height="158"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" 
@@ -90,9 +91,17 @@
                                 MaxLength="100"
                                 materialDesign:HintAssist.Hint="Email"
                                 materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
-                                Text="{Binding Email}"/>
+                                Text="{Binding Email}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="TextChanged">
+                                        <i:InvokeCommandAction Command="{Binding EmailTextChangedCommand}" 
+                                       CommandParameter="{Binding ElementName=txtEmail}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
                         </StackPanel>
-
+                        <TextBlock Text="{Binding NoticeInvalidEmail}" Margin="140,2,2,2" HorizontalAlignment="Left" FontSize="10" Foreground="Red"/>
+                        
                         <StackPanel Orientation="Horizontal" Margin="10">
                             <TextBlock Width="120" Margin="8,0,0,0" Text="Position: " FontWeight="Bold" VerticalAlignment="Center" Foreground="#FE8704"/>
                             <TextBox Width="420" IsReadOnly="True"
@@ -123,12 +132,102 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="80"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="154"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" 
                                     Text="Change Password" Margin="8" FontSize="22" FontWeight="Bold" Foreground="#F44336"/>
                     </Grid>
+                    <StackPanel Grid.Row="1" Orientation="Vertical">
+                        <TextBlock Text="{Binding ChangePasswordError}" Margin="2,2,2,10" HorizontalAlignment="Center" FontSize="11" Foreground="Red"/>
+                        <StackPanel Orientation="Horizontal" Margin="10,0,0,5">
+                            <TextBlock Width="133" Text="Current Password:" FontWeight="Bold" VerticalAlignment="Center" Foreground="#FE8704"/>
+                            <PasswordBox
+                                x:Name="txtPassword"
+                                materialDesign:HintAssist.Hint="Current Password"
+                                MaxLength="30"
+                                materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                Foreground="Black"
+                                Width="144"
+                                CaretBrush="#FFD94448"
+                                SelectionBrush="#FFD94448">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PasswordChanged">
+                                        <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
+                                       CommandParameter="{Binding ElementName=txtPassword}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </PasswordBox>
+                        </StackPanel>
+                        <TextBlock Text="{Binding SpecialCharCurrentPassword}" Margin="2,2,10,2" HorizontalAlignment="Right" FontSize="11" Foreground="Red"/>
+
+                        <StackPanel Orientation="Horizontal" Margin="10,0,0,5">
+                            <TextBlock Width="133" Text="New Password:" FontWeight="Bold" VerticalAlignment="Center" Foreground="#FE8704"/>
+                            <PasswordBox
+                                x:Name="txtNewPassword"
+                                materialDesign:HintAssist.Hint="New Password"
+                                MaxLength="30"
+                                materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                Foreground="Black"
+                                Width="144"
+                                CaretBrush="#FFD94448"
+                                SelectionBrush="#FFD94448">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PasswordChanged">
+                                        <i:InvokeCommandAction Command="{Binding NewPasswordChangedCommand}" 
+                                       CommandParameter="{Binding ElementName=txtNewPassword}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </PasswordBox>
+                        </StackPanel>
+                        <TextBlock Text="{Binding SpecialCharNewPassword}" Margin="2,2,10,2" HorizontalAlignment="Right" FontSize="11" Foreground="Red"/>
+                        
+                        <StackPanel Orientation="Horizontal" Margin="10,0,0,5">
+                            <TextBlock Width="133" Text="Confirm Password:" FontWeight="Bold" VerticalAlignment="Center" Foreground="#FE8704"/>
+                            <PasswordBox
+                                x:Name="txtConfirmPassword"
+                                materialDesign:HintAssist.Hint="Confirm Password"
+                                MaxLength="30"
+                                materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                Foreground="Black"
+                                Width="144"
+                                CaretBrush="#FFD94448"
+                                SelectionBrush="#FFD94448">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PasswordChanged">
+                                        <i:InvokeCommandAction Command="{Binding ConfirmPasswordChangedCommand}" 
+                                            CommandParameter="{Binding ElementName=txtConfirmPassword}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </PasswordBox>
+                        </StackPanel>
+                        <TextBlock Text="{Binding SpecialCharConfirmPassword}" Margin="2,2,10,2" HorizontalAlignment="Right" FontSize="11" Foreground="Red"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                        <Button Width="136" Height="38" HorizontalAlignment="Right" 
+                            Padding="0" Margin="10" Name="btChangePassword" 
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Command="{Binding ChangePasswordCommand}"
+                            materialDesign:ButtonAssist.CornerRadius="10"
+                            ToolTip="Change Password">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="KeyChange" Width="26" Height="26" Margin="0,0,8,0"/>
+                                <TextBlock Text="KeyChange" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <Button.Resources>
+                                <core:PassThroughConverter x:Key="passThroughConverter"/>
+                            </Button.Resources>
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource passThroughConverter}">
+                                    <MultiBinding.Bindings>
+                                        <Binding ElementName="txtPassword"/>
+                                        <Binding ElementName="txtNewPassword"/>
+                                        <Binding ElementName="txtConfirmPassword"/>
+                                    </MultiBinding.Bindings>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                    </StackPanel>
                 </Grid>
             </Border>
         </Border>

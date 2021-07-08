@@ -61,6 +61,15 @@ namespace HotelManagement.MVVM.Model
         {
             if (string.IsNullOrEmpty(text))
                 return true;
+            if (Process.CheckSpecialChar(text))
+                return true;
+            return false;
+        }
+
+        public bool IsVietKey(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return true;
             if (Process.CheckVietKey(text))
                 return true;
             return false;

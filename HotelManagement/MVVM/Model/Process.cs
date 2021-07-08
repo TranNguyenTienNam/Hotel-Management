@@ -186,9 +186,23 @@ namespace HotelManagement.MVVM.Model
             return user;
         }
 
+        public static bool CheckSpecialChar(string chuCoDau)
+        {
+            const string FindText = ":;\"?`!@#$%^&*()~<>[\\]+-_=,.|/ ";
+            int n;
+            int m = chuCoDau.Length;
+            char[] arrS = chuCoDau.ToCharArray();
+            for (int i = 0; i < m; i++)
+            {
+                n = FindText.IndexOf(arrS[i]);
+                if (n != -1) return false;  //Tìm thấy kí tự đặc biệt trong dãy FindText
+            }
+            return true;    //Không tìm thấy kí tự có dấu
+        }
+
         public static bool CheckVietKey(string chuCoDau)
         {
-            const string FindText = ":;\"?`!@#$%^&*()~<>[\\]+-_=,.|/ áàảãạâấầẩẫậăắằẳẵặđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ";
+            const string FindText = "áàảãạâấầẩẫậăắằẳẵặđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ";
             int n;
             int m = chuCoDau.Length;
             char[] arrS = chuCoDau.ToCharArray();
