@@ -10,7 +10,7 @@
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
      x:Class="HotelManagement.BookingWindows"
         mc:Ignorable="d"
-        Title="BookingWindows" Height="746.887" Width="713.874" WindowStyle="None" ResizeMode="CanMinimize" AllowsTransparency="True" Background="{x:Null}">
+        Title="BookingWindows" Height="746.887" Width="713.874" WindowStyle="None" ResizeMode="CanMinimize" AllowsTransparency="True" Background="{x:Null}" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <viewmodel:BookingViewModel/>
     </Window.DataContext>
