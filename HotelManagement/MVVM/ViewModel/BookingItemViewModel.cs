@@ -24,6 +24,11 @@ namespace HotelManagement.MVVM.ViewModel
         public string SoDienThoai { get; set; }
         public DateTime NgayLapPhieu { get; set; }
 
+        public BookingItemViewModel()
+        {
+
+        }
+
 
 
     }

@@ -18,8 +18,9 @@ namespace HotelManagement.MVVM.Model
                             + "FROM PHONG p, LOAIPHONG lp "
                             + "WHERE p.MaLoaiPhong = lp.MaLoaiPhong and MaPhong NOT IN(SELECT MaPhong "
                             + "FROM PHIEUTHUEPHONG "
-                            + "WHERE (NgayBatDau< '" + checkin + "' and '" + checkin + "' < NgayTraPhong) "
-                            + "or (NgayBatDau< '" + checkout + "' and '" + checkout + "' < NgayTraPhong)) ";
+                            + "WHERE (NgayBatDau <= '" + checkin + "' and '" + checkin + "' <= NgayTraPhong) "
+                            + "or (NgayBatDau <= '" + checkout + "' and '" + checkout + "' <= NgayTraPhong) "
+                            + "or (NgayBatDau >= '" + checkin + "' and '" + checkout + "' >= NgayTraPhong)) ";
 
             re = Process.createTable(sql_select);
             return re;
