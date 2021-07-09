@@ -85,7 +85,7 @@
                                 Text="{Binding Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                                 xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
                                 materialDesign:HintAssist.Hint="Phone number:" FontSize="14"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="#FF024B48" Margin="0,14,0,10">
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="#FF024B48" Margin="0,14,0,10" MaxLength="10">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="PreviewTextInput" >
                                         <ei:CallMethodAction TargetObject="{Binding}" MethodName="IsAllowedInput"  />
@@ -127,7 +127,7 @@
                             </Grid.RowDefinitions>
                             <TextBox Grid.Row="0" x:Name="tbName" Foreground="#FF009CAC" Text="{Binding Name}"
                                 materialDesign:HintAssist.Hint="Name:" FontSize="14"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="#FF024B48" FontWeight="Bold" />
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="#FF024B48" FontWeight="Bold" MaxLength="50" />
                             <ComboBox x:Name="cbbGender" 
                             FontSize="14" Foreground="#FF009CAC"
                             materialDesign:TextFieldAssist.PrefixText="Gender: "
@@ -146,7 +146,7 @@
                             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
                             Grid.Row="1" x:Name="tbDeposit" Foreground="#FF009CAC"
                             materialDesign:HintAssist.Hint="Deposit:" FontSize="14" IsReadOnly="False"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="#FF024B48" Margin="0,70,0,-66">
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="#FF024B48" Margin="0,70,0,-66" MaxLength="10">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="PreviewTextInput" >
                                         <ei:CallMethodAction TargetObject="{Binding}" MethodName="IsAllowedInput"  />
@@ -164,7 +164,7 @@
                                 Text="{Binding CitizenID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                                 xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
                                 materialDesign:HintAssist.Hint="Citizen ID:" FontSize="14"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="White" Margin="0,0,0,87" Height="42" VerticalAlignment="Bottom" >
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="White" Margin="0,0,0,87" Height="42" VerticalAlignment="Bottom" MaxLength="14" >
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="PreviewTextInput" >
                                         <ei:CallMethodAction TargetObject="{Binding}" MethodName="IsAllowedInput"  />
@@ -173,12 +173,12 @@
                             </TextBox>
                             <TextBox x:Name="tbAddress" Foreground="#FF009CAC" Text="{Binding Address}"
                                 materialDesign:HintAssist.Hint="Address:" FontSize="14" IsReadOnly="False"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="#FF024B48" Margin="0,57,0,29"/>
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="#FF024B48" Margin="0,57,0,29" MaxLength="100"/>
                             <TextBox Text="{Binding Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                                 xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
                                 x:Name="tbAmount" Foreground="#FF009CAC" 
                                 materialDesign:HintAssist.Hint="Amount:" FontSize="14" IsReadOnly="False"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="#FF024B48" Margin="0,113,0,-26" Grid.RowSpan="2">
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="#FF024B48" Margin="0,113,0,-26" Grid.RowSpan="2" MaxLength="10">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="PreviewTextInput" >
                                         <ei:CallMethodAction TargetObject="{Binding}" MethodName="IsAllowedInput"  />

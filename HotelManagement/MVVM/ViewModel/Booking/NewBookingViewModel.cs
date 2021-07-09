@@ -206,8 +206,6 @@ namespace HotelManagement.MVVM.ViewModel
                     cbbNationlity.SelectedIndex = (int)row["MaLoaiKhach"] - 1;
                 }
 
-                MessageBox.Show(CitizenID.ToString(),"CitizenID:");
-
                 if (Gender == "Male") cbbGender.SelectedIndex = 0;
                 else
                 {
@@ -219,7 +217,9 @@ namespace HotelManagement.MVVM.ViewModel
             #endregion
             HandleBooking = new RelayCommand<object>((p) =>
             {
-
+                int res1 = DateTime.Compare(checkin, checkout);
+                int res2 = DateTime.Compare(today, checkin);
+                if (res1 > 0  || res2 > 0) return false;
                 if (string.IsNullOrEmpty(Deposit) || string.IsNullOrEmpty(Amount) || (RoomId == 0)
                         || string.IsNullOrEmpty(CitizenID) || string.IsNullOrEmpty(Phone)
                         || string.IsNullOrEmpty(Gender) || string.IsNullOrEmpty(Address)
@@ -229,6 +229,8 @@ namespace HotelManagement.MVVM.ViewModel
                 {
                     return false;
                 }
+
+
                 return true;
 
             }, (p) =>
