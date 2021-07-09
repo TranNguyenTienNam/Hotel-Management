@@ -7,7 +7,7 @@ using HotelManagement.MVVM.Model;
 using System.Windows.Controls;
 using System.Windows.Input;
 using HotelManagement.MVVM.View.CheckOutViews;
-using HotelManagement.MVVM.ViewModel.CheckOutViewModels;
+using HotelManagement.MVVM.ViewModel;
 using HotelManagement.MVVM.Model.CheckOut;
 using System.Windows;
 
@@ -36,9 +36,6 @@ namespace HotelManagement.MVVM.ViewModel
 
         private int _maphong;
         public int MaPhong { get { return _maphong; } set { _maphong = value; OnPropertyChanged(); } }
-
-        private int _maKH;
-        public int MaKH { get { return _maKH; } set { _maKH = value; OnPropertyChanged(); } }
 
         private DateTime _ngayBatDau;
         public DateTime NgayBatDau { get { return _ngayBatDau; } set { _ngayBatDau = value; OnPropertyChanged(); } }
@@ -125,7 +122,6 @@ namespace HotelManagement.MVVM.ViewModel
                 PhuThu = Item.PhuThu;
                 TongTien = Item.TongTien;
                 MaPhieuThue = Item.MaPhieuThue;
-                MaKH = Item.MaKH;
                 TenKH = Item.TenKH;
                 GioiTinh = Item.GioiTinh;
                 MaLoaiKhach = Item.MaLoaiKhach;
@@ -194,7 +190,6 @@ namespace HotelManagement.MVVM.ViewModel
                     TinhTrang = (string)row["TinhTrang"],
                     NguoiLapPhieu = (int)row["NguoiLapPhieu"],
                     TienCoc = (int)row["TienCoc"],
-                    MaKH = (int)row["MaKH"],
                     TenKH = (string)row["TenKH"],
                     CMND = (string)row["CMND"],
                     SoDienThoai = (string)row["SoDienThoai"],
@@ -243,7 +238,6 @@ namespace HotelManagement.MVVM.ViewModel
                     TinhTrang = (string)row["TinhTrang"],
                     NguoiLapPhieu = (int)row["NguoiLapPhieu"],
                     TienCoc = (int)row["TienCoc"],
-                    MaKH = (int)row["MaKH"],
                     TenKH = (string)row["TenKH"],
                     CMND = (string)row["CMND"],
                     SoDienThoai = (string)row["SoDienThoai"],

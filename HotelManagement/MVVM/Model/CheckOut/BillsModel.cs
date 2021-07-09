@@ -16,13 +16,13 @@ namespace HotelManagement.MVVM.Model.CheckOut
             DataTable re;
             string query = "SELECT MaHoaDon, PhuThu, TongTien, " +
                 "HOADON.MaPhieuThue, NgayLapPhieu, NgayBatDau, NgayTraPhong, SoLuongKhach, TinhTrang, NguoiLapPhieu, TienCoc, " +
-                " PHIEUTHUEPHONG.MaKH, TenKH, CMND, SoDienThoai, DiaChi, GioiTinh, " +
+                "TenKH, PHIEUTHUEPHONG.CMND, SoDienThoai, DiaChi, GioiTinh, " +
                 "LOAIKHACHHANG.MaLoaiKhach, TenLoaiKhach, " +
                 "PHIEUTHUEPHONG.MaPhong, TenPhong, GhiChu, " +
                 "LOAIPHONG.MaLoaiPhong, TenLoaiPhong, DonGia,SoNgToiDa " +
                 "FROM HOADON " +
                 "inner join PHIEUTHUEPHONG on PHIEUTHUEPHONG.MaPhieuThue = HOADON.MaPhieuThue " +
-                "inner join KHACHHANG on KHACHHANG.MaKH = PHIEUTHUEPHONG.MaKH " +
+                "inner join KHACHHANG on KHACHHANG.CMND = PHIEUTHUEPHONG.CMND " +
                 "inner join LOAIKHACHHANG on LOAIKHACHHANG.MaLoaiKhach=KHACHHANG.MaLoaiKhach " +
                 "inner join PHONG on PHONG.MaPhong=PHIEUTHUEPHONG.MaPhong " +
                 "inner join LOAIPHONG on LOAIPHONG.MaLoaiPhong=PHONG.MaLoaiPhong " +
@@ -35,13 +35,13 @@ namespace HotelManagement.MVVM.Model.CheckOut
             DataTable re;
             string query = "SELECT MaHoaDon, PhuThu, TongTien, " +
                 "HOADON.MaPhieuThue, NgayLapPhieu, NgayBatDau, NgayTraPhong, SoLuongKhach, TinhTrang, NguoiLapPhieu, TienCoc, " +
-                " PHIEUTHUEPHONG.MaKH, TenKH, CMND, SoDienThoai, DiaChi, GioiTinh, " +
+                "TenKH, PHIEUTHUEPHONG.CMND, SoDienThoai, DiaChi, GioiTinh, " +
                 "LOAIKHACHHANG.MaLoaiKhach, TenLoaiKhach, " +
                 "PHIEUTHUEPHONG.MaPhong, TenPhong, GhiChu, " +
                 "LOAIPHONG.MaLoaiPhong, TenLoaiPhong, DonGia,SoNgToiDa " +
                 "FROM HOADON " +
                 "inner join PHIEUTHUEPHONG on PHIEUTHUEPHONG.MaPhieuThue = HOADON.MaPhieuThue " +
-                "inner join KHACHHANG on KHACHHANG.MaKH = PHIEUTHUEPHONG.MaKH " +
+                "inner join KHACHHANG on KHACHHANG.CMND = PHIEUTHUEPHONG.CMND " +
                 "inner join LOAIKHACHHANG on LOAIKHACHHANG.MaLoaiKhach=KHACHHANG.MaLoaiKhach " +
                 "inner join PHONG on PHONG.MaPhong=PHIEUTHUEPHONG.MaPhong " +
                 "inner join LOAIPHONG on LOAIPHONG.MaLoaiPhong=PHONG.MaLoaiPhong " +

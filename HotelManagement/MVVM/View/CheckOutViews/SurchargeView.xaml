@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelManagement.MVVM.View" 
         xmlns:viewModel="clr-namespace:HotelManagement.MVVM.ViewModel"
-        xmlns:checkoutViewModel="clr-namespace:HotelManagement.MVVM.ViewModel.CheckOutViewModels"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
         mc:Ignorable="d"
@@ -18,7 +17,7 @@
         WindowStartupLocation="CenterScreen"
         MouseDown="Window_MouseDown">
     <Window.DataContext>
-        <checkoutViewModel:CheckOutItemViewModel/>
+        <viewModel:SurchargeViewModel/>
     </Window.DataContext>
     <Border Background="#F44336" CornerRadius="20" BorderThickness="1" BorderBrush="#F44336" Margin="0,0,0,0">
         <Grid>

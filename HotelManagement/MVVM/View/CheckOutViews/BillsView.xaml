@@ -7,7 +7,6 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewModel="clr-namespace:HotelManagement.MVVM.ViewModel"
-        xmlns:checkoutViewiewModels="clr-namespace:HotelManagement.MVVM.ViewModel.CheckOutViewModels"
         mc:Ignorable="d"
         Height="595" Width="910"
         WindowStyle="None"

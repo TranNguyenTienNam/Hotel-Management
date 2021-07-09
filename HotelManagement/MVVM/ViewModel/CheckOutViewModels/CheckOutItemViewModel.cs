@@ -12,7 +12,7 @@ using System.Windows;
 using System.Windows.Threading;
 using System;
 
-namespace HotelManagement.MVVM.ViewModel.CheckOutViewModels
+namespace HotelManagement.MVVM.ViewModel
 {
     public class CheckOutItemViewModel : ObservableObject
     {
@@ -23,9 +23,6 @@ namespace HotelManagement.MVVM.ViewModel.CheckOutViewModels
 
         private int _maphong;
         public int MaPhong { get { return _maphong; } set { _maphong = value; OnPropertyChanged(); } }
-
-        private int _maKH;
-        public int MaKH { get { return _maKH; } set { _maKH = value; OnPropertyChanged(); } }
 
         private DateTime _ngayBatDau;
         public DateTime NgayBatDau { get { return _ngayBatDau; } set { _ngayBatDau = value; OnPropertyChanged(); } }

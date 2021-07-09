@@ -12,13 +12,6 @@ namespace HotelManagement.MVVM.Model.CheckOut
     class SurchargeModel
     {
         public static string con_string = ConfigurationManager.ConnectionStrings["con"].ToString();
-        public DataTable Load_surcharge()
-        {
-            DataTable re;
-            string query = "select * from PHUTHU";
-            re = Process.createTable(query);
-            return re;
-        }
 
         public int Get_surcharge_more_client()
         {
