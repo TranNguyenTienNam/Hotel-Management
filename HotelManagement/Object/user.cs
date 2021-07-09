@@ -34,7 +34,7 @@ namespace HotelManagement
         public int QuyenHan { get => quyenHan; set => quyenHan = value; }
         public string TinhTrangTK { get => tinhTrangTK; set => tinhTrangTK = value; }
         public string SoDienThoai { get => soDienThoai; set => soDienThoai = value; }
-        public DateTime NgaySinh { get => DateTime.Now; set => ngaySinh = value; }
+        public DateTime NgaySinh { get => ngaySinh; set => ngaySinh = value; }
         public string GioiTinh { get => gioiTinh; set => gioiTinh = value; }
     }
 }

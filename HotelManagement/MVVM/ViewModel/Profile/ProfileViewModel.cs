@@ -155,8 +155,7 @@ namespace HotelManagement.MVVM.ViewModel
 
                 if (model.EditProfile(user))
                 {
-                    MessageBox.Show("Profile has been changed successfully");
-                    //EditedProfileMessage = "Profile has been changed successfully";
+                    EditedProfileMessage = "Profile has been changed successfully!";
                 }    
             });
 
@@ -213,12 +212,12 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                if (p.IsChecked == true)
+                if (p.IsChecked == true)    //Edit mode
                 {
                     IsEnabled = true;
                     IsReadOnly = false;
                 }   
-                else
+                else                        //View mode
                 {
                     loadProfile(UserId);
                     IsEnabled = false;
@@ -331,6 +330,7 @@ namespace HotelManagement.MVVM.ViewModel
 
             IsEnabled = false;
             IsReadOnly = true;
+            NoticeInvalidEmail = "";
             ChangePasswordErrorMessage = "";
             SpecialCharCurrentPassword = "";
             SpecialCharNewPassword = "";

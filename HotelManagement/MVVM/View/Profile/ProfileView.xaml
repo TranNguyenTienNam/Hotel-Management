@@ -61,7 +61,7 @@
                         
                     </Grid>
                     <StackPanel Grid.Row="1" Orientation="Vertical">
-                        <TextBlock Text="{Binding EditedProfileMessage}" Margin="2,10,2,2" HorizontalAlignment="Center" FontSize="11" Foreground="Red"/>
+                        <TextBlock Text="{Binding EditedProfileMessage}" Margin="2,10,2,2" HorizontalAlignment="Center" FontSize="12" Foreground="Red"/>
                         <StackPanel Orientation="Horizontal" Margin="10">
                             <TextBlock Width="120" Margin="8,0,0,0" Text="First Name: " FontWeight="Bold" VerticalAlignment="Center" Foreground="#FE8704"/>
                             <TextBox Width="420" IsReadOnly="{Binding IsReadOnly}"

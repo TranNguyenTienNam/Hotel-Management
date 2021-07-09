@@ -35,8 +35,8 @@ namespace HotelManagement.MVVM.Model
 
         public bool InsertInfoUser(int MaNgDung, string Ho, string Ten, string Email)
         {
-            string sql_insert = "insert TTNguoiDung(MaNgDung, Ho, Ten, Email, QuyenHan) values " +
-                "(" + MaNgDung + ", N'" + Ho + "', N'" + Ten + "', '" + Email + "', 2)";
+            string sql_insert = "insert TTNguoiDung(MaNgDung, Ho, Ten, Email, NgaySinh, QuyenHan) values " +
+                "(" + MaNgDung + ", N'" + Ho + "', N'" + Ten + "', '" + Email + "', '" + DateTime.Now + "', 2)";
             if (Process.ExecutiveNonQuery(sql_insert) > 0)
             {
                 return true;
