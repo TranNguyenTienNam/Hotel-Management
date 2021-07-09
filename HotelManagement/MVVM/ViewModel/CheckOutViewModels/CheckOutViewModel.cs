@@ -160,7 +160,7 @@ namespace HotelManagement.MVVM.ViewModel
                         LoadListRent(); 
                     }else
                     {
-                        LoadSearcgRoomName();
+                        LoadSearchRoomName();
                     }
                 }catch (Exception ex)
                 {
@@ -236,7 +236,7 @@ namespace HotelManagement.MVVM.ViewModel
             return 0;
         }
 
-        private void LoadSearcgRoomName()
+        private void LoadSearchRoomName()
         {
             if (Items.Count > 0)
             {

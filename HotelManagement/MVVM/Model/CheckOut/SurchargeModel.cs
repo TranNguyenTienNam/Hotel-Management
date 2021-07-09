@@ -22,7 +22,7 @@ namespace HotelManagement.MVVM.Model.CheckOut
 
         public int Get_surcharge_more_client()
         {
-            int re = 1;
+            int re = 0;
             SqlConnection con = new SqlConnection(con_string);
             con.Open();
             String query = "select * from PHUTHU";
@@ -35,6 +35,15 @@ namespace HotelManagement.MVVM.Model.CheckOut
             con.Close();
             return re;
         }
+        public void Update_surcharge(int tyLePhuThu)
+        {
+            SqlConnection con = new SqlConnection(con_string);
+            con.Open();
+            String query = "update PHUTHU " +
+                "set KhachThu3 = " + tyLePhuThu;
 
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.ExecuteReader();
+        }
     }          
 }

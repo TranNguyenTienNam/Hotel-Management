@@ -7,6 +7,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewModel="clr-namespace:HotelManagement.MVVM.ViewModel"
+        xmlns:checkoutViewiewModels="clr-namespace:HotelManagement.MVVM.ViewModel.CheckOutViewModels"
         mc:Ignorable="d"
         Height="595" Width="910"
         WindowStyle="None"
@@ -16,27 +17,29 @@
         WindowStartupLocation="CenterScreen"
         MouseDown="Window_MouseDown"
         >
-    <Border Background="#F44336" CornerRadius="12" Margin="0,0,0,0">
+    <Window.DataContext>
+        <viewModel:BillsViewModel/>
+    </Window.DataContext>
+    <Border Background="#dfdfdf" CornerRadius="12" Margin="0,0,0,0">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="500"/>
-                <ColumnDefinition Width="410"/>
+                <ColumnDefinition Width="516"/>
+                <ColumnDefinition Width="394"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" Margin="0,0,0,0">
                 <StackPanel Margin="0,0,0,0">
-                    <Border Background="White" Height="48" CornerRadius="12" HorizontalAlignment="Stretch" Margin="5,5,0,0">
-                        <Grid Grid.Row="1" Margin="0,0,0,0">
+                    <Border Background="White" Height="48" CornerRadius="12" HorizontalAlignment="Stretch" Margin="5,5,105,0">
+                        <Grid Grid.Row="1" Margin="0,0,0.2,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="50"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Image Source="/Images/search.png" Width="25" Stretch="Uniform"/>
-                            <TextBlock Grid.Column="1" Margin="3.4,4,-0.4,4" Text="Search name..." FontWeight="Bold" VerticalAlignment="Center" Foreground="LightGray">
+                            <TextBlock Margin="10,15,10.6,15" Text="Search ID Card..." FontWeight="Bold" VerticalAlignment="Center" Foreground="LightGray" Grid.ColumnSpan="2">
                                 <TextBlock.Style>
                                     <Style TargetType="{x:Type TextBlock}">
                                         <Setter Property="Visibility" Value="Collapsed"/>
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Text, ElementName=searchName}" Value="">
+                                            <DataTrigger Binding="{Binding Text, ElementName = tb_search_room}" Value="">
                                                 <Setter Property="Visibility" Value="Visible"/>
                                                 <Setter Property="FontSize" Value="14"/>
                                             </DataTrigger>
@@ -44,31 +47,40 @@
                                     </Style>
                                 </TextBlock.Style>
                             </TextBlock>
-                            <TextBox Grid.Column="1" x:Name="tb_search_to_checkout" FontSize="14" VerticalAlignment="Center" BorderThickness="0" Margin="0,0,0,0" />
+                            <TextBox x:Name="tb_search_room" FontSize="16" VerticalAlignment="Center" BorderThickness="0" Margin="10,12,10,10"
+                                 Text="{Binding SearchText}" Grid.ColumnSpan="2"/>
+                            <Button Width="95" Height="Auto" HorizontalAlignment="Right" Padding="0"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Command="{Binding SearchCommand}"
+                            materialDesign:ButtonAssist.CornerRadius="10"
+                            ToolTip="Search or Refresh list bills" Margin="0,0,-105,0" Grid.Column="1">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Magnify" Width="26" Height="26"/>
+                                    <TextBlock Text="Search" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
                         </Grid>
                     </Border>
                     <Border Height="473" Margin="5,5,0,0" CornerRadius="12" Background="White">
-                        <ListView x:Name="lv_checkin"  Margin="0,0,0,-0.2"  >
+                        <ListView x:Name="lv_bills" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"
+                              Foreground="#DD000000" BorderBrush="{x:Null}" ItemsSource="{Binding Items}" Width="475" Margin="10,0">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Bill ID" x:Name="billID" Width="auto"  />
-                                    <GridViewColumn Header="Client" x:Name="clientName" Width="Auto"  />
-                                    <GridViewColumn Header="ID Card" x:Name="idCardClient" Width="Auto"  />
-                                    <GridViewColumn Header="Check Out" x:Name="checkout" Width="Auto" />
+                                    <GridViewColumn Header="Bill ID" x:Name="billID" Width="auto" DisplayMemberBinding="{Binding MaHoaDon}" />
+                                    <GridViewColumn Header="Client" x:Name="clientName" Width="Auto" DisplayMemberBinding="{Binding TenKH}" />
+                                    <GridViewColumn Header="IdCard" x:Name="idCardClient" Width="Auto" DisplayMemberBinding="{Binding CMND}" />
+                                    <GridViewColumn Header="Check Out" x:Name="checkout" Width="Auto" DisplayMemberBinding="{Binding NgayTraPhong}" />
                                 </GridView>
                             </ListView.View>
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="{x:Type ListViewItem}">
-                                    <Setter Property="BorderBrush" Value="Blue"/>
-                                    <Setter Property="BorderThickness" Value="0"/>
-                                    <Setter Property="Margin" Value="1"/>
-                                    <Setter Property="FontSize" Value="14" />
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                </Style>
-                            </ListView.ItemContainerStyle>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding SelectRowCommand}" 
+                                    CommandParameter="{Binding ElementName=lv_bills}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                         </ListView>
                     </Border>
-                    <Border Margin="5,5,0,5" Background="White" CornerRadius="12" Height="56">
+                    <Border Margin="5,5,0,5" Background="White" CornerRadius="12" Height="55">
                         <StackPanel Grid.Row="2"
                         Orientation="Horizontal" 
                         HorizontalAlignment="Stretch" Margin="0,0,0,0">
@@ -118,102 +130,121 @@
             <Grid Grid.Column="1">
                 <Border Background="#fff" CornerRadius="12" Margin="5,5,5,5">
                     <StackPanel>
-                        <Grid Height="586" Margin="0,0,-0.2,0">
-                            <Button Height="Auto" Width="Auto"
-                            Style="{StaticResource MaterialDesignFloatingActionButton}"
-                            BorderBrush="Red"
-                            Background="Red"
-                            ToolTip="Close"
-                            x:Name="btnExit"
-                            Margin="347,10,14,536" Click="btnExit_Click">
+                        <Grid Height="586" Margin="0,0,0,0">
+                            <Button Height="38" Width="38"
+                                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                BorderBrush="Red"
+                                Background="Red" 
+                                ToolTip="Close"
+                                x:Name="btnExit" Click="btnExit_Click" Margin="0,0,9.8,538" HorizontalAlignment="Right" VerticalAlignment="Bottom" 
+                                >
                                 <materialDesign:PackIcon 
-                                Kind="Close"
-                                Foreground="White"
-                                Width="30"
-                                Height="30"/>
+                                    Kind="Close"
+                                    Foreground="White"
+                                    Width="30"
+                                    Height="30"/>
                             </Button>
-                            <TextBox x:Name="tb_client_name" FontSize="14" IsReadOnly="False"
-                        materialDesign:HintAssist.Hint="Client Name"  Foreground="Black"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Top" Margin="10,118,233,0" Height="38" />
-                            <TextBox x:Name="tb_gender" FontSize="14" IsReadOnly="False"
-                        materialDesign:HintAssist.Hint="Gender"  Foreground="Black"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Top" Margin="172,118,138.6,0" Height="38"/>
-                            <TextBox x:Name="tb_client_type" FontSize="14" IsReadOnly="False"
-                        materialDesign:HintAssist.Hint="Client Type"  Foreground="Black"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Top" Margin="267,118,9.6,0" Height="38"/>
-                            <TextBox x:Name="tb_address" FontSize="14" IsReadOnly="False"
-                        materialDesign:HintAssist.Hint="Address"  Foreground="Black"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Top" Margin="10,155,9.6,0" Height="38" />
-                            <TextBox x:Name="tb_cmnd" FontSize="14" IsReadOnly="False"
-                        materialDesign:HintAssist.Hint="Identity Card Number"  Foreground="Black"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Top" Margin="10,193,197.6,0" Height="38" />
-                            <TextBox x:Name="tb_phone" FontSize="14" IsReadOnly="False"
-                        materialDesign:HintAssist.Hint="Phone Number"  Foreground="Black"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Top" Margin="208,193,9.6,0" Height="38" />
+                            <TextBox x:Name="tb_client_name" FontSize="14" IsReadOnly="True"
+                                materialDesign:HintAssist.Hint="Client Name"  Foreground="Black"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Top" Margin="10,118,233,0" Height="38" 
+                                     Text="{Binding TenKH}"/>
+                            <TextBox x:Name="tb_gender" FontSize="14" IsReadOnly="True"
+                                materialDesign:HintAssist.Hint="Gender"  Foreground="Black"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Top" Margin="172,118,138.6,0" Height="38"
+                                     Text="{Binding GioiTinh}"/>
+                            <TextBox x:Name="tb_client_type" FontSize="14" IsReadOnly="True"
+                                materialDesign:HintAssist.Hint="Client Type"  Foreground="Black"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Top" Margin="267,118,9.6,0" Height="38"
+                                     Text="{Binding TenLoaiKhach}"/>
+                            <TextBox x:Name="tb_address" FontSize="14" IsReadOnly="True"
+                                materialDesign:HintAssist.Hint="Address"  Foreground="Black"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Top" Margin="10,155,9.6,0" Height="38" 
+                                     Text="{Binding DiaChi}"/>
+                            <TextBox x:Name="tb_cmnd" FontSize="14" IsReadOnly="True"
+                                materialDesign:HintAssist.Hint="Identity Card Number"  Foreground="Black"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Top" Margin="10,193,197.6,0" Height="38" 
+                                     Text="{Binding CMND}"/>
+                            <TextBox x:Name="tb_phone" FontSize="14" IsReadOnly="True"
+                                materialDesign:HintAssist.Hint="Phone Number"  Foreground="Black"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Top" Margin="208,193,9.6,0" Height="38" 
+                                     Text="{Binding SoDienThoai}"/>
 
                             <Label Content="RENTAL INFORMATION:" HorizontalAlignment="Left" Height="35" Margin="9,230,0,0" VerticalAlignment="Top" Width="243" FontWeight="Bold" FontSize="20"/>
-                            <TextBox x:Name="tb_room_name" FontSize="14" IsReadOnly="False"
-                        materialDesign:HintAssist.Hint="Room Name"  Foreground="Black"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Top" Margin="9,256,215.6,0" Height="38" />
-                            <TextBox x:Name="tb_room_type" FontSize="14" IsReadOnly="False"
-                        materialDesign:HintAssist.Hint="Type Room"  Foreground="Black"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Top" Margin="192,256,9.6,0" Height="38"/>
-                            <TextBox x:Name="tb_unit_price" FontSize="14" IsReadOnly="False"
-                        materialDesign:HintAssist.Hint="Unit Price"  Foreground="Black"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Top" Margin="9,294,215.6,0" Height="38" />
-                            <TextBox x:Name="tb_days" FontSize="14" IsReadOnly="False"
-                        materialDesign:HintAssist.Hint="Days"  Foreground="Black"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Top" Margin="192,294,115.6,0" Height="38"/>
-                            <TextBox x:Name="tb_client_number" FontSize="14" IsReadOnly="False"
-                        materialDesign:HintAssist.Hint="Clients"  Foreground="Black"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Top" Margin="288,294,11.6,0" Height="38" />
-                            <TextBox x:Name="tb_checkin" FontSize="14" IsReadOnly="False"
-                        materialDesign:HintAssist.Hint=""  Foreground="Black"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Top" Margin="192,333,9.6,0" Height="38"/>
-                            <Label Content="Check-in:" HorizontalAlignment="Left" Height="26" Margin="110,344,0,0" VerticalAlignment="Top" Width="76" FontSize="14" Background="#00000000"/>
-                            <Label Content="Check-out:" HorizontalAlignment="Left" Height="27" Margin="110,383,0,0" VerticalAlignment="Top" Width="76" FontSize="14"/>
-                            <TextBox x:Name="tb_subtotal" FontSize="14" IsReadOnly="False"
-                        materialDesign:HintAssist.Hint="Subtotal"  Foreground="Black"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Top" Margin="192,410,9.6,0" Height="38" />
-                            <TextBox x:Name="tb_surcharge" FontSize="14" IsReadOnly="False"
-                        materialDesign:HintAssist.Hint="Surcharge"  Foreground="Black"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Top" Margin="192,448,9.6,0" Height="38"/>
-                            <TextBox x:Name="tb_Deposits" FontSize="14" IsReadOnly="False"
-                        materialDesign:HintAssist.Hint="Deposits"  Foreground="Black"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Top" Margin="192,486,-0.4,0" Height="38" HorizontalAlignment="Left" Width="199"/>
-                            <TextBox x:Name="tb_total" FontSize="18" FontWeight="Bold" IsReadOnly="False"
-                        materialDesign:HintAssist.Hint=""  Foreground="Black"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Top" Margin="192,515,10,0" Height="50" />
-                            <Label Content="TOTAL:" HorizontalAlignment="Left" Height="33" Margin="110,532,0,0" VerticalAlignment="Top" Width="77" FontWeight="Bold" FontSize="20"/>
-                            <Label Content="CLIENT INFORMATION:" HorizontalAlignment="Left" Height="33" Margin="9,85,0,0" VerticalAlignment="Top" Width="243" FontWeight="Bold" FontSize="20"/>
-                            <TextBox x:Name="tb_bill_id" FontSize="14" IsReadOnly="False"
-                            materialDesign:HintAssist.Hint="Bill ID"  Foreground="Black"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                            VerticalAlignment="Top" Margin="10,0,212.6,0" Height="38" />
-                            <TextBox x:Name="tb_rent_id" FontSize="14" IsReadOnly="False"
-                            materialDesign:HintAssist.Hint="Rental ID"  Foreground="Black"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                            VerticalAlignment="Top" Margin="10,38,208.6,0" Height="38" />
-                            <TextBox x:Name="tb_checkout" FontSize="14" IsReadOnly="False"
+                            <TextBox x:Name="tb_room_name" FontSize="14" IsReadOnly="True"
+                                materialDesign:HintAssist.Hint="Room Name"  Foreground="Black"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Top" Margin="9,256,215.6,0" Height="38" 
+                                     Text="{Binding TenPhong}"/>
+                            <TextBox x:Name="tb_room_type" FontSize="14" IsReadOnly="True"
+                                materialDesign:HintAssist.Hint="Type Room"  Foreground="Black"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Top" Margin="192,256,9.6,0" Height="38"
+                                     Text="{Binding TenLoaiPhong}"/>
+                            <TextBox x:Name="tb_unit_price" FontSize="14" IsReadOnly="True"
+                                materialDesign:HintAssist.Hint="Unit Price"  Foreground="Black"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Top" Margin="9,294,215.6,0" Height="38" 
+                                     Text="{Binding DonGia}"/>
+                            <TextBox x:Name="tb_days" FontSize="14" IsReadOnly="True"
+                                materialDesign:HintAssist.Hint="Days"  Foreground="Black"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Top" Margin="192,294,115.6,0" Height="38"
+                                     Text="{Binding SoNgayThue}"/>
+                            <TextBox x:Name="tb_client_number" FontSize="14" IsReadOnly="True"
+                                materialDesign:HintAssist.Hint="Clients"  Foreground="Black"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Top" Margin="288,294,11.6,0" Height="38" 
+                                     Text="{Binding SoLuongKhach}"/>
+                            <TextBox x:Name="tb_checkin" FontSize="14" IsReadOnly="True"
                                 materialDesign:HintAssist.Hint=""  Foreground="Black"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                VerticalAlignment="Top" Margin="191,372,10.6,0" Height="38"/>
+                                VerticalAlignment="Top" Margin="192,333,9.6,0" Height="38"
+                                     Text="{Binding NgayBatDau}"/>
+                            <Label Content="Check-in:" HorizontalAlignment="Left" Height="26" Margin="110,344,0,0" VerticalAlignment="Top" Width="76" FontSize="14" Background="#00000000"/>
+                            <Label Content="Check-out:" HorizontalAlignment="Left" Height="27" Margin="110,383,0,0" VerticalAlignment="Top" Width="76" FontSize="14"/>
+                            <TextBox x:Name="tb_subtotal" FontSize="14" IsReadOnly="True"
+                                materialDesign:HintAssist.Hint="Subtotal"  Foreground="Black"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Top" Margin="192,410,9.6,0" Height="38" 
+                                     Text="{Binding TongTienPhong}"/>
+                            <TextBox x:Name="tb_surcharge" FontSize="14" IsReadOnly="True"
+                                materialDesign:HintAssist.Hint="Surcharge"  Foreground="Black"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Top" Margin="192,448,9.6,0" Height="38"
+                                     Text="{Binding PhuThu}"/>
+                            <TextBox x:Name="tb_Deposits" FontSize="14" IsReadOnly="True"
+                                materialDesign:HintAssist.Hint="Deposits"  Foreground="Black"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Top" Margin="192,486,-0.4,0" Height="38" HorizontalAlignment="Left" Width="199"
+                                     Text="{Binding TienCoc}"/>
+                            <TextBox x:Name="tb_total" FontSize="18" FontWeight="Bold" IsReadOnly="True"
+                                materialDesign:HintAssist.Hint=""  Foreground="Black"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Top" Margin="192,515,10,0" Height="50" 
+                                     Text="{Binding TongTien}"/>
+                            <Label Content="TOTAL:" HorizontalAlignment="Left" Height="33" Margin="110,532,0,0" VerticalAlignment="Top" Width="77" FontWeight="Bold" FontSize="20"/>
+                            <Label Content="CLIENT INFORMATION:" HorizontalAlignment="Left" Height="33" Margin="9,85,0,0" VerticalAlignment="Top" Width="243" FontWeight="Bold" FontSize="20"/>
+                            <TextBox x:Name="tb_bill_id" FontSize="14" IsReadOnly="True"
+                                materialDesign:HintAssist.Hint="Bill ID"  Foreground="Black"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Top" Margin="10,0,212.6,0" Height="38" 
+                                     Text="{Binding MaHoaDon}"/>
+                            <TextBox x:Name="tb_rent_id" FontSize="14" IsReadOnly="True"
+                                materialDesign:HintAssist.Hint="Rental ID"  Foreground="Black"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Top" Margin="10,38,208.6,0" Height="38" 
+                                     Text="{Binding MaPhieuThue}"/>
+                            <TextBox x:Name="tb_checkout" FontSize="14" IsReadOnly="True"
+                                materialDesign:HintAssist.Hint=""  Foreground="Black"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Top" Margin="191,372,10.6,0" Height="38"
+                                     Text="{Binding NgayTraPhong}"/>
                         </Grid>
                     </StackPanel>
                 </Border>
