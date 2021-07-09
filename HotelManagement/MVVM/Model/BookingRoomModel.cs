@@ -18,9 +18,10 @@ namespace HotelManagement.MVVM.Model
                             + "FROM PHONG p, LOAIPHONG lp "
                             + "WHERE p.MaLoaiPhong = lp.MaLoaiPhong and MaPhong NOT IN(SELECT MaPhong "
                             + "FROM PHIEUTHUEPHONG "
-                            + "WHERE (NgayBatDau <= '" + checkin + "' and '" + checkin + "' <= NgayTraPhong) "
+                            + "WHERE ((NgayBatDau <= '" + checkin + "' and '" + checkin + "' <= NgayTraPhong) "
                             + "or (NgayBatDau <= '" + checkout + "' and '" + checkout + "' <= NgayTraPhong) "
-                            + "or (NgayBatDau >= '" + checkin + "' and '" + checkout + "' >= NgayTraPhong)) ";
+                            + "or (NgayBatDau >= '" + checkin + "' and '" + checkout + "' >= NgayTraPhong)) " 
+                            + "and (TinhTrang = 'Booked' or TinhTrang= 'Checkin')) ";
 
             re = Process.createTable(sql_select);
             return re;
@@ -39,6 +40,7 @@ namespace HotelManagement.MVVM.Model
 
         
 
+        
         public int Save_Client(string TenKH, int MaLoaiKhach,
                                int CMND, string SDT,string DiaChi,
                                string GioiTinh){
@@ -52,10 +54,11 @@ namespace HotelManagement.MVVM.Model
             return 0;
         }
 
+
         public bool Save_Booking(int MaPhong, int CMND,string NgayLapPhieu, 
                                 string NgayBatDau,string NgayTraphong,
-                                int SoLuongKhach,string TinhTrang,
-                                int NguoiLapPhieu,int TienCoc){
+                                string SoLuongKhach,string TinhTrang,
+                                int NguoiLapPhieu,string TienCoc){
 
             string sql_update = "insert PHIEUTHUEPHONG(MaPhong,CMND,NgayLapPhieu,NgayBatDau," +
                                 "NgayTraPhong,SoLuongKhach,TinhTrang,NguoiLapPhieu,TienCoc) values"

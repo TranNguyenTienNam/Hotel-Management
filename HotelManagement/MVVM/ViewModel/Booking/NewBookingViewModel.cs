@@ -32,7 +32,7 @@ namespace HotelManagement.MVVM.ViewModel
 
         public static BookingViewModel Insance => new BookingViewModel();
 
-        
+
 
         private ObservableCollection<BookRoomItemViewModel> _items = new ObservableCollection<BookRoomItemViewModel>();
         public ObservableCollection<BookRoomItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged(); } }
@@ -63,20 +63,20 @@ namespace HotelManagement.MVVM.ViewModel
         public string Gender { get { return _gender; } set { _gender = value; OnPropertyChanged(); } }
 
         //Deposit booking
-        private int _deposit;
-        public int Deposit { get { return _deposit; } set { _deposit = value; OnPropertyChanged(); } }
+        private string _deposit;
+        public string Deposit { get { return _deposit; } set { _deposit = value; OnPropertyChanged(); } }
 
         //Client ID
-        private int _citizenID;
-        public int CitizenID { get { return _citizenID; } set { _citizenID = value; OnPropertyChanged(); }   }
-        
+        private string _citizenID;
+        public string CitizenID { get { return _citizenID; } set { _citizenID = value; OnPropertyChanged(); } }
+
         //Address 
         private string _address;
         public string Address { get { return _address; } set { _address = value; OnPropertyChanged(); } }
 
         //Amout People/Room
-        private int _amount;
-        public int Amount { get { return _amount; } set { _amount = value; OnPropertyChanged(); } }
+        private string _amount;
+        public string Amount { get { return _amount; } set { _amount = value; OnPropertyChanged(); } }
 
         // Status Booked/Checkin
         private string _status;
@@ -103,6 +103,7 @@ namespace HotelManagement.MVVM.ViewModel
         public ICommand StatusChanged { get; set; }
         public ICommand NationalityChanged { get; set; }
         public ICommand HandleOnlyNumber { get; set; }
+
         #endregion
         //Checkin and Checkout Date
         public DateTime checkin { get; set; }
@@ -124,6 +125,7 @@ namespace HotelManagement.MVVM.ViewModel
                 var item = (ComboBoxItem)p.SelectedValue;
                 var content = (string)item.Content;
                 Gender = content;
+                MessageBox.Show(Gender, "Gender change event suscess:");
             });
 
 
@@ -181,56 +183,91 @@ namespace HotelManagement.MVVM.ViewModel
                     RoomId = Item.MaPhong;
 
             });
-            HandleCheck = new RelayCommand<ComboBox>((p) =>
+            HandleCheck = new RelayCommand<object[]>((p) =>
             {
-                if (CitizenID == 0) return false;
+                if (string.IsNullOrEmpty(CitizenID)) return false;
                 return true;
 
             }, (p) =>
             {
+                var value = (object[])p;
+                var cbbGender = (ComboBox)value[0];
+                var cbbNationlity = (ComboBox)value[1];
+
                 BookingRoomModel model = new BookingRoomModel();
                 DataTable data = new DataTable();
-                data = model.CheckInfo(CitizenID);
+                data = model.CheckInfo(Convert.ToInt32(CitizenID));
                 foreach (DataRow row in data.Rows)
                 {
                     Name = (string)row["TenKH"];
                     Phone = (string)row["SoDienThoai"];
                     Address = (string)row["DiaChi"];
+                    Gender = (string)row["GioiTinh"];
+                    cbbNationlity.SelectedIndex = (int)row["MaLoaiKhach"] - 1;
                 }
 
-                p.SelectedIndex = 1;
+                MessageBox.Show(CitizenID.ToString(),"CitizenID:");
 
-                
-
+                if (Gender == "Male") cbbGender.SelectedIndex = 0;
+                else
+                {
+                    if (Gender == "Female") cbbGender.SelectedIndex = 1;
+                    if (Gender == "Other") cbbGender.SelectedIndex = 2;
+                }
 
             });
             #endregion
             HandleBooking = new RelayCommand<object>((p) =>
             {
 
-                if ((Deposit == 0)||(Amount == 0)||(RoomId == 0)||(CitizenID == 0)||(Convert.ToInt32(Phone) == 0)
+                if (string.IsNullOrEmpty(Deposit) || string.IsNullOrEmpty(Amount) || (RoomId == 0)
+                        || string.IsNullOrEmpty(CitizenID) || string.IsNullOrEmpty(Phone)
                         || string.IsNullOrEmpty(Gender) || string.IsNullOrEmpty(Address)
                         || string.IsNullOrEmpty(Nation) || string.IsNullOrEmpty(Name)
                         || string.IsNullOrEmpty(Status) || checkout.ToString("yyyy-MM-dd HH:mm:ss") == "0001-01-01 00:00:00"
-                        || checkin.ToString("yyyy-MM-dd HH:mm:ss") == "0001-01-01 00:00:00" ) {  
+                        || checkin.ToString("yyyy-MM-dd HH:mm:ss") == "0001-01-01 00:00:00")
+                {
                     return false;
-                }             
+                }
                 return true;
 
             }, (p) =>
             {
                 int _nation = 2;
                 if (Nation == "Other") _nation = 1;
+                DateTime now = DateTime.Now;
+                BookingRoomModel md = new BookingRoomModel();
+
                 //MessageBox.Show(checkin,"Nhận phòng");
                 //MessageBox.Show( checkout,"Trả phòng");
-                BookingRoomModel md = new BookingRoomModel();
-                int i = md.Save_Client(Name,_nation, CitizenID, Phone, Address, Gender);
-                if (i != 0)
+                try
                 {
-                    MessageBox.Show("Client Created","Notify");
-                };
+                    int i = md.Save_Client(Name, _nation, Convert.ToInt32(CitizenID), Phone, Address, Gender);
+                    if (i != 0)
+                    {
+                        MessageBox.Show("Client Created", "Notify");
+                    };
+                    if (md.Save_Booking(RoomId, Convert.ToInt32(CitizenID), now.ToString("yyyy-MM-dd HH:mm:ss"), checkin.ToString("yyyy-MM-dd HH:mm:ss"),
+                    checkout.ToString("yyyy-MM-dd HH:mm:ss"), Amount, Status, CreatorID, Deposit))
+                    {
+                        MessageBox.Show("Booking Created", "Notify");
+                    }
+                    RoomId = 0;
+                    loadListRoom(checkin,checkout);
 
-                DateTime now = DateTime.Now;
+                }
+                catch 
+                {
+                    if (md.Save_Booking(RoomId, Convert.ToInt32(CitizenID), now.ToString("yyyy-MM-dd HH:mm:ss"), checkin.ToString("yyyy-MM-dd HH:mm:ss"),
+                    checkout.ToString("yyyy-MM-dd HH:mm:ss"), Amount, Status, CreatorID, Deposit))
+                    {
+                        MessageBox.Show("Booking Created", "Notify");
+                    }
+                    RoomId = 0;
+                    loadListRoom(checkin, checkout);
+
+                }
+
                 #region Test
                 //MessageBox.Show(now.ToString("yyyy-MM-dd HH:mm:ss"));
                 //MessageBox.Show(CitizenID.ToString(),"CitizenID:");
@@ -238,15 +275,8 @@ namespace HotelManagement.MVVM.ViewModel
                 //MessageBox.Show(Amount.ToString(),"Amount:");
                 //MessageBox.Show(Deposit.ToString(),"Deposit:");
                 #endregion
-                if (md.Save_Booking(RoomId,i,now.ToString("yyyy-MM-dd HH:mm:ss"),checkin.ToString("yyyy-MM-dd HH:mm:ss"),
-                                    checkout.ToString("yyyy-MM-dd HH:mm:ss"), Amount,Status,CreatorID,Deposit)) 
-                {
-                    MessageBox.Show("Booking Created","Notify");
-                }
-            })
-            {
-
-            };
+            });
+ 
         }
 
 

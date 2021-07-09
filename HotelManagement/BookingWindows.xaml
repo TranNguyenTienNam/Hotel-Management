@@ -7,8 +7,8 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
     xmlns:View="clr-namespace:HotelManagement.MVVM.View" 
     xmlns:viewmodel="clr-namespace:HotelManagement.MVVM.ViewModel" 
-    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-     x:Class="HotelManagement.BookingWindows"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:core="clr-namespace:HotelManagement.Core"
+    x:Class="HotelManagement.BookingWindows"
         mc:Ignorable="d"
         Title="BookingWindows" Height="746.887" Width="713.874" WindowStyle="None" ResizeMode="CanMinimize" AllowsTransparency="True" Background="{x:Null}" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
@@ -190,13 +190,20 @@
                     </Grid>
                     <Button Width="59" Height="17" HorizontalAlignment="Right" Margin="0,44,34,172"
                         Command="{Binding HandleCheck}"
-                        CommandParameter="{Binding ElementName=cbbGender}"
-
-                    Style="{StaticResource MaterialDesignRaisedButton}"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
                         materialDesign:ButtonAssist.CornerRadius="10"
                         ToolTip="MaterialDesignRaisedButton with Round Corners" Background="#FF16B8C9" BorderBrush="#FF8ABCC1">
-                        <TextBlock
-                            Text="Check" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Text="Check" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                        <Button.Resources>
+                            <core:PassThroughConverter x:Key="CheckConvert"/>
+                        </Button.Resources>
+                        <Button.CommandParameter>
+                            <MultiBinding Converter="{StaticResource CheckConvert}">
+                                <Binding ElementName="cbbGender"/>
+                                <Binding ElementName="cbbNationality"/>
+                            </MultiBinding>
+                        </Button.CommandParameter>
                     </Button>
                 </Grid>
             </Border>
