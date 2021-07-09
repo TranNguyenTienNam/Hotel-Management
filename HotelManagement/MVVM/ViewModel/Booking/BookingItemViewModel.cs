@@ -13,7 +13,7 @@ namespace HotelManagement.MVVM.ViewModel
 
         public int MaPhieuThue { get; set; }
         public int MaPhong { get; set; }
-        public int MaKH { get; set; }
+        public int CMND { get; set; }
         public DateTime NgayBatDau { get; set; } 
         public DateTime NgayTraPhong { get; set; }
         public int SoLuongKhach { get; set; }
@@ -23,11 +23,6 @@ namespace HotelManagement.MVVM.ViewModel
         public string TenKH { get; set; }
         public string SoDienThoai { get; set; }
         public DateTime NgayLapPhieu { get; set; }
-
-        public BookingItemViewModel()
-        {
-
-        }
 
 
 

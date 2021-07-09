@@ -46,8 +46,8 @@ namespace HotelManagement.MVVM.ViewModel
 
 
         //Phone
-        private int _phone;
-        public int Phone { get { return _phone; } set { _phone = value; OnPropertyChanged(); } }
+        private string _phone;
+        public string Phone { get { return _phone; } set { _phone = value; OnPropertyChanged(); } }
 
 
         //Nationaly ( Client Type)
@@ -98,6 +98,7 @@ namespace HotelManagement.MVVM.ViewModel
         public ICommand CheckInDate { get; set; }
         public ICommand SelectedChangedCommand { get; set; }
         public ICommand HandleBooking { get; set; }
+        public ICommand HandleCheck { get; set; }
         public ICommand GenderChanged { get; set; }
         public ICommand StatusChanged { get; set; }
         public ICommand NationalityChanged { get; set; }
@@ -180,11 +181,34 @@ namespace HotelManagement.MVVM.ViewModel
                     RoomId = Item.MaPhong;
 
             });
+            HandleCheck = new RelayCommand<ComboBox>((p) =>
+            {
+                if (CitizenID == 0) return false;
+                return true;
+
+            }, (p) =>
+            {
+                BookingRoomModel model = new BookingRoomModel();
+                DataTable data = new DataTable();
+                data = model.CheckInfo(CitizenID);
+                foreach (DataRow row in data.Rows)
+                {
+                    Name = (string)row["TenKH"];
+                    Phone = (string)row["SoDienThoai"];
+                    Address = (string)row["DiaChi"];
+                }
+
+                p.SelectedIndex = 1;
+
+                
+
+
+            });
             #endregion
             HandleBooking = new RelayCommand<object>((p) =>
             {
 
-                if ((Deposit == 0)||(Amount == 0)||(RoomId == 0)||(CitizenID == 0)||(Phone == 0)
+                if ((Deposit == 0)||(Amount == 0)||(RoomId == 0)||(CitizenID == 0)||(Convert.ToInt32(Phone) == 0)
                         || string.IsNullOrEmpty(Gender) || string.IsNullOrEmpty(Address)
                         || string.IsNullOrEmpty(Nation) || string.IsNullOrEmpty(Name)
                         || string.IsNullOrEmpty(Status) || checkout.ToString("yyyy-MM-dd HH:mm:ss") == "0001-01-01 00:00:00"
@@ -192,15 +216,15 @@ namespace HotelManagement.MVVM.ViewModel
                     return false;
                 }             
                 return true;
+
             }, (p) =>
             {
-                int ination = 2;
-                if (Nation == "Other") ination = 1;
+                int _nation = 2;
+                if (Nation == "Other") _nation = 1;
                 //MessageBox.Show(checkin,"Nhận phòng");
                 //MessageBox.Show( checkout,"Trả phòng");
-
                 BookingRoomModel md = new BookingRoomModel();
-                int i = md.Save_Client(Name,ination, CitizenID, Phone, Address, "Nam");
+                int i = md.Save_Client(Name,_nation, CitizenID, Phone, Address, Gender);
                 if (i != 0)
                 {
                     MessageBox.Show("Client Created","Notify");

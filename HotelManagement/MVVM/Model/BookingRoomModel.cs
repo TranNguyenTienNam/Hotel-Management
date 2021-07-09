@@ -25,32 +25,41 @@ namespace HotelManagement.MVVM.Model
             re = Process.createTable(sql_select);
             return re;
         }
+        
+        
+        public DataTable CheckInfo(int CitizenID)  
+        {
+            DataTable re;
+            string sql_select = "SELECT * FROM KHACHHANG WHERE CMND = " + CitizenID;                           
+            re = Process.createTable(sql_select);
+            return re;
+        }
 
 
 
         
 
         public int Save_Client(string TenKH, int MaLoaiKhach,
-                               int CMND, int SDT,string DiaChi,
+                               int CMND, string SDT,string DiaChi,
                                string GioiTinh){
 
             string sql_update = "insert KHACHHANG(TenKH,MaLoaiKhach,CMND,SoDienThoai,DiaChi,GioiTinh) values"
                                 + "('" + TenKH + "'," + MaLoaiKhach + "," + CMND + "," + SDT + ",'" + DiaChi 
-                                + "','" + GioiTinh + "');SELECT SCOPE_IDENTITY();";
+                                + "','" + GioiTinh + "')";
 
-            int i = Process.insertUser(sql_update);
-            if (i!=0) return i;
+            if (Process.ExecutiveNonQuery(sql_update) > 0)
+                return Convert.ToInt32(CMND);
             return 0;
         }
 
-        public bool Save_Booking(int MaPhong, int MaKH,string NgayLapPhieu, 
+        public bool Save_Booking(int MaPhong, int CMND,string NgayLapPhieu, 
                                 string NgayBatDau,string NgayTraphong,
                                 int SoLuongKhach,string TinhTrang,
                                 int NguoiLapPhieu,int TienCoc){
 
-            string sql_update = "insert PHIEUTHUEPHONG(MaPhong,MaKH,NgayLapPhieu,NgayBatDau," +
+            string sql_update = "insert PHIEUTHUEPHONG(MaPhong,CMND,NgayLapPhieu,NgayBatDau," +
                                 "NgayTraPhong,SoLuongKhach,TinhTrang,NguoiLapPhieu,TienCoc) values"
-                                + "(" + MaPhong + "," + MaKH + ",'" + NgayLapPhieu + "','" 
+                                + "(" + MaPhong + "," + CMND + ",'" + NgayLapPhieu + "','" 
                                 + NgayBatDau + "','" + NgayTraphong + "'," + SoLuongKhach 
                                 + ",'" + TinhTrang + "'," + NguoiLapPhieu + ","+TienCoc+ ")"; 
 
