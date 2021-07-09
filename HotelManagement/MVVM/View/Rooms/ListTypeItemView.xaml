@@ -30,13 +30,13 @@
                                             <ColumnDefinition Width="150"/>
                                             <ColumnDefinition Width="8"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Margin="2,0,0,0" Text="{Binding Id}" 
+                                        <TextBlock Grid.Column="0" Margin="2,0,0,0" Text="{Binding Id}" TextTrimming="CharacterEllipsis"
                                                    VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Left" Foreground="#FE8704"/>
-                                        <TextBlock Grid.Column="1" Margin="5,0,0,0" Text="{Binding TypeName}" 
+                                        <TextBlock Grid.Column="1" Margin="5,0,0,0" Text="{Binding TypeName}" TextTrimming="CharacterEllipsis"
                                                    VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Center" Foreground="#FE8704"/>
-                                        <TextBlock Grid.Column="2" Margin="5,0,0,0" Text="{Binding Price}" 
+                                        <TextBlock Grid.Column="2" Margin="5,0,0,0" Text="{Binding Price}" TextTrimming="CharacterEllipsis"
                                                    VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Center" Foreground="#FE8704"/>
-                                        <TextBlock Grid.Column="3" Margin="5,0,0,0" Text="{Binding MaxPeople}" 
+                                        <TextBlock Grid.Column="3" Margin="5,0,0,0" Text="{Binding MaxPeople}" TextTrimming="CharacterEllipsis"
                                                    VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Center" Foreground="#FE8704"/>
                                         <Grid Grid.Column="4">
                                             <Button Background="#F44336" Padding="0"

@@ -5,18 +5,26 @@ using System.Text;
 using System.Threading.Tasks;
 using HotelManagement.MVVM.Model;
 using System.Data;
+using HotelManagement.Core;
 
 namespace HotelManagement.MVVM.ViewModel
 {
-    class BookingListViewModel
+    class BookingViewModel : ObservableObject
     {
+        private List<BookingItemViewModel> _items;
+        public List<BookingItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged(); } }
 
-        public static BookingListViewModel Insance => new BookingListViewModel();
-        public List<BookingItemViewModel> Items { get; set; }
-
-        public BookingListViewModel()
+        public BookingViewModel()
         {
             Items = new List<BookingItemViewModel>();
+
+            LoadBooking();
+        }
+
+        void LoadBooking()
+        {
+            if (Items.Count > 0)
+                Items.Clear();
 
             BookingListModel model = new BookingListModel();
             DataTable data = new DataTable();
@@ -28,7 +36,7 @@ namespace HotelManagement.MVVM.ViewModel
                 {
                     MaPhieuThue = (int)row["MaPhieuThue"],
                     MaPhong = (int)row["MaPhong"],
-                    //CMND = (int)row["CMND"],
+                    CMND = (string)row["CMND"],
                     NgayBatDau = (DateTime)row["NgayBatDau"],
                     NgayLapPhieu = (DateTime)row["NgayLapPhieu"],
                     TienCoc = (int)row["TienCoc"],
@@ -37,9 +45,6 @@ namespace HotelManagement.MVVM.ViewModel
                 };
                 Items.Add(obj);
             }
-            return;
         }
-
-       
     }
 }

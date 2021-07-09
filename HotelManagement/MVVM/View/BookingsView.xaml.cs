@@ -17,35 +17,11 @@ using HotelManagement.MVVM.ViewModel;
 
 namespace HotelManagement.MVVM.View
 {
-    /// <summary>
-    /// Interaction logic for BookingsView.xaml
-    /// </summary>
     public partial class BookingsView : UserControl
     {
         public BookingsView()
         {
             InitializeComponent();
-            //DataContext = new BookingListViewModel();
-        }
-
-        private void searchRoom_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void tb_unit_price_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void tb_Deposits_Copy_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }

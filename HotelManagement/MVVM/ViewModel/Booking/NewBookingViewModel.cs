@@ -25,16 +25,16 @@ using System.Collections.ObjectModel;
 namespace HotelManagement.MVVM.ViewModel
 {
     /// <summary>
-    /// BookingViewModel Class dùng để xử lý dữ liệu và các sự kiện ở cửa sở đặt phòng.
+    /// NewBookingViewModel Class dùng để xử lý dữ liệu và các sự kiện ở cửa sở đặt phòng.
     /// </summary>
-    public class BookingViewModel : ObservableObject
+    public class NewBookingViewModel : ObservableObject
     {
 
-        public static BookingViewModel Insance => new BookingViewModel();
+        public static NewBookingViewModel Insance => new NewBookingViewModel();
 
         
 
-        private ObservableCollection<BookRoomItemViewModel> _items = new ObservableCollection<BookRoomItemViewModel>();
+        private ObservableCollection<BookRoomItemViewModel> _items;
         public ObservableCollection<BookRoomItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged(); } }
 
         #region Biến
@@ -109,7 +109,7 @@ namespace HotelManagement.MVVM.ViewModel
         public DateTime checkout { get; set; }
 
         //BookingView Method
-        public BookingViewModel()
+        public NewBookingViewModel()
         {
             DateTime today = DateTime.Today;
             DateTime tomorow = DateTime.Today.AddDays(+1);

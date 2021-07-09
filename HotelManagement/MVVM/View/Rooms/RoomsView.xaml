@@ -16,12 +16,12 @@
              Background="#f4f5f7"
              FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
-        <Grid DataContext="{x:Static viewModel:RoomsViewModel.Instance}">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             <!--Title && Button regulations-->
             <Grid Grid.Row="0">
@@ -184,7 +184,7 @@
                 </Border>
             </Border>
             <!--Listview control-->
-            <local:RoomListView Grid.Row="3" Margin="4" Height="362"/>
+            <local:RoomListView Grid.Row="3" Margin="4"/>
         </Grid>
     </Grid>
 </UserControl>

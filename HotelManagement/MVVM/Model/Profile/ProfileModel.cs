@@ -41,7 +41,7 @@ namespace HotelManagement.MVVM.Model
         {
             string sql_update = "update TTNguoiDung set Ho = N'" + user.Ho + "', Ten = N'" + user.Ten + 
                 "', SoDienThoai = '" + user.SoDienThoai + "', GioiTinh = '" + user.GioiTinh + 
-                "', Email = '" + user.Email + "', NgaySinh = '" + user.NgaySinh.ToString("yyyy-MM-dd") + "' where MaNgDung = " + user.MaNgDung;
+                "', Email = '" + user.Email + "', NgaySinh = " + user.NgaySinh.ToString("yyyy-MM-dd") + " where MaNgDung = " + user.MaNgDung;
 
             if (Process.ExecutiveNonQuery(sql_update) > 0)
                 return true;
