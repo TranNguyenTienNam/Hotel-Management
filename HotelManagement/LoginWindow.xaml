@@ -57,7 +57,7 @@
                     <TextBlock Text="{Binding InvalidUsernamePassword}" Padding="45,2,2,0" FontSize="12" Foreground="Red"/>
                     <StackPanel 
                         Orientation="Horizontal"
-                        Margin="10">
+                        Margin="10" FocusManager.FocusedElement="{Binding ElementName=txtUserName}">
                         <materialDesign:PackIcon 
                             Kind="User"
                             Width="25"
@@ -67,8 +67,10 @@
                         <TextBox
                             x:Name="txtUserName"
                             Text="{Binding Username}"
+                            MaxLength="30"
                             Margin="10,0,0,0"
                             materialDesign:HintAssist.Hint="Enter Username"
+                            materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                             Foreground="White"
                             Width="250"
                             BorderBrush="White"
@@ -87,6 +89,8 @@
                         <PasswordBox
                             x:Name="txtPassword"
                             Margin="10,0,0,0"
+                            MaxLength="30"
+                            materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                             materialDesign:HintAssist.Hint="********"
                             Foreground="White"
                             Width="250"

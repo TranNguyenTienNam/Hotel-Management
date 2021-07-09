@@ -4,12 +4,16 @@ using HotelManagement.Object;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace HotelManagement.MVVM.ViewModel
 {
+    /// <summary>
+    /// Interaction logic for RegulationsView.xaml
+    /// </summary>
     class RegulationsViewModel : ObservableObject
     {
         public static RegulationsViewModel Instance => new RegulationsViewModel();
@@ -28,15 +32,19 @@ namespace HotelManagement.MVVM.ViewModel
 
         public RegulationsViewModel()
         {
-
+            int TypeAdded = 0;
             AddRoomTypeCommand = new RelayCommand<object>((p) =>
             {
                 return true;
             }, (p) =>
             {
                 if (string.IsNullOrEmpty(TypeName) || Price <= 1000 || MaxPeople <= 0)
+                {
                     MessageBox.Show("Input field is empty");
+                    return;
+                }    
                 addNewRoomType();
+                TypeAdded = 1;
             });
 
             ClickExitCommand = new RelayCommand<Window>((p) =>
@@ -44,11 +52,26 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                //Gửi message đến RoomViewModel
-                EventSystem.Publish<Message>(new Message { message = "TypeAdded" });    //refresh list roomTypes
+                if (TypeAdded == 1)
+                {
+                    //Gửi message đến RoomViewModel
+                    EventSystem.Publish<Message>(new Message { message = "TypeAdded" });    //refresh list roomTypes
+                } 
                 p.Close();
             });
         }
+
+
+        #region View Event Handling
+
+        //Không nhận ký tự khác ngoài số khi nhập textbox
+        public void PreviewTextInputViewModel(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        #endregion
 
         void addNewRoomType()
         {

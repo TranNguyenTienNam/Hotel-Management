@@ -14,11 +14,6 @@
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         MouseDown="Window_MouseDown">
-
-    <Window.DataContext>
-        <viewModel:MainViewModel/>
-    </Window.DataContext>
-    
     <Border Background="#FFFFFF">
         <Border.Clip>
             <RectangleGeometry 
@@ -126,7 +121,7 @@
 
                         <materialDesign:Chip
                             x:Name="ButtonChip"
-                            Content="Hi, Tien Nam"
+                            Content="{Binding NameContent}"
                             Margin="20,0,0,0"
                             Background="Transparent"
                             Foreground="Red">
@@ -166,20 +161,22 @@
                     <StackPanel Grid.Column="0"
                                 Margin="0,10,0,0">
                         <RadioButton Content="Dashboard"
+                                     Visibility="{Binding Visibility}"
                                      Style="{StaticResource MenuButtonTheme}"
                                      IsChecked="True"
                                      Command="{Binding DashboardViewCommand}"/>
-
                         <RadioButton Content="Bookings"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Command="{Binding BookingsViewCommand}"/>
-
                         <RadioButton Content="Rooms"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Command="{Binding RoomsViewCommand}"/>
                         <RadioButton Content="Check Out"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Command="{Binding CheckOutViewCommand}"/>
+                        <RadioButton Content="Profile"
+                                     Style="{StaticResource MenuButtonTheme}"
+                                     Command="{Binding ProfileViewCommand}"/>
                     </StackPanel>
                 </Grid>
 

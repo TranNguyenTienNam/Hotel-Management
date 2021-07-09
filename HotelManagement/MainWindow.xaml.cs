@@ -32,11 +32,5 @@ namespace HotelManagement
             (new LoginWindow()).Show();
             this.Close();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            BookingWindows bW = new BookingWindows();
-            bW.ShowDialog();
-        }
     }
 }

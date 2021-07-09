@@ -11,7 +11,7 @@ namespace HotelManagement.MVVM.Model
     {
         public bool LoginWithUsernameAndPassword(string Username, string Password)
         {
-            string sql_select = "select MaNgDung from NGUOIDUNG where TenTaiKhoan = '" + Username + "' and MatKhau = '" + Password + "'";
+            string sql_select = "select MaNgDung from NGUOIDUNG where TenTaiKhoan = '" + Username + "' and MatKhau = '" + Process.Encrypt(Password) + "'";
 
             if (Process.ExecutiveReader(sql_select) > 0)
             {
@@ -23,6 +23,13 @@ namespace HotelManagement.MVVM.Model
         public int GetStatusAccount(string Username)
         {
             string sql_select = "select TinhTrangTK from NGUOIDUNG where TenTaiKhoan = '" + Username + "'";
+
+            return Process.getNumber(sql_select);
+        }
+
+        public int GetIdAccount(string Username)
+        {
+            string sql_select = "select MaNgDung from NGUOIDUNG where TenTaiKhoan = '" + Username + "'";
 
             return Process.getNumber(sql_select);
         }

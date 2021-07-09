@@ -14,9 +14,14 @@ using System.Windows;
 
 namespace HotelManagement.MVVM.ViewModel
 {
+    /// <summary>
+    /// Interaction logic for RoomListView.xaml
+    /// </summary>
     public class RoomListViewModel : ObservableObject
     {
         public static RoomListViewModel Instance => new RoomListViewModel();
+
+        //Mỗi phần tử của Items là 1 hàng của ListView
         private ObservableCollection<RoomListItemViewModel> _items;
         public ObservableCollection<RoomListItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged("Items"); } }
 

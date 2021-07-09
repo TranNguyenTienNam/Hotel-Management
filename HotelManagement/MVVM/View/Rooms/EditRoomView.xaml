@@ -68,7 +68,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <TextBox Grid.Row="0" Name="tbRoomId" Foreground="#F44336" Text="{Binding MaPhong}" 
+                        <TextBox Grid.Row="0" Name="tbRoomId" Foreground="#F44336" Text="{Binding ID}" 
                             materialDesign:HintAssist.Hint="Room ID: (Can't be modified)" FontSize="14" IsReadOnly="True"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                             VerticalAlignment="Center" Margin="8">
@@ -79,7 +79,9 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </TextBox>
-                        <TextBox Grid.Row="1" Name="tbRoomName" Foreground="#F44336" Text="{Binding TenPhong}"
+                        <TextBox Grid.Row="1" Name="tbRoomName" Foreground="#F44336" Text="{Binding RoomName}"
+                                 MaxLength="30"
+                            materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                              materialDesign:HintAssist.Hint="Room Name:" FontSize="14" 
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              VerticalAlignment="Center" Margin="8">
@@ -88,19 +90,27 @@
                             <ComboBox Name="cbbRoomType" ItemsSource="{Binding types}"
                                 FontSize="14" Foreground="#F44336"
                                 materialDesign:TextFieldAssist.PrefixText="Room Type: "
-                                SelectedValue="{Binding LoaiPhong}"
+                                SelectedValue="{Binding Type}"
                                 IsEditable="False">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction  Command="{Binding RoomTypeSelectionChangedCommand}"
+                                                CommandParameter="{Binding ElementName=cbbRoomType}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                             </ComboBox>
                         </Grid>
-                        <TextBox Grid.Row="3" Name="tbPrice" Foreground="#F44336" Text="{Binding DonGia}"
+                        <TextBox Grid.Row="3" Name="tbPrice" Foreground="#F44336" Text="{Binding Price}"
                              materialDesign:HintAssist.Hint="Price/Day:" FontSize="14" IsReadOnly="True"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Center" Margin="8"/>
-                        <TextBox Grid.Row="4" Name="tbMax" Foreground="#F44336" Text="{Binding SoNgToiDa}"
+                        <TextBox Grid.Row="4" Name="tbMax" Foreground="#F44336" Text="{Binding MaxPeople}"
                              materialDesign:HintAssist.Hint="Max People:" FontSize="14" IsReadOnly="True"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  VerticalAlignment="Center" Margin="8"/>
-                        <TextBox Grid.Row="5" Name="tbNote" Foreground="#F44336" Text="{Binding GhiChu}"
+                        <TextBox Grid.Row="5" Name="tbNote" Foreground="#F44336" Text="{Binding Notes}"
+                                 MaxLength="100"
+                            materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                              materialDesign:HintAssist.Hint="Notes:" FontSize="14"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              VerticalAlignment="Center" Margin="8"/>
