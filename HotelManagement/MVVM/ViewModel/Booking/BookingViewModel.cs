@@ -172,20 +172,12 @@ namespace HotelManagement.MVVM.ViewModel
 
             SelectedChangedCommand = new RelayCommand<ListView>((p) =>
             {
-                // return !p.Items.IsEmpty;
-                return true;
+                return !p.Items.IsEmpty;
+
             }, (p) =>
             {
-                try
-                {
                     var Item = p.SelectedItem as BookRoomItemViewModel;
                     RoomId = Item.MaPhong;
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    RoomId = 0;
-                }
 
             });
             #endregion
@@ -238,8 +230,8 @@ namespace HotelManagement.MVVM.ViewModel
         void loadListRoom(DateTime _checkin, DateTime _checkout )
         {
          
-            /*if (Items.Count > 0)
-                Items.Clear();*/
+            if (Items.Count > 0)
+                Items.Clear();
             BookingRoomModel model = new BookingRoomModel();
             DataTable data = new DataTable();
             data = model.Load_On(_checkin.ToString("yyyy-MM-dd HH:mm:ss"),
