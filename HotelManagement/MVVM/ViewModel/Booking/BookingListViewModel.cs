@@ -28,12 +28,12 @@ namespace HotelManagement.MVVM.ViewModel
                 {
                     MaPhieuThue = (int)row["MaPhieuThue"],
                     MaPhong = (int)row["MaPhong"],
-                    MaKH = (int)row["MaKH"],
+                    //CMND = (int)row["CMND"],
                     NgayBatDau = (DateTime)row["NgayBatDau"],
                     NgayLapPhieu = (DateTime)row["NgayLapPhieu"],
                     TienCoc = (int)row["TienCoc"],
                     TenKH = (string)row["TenKH"],
-                    SoDienThoai = (string)row["SoDienThoai"]
+                    SoDienThoai = (string)row["SoDienThoai"],
                 };
                 Items.Add(obj);
             }

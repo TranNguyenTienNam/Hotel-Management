@@ -131,10 +131,10 @@
     <Compile Include="MVVM\Model\Rooms\RoomListModel.cs" />
     <Compile Include="MVVM\Model\Rooms\RoomsModel.cs" />
     <Compile Include="MVVM\Model\Rooms\RegulationsModel.cs" />
-    <Compile Include="MVVM\ViewModel\BookingItemViewModel.cs" />
-    <Compile Include="MVVM\ViewModel\BookingListViewModel.cs" />
-    <Compile Include="MVVM\ViewModel\BookingViewModel.cs" />
-    <Compile Include="MVVM\ViewModel\BookRoomItemViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Booking\BookingItemViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Booking\BookingListViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Booking\NewBookingViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Booking\BookRoomItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\BillsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\CheckOutItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\CheckOutViewModel.cs" />

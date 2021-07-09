@@ -23,14 +23,14 @@ namespace HotelManagement.MVVM.ViewModel
 
         public CheckOutViewModel()
         {
-            loadListRent();
+            //loadListRent();
 
             BillsCommand = new RelayCommand<object>((p) =>
             {
                 return true;
             }, (p) =>
             {
-                showBillsView();
+                //showBillsView();
             });
 
             SurchargeCommand = new RelayCommand<object>((p) =>
@@ -38,7 +38,7 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                showSurchargeView();
+                //showSurchargeView();
             });
         }
 
