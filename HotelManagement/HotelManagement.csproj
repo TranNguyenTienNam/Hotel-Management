@@ -52,6 +52,7 @@
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Windows.Design.Interaction, Version=4.3.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Prism, Version=8.1.97.5141, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.8.1.97\lib\net47\Prism.dll</HintPath>
     </Reference>
@@ -106,6 +107,9 @@
     <Compile Include="Core\PassThroughConverter.cs" />
     <Compile Include="MVVM\Model\BookingListModel.cs" />
     <Compile Include="MVVM\Model\BookingRoomModel.cs" />
+    <Compile Include="MVVM\Model\CheckOut\BillsModel.cs" />
+    <Compile Include="MVVM\Model\CheckOut\CheckOutModel.cs" />
+    <Compile Include="MVVM\Model\CheckOut\SurchargeModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel\AORCardModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel\AORModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel\BookingsCardModel.cs" />
@@ -131,6 +135,11 @@
     <Compile Include="MVVM\ViewModel\BookingListViewModel.cs" />
     <Compile Include="MVVM\ViewModel\BookingViewModel.cs" />
     <Compile Include="MVVM\ViewModel\BookRoomItemViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\CheckOutViewModels\BillsViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\CheckOutViewModels\CheckOutItemViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\CheckOutViewModels\CheckOutViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\CheckOutViewModels\SurchargeItemViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\CheckOutViewModels\SurchargeViewModel.cs" />
     <Compile Include="MVVM\ViewModel\LoginViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Profile\ProfileViewModel.cs" />
     <Compile Include="MVVM\ViewModel\RegisterViewModel.cs" />
@@ -143,6 +152,14 @@
     <Compile Include="MVVM\ViewModel\Rooms\RoomsViewModel.cs" />
     <Compile Include="MVVM\View\Profile\ProfileView.xaml.cs">
       <DependentUpon>ProfileView.xaml</DependentUpon>
+    <Compile Include="MVVM\View\CheckOutViews\BillsView.xaml.cs">
+      <DependentUpon>BillsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\CheckOutViews\CheckOutView.xaml.cs">
+      <DependentUpon>CheckOutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\CheckOutViews\SurchargeView.xaml.cs">
+      <DependentUpon>SurchargeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Rooms\EditRoomView.xaml.cs">
       <DependentUpon>EditRoomView.xaml</DependentUpon>
@@ -202,6 +219,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\BookingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\CheckOutViews\BillsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\CheckOutViews\CheckOutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\CheckOutViews\SurchargeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

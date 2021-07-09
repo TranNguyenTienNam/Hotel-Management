@@ -39,6 +39,8 @@ namespace HotelManagement.MVVM.ViewModel
         public ICommand RoomsViewCommand { get; set; }
 
         public ICommand ProfileViewCommand { get; set; }
+        
+        public ICommand CheckOutViewCommand { get; set; }
 
         public DashboardViewModel DashboardVM { get; set; }
 
@@ -48,6 +50,7 @@ namespace HotelManagement.MVVM.ViewModel
 
         public ProfileViewModel ProfileVM { get; set; }
 
+        public CheckOutViewModel CheckOutVM { get; set; }
         #endregion
 
         private object _currentView;
@@ -67,6 +70,8 @@ namespace HotelManagement.MVVM.ViewModel
             DashboardVM = new DashboardViewModel();
             BookingsVM = new BookingViewModel();
             RoomsVM = new RoomsViewModel();
+            CheckOutVM = new CheckOutViewModel();
+            
             ProfileVM = new ProfileViewModel(UserId);
 
             //Chưa phân quyền
@@ -106,6 +111,11 @@ namespace HotelManagement.MVVM.ViewModel
             {
                 return true;
             }, (p) => { CurrentView = ProfileVM; });
+
+            CheckOutViewCommand = new RelayCommand<object>((o) =>
+            {
+                return true;
+            }, (o) => { CurrentView = CheckOutVM; });
 
             NewBookingCommand = new RelayCommand<object>((o) =>
             {

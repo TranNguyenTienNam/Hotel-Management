@@ -14,8 +14,13 @@
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         MouseDown="Window_MouseDown">
-    <Border Background="#FFFFFF"
-            CornerRadius="20">
+    <Border Background="#FFFFFF">
+        <Border.Clip>
+            <RectangleGeometry 
+                RadiusX="20"
+                RadiusY="20"
+                Rect="0,0,1080,675"/>
+        </Border.Clip>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
@@ -166,6 +171,9 @@
                         <RadioButton Content="Rooms"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Command="{Binding RoomsViewCommand}"/>
+                        <RadioButton Content="Check Out"
+                                     Style="{StaticResource MenuButtonTheme}"
+                                     Command="{Binding CheckOutViewCommand}"/>
                         <RadioButton Content="Profile"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Command="{Binding ProfileViewCommand}"/>

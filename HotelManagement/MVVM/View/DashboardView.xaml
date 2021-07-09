@@ -507,8 +507,7 @@
                                 Height="200"
                                 Width="300" 
                                 LegendLocation="Right"
-                                Series="{Binding PieChartModel.PieSeriesCollection}"
-                                DataClick="Chart_OnDataClick">
+                                Series="{Binding PieChartModel.PieSeriesCollection}">
                             </lvc:PieChart>
 
                             <Label 

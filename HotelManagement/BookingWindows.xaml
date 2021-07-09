@@ -10,7 +10,7 @@
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
      x:Class="HotelManagement.BookingWindows"
         mc:Ignorable="d"
-        Title="BookingWindows" Height="746.887" Width="713.874" WindowStyle="None" ResizeMode="CanMinimize" AllowsTransparency="True" Background="{x:Null}">
+        Title="BookingWindows" Height="746.887" Width="713.874" WindowStyle="None" ResizeMode="CanMinimize" AllowsTransparency="True" Background="{x:Null}" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <viewmodel:BookingViewModel/>
     </Window.DataContext>
@@ -35,16 +35,24 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Label Content="Check-in date:" Margin="10,3,142,0" Foreground="#FF009EAE" BorderBrush="#FF009EAE" FontSize="18" FontFamily="Calibri" VerticalContentAlignment="Bottom" Height="43" VerticalAlignment="Top"/>
-                    <DatePicker Name="dpDate" VerticalAlignment="Stretch" Margin="130,12,10,12" Foreground="#FF009EAE" BorderBrush="#FF009EAE">
+                    <DatePicker Name="dpCheckIn" VerticalAlignment="Stretch" Margin="130,12,10,12" Foreground="#FF009EAE" BorderBrush="#FF009EAE">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectedDateChanged">
-                                <i:InvokeCommandAction Command="{Binding SelectedDateChangedCommand}" 
-                                            CommandParameter="{Binding ElementName=dpDate}"/>
+                                <i:InvokeCommandAction Command="{Binding CheckInDate}" 
+                                            CommandParameter="{Binding ElementName=dpCheckIn}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </DatePicker>
                     <Label Content="Check-out date:" Margin="28,16,189,0" Foreground="#FFB45609" BorderBrush="#FF009EAE" FontSize="18" FontFamily="Calibri" Grid.Column="1" Height="30" VerticalAlignment="Top"/>
-                    <DatePicker VerticalAlignment="Stretch" Margin="158,12,16,12" Foreground="#FF998D1A" BorderBrush="#FFB45609" FontWeight="Bold" Grid.Column="1"/>
+                    <DatePicker Name="dpCheckOut" VerticalAlignment="Stretch" Margin="158,12,16,12" Foreground="#FF998D1A" BorderBrush="#FFB45609" FontWeight="Bold" Grid.Column="1">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectedDateChanged">
+                                <i:InvokeCommandAction Command="{Binding CheckOutDate}" 
+                                            CommandParameter="{Binding ElementName=dpCheckOut}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                    </DatePicker>
                 </Grid>
             </Border>
             <StackPanel CanVerticallyScroll="True" Orientation="Horizontal" Panel.ZIndex="-3" CanHorizontallyScroll="True"/>
@@ -71,26 +79,44 @@
                             <TextBox Grid.Row="0" x:Name="tbRoomId" Text="{Binding RoomId}" Foreground="#FF40D7E8"
                                 materialDesign:HintAssist.Hint="Room ID:" FontSize="14" IsReadOnly="True"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                VerticalAlignment="Center" CaretBrush="White" TextDecorations="{x:Null}" FontStyle="Italic" />
+                                VerticalAlignment="Center" CaretBrush="White" TextDecorations="{x:Null}" FontStyle="Italic"/>
                             <Grid Grid.Row="1" VerticalAlignment="Center" Margin="0,12,0,0"/>
-                            <TextBox Grid.Row="1" x:Name="tbPhone" Foreground="#FF009CAC" Text="{Binding Phone}"
-                            materialDesign:HintAssist.Hint="Phone number:" FontSize="14"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="#FF024B48" Margin="0,14,0,10"/>
-                            <ComboBox x:Name="cbbTypeofGuest" 
+                            <TextBox Grid.Row="1" x:Name="tbPhone" Foreground="#FF009CAC" 
+                                Text="{Binding Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+                                materialDesign:HintAssist.Hint="Phone number:" FontSize="14"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="#FF024B48" Margin="0,14,0,10">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewTextInput" >
+                                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="IsAllowedInput"  />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+                            <ComboBox x:Name="cbbNationality" 
                             FontSize="14" Foreground="#FF009CAC"
                             materialDesign:TextFieldAssist.PrefixText="Nationality: "
-                            SelectedValue="{Binding Nation}"
                             IsEditable="False" Margin="0,84,0,-46" Grid.Row="1" VerticalAlignment="Stretch">
                                 <ComboBoxItem Content="Vietnames"/>
                                 <ComboBoxItem Content="Other"/>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding NationalityChanged}" 
+                                CommandParameter="{Binding ElementName=cbbNationality}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                             </ComboBox>
                             <ComboBox x:Name="cbbStatus" 
                             FontSize="14" Foreground="#FF009CAC"
                             materialDesign:TextFieldAssist.PrefixText="Status: "
-                            SelectedValue="{Binding Status}"
                             IsEditable="False" Margin="0,134,0,-95" Grid.Row="1" VerticalAlignment="Stretch">
                                 <ComboBoxItem Content="Booked"/>
                                 <ComboBoxItem Content="Check-in"/>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding StatusChanged}" 
+                                CommandParameter="{Binding ElementName=cbbStatus}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                             </ComboBox>
                         </Grid>
                         <!--Room Name + Price/Day-->
@@ -105,16 +131,28 @@
                             <ComboBox x:Name="cbbGender" 
                             FontSize="14" Foreground="#FF009CAC"
                             materialDesign:TextFieldAssist.PrefixText="Gender: "
-                            SelectedValue="{Binding Gender}"
                             IsEditable="False" Margin="0,29,0,-10" Grid.Row="1" VerticalAlignment="Stretch">
                                 <ComboBoxItem Content="Male"/>
                                 <ComboBoxItem Content="Female"/>
                                 <ComboBoxItem Content="Other"/>
-
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding GenderChanged}" 
+                                CommandParameter="{Binding ElementName=cbbGender}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                             </ComboBox>
-                            <TextBox Grid.Row="1" x:Name="tbDeposit" Foreground="#FF009CAC" Text="{Binding Deposit}"
+                            <TextBox  Text="{Binding Deposit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                            xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+                            Grid.Row="1" x:Name="tbDeposit" Foreground="#FF009CAC"
                             materialDesign:HintAssist.Hint="Deposit:" FontSize="14" IsReadOnly="False"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="#FF024B48" Margin="0,70,0,-66"/>
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="#FF024B48" Margin="0,70,0,-66">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewTextInput" >
+                                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="IsAllowedInput"  />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
                             <Label Content="VND" FontStyle="Italic" Margin="167,91,-4,-71" Grid.Row="1" Foreground="#FF009CAC"/>
                         </Grid>
                         <Grid Grid.Column="2" Margin="4">
@@ -122,20 +160,37 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <TextBox Grid.Row="0" x:Name="tbCitizenID" Foreground="#FF009CAC" Text="{Binding CitizenID}"
+                            <TextBox Grid.Row="0" x:Name="tbCitizenID" Foreground="#FF009CAC" 
+                                Text="{Binding CitizenID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
                                 materialDesign:HintAssist.Hint="Citizen ID:" FontSize="14"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="White" Margin="0,0,0,87" Height="42" VerticalAlignment="Bottom" />
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="White" Margin="0,0,0,87" Height="42" VerticalAlignment="Bottom" >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewTextInput" >
+                                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="IsAllowedInput"  />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
                             <TextBox x:Name="tbAddress" Foreground="#FF009CAC" Text="{Binding Address}"
                                 materialDesign:HintAssist.Hint="Address:" FontSize="14" IsReadOnly="False"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="#FF024B48" Margin="0,57,0,29"/>
-                            <TextBox x:Name="tbAmount" Foreground="#FF009CAC" Text="{Binding Amount}"
+                            <TextBox Text="{Binding Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+                                x:Name="tbAmount" Foreground="#FF009CAC" 
                                 materialDesign:HintAssist.Hint="Amount:" FontSize="14" IsReadOnly="False"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="#FF024B48" Margin="0,113,0,-26" Grid.RowSpan="2"/>
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" CaretBrush="#FF024B48" Margin="0,113,0,-26" Grid.RowSpan="2">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewTextInput" >
+                                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="IsAllowedInput"  />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                
+                            </TextBox>
                         </Grid>
                     </Grid>
                 </Grid>
             </Border>
-            <ListView x:Name="lv" ItemsSource="{Binding Items}" Height="328" Margin="0,0,-14,0" Foreground="#DD000000" BorderBrush="{x:Null}" HorizontalContentAlignment="Center" >
+            <ListView x:Name="lvRoom" ItemsSource="{Binding Items}" Height="328" Margin="0,0,-14,0" Foreground="#DD000000" BorderBrush="{x:Null}" HorizontalContentAlignment="Center" >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Room ID"  Width="Auto" DisplayMemberBinding="{Binding MaPhong}"/>
@@ -149,7 +204,7 @@
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding SelectedChangedCommand}" 
-                                    CommandParameter="{Binding ElementName=lv}"/>
+                                    CommandParameter="{Binding ElementName=lvRoom}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ListView>
@@ -161,7 +216,7 @@
                 <Border Grid.Column="0" Background="White" CornerRadius="12" HorizontalAlignment="Left" Margin="0"/>
                 <!--button-->
                 <Grid Height="70" VerticalAlignment="Bottom" Margin="4,0,0,17">
-                    <Button Width="148" Height="Auto" HorizontalAlignment="Right" Margin="0,18,23,12"
+                    <Button x:Name="btnBooking" Width="148" Height="Auto" HorizontalAlignment="Right" Margin="0,18,23,12"
                             
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     materialDesign:ButtonAssist.CornerRadius="10"
