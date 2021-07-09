@@ -150,7 +150,6 @@
     <Compile Include="MVVM\ViewModel\Rooms\RoomListItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\RoomListViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\RoomsViewModel.cs" />
-    <Compile Include="MVVM\View\Profile\ProfileView.xaml.cs">
       <DependentUpon>ProfileView.xaml</DependentUpon>
     <Compile Include="MVVM\View\CheckOutViews\BillsView.xaml.cs">
       <DependentUpon>BillsView.xaml</DependentUpon>
