@@ -50,10 +50,13 @@ namespace HotelManagement.MVVM.Model
             return re;
         }
 
-        public DataTable Change_Checkout_Date(DateTime date, int maPhieuThue) //date dạng yyyy/mm/dd
+        public DataTable Change_Checkout_Date_And_Set_Checkout(DateTime date, int maPhieuThue) //date dạng yyyy/mm/dd
         {
             DataTable re;
-            string query = "UPDATE PHIEUTHUEPHONG SET NgayTraPhong = '" + date + "' WHERE MaPhieuThue = " + maPhieuThue;
+            string query = "UPDATE PHIEUTHUEPHONG " +
+                "SET NgayTraPhong = '" + date + "', " +
+                "TinhTrang = 'Checkout' " +
+                "WHERE MaPhieuThue = " + maPhieuThue;
             re = Process.createTable(query);
             return re;
         }

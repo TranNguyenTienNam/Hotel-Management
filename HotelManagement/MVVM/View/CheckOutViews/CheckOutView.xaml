@@ -63,7 +63,7 @@
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             Command="{Binding RefreshCommand}"
                             materialDesign:ButtonAssist.CornerRadius="10"
-                            ToolTip="Search" Margin="0,0,-205,0" Grid.Column="1">
+                            ToolTip="Refresh" Margin="0,0,-205,0" Grid.Column="1">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Refresh" Width="26" Height="26"/>
                                 <TextBlock Text="Refresh" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -107,7 +107,7 @@
                             BorderThickness="0"
                             Background="#F44336"
                             Foreground="White"
-                            ToolTip=""  >
+                            ToolTip="Bill management"  >
                             <Grid Width="auto">
                                 <TextBlock 
                                     FontSize="18"
@@ -127,7 +127,7 @@
                             BorderThickness="0"
                             Background="#F44336"
                             Foreground="White"
-                            ToolTip=""  >
+                            ToolTip="Edit surcharge"  >
                             <Grid Width="auto">
                                 <TextBlock 
                                     FontSize="18"
@@ -146,7 +146,7 @@
                             BorderThickness="0"
                             Background="#F44336"
                             Foreground="White"
-                            ToolTip="">
+                            ToolTip="Print bill">
                             <Grid Width="auto">
                                 <TextBlock 
                                     FontSize="18"
@@ -161,11 +161,12 @@
                             Height="38"
                             Width="118"
                             Style="{StaticResource MaterialDesignRaisedButton}"
+                            Command="{Binding CheckOutCommand}"
                             materialDesign:ButtonAssist.CornerRadius="10"
                             BorderThickness="0"
                             Background="#F44336"
                             Foreground="White"
-                            ToolTip="">
+                            ToolTip="Check-out now!">
                             <Grid Width="auto">
                                 <TextBlock 
                                     FontSize="18"
@@ -174,7 +175,6 @@
                                     Text="Check Out" Margin="0,0,0,0"/>
                             </Grid>
                         </Button>
-
                     </StackPanel>
                 </Border>
             </StackPanel>

@@ -82,7 +82,7 @@ namespace HotelManagement.MVVM.ViewModel
 
         public BookingViewModel()
         {
-            loadListRoom();
+            //loadListRoom();
 
 
        /*     HandleOnlyNumber = new RelayCommand<TextBox>((p) =>

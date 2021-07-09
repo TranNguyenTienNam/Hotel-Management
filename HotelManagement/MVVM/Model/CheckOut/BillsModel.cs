@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 using System.Data;
 using HotelManagement.MVVM.ViewModel;
 using System.Windows;
+using System.Configuration;
+using System.Data.SqlClient;
 
 namespace HotelManagement.MVVM.Model.CheckOut
 {
     class BillsModel
     {
+        public static string con_string = ConfigurationManager.ConnectionStrings["con"].ToString();
+
         public DataTable Load_List_Bills()
         {
             DataTable re;
@@ -46,9 +50,26 @@ namespace HotelManagement.MVVM.Model.CheckOut
                 "inner join PHONG on PHONG.MaPhong=PHIEUTHUEPHONG.MaPhong " +
                 "inner join LOAIPHONG on LOAIPHONG.MaLoaiPhong=PHONG.MaLoaiPhong " +
                 "inner join NGUOIDUNG on NGUOIDUNG.MaNgDung=PHIEUTHUEPHONG.NguoiLapPhieu " +
-                "and CHARINDEX(N'" + _cmnd + "', CMND) != 0";
+                "and CHARINDEX(N'" + _cmnd + "', PHIEUTHUEPHONG.CMND) != 0";
             re = Process.createTable(query);
             return re;
+        }
+        public void Delete_Bills(int _maHoaDon)
+        {
+            SqlConnection con = new SqlConnection(con_string);
+            con.Open();
+            String query = "DELETE FROM HOADON WHERE MaHoaDon = " +_maHoaDon;
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.ExecuteReader();
+        }
+        public void Insert_Bill(int _maPhieuThue, int _phuThu, int _tongTien)
+        {
+            SqlConnection con = new SqlConnection(con_string);
+            con.Open();
+            String query = "insert into HOADON " +
+                "values (" +_maPhieuThue+ ", "+_phuThu+", "+_tongTien+ ")";
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.ExecuteReader();
         }
     }
 }

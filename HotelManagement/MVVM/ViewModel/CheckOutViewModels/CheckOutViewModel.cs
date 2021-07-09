@@ -9,6 +9,9 @@ using System.Windows.Input;
 using HotelManagement.MVVM.View.CheckOutViews;
 using HotelManagement.MVVM.Model.CheckOut;
 using System.Windows;
+using System.Windows.Forms;
+using MessageBox = System.Windows.MessageBox;
+using ListView = System.Windows.Controls.ListView;
 
 namespace HotelManagement.MVVM.ViewModel
 {
@@ -107,7 +110,6 @@ namespace HotelManagement.MVVM.ViewModel
         public ICommand SearchCommand { get; set; }
         public ICommand CheckOutCommand { get; set; }
         public ICommand RefreshCommand { get; set; }
-
         public ICommand SelectRowCommand { get; set; }
         public ICommand PickCheckOutDateCommand { get; set; }
 
@@ -115,6 +117,28 @@ namespace HotelManagement.MVVM.ViewModel
         {
             Items = new ObservableCollection<CheckOutItemViewModel>();
             LoadListRent();
+
+            CheckOutCommand = new RelayCommand<object>((p) =>
+            {
+                if (string.IsNullOrEmpty(TenKH)) return false;
+                return true;
+            }, (p) =>
+            {
+                string message = "Tao hỏi mày lần cuối, có check-out hay không ?";
+                string title = "Đây không phải lời đe dọa nhé !";
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                DialogResult result = System.Windows.Forms.MessageBox.Show(message, title, buttons);
+                if(result == DialogResult.Yes)
+                {
+                    Checkout();
+                    Items.Clear();
+                    LoadListRent();
+                }
+                else
+                {
+                    //không làm gì cả
+                }
+            });
 
             RefreshCommand = new RelayCommand<object>((p) =>
             {
@@ -210,6 +234,16 @@ namespace HotelManagement.MVVM.ViewModel
                 TongTien = TongTienPhong + (int)PhuThu - TienCoc;
             });
 
+        }
+
+        private void Checkout()
+        {
+            // set ngày trả phòng, tình trạng thành 'Checkout'
+            CheckOutModel checkOutModel = new CheckOutModel();
+            checkOutModel.Change_Checkout_Date_And_Set_Checkout(NgayTraPhong, MaPhieuThue);
+            //tạo hóa đơn xuống database
+            BillsModel billsModel = new BillsModel();
+            billsModel.Insert_Bill(MaPhieuThue, PhuThu, TongTien);
         }
 
         private int GetDays(DateTime ngayBD, DateTime ngayTP )

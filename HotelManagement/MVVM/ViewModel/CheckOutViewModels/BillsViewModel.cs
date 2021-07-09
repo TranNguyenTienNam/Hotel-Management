@@ -10,6 +10,8 @@ using HotelManagement.MVVM.View.CheckOutViews;
 using HotelManagement.MVVM.ViewModel;
 using HotelManagement.MVVM.Model.CheckOut;
 using System.Windows;
+using System.Windows.Forms;
+using ListView = System.Windows.Controls.ListView;
 
 namespace HotelManagement.MVVM.ViewModel
 {
@@ -105,6 +107,7 @@ namespace HotelManagement.MVVM.ViewModel
         //command
         public ICommand SearchCommand { get; set; }
         public ICommand SelectRowCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
         
 
         public BillsViewModel()
@@ -161,9 +164,38 @@ namespace HotelManagement.MVVM.ViewModel
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    System.Windows.MessageBox.Show(ex.Message);
                 }
             });
+
+            DeleteCommand = new RelayCommand<object>((p) =>
+            {
+                if (string.IsNullOrEmpty(TenKH)) return false;
+                return true;
+            }, (p) =>
+            {
+                string message = "Tao hỏi mày lần cuối, mày muốn xóa hóa đơn này thật à ?";
+                string title = "Đây không phải lời đe dọa nhé !";
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                DialogResult result = System.Windows.Forms.MessageBox.Show(message, title, buttons);
+                if (result == DialogResult.Yes)
+                {
+                    DeleteBill(MaHoaDon);
+                    //refresh lại list
+                    Items.Clear();
+                    LoadListBills();
+                }
+                else
+                {
+                    //không làm gì cả
+                }
+            });
+        }
+
+        private void DeleteBill(int maHoaDon)
+        {
+            BillsModel model = new BillsModel();
+            model.Delete_Bills(maHoaDon);
         }
 
         private void LoadSearchByCMND()

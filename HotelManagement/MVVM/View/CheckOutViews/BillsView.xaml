@@ -93,7 +93,7 @@
                             BorderThickness="0"
                             Background="#F44336"
                             Foreground="White"
-                            ToolTip="">
+                            ToolTip="Print bill">
                                 <Grid Width="auto">
                                     <TextBlock 
                                     FontSize="18"
@@ -108,11 +108,12 @@
                                 Height="Auto"
                                 Width="102"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
+                                Command="{Binding DeleteCommand}"
                                 materialDesign:ButtonAssist.CornerRadius="10"
                                 BorderThickness="0"
                                 Background="#F44336"
                                 Foreground="White"
-                                ToolTip="">
+                                ToolTip="delete bill">
                                 <Grid Width="auto">
                                     <TextBlock 
                                         FontSize="18"
