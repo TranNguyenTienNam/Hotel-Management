@@ -23,9 +23,6 @@ namespace HotelManagement.MVVM.ViewModel
 
             this.CartesianChartModel = new CartesianChartModel(ConvertTimeFormat(this.SelectedDate), this.SelectedMode, this.selectedPerformance);
             this.PieChartModel = new PieChartModel(ConvertTimeFormat(this.SelectedDate), this.SelectedMode, this.SelectedPerformance);
-
-            Console.WriteLine(this.TodayCardModel.NumMaxCheckOut);
-            Console.WriteLine(this.TodayCardModel.NumCheckOut);
         }
         // Cartesian Chart
         private CartesianChartModel cartesianChartModel;
@@ -63,7 +60,6 @@ namespace HotelManagement.MVVM.ViewModel
             set
             {
                 selectedDate = value;
-                Console.WriteLine("Datepicker {0}", ConvertTimeFormat(SelectedDate));
                 OnPropertyChanged("date");
             }
         }

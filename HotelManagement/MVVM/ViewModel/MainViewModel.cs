@@ -12,6 +12,8 @@ namespace HotelManagement.MVVM.ViewModel
 
         public ICommand RoomsViewCommand { get; set; }
 
+        public ICommand StaffViewCommand { get; set; }
+
         //Button New Booking
         public ICommand NewBookingCommand { get; set; }
 
@@ -20,6 +22,8 @@ namespace HotelManagement.MVVM.ViewModel
         public BookingViewModel BookingsVM { get; set; }
 
         public RoomsViewModel RoomsVM { get; set; }
+
+        public StaffViewModel StaffVM { get; set; }
 
         private object _currentView;
 
@@ -37,7 +41,8 @@ namespace HotelManagement.MVVM.ViewModel
             DashboardVM = new DashboardViewModel();
             BookingsVM = new BookingViewModel();
             RoomsVM = new RoomsViewModel();
-            
+            StaffVM = new StaffViewModel();
+
             CurrentView = DashboardVM;
 
             DashboardViewCommand = new RelayCommand<object>((o) =>
@@ -63,6 +68,11 @@ namespace HotelManagement.MVVM.ViewModel
                 BookingWindows wd = new BookingWindows();
                 wd.ShowDialog();
             });
+
+            StaffViewCommand = new RelayCommand<object>((o) =>
+            {
+                return true;
+            }, (o) => { CurrentView = StaffVM; });
         }
     }
 }

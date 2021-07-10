@@ -8,6 +8,7 @@ namespace HotelManagement
 {
     class user
     {
+        int maNguoiDung;
         string userName;
         string passWord;
         string ho;
@@ -19,6 +20,7 @@ namespace HotelManagement
         string quyenHan;
         string tinhTrangTK;
 
+        public int MaNguoiDung { get => maNguoiDung; set => maNguoiDung = value; }
         public string UserName { get => userName; set => userName = value; }
         public string PassWord { get => passWord; set => passWord = value; }
         public string Ho { get => ho; set => ho = value; }
