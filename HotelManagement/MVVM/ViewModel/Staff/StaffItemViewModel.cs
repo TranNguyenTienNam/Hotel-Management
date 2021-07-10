@@ -40,8 +40,8 @@ namespace HotelManagement.MVVM.ViewModel
         private string email;
         public string Email { get { return email; } set { email = value; OnPropertyChanged(); } }
 
-        private string ngaySinh;
-        public string NgaySinh { get { return ngaySinh; } set { ngaySinh = value; OnPropertyChanged(); } }
+        private DateTime ngaySinh;
+        public DateTime NgaySinh { get { return ngaySinh; } set { ngaySinh = value; OnPropertyChanged(); } }
 
         private bool isBlocked;
         public bool IsBlocked { get { return isBlocked; } set { isBlocked = value; OnPropertyChanged(); } }

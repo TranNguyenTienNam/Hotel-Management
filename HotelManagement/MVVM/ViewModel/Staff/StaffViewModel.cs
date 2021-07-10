@@ -122,7 +122,7 @@ namespace HotelManagement.MVVM.ViewModel
                     SoDienThoai = (row["SoDienThoai"] == DBNull.Value) ? "" : (string)row["SoDienThoai"],
                     GioiTinh = (row["GioiTinh"] == DBNull.Value) ? "" : (string)row["GioiTinh"],
                     Email = (string)row["Email"],
-                    NgaySinh = (row["NgaySinh"] == DBNull.Value) ? DateTime.Now.ToString("dd/MM/yyyy") : (string)row["NgaySinh"],
+                    NgaySinh = (row["NgaySinh"] == DBNull.Value) ? DateTime.Now.Date : (DateTime)row["NgaySinh"],
                     IsBlocked = ((int)row["TinhTrang"] == 0) ? true : false,
                 };
                 Staff.Add(obj);

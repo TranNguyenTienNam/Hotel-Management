@@ -27,9 +27,6 @@ namespace HotelManagement.MVVM.ViewModel
         private string _visibility;
         public string Visibility { get { return _visibility; } set { _visibility = value; OnPropertyChanged(); } }
 
-        //Button New Booking
-        public ICommand NewBookingCommand { get; set; }
-
         #region View and Command Binding
 
         public ICommand DashboardViewCommand { get; set; }
@@ -60,9 +57,6 @@ namespace HotelManagement.MVVM.ViewModel
         public CheckOutViewModel CheckOutVM { get; set; }
 
         private object _currentView;
-        #endregion
-
-        private object _currentView;
         public object CurrentView
         {
             get { return _currentView; }
@@ -72,6 +66,7 @@ namespace HotelManagement.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
+        #endregion
 
         public MainViewModel(int UserId)
         {
