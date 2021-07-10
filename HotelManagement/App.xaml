@@ -31,6 +31,10 @@
                 <view:RoomsView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:StaffViewModel}">
+                <view:StaffView/>
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type viewModel:ProfileViewModel}">
                 <view:ProfileView/>
             </DataTemplate>

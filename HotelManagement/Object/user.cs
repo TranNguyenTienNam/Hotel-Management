@@ -17,7 +17,6 @@ namespace HotelManagement
         string email;
         DateTime ngaySinh;
         string tinhTrangTK;
-
         /// <summary>
         /// Permission of Account: 
         /// 0 => Master(Admin)

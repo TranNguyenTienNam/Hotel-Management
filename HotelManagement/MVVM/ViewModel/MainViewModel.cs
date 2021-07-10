@@ -38,6 +38,11 @@ namespace HotelManagement.MVVM.ViewModel
 
         public ICommand RoomsViewCommand { get; set; }
 
+        public ICommand StaffViewCommand { get; set; }
+
+        //Button New Booking
+        public ICommand NewBookingCommand { get; set; }
+
         public ICommand ProfileViewCommand { get; set; }
         
         public ICommand CheckOutViewCommand { get; set; }
@@ -48,9 +53,13 @@ namespace HotelManagement.MVVM.ViewModel
 
         public RoomsViewModel RoomsVM { get; set; }
 
+        public StaffViewModel StaffVM { get; set; }
+
         public ProfileViewModel ProfileVM { get; set; }
 
         public CheckOutViewModel CheckOutVM { get; set; }
+
+        private object _currentView;
         #endregion
 
         private object _currentView;
@@ -70,8 +79,8 @@ namespace HotelManagement.MVVM.ViewModel
             DashboardVM = new DashboardViewModel();
             BookingsVM = new BookingViewModel();
             RoomsVM = new RoomsViewModel();
+            StaffVM = new StaffViewModel();
             CheckOutVM = new CheckOutViewModel();
-            
             ProfileVM = new ProfileViewModel(UserId);
 
             //Chưa phân quyền
@@ -125,6 +134,11 @@ namespace HotelManagement.MVVM.ViewModel
                 BookingWindows wd = new BookingWindows();
                 wd.ShowDialog();
             });
+
+            StaffViewCommand = new RelayCommand<object>((o) =>
+            {
+                return true;
+            }, (o) => { CurrentView = StaffVM; });
         }
     }
 }
