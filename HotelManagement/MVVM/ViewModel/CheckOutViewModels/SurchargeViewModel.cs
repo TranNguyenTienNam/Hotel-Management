@@ -1,18 +1,7 @@
 ﻿using HotelManagement.Core;
-using HotelManagement.MVVM.Model;
 using HotelManagement.MVVM.Model.CheckOut;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using HotelManagement.Object;
-using System.Data.SqlClient;
-using System.Configuration;
 
 namespace HotelManagement.MVVM.ViewModel
 {

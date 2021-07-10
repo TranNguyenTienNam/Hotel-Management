@@ -1,15 +1,5 @@
-﻿using HotelManagement.Object;
-using System;
-using System.Collections.ObjectModel;
+﻿using System;
 using HotelManagement.Core;
-using System.Data;
-using HotelManagement.MVVM.Model;
-using System.Windows.Controls;
-using System.Windows.Input;
-using HotelManagement.MVVM.View.CheckOutViews;
-using HotelManagement.MVVM.ViewModel;
-using HotelManagement.MVVM.Model.CheckOut;
-using System.Windows;
 
 namespace HotelManagement.MVVM.ViewModel
 {

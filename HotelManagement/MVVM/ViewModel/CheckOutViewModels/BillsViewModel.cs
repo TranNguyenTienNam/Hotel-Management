@@ -1,15 +1,9 @@
-﻿using HotelManagement.Object;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using HotelManagement.Core;
 using System.Data;
-using HotelManagement.MVVM.Model;
-using System.Windows.Controls;
 using System.Windows.Input;
-using HotelManagement.MVVM.View.CheckOutViews;
-using HotelManagement.MVVM.ViewModel;
 using HotelManagement.MVVM.Model.CheckOut;
-using System.Windows;
 using System.Windows.Forms;
 using ListView = System.Windows.Controls.ListView;
 
@@ -108,7 +102,9 @@ namespace HotelManagement.MVVM.ViewModel
         public ICommand SearchCommand { get; set; }
         public ICommand SelectRowCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
-        
+        public ICommand RefreshCommand { get; set; }
+
+
 
         public BillsViewModel()
         {
@@ -155,6 +151,7 @@ namespace HotelManagement.MVVM.ViewModel
                     if (SearchText == "")
                     {
                         Items.Clear();
+                        ClearInfo();
                         LoadListBills();
                     }
                     else
@@ -181,14 +178,26 @@ namespace HotelManagement.MVVM.ViewModel
                 if (result == DialogResult.Yes)
                 {
                     DeleteBill(MaHoaDon);
+                    MessageBox.Show("Delete bill successful!");
                     //refresh lại list
                     Items.Clear();
+                    ClearInfo();
                     LoadListBills();
                 }
                 else
                 {
                     //không làm gì cả
                 }
+            });
+
+            RefreshCommand = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                Items.Clear();
+                ClearInfo();
+                LoadListBills();
             });
         }
 
@@ -207,38 +216,7 @@ namespace HotelManagement.MVVM.ViewModel
             BillsModel model = new BillsModel();
             DataTable data = new DataTable();
             data = model.Load_Search_CMND(SearchText);
-            foreach (DataRow row in data.Rows)
-            {
-                var obj = new BillsItemViewModel()
-                {
-                    MaHoaDon = (int)row["MaHoaDon"],
-                    PhuThu = (row["PhuThu"] == DBNull.Value) ? 0 : (int)row["PhuThu"],
-                    TongTien = (int)row["TongTien"],
-                    MaPhieuThue = (int)row["MaPhieuThue"],
-                    NgayLapPhieu = (DateTime)row["NgayLapPhieu"],
-                    NgayBatDau = (DateTime)row["NgayBatDau"],
-                    NgayTraPhong = (row["NgayTraPhong"] == DBNull.Value ? DateTime.Now.Date : (DateTime)row["NgayTraPhong"]),
-                    SoLuongKhach = (int)row["SoLuongKhach"],
-                    TinhTrang = (string)row["TinhTrang"],
-                    NguoiLapPhieu = (int)row["NguoiLapPhieu"],
-                    TienCoc = (int)row["TienCoc"],
-                    TenKH = (string)row["TenKH"],
-                    CMND = (string)row["CMND"],
-                    SoDienThoai = (string)row["SoDienThoai"],
-                    DiaChi = (string)row["DiaChi"],
-                    GioiTinh = (string)row["GioiTinh"],
-                    MaLoaiKhach = (int)row["MaLoaiKhach"],
-                    TenLoaiKhach = (string)row["TenLoaiKhach"],
-                    MaPhong = (int)row["MaPhong"],
-                    TenPhong = (string)row["TenPhong"],
-                    GhiChu = (row["GhiChu"] == DBNull.Value) ? string.Empty : (string)row["GhiChu"],
-                    MaLoaiPhong = (int)row["MaLoaiPhong"],
-                    TenLoaiPhong = (string)row["TenLoaiPhong"],
-                    DonGia = (int)row["DonGia"],
-                    SoNgToiDa = (int)row["SoNgToiDa"]
-                };
-                Items.Add(obj);
-            }
+            SetPropsFromData(data);
         }
 
         private int GetDays(DateTime ngayBD, DateTime ngayTP)
@@ -254,29 +232,33 @@ namespace HotelManagement.MVVM.ViewModel
             DataTable data = new DataTable();
             BillsModel model = new BillsModel();
             data = model.Load_List_Bills();
+            SetPropsFromData(data);
+        }
 
+        public void SetPropsFromData(DataTable data)
+        {
             foreach (DataRow row in data.Rows)
             {
                 var obj = new BillsItemViewModel()
                 {
                     MaHoaDon = (int)row["MaHoaDon"],
                     PhuThu = (row["PhuThu"] == DBNull.Value) ? 0 : (int)row["PhuThu"],
-                    TongTien = (int)row["TongTien"],
+                    TongTien = (row["TongTien"] == DBNull.Value ? 0 : (int)row["TongTien"]),
                     MaPhieuThue = (int)row["MaPhieuThue"],
                     NgayLapPhieu = (DateTime)row["NgayLapPhieu"],
                     NgayBatDau = (DateTime)row["NgayBatDau"],
                     NgayTraPhong = (row["NgayTraPhong"] == DBNull.Value ? DateTime.Now.Date : (DateTime)row["NgayTraPhong"]),
-                    SoLuongKhach = (int)row["SoLuongKhach"],
+                    SoLuongKhach = (row["SoLuongKhach"] == DBNull.Value ? 0 : (int)row["SoLuongKhach"]),
                     TinhTrang = (string)row["TinhTrang"],
-                    NguoiLapPhieu = (int)row["NguoiLapPhieu"],
-                    TienCoc = (int)row["TienCoc"],
+                    NguoiLapPhieu = (row["NguoiLapPhieu"] == DBNull.Value ? 0 : (int)row["NguoiLapPhieu"]),
+                    TienCoc = (row["TienCoc"] == DBNull.Value ? 0 : (int)row["TienCoc"]),
                     TenKH = (string)row["TenKH"],
                     CMND = (string)row["CMND"],
                     SoDienThoai = (string)row["SoDienThoai"],
                     DiaChi = (string)row["DiaChi"],
                     GioiTinh = (string)row["GioiTinh"],
                     MaLoaiKhach = (int)row["MaLoaiKhach"],
-                    TenLoaiKhach = (string)row["TenLoaiKhach"],
+                    TenLoaiKhach = (row["TenLoaiKhach"] == DBNull.Value ? string.Empty : (string)row["TenLoaiKhach"]),
                     MaPhong = (int)row["MaPhong"],
                     TenPhong = (string)row["TenPhong"],
                     GhiChu = (row["GhiChu"] == DBNull.Value) ? string.Empty : (string)row["GhiChu"],
@@ -287,6 +269,31 @@ namespace HotelManagement.MVVM.ViewModel
                 };
                 Items.Add(obj);
             }
+            
+        }
+        private void ClearInfo()
+        {
+            MaHoaDon = 0;
+            MaPhieuThue = 0;
+            TenKH = "";
+            GioiTinh = "";
+            MaLoaiKhach = 0;
+            DiaChi = "";
+            CMND = "";
+            SoDienThoai = "";
+            TenPhong = "";
+            TenLoaiPhong = "";
+            DonGia = 0;
+            SoNgToiDa = 0;
+            SoLuongKhach = 0;
+            NgayLapPhieu = new DateTime();
+            NgayBatDau = new DateTime();
+            NgayTraPhong = new DateTime();
+            TienCoc = 0;
+            SoNgayThue = 0;
+            TongTienPhong = 0;
+            PhuThu = 0;
+            TongTien = 0;
         }
     }
 }

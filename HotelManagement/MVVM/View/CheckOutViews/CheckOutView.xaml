@@ -84,6 +84,24 @@
                                 <GridViewColumn Header="Check in" x:Name="checkin" Width="Auto" DisplayMemberBinding="{Binding NgayBatDau}"/>
                             </GridView>
                         </ListView.View>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                                <Setter Property="Height" Value="30"/>
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="FontWeight" Value="Regular"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#F44336" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="#F44336" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction Command="{Binding SelectRowCommand}" 
@@ -134,25 +152,6 @@
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Bottom"
                                     Text="Surcharge" Margin="0,0,0,0"/>
-                            </Grid>
-                        </Button>
-                        <Button
-                            x:Name="btnPrintBill"
-                            Margin="4,10"
-                            Height="38"
-                            Width="102"
-                            Style="{StaticResource MaterialDesignRaisedButton}"
-                            materialDesign:ButtonAssist.CornerRadius="10"
-                            BorderThickness="0"
-                            Background="#F44336"
-                            Foreground="White"
-                            ToolTip="Print bill">
-                            <Grid Width="auto">
-                                <TextBlock 
-                                    FontSize="18"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Bottom"
-                                    Text="Print Bill" Margin="0,0,0,0"/>
                             </Grid>
                         </Button>
                         <Button

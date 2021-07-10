@@ -1,5 +1,4 @@
-﻿using HotelManagement.Object;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using HotelManagement.Core;
 using System.Data;
@@ -8,7 +7,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using HotelManagement.MVVM.View.CheckOutViews;
 using HotelManagement.MVVM.Model.CheckOut;
-using System.Windows;
 using System.Windows.Forms;
 using MessageBox = System.Windows.MessageBox;
 using ListView = System.Windows.Controls.ListView;
@@ -120,7 +118,7 @@ namespace HotelManagement.MVVM.ViewModel
 
             CheckOutCommand = new RelayCommand<object>((p) =>
             {
-                if (string.IsNullOrEmpty(TenKH)) return false;
+                if (string.IsNullOrEmpty(CMND)) return false;
                 return true;
             }, (p) =>
             {
@@ -131,8 +129,10 @@ namespace HotelManagement.MVVM.ViewModel
                 if(result == DialogResult.Yes)
                 {
                     Checkout();
+                    MessageBox.Show("Check out successful!");
                     Items.Clear();
                     LoadListRent();
+                    ClearInfo();
                 }
                 else
                 {
@@ -146,6 +146,7 @@ namespace HotelManagement.MVVM.ViewModel
             }, (p) =>
             {
                 Items.Clear();
+                ClearInfo();
                 LoadListRent();
             });
 
@@ -177,10 +178,12 @@ namespace HotelManagement.MVVM.ViewModel
                     if (SearchText == "") 
                     {
                         Items.Clear();
+                        ClearInfo();
                         LoadListRent(); 
                     }else
                     {
                         LoadSearchRoomName();
+                        ClearInfo();
                     }
                 }catch (Exception ex)
                 {
@@ -224,7 +227,7 @@ namespace HotelManagement.MVVM.ViewModel
                     MessageBox.Show("Ngày Check-out không được nhỏ hơn ngày Check-in !");
                     return false;
                 }
-                return !string.IsNullOrEmpty(TenKH);
+                return !string.IsNullOrEmpty(CMND);
             }, (p) =>
             {
                 NgayTraPhong = p.SelectedDate.HasValue ? p.SelectedDate.Value.Date : NgayBatDau;
@@ -234,6 +237,30 @@ namespace HotelManagement.MVVM.ViewModel
                 TongTien = TongTienPhong + (int)PhuThu - TienCoc;
             });
 
+        }
+
+        private void ClearInfo()
+        {
+            MaPhieuThue = 0;
+            TenKH = "";
+            GioiTinh = "";
+            MaLoaiKhach = 0;
+            DiaChi = "";
+            CMND = "";
+            SoDienThoai = "";
+            TenPhong = "";
+            TenLoaiPhong = "";
+            DonGia = 0;
+            SoNgToiDa = 0;
+            SoLuongKhach = 0;
+            NgayLapPhieu = new DateTime();
+            NgayBatDau = new DateTime();
+            NgayTraPhong = new DateTime();
+            TienCoc = 0;
+            SoNgayThue = 0;
+            TongTienPhong = 0;
+            PhuThu = 0;
+            TongTien = 0;
         }
 
         private void Checkout()
@@ -274,36 +301,7 @@ namespace HotelManagement.MVVM.ViewModel
             CheckOutModel model = new CheckOutModel();
             DataTable data = new DataTable();
             data = model.Load_List_Rent_By_Room(SearchText);
-
-            foreach (DataRow row in data.Rows)
-            {
-                var obj = new CheckOutItemViewModel()
-                {
-                    MaPhieuThue = (int)row["MaPhieuThue"],
-                    NgayLapPhieu = (DateTime)row["NgayLapPhieu"],
-                    NgayBatDau = (DateTime)row["NgayBatDau"],
-                    NgayTraPhong = (row["NgayTraPhong"] == DBNull.Value ? DateTime.Now.Date : (DateTime)row["NgayTraPhong"]),
-                    SoLuongKhach = (int)row["SoLuongKhach"],
-                    TinhTrang = (string)row["TinhTrang"],
-                    NguoiLapPhieu = (int)row["NguoiLapPhieu"],
-                    TienCoc = (int)row["TienCoc"],
-                    TenKH = (string)row["TenKH"],
-                    CMND = (string)row["CMND"],
-                    SoDienThoai = (string)row["SoDienThoai"],
-                    DiaChi = (string)row["DiaChi"],
-                    GioiTinh = (string)row["GioiTinh"],
-                    MaLoaiKhach = (int)row["MaLoaiKhach"],
-                    TenLoaiKhach = (string)row["TenLoaiKhach"],
-                    MaPhong = (int)row["MaPhong"],
-                    TenPhong = (string)row["TenPhong"],
-                    GhiChu = (row["GhiChu"] == DBNull.Value) ? string.Empty : (string)row["GhiChu"],
-                    MaLoaiPhong = (int)row["MaLoaiPhong"],
-                    TenLoaiPhong = (string)row["TenLoaiPhong"],
-                    DonGia = (int)row["DonGia"],
-                    SoNgToiDa = (int)row["SoNgToiDa"]
-                };
-                Items.Add(obj);
-            }
+            SetPropsFromData(data);
         }
 
         private void LoadListRent()
@@ -311,7 +309,11 @@ namespace HotelManagement.MVVM.ViewModel
             DataTable data = new DataTable();
             CheckOutModel model = new CheckOutModel();
             data = model.Load_List_Rent();
+            SetPropsFromData(data);
+        }
 
+        private void SetPropsFromData(DataTable data)
+        {
             foreach (DataRow row in data.Rows)
             {
                 var obj = new CheckOutItemViewModel()
@@ -320,17 +322,17 @@ namespace HotelManagement.MVVM.ViewModel
                     NgayLapPhieu = (DateTime)row["NgayLapPhieu"],
                     NgayBatDau = (DateTime)row["NgayBatDau"],
                     NgayTraPhong = (row["NgayTraPhong"] == DBNull.Value ? DateTime.Now.Date : (DateTime)row["NgayTraPhong"]),
-                    SoLuongKhach = (int)row["SoLuongKhach"],
+                    SoLuongKhach = (row["SoLuongKhach"] == DBNull.Value ? 0 : (int)row["SoLuongKhach"]),
                     TinhTrang = (string)row["TinhTrang"],
-                    NguoiLapPhieu = (int)row["NguoiLapPhieu"],
-                    TienCoc = (int)row["TienCoc"],
+                    NguoiLapPhieu = (row["NguoiLapPhieu"] == DBNull.Value ? 0 : (int)row["NguoiLapPhieu"]),
+                    TienCoc = (row["TienCoc"] == DBNull.Value ? 0 : (int)row["TienCoc"]),
                     TenKH = (string)row["TenKH"],
                     CMND = (string)row["CMND"],
                     SoDienThoai = (string)row["SoDienThoai"],
                     DiaChi = (string)row["DiaChi"],
                     GioiTinh = (string)row["GioiTinh"],
                     MaLoaiKhach = (int)row["MaLoaiKhach"],
-                    TenLoaiKhach = (string)row["TenLoaiKhach"],
+                    TenLoaiKhach = (row["TenLoaiKhach"] == DBNull.Value ? string.Empty : (string)row["TenLoaiKhach"]),
                     MaPhong = (int)row["MaPhong"],
                     TenPhong = (string)row["TenPhong"],
                     GhiChu = (row["GhiChu"] == DBNull.Value) ? string.Empty : (string)row["GhiChu"],

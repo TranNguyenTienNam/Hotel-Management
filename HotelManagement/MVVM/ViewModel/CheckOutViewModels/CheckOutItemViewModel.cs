@@ -1,15 +1,4 @@
-﻿using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HotelManagement.Core;
-using System.Data;
-using HotelManagement.MVVM.Model;
-using System.Collections.ObjectModel;
-using HotelManagement.Object;
-using System.Windows.Input;
-using HotelManagement.MVVM.View;
-using System.Windows;
-using System.Windows.Threading;
+﻿using HotelManagement.Core;
 using System;
 
 namespace HotelManagement.MVVM.ViewModel
@@ -83,7 +72,5 @@ namespace HotelManagement.MVVM.ViewModel
 
         private String _tenLoaiPhong;
         public String TenLoaiPhong { get { return _tenLoaiPhong; } set { _tenLoaiPhong = value; OnPropertyChanged(); } }
-
-
     }
 }

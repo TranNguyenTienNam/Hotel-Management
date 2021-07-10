@@ -27,8 +27,8 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" Margin="0,0,0,0">
                 <StackPanel Margin="0,0,0,0">
-                    <Border Background="White" Height="48" CornerRadius="12" HorizontalAlignment="Stretch" Margin="5,5,105,0">
-                        <Grid Grid.Row="1" Margin="0,0,0.2,0">
+                    <Border Background="White" Height="48" CornerRadius="12" HorizontalAlignment="Stretch" Margin="5,5,205,0">
+                        <Grid Grid.Row="1" Margin="0,0,-0.4,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="50"/>
                                 <ColumnDefinition/>
@@ -58,6 +58,16 @@
                                     <TextBlock Text="Search" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
+                            <Button Width="95" Height="Auto" HorizontalAlignment="Right" Padding="0"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Command="{Binding RefreshCommand}"
+                            materialDesign:ButtonAssist.CornerRadius="10"
+                            ToolTip="Refresh" Margin="0,0,-205,0" Grid.Column="1">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Refresh" Width="26" Height="26"/>
+                                    <TextBlock Text="Refresh" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
                         </Grid>
                     </Border>
                     <Border Height="473" Margin="5,5,0,0" CornerRadius="12" Background="White">
@@ -67,10 +77,28 @@
                                 <GridView>
                                     <GridViewColumn Header="Bill ID" x:Name="billID" Width="auto" DisplayMemberBinding="{Binding MaHoaDon}" />
                                     <GridViewColumn Header="Client" x:Name="clientName" Width="Auto" DisplayMemberBinding="{Binding TenKH}" />
-                                    <GridViewColumn Header="IdCard" x:Name="idCardClient" Width="Auto" DisplayMemberBinding="{Binding CMND}" />
+                                    <GridViewColumn Header="ID Card" x:Name="idCardClient" Width="Auto" DisplayMemberBinding="{Binding CMND}" />
                                     <GridViewColumn Header="Check Out" x:Name="checkout" Width="Auto" DisplayMemberBinding="{Binding NgayTraPhong}" />
                                 </GridView>
                             </ListView.View>
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListViewItem}">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Setter Property="Height" Value="30"/>
+                                    <Setter Property="FontSize" Value="14"/>
+                                    <Setter Property="FontWeight" Value="Regular"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#F44336" />
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="#F44336" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListView.ItemContainerStyle>
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectionChanged">
                                     <i:InvokeCommandAction Command="{Binding SelectRowCommand}" 
@@ -133,8 +161,8 @@
                         <Grid Height="586" Margin="0,0,0,0">
                             <Button Height="38" Width="38"
                                 Style="{StaticResource MaterialDesignFloatingActionButton}"
-                                BorderBrush="Red"
-                                Background="Red" 
+                                BorderBrush="#F44336"
+                                Background="#F44336" 
                                 ToolTip="Close"
                                 x:Name="btnExit" Click="btnExit_Click" Margin="0,0,9.8,538" HorizontalAlignment="Right" VerticalAlignment="Bottom" 
                                 >
@@ -175,7 +203,7 @@
                                 VerticalAlignment="Top" Margin="208,193,9.6,0" Height="38" 
                                      Text="{Binding SoDienThoai}"/>
 
-                            <Label Content="RENTAL INFORMATION:" HorizontalAlignment="Left" Height="35" Margin="9,230,0,0" VerticalAlignment="Top" Width="243" FontWeight="Bold" FontSize="20"/>
+                            <Label Content="RENTAL INFORMATION:" HorizontalAlignment="Left" Height="35" Margin="9,230,0,0" VerticalAlignment="Top" Width="243" FontWeight="Bold" FontSize="20" Foreground="#F44336"/>
                             <TextBox x:Name="tb_room_name" FontSize="14" IsReadOnly="True"
                                 materialDesign:HintAssist.Hint="Room Name"  Foreground="Black"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -221,15 +249,15 @@
                             <TextBox x:Name="tb_Deposits" FontSize="14" IsReadOnly="True"
                                 materialDesign:HintAssist.Hint="Deposits"  Foreground="Black"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                VerticalAlignment="Top" Margin="192,486,-0.4,0" Height="38" HorizontalAlignment="Left" Width="199"
+                                VerticalAlignment="Top" Margin="192,486,10,0" Height="38" HorizontalAlignment="Left" Width="199"
                                      Text="{Binding TienCoc}"/>
                             <TextBox x:Name="tb_total" FontSize="18" FontWeight="Bold" IsReadOnly="True"
                                 materialDesign:HintAssist.Hint=""  Foreground="Black"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Top" Margin="192,515,10,0" Height="50" 
                                      Text="{Binding TongTien}"/>
-                            <Label Content="TOTAL:" HorizontalAlignment="Left" Height="33" Margin="110,532,0,0" VerticalAlignment="Top" Width="77" FontWeight="Bold" FontSize="20"/>
-                            <Label Content="CLIENT INFORMATION:" HorizontalAlignment="Left" Height="33" Margin="9,85,0,0" VerticalAlignment="Top" Width="243" FontWeight="Bold" FontSize="20"/>
+                            <Label Content="TOTAL:" HorizontalAlignment="Left" Height="33" Margin="110,532,0,0" VerticalAlignment="Top" Width="77" FontWeight="Bold" FontSize="20" Foreground="#F44336"/>
+                            <Label Content="CLIENT INFORMATION:" HorizontalAlignment="Left" Height="33" Margin="9,85,0,0" VerticalAlignment="Top" Width="243" FontWeight="Bold" FontSize="20" Foreground="#F44336"/>
                             <TextBox x:Name="tb_bill_id" FontSize="14" IsReadOnly="True"
                                 materialDesign:HintAssist.Hint="Bill ID"  Foreground="Black"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
