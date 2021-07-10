@@ -161,9 +161,9 @@ namespace HotelManagement.MVVM.ViewModel
 
             /// <summary>
             /// ChangePasswordCommand have 3 parameter (object[])
-            /// 0 => <include file='ProfileView.xaml' path='[@ElementName="txtPassword"]'/>
-            /// 1 => <include file='ProfileView.xaml' path='[@ElementName="txtNewPassword"]'/>
-            /// 2 => <include file='ProfileView.xaml' path='[@ElementName="txtConfirmPassword"]'/>
+            /// 0 => <include file='ProfileView.xaml' path='[@ElementName="txtPassword"]' type='PasswordBox'/>
+            /// 1 => <include file='ProfileView.xaml' path='[@ElementName="txtNewPassword"]' type='PasswordBox'/>
+            /// 2 => <include file='ProfileView.xaml' path='[@ElementName="txtConfirmPassword"]' type='PasswordBox'/>
             /// </summary>
             ChangePasswordCommand = new RelayCommand<object[]>((p) =>
             {

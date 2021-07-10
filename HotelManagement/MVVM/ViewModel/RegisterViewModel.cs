@@ -182,10 +182,10 @@ namespace HotelManagement.MVVM.ViewModel
 
         /// <summary>
         /// ChangePasswordCommand have 4 parameter (object[])
-        /// 0 => <include file='RegisterWindow.xaml' path='[@ElementName="registerWindow"]'/>
-        /// 1 => <include file='RegisterWindow.xaml' path='[@ElementName="txtUsername"]'/>
-        /// 2 => <include file='RegisterWindow.xaml' path='[@ElementName="txtPassword"]'/>
-        /// 3 => <include file='RegisterWindow.xaml' path='[@ElementName="txtConfirmPassword"]'/>
+        /// 0 => <include file='RegisterWindow.xaml' path='[@ElementName="registerWindow"]' type='Window'/>
+        /// 1 => <include file='RegisterWindow.xaml' path='[@ElementName="txtUsername"]' type='TextBox'/>
+        /// 2 => <include file='RegisterWindow.xaml' path='[@ElementName="txtPassword"]' type='PasswordBox'/>
+        /// 3 => <include file='RegisterWindow.xaml' path='[@ElementName="txtConfirmPassword"]' type='PasswordBox'/>
         /// </summary>
         void Register(object[] p)
         {
