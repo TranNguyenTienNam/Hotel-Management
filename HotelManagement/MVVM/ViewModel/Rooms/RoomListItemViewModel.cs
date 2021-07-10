@@ -46,7 +46,7 @@ namespace HotelManagement.MVVM.ViewModel
         {
             EditRoomCommand = new RelayCommand<object>((p) =>
             {
-                return checkRoomFree();
+                return RoomExistInBooking();
             }, (p) => 
             {  
 
@@ -55,7 +55,7 @@ namespace HotelManagement.MVVM.ViewModel
 
             RemoveRoomCommand = new RelayCommand<object>((p) =>
             {
-                return checkRoomFree();
+                return RoomExistInBooking();
             }, (p) =>
             {
                 removeRoom();
@@ -63,9 +63,10 @@ namespace HotelManagement.MVVM.ViewModel
             });
         }
 
-        bool checkRoomFree()
+        bool RoomExistInBooking()
         {
-            return true;
+            RoomListModel model = new RoomListModel();
+            return !model.RoomExistInBooking(MaPhong);
         }
 
         void showEditRoomView()

@@ -7,6 +7,7 @@
         xmlns:viewModel="clr-namespace:HotelManagement.MVVM.ViewModel"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:HotelManagement"
+        xmlns:core="clr-namespace:HotelManagement.Core"
         Name="registerWindow"
         mc:Ignorable="d"
         Height="450" Width="800"
@@ -47,14 +48,14 @@
             </StackPanel>
 
             <StackPanel Width="350">
-                <StackPanel Margin="20,40,20,40">
+                <StackPanel Margin="20,20,20,40">
                     <TextBlock 
                         Text="User Register"
                         Margin="8"
                         Foreground="White"
                         TextAlignment="Center"
                         FontSize="38"/>
-
+                    <TextBlock Text="{Binding RegisterErrorMessage}" HorizontalAlignment="Center" FontSize="10" Foreground="Red"/>
                     <StackPanel 
                         Orientation="Horizontal"
                         Margin="10">
@@ -66,9 +67,11 @@
 
                         <TextBox
                             x:Name="txtFirstName"
-                            Text="{Binding Ho}"
+                            Text="{Binding FirstName}"
                             Margin="10,0,10,0"
+                            MaxLength="30"
                             materialDesign:HintAssist.Hint="First name"
+                            materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                             Foreground="White"
                             Width="110"
                             BorderBrush="White"
@@ -77,9 +80,11 @@
 
                         <TextBox
                             x:Name="txtLastName"
-                            Text="{Binding Ten}"
+                            Text="{Binding LastName}"
                             Margin="20,0,0,0"
                             materialDesign:HintAssist.Hint="Last name"
+                            MaxLength="30"
+                            materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                             Foreground="White"
                             Width="110"
                             BorderBrush="White"
@@ -102,6 +107,8 @@
                                 Text="{Binding Username}"
                                 Margin="10,0,10,0"
                                 materialDesign:HintAssist.Hint="Username"
+                                MaxLength="30"
+                                materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                 Foreground="White"
                                 Width="250"
                                 BorderBrush="White"
@@ -132,6 +139,8 @@
                                 x:Name="txtPassword"
                                 Margin="10,0,0,0"
                                 materialDesign:HintAssist.Hint="Password"
+                                MaxLength="30"
+                                materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                 Foreground="White"
                                 Width="250"
                                 BorderBrush="White"
@@ -161,7 +170,9 @@
                             <PasswordBox
                                 x:Name="txtConfirmPassword"
                                 Margin="10,0,0,0"
-                                materialDesign:HintAssist.Hint="Confirm"
+                                materialDesign:HintAssist.Hint="Confirm Password"
+                                MaxLength="30"
+                                materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                 Foreground="White"
                                 Width="250"
                                 BorderBrush="White"
@@ -192,6 +203,8 @@
                                 Text="{Binding Email}"
                                 Margin="10,0,10,0"
                                 materialDesign:HintAssist.Hint="Enter your email"
+                                MaxLength="100"
+                                materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                 Foreground="White"
                                 Width="250"
                                 BorderBrush="White"
@@ -215,8 +228,6 @@
                         <Button
                             x:Name="btnFinish"
                             Command="{Binding FinishCommand}"
-                            CommandParameter="{Binding ElementName=registerWindow}"
-                            
                             Margin="0,0,10,0"
                             Width="100"
                             Height="40"
@@ -227,8 +238,22 @@
                             Background="#FFFE8704"
                             Foreground="White"
                             ToolTip="Finish"
-                            Content="Finish"/>
-
+                            Content="Finish">
+                            <Button.Resources>
+                                <core:PassThroughConverter x:Key="passThroughConverter"/>
+                            </Button.Resources>
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource passThroughConverter}">
+                                    <MultiBinding.Bindings>
+                                        <Binding ElementName="registerWindow"/>
+                                        <Binding ElementName="txtUsername"/>
+                                        <Binding ElementName="txtPassword"/>
+                                        <Binding ElementName="txtConfirmPassword"/>
+                                    </MultiBinding.Bindings>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                            
                         <Button
                             x:Name="btnCancel"
                             Command="{Binding CancelCommand}"

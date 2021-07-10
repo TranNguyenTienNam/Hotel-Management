@@ -104,6 +104,7 @@
     <Compile Include="Core\DelegateCommand.cs" />
     <Compile Include="Core\EventSystem.cs" />
     <Compile Include="Core\Message.cs" />
+    <Compile Include="Core\PassThroughConverter.cs" />
     <Compile Include="MVVM\Model\BookingListModel.cs" />
     <Compile Include="MVVM\Model\BookingRoomModel.cs" />
     <Compile Include="MVVM\Model\Dashboard\AORCardModel.cs" />
@@ -117,10 +118,15 @@
     <Compile Include="MVVM\Model\Dashboard\PieChartModel.cs" />
     <Compile Include="MVVM\Model\Dashboard\RevenueCardModel.cs" />
     <Compile Include="MVVM\Model\Dashboard\RevenueModel.cs" />
+    <Compile Include="MVVM\Model\CheckOut\BillsModel.cs" />
+    <Compile Include="MVVM\Model\CheckOut\CheckOutModel.cs" />
+    <Compile Include="MVVM\Model\CheckOut\SurchargeModel.cs" />
     <Compile Include="MVVM\Model\LoginModel.cs" />
+    <Compile Include="MVVM\Model\MainModel.cs" />
     <Compile Include="MVVM\Model\Process.cs" />
     <Compile Include="MVVM\Model\Dashboard\TodayCardModel.cs" />
     <Compile Include="MVVM\Model\Dashboard\TodayModel.cs" />
+    <Compile Include="MVVM\Model\Profile\ProfileModel.cs" />
     <Compile Include="MVVM\Model\RegisterModel.cs" />
     <Compile Include="MVVM\Model\Rooms\RoomListModel.cs" />
     <Compile Include="MVVM\Model\Rooms\RoomsModel.cs" />
@@ -130,7 +136,17 @@
     <Compile Include="MVVM\ViewModel\BookingListViewModel.cs" />
     <Compile Include="MVVM\ViewModel\BookingViewModel.cs" />
     <Compile Include="MVVM\ViewModel\BookRoomItemViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Booking\BookingItemViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Booking\BookingListViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Booking\NewBookingViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Booking\BookRoomItemViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\CheckOutViewModels\BillsViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\CheckOutViewModels\CheckOutItemViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\CheckOutViewModels\CheckOutViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\CheckOutViewModels\SurchargeItemViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\CheckOutViewModels\SurchargeViewModel.cs" />
     <Compile Include="MVVM\ViewModel\LoginViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Profile\ProfileViewModel.cs" />
     <Compile Include="MVVM\ViewModel\RegisterViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\EditRoomViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\ListTypeItemViewModel.cs" />
@@ -141,6 +157,18 @@
     <Compile Include="MVVM\ViewModel\Rooms\RoomsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\StaffItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\StaffViewModel.cs" />
+    <Compile Include="MVVM\View\Profile\ProfileView.xaml.cs">
+      <DependentUpon>ProfileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\CheckOutViews\BillsView.xaml.cs">
+      <DependentUpon>BillsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\CheckOutViews\CheckOutView.xaml.cs">
+      <DependentUpon>CheckOutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\CheckOutViews\SurchargeView.xaml.cs">
+      <DependentUpon>SurchargeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\Rooms\EditRoomView.xaml.cs">
       <DependentUpon>EditRoomView.xaml</DependentUpon>
     </Compile>
@@ -208,7 +236,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\View\CheckOutViews\BillsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\CheckOutViews\CheckOutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\CheckOutViews\SurchargeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\DashboardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Profile\ProfileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

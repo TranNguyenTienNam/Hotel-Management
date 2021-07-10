@@ -11,18 +11,24 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using HotelManagement.MVVM.View;
+using System.Windows.Controls;
 
 namespace HotelManagement.MVVM.ViewModel
 {
+    /// <summary>
+    /// Interaction logic for RoomsView.xaml
+    /// </summary>
     class RoomsViewModel : ObservableObject
     {
         public static RoomsViewModel Instance => new RoomsViewModel();
+
         private ObservableCollection<roomtype> _roomTypes;
-        public ObservableCollection<roomtype> roomTypes { get { return _roomTypes; } set { _roomTypes = value; OnPropertyChanged(); } }
+        public ObservableCollection<roomtype> RoomTypes { get { return _roomTypes; } set { _roomTypes = value; OnPropertyChanged(); } }
 
         //Combobox Room type:
-        private List<string> _types;
-        public List<string> Types { get { return _types; } set { _types = value; OnPropertyChanged(); } }
+        private int indexOfTypes { get; set; }
+        private ObservableCollection<string> _types;
+        public ObservableCollection<string> Types { get { return _types; } set { _types = value; OnPropertyChanged(); } }
 
         #region Search box element
         //Search
@@ -56,21 +62,22 @@ namespace HotelManagement.MVVM.ViewModel
         private string _maxPeople;
         public string MaxPeople { get { return _maxPeople; } set { _maxPeople = value; OnPropertyChanged(); } }
 
-        private bool _isEnabled;
-        public bool IsEnabled { get { return _isEnabled; } set { _isEnabled = value; OnPropertyChanged(); } }
-
         public ICommand AddRoomCommand { get; set; }
         public ICommand RegulationsCommand { get; set; }
         public ICommand SearchCommand { get; set; }
+        public ICommand RoomTypeSelectionChangedCommand { get; set; }
 
         public RoomsViewModel()
         {
-            LoadRoomTypes();
-            LoadTypes();
+            RoomTypes = new ObservableCollection<roomtype>();
+            Types = new ObservableCollection<string>();
             ItemsSearch = new List<string>();
             ItemsSearch.Add("Room Name");
             ItemsSearch.Add("Room ID");
 
+            LoadRoomTypes();
+            LoadTypes();
+            
             AddRoomCommand = new RelayCommand<object>((o) =>
             {
                 if (string.IsNullOrEmpty(RName) || string.IsNullOrEmpty(Type)
@@ -83,13 +90,13 @@ namespace HotelManagement.MVVM.ViewModel
                 addRoom();
             });
 
-            RegulationsCommand = new RelayCommand<object>((p) =>
+            RegulationsCommand = new RelayCommand<ComboBox>((p) =>
             {
                 //Phan quyen
                 return true;
             }, (p) =>
             {
-                showRegulationView();
+                showRegulationView(p);
             });
 
             SearchCommand = new RelayCommand<object>((p) =>
@@ -103,16 +110,36 @@ namespace HotelManagement.MVVM.ViewModel
                 sendMessageToSearch();
             });
 
+            RoomTypeSelectionChangedCommand = new RelayCommand<ComboBox>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                try
+                {
+                    indexOfTypes = p.SelectedIndex;
+                    if (indexOfTypes >= 0 && indexOfTypes < RoomTypes.Count)
+                    {
+                        Price = RoomTypes[indexOfTypes].DonGia.ToString();
+                        MaxPeople = RoomTypes[indexOfTypes].SoNgToiDa.ToString();
+                    }    
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("RoomsViewModel RoomTypeSelectionChangedCommand\n" + ex.Message);
+                }
+            });
+
             EventSystem.Subscribe<Message>(getMessages);    //Nhận message từ RegulationsViewModel
         }
 
         public void getMessages(Message message)
         {
-            if (message.message == "TypeAdded")
+            if (message.message == "TypeAdded" || message.message.Contains("RemoveType|"))
             {
                 LoadRoomTypes();
                 LoadTypes();
-            }    
+            }
         }
 
         void sendMessageToSearch()
@@ -132,16 +159,11 @@ namespace HotelManagement.MVVM.ViewModel
         void addRoom()
         {
             RoomsModel model = new RoomsModel();
-            int roomTypeID = -1;
-            foreach (roomtype rt in roomTypes)
-            {
-                if (rt.TenLoaiPhong == Type)
-                {
-                    roomTypeID = rt.MaLoaiPhong;
-                    break;
-                }
-            }
-            if (model.Insert_Room(RName, roomTypeID, Notes))
+
+            if (indexOfTypes < 0 && indexOfTypes >= RoomTypes.Count)
+                return;
+
+            if (model.Insert_Room(RName, RoomTypes[indexOfTypes].MaLoaiPhong, Notes))
             {
                 //send message
                 EventSystem.Publish<Message>(new Message { message = "refresh" });
@@ -149,15 +171,21 @@ namespace HotelManagement.MVVM.ViewModel
             }
         }
 
-        void showRegulationView()
+        void showRegulationView(ComboBox p)
         {
+            Types.Clear();
+            p.SelectedItem = null;
+            Price = "";
+            MaxPeople = "";
             RegulationsView wd = new RegulationsView();
             wd.ShowDialog();
         }
 
         void LoadRoomTypes()
         {
-            roomTypes = new ObservableCollection<roomtype>();
+            if (RoomTypes.Count > 0)
+                RoomTypes.Clear();
+            RoomTypes = new ObservableCollection<roomtype>();
 
             DataTable dataTable = new DataTable();
             RoomsModel model = new RoomsModel();
@@ -172,17 +200,18 @@ namespace HotelManagement.MVVM.ViewModel
                     DonGia = (int)row["DonGia"],
                     SoNgToiDa = (int)row["SoNgToiDa"]
                 };
-                roomTypes.Add(obj);
+                RoomTypes.Add(obj);
             }
         }
 
         void LoadTypes()
         {
-            Types = new List<string>();
-
             try
             {
-                foreach (roomtype rt in roomTypes)
+                if (Types.Count > 0)
+                    Types.Clear();
+                Types = new ObservableCollection<string>();
+                foreach (roomtype rt in RoomTypes)
                 {
                     string type = rt.TenLoaiPhong;
                     Types.Add(type);
@@ -190,55 +219,13 @@ namespace HotelManagement.MVVM.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("RoomsViewModel LoadTypes\n" + ex.Message);
             }
         }
 
         private void OnPropertyChanged(string propertyName)
         {
-            switch (propertyName)
-            {
-                case "RName":
-                    {
-                        checkEnabled();
-                    }
-                    break;
-                case "Type":
-                    {
-                        try
-                        {
-                            foreach (roomtype rt in roomTypes)
-                            {
-                                if (Type == rt.TenLoaiPhong)
-                                {
-                                    Price = rt.DonGia.ToString();
-                                    MaxPeople = rt.SoNgToiDa.ToString();
-                                    if (string.IsNullOrEmpty(RName))
-                                        IsEnabled = false;
-                                    else
-                                        IsEnabled = true;
-                                    break;
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-                    }
-                    break;
-                default:
-                    break;
-            }    
-        }
 
-        void checkEnabled()
-        {
-            if (string.IsNullOrEmpty(RName) || string.IsNullOrEmpty(Type)
-                || string.IsNullOrEmpty(Price) || (string.IsNullOrEmpty(MaxPeople)))
-                IsEnabled = false;
-            else
-                IsEnabled = true;
         }
     }
 }

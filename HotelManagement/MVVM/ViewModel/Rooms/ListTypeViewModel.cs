@@ -12,6 +12,9 @@ using System.Windows.Input;
 
 namespace HotelManagement.MVVM.ViewModel
 {
+    /// <summary>
+    /// Interaction logic for ListTypeView.xaml
+    /// </summary>
     class ListTypeViewModel : ObservableObject
     {
         public static ListTypeViewModel Instance => new ListTypeViewModel();

@@ -12,7 +12,7 @@ namespace HotelManagement.MVVM.Model
         public DataTable Load_On()  
         {
             DataTable re;
-            string sql_select = "select *from KHACHHANG k,PHIEUTHUEPHONG p where k.MaKH = p.MaKH";
+            string sql_select = "select *from KHACHHANG k,PHIEUTHUEPHONG p where k.CMND = p.CMND";
             re = Process.createTable(sql_select);
             return re; 
         }

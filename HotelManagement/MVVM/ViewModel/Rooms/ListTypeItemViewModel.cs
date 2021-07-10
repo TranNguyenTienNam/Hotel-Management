@@ -10,6 +10,9 @@ using System.Windows.Input;
 
 namespace HotelManagement.MVVM.ViewModel
 {
+    /// <summary>
+    /// Interaction logic for ListTypeItemView.xaml
+    /// </summary>
     class ListTypeItemViewModel : ObservableObject
     {
         public static ListTypeItemViewModel Instance => new ListTypeItemViewModel();
