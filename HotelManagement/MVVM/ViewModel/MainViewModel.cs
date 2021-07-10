@@ -44,7 +44,7 @@ namespace HotelManagement.MVVM.ViewModel
 
         public DashboardViewModel DashboardVM { get; set; }
 
-        public BookingViewModel BookingsVM { get; set; }
+        public NewBookingViewModel BookingsVM { get; set; }
 
         public RoomsViewModel RoomsVM { get; set; }
 
@@ -68,7 +68,7 @@ namespace HotelManagement.MVVM.ViewModel
         {
             MainModel model = new MainModel();
             DashboardVM = new DashboardViewModel();
-            BookingsVM = new BookingViewModel();
+            BookingsVM = new NewBookingViewModel();
             RoomsVM = new RoomsViewModel();
             CheckOutVM = new CheckOutViewModel();
             
@@ -123,6 +123,7 @@ namespace HotelManagement.MVVM.ViewModel
             }, (o) =>
             {
                 BookingWindows wd = new BookingWindows();
+                
                 wd.ShowDialog();
             });
         }
