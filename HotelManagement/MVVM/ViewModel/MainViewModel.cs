@@ -72,11 +72,12 @@ namespace HotelManagement.MVVM.ViewModel
         {
             MainModel model = new MainModel();
             DashboardVM = new DashboardViewModel();
-            BookingsVM = new NewBookingViewModel();
+            BookingsVM = new NewBookingViewModel(UserId);
             RoomsVM = new RoomsViewModel();
             StaffVM = new StaffViewModel();
             CheckOutVM = new CheckOutViewModel();
             ProfileVM = new ProfileViewModel(UserId);
+
 
             //Chưa phân quyền
             PermissionOfAccount = model.GetPermissionAccount(UserId);
@@ -127,7 +128,7 @@ namespace HotelManagement.MVVM.ViewModel
             }, (o) =>
             {
                 BookingWindows wd = new BookingWindows();
-                
+                wd.DataContext = new NewBookingViewModel(UserId);
                 wd.ShowDialog();
             });
 

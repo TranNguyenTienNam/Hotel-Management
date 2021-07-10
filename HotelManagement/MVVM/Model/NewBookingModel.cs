@@ -27,7 +27,7 @@ namespace HotelManagement.MVVM.Model
             return re;
         }
         
-        public bool UpdateClient(string TenKH, int MaLoaiKhach,
+        public bool Update_Client(string TenKH, int MaLoaiKhach,
                                 string CMND,string SDT, string DiaChi,
                                 string GioiTinh)
         {

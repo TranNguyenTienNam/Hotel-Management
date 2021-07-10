@@ -27,17 +27,12 @@ namespace HotelManagement.MVVM.ViewModel
     /// </summary>
     public class NewBookingViewModel : ObservableObject
     {
-
-        public static NewBookingViewModel Insance => new NewBookingViewModel();
-
-
-
         private ObservableCollection<NewBookingRoomItemViewModel> _items = new ObservableCollection<NewBookingRoomItemViewModel>();
         public ObservableCollection<NewBookingRoomItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged(); } }
 
         #region Declare data
         // CreatorID
-        public int CreatorID = 1000;
+        //public int CreatorID = 1000;
 
         //Checkin and Checkout Date
         public DateTime checkin { get; set; }
@@ -268,7 +263,7 @@ namespace HotelManagement.MVVM.ViewModel
 
 
         //BookingViewModel Method
-        public NewBookingViewModel()
+        public NewBookingViewModel(int UserID)
         {
             NewBookingModel model = new NewBookingModel();
             DateTime today = DateTime.Today;
@@ -357,7 +352,6 @@ namespace HotelManagement.MVVM.ViewModel
                 var value = (object[])p;
                 var cbbGender = (ComboBox)value[0];
                 var cbbNationlity = (ComboBox)value[1];
-
                 ClearWhiteSpace();
                 DataTable data = new DataTable();
                 data = model.CheckInfo(CitizenID);
@@ -371,7 +365,6 @@ namespace HotelManagement.MVVM.ViewModel
                     Gender = (string)row["GioiTinh"];
                     cbbNationlity.SelectedIndex = (int)row["MaLoaiKhach"] - 1;
                 }
-
                 if (Gender == "Male") { cbbGender.SelectedIndex = 0; return; };
                 if (Gender == "Female") cbbGender.SelectedIndex = 1;
                 else { cbbGender.SelectedIndex = 2; }                     
@@ -400,22 +393,24 @@ namespace HotelManagement.MVVM.ViewModel
                     {
                         MessageBox.Show("Client Created", "Notify");
                     };
-                    if (model.Save_Booking(RoomId, CitizenID, now.ToString("yyyy-MM-dd HH:mm:ss"), checkin.ToString("yyyy-MM-dd HH:mm:ss"),
-                    checkout.ToString("yyyy-MM-dd HH:mm:ss"), Amount, Status, CreatorID, Deposit))
+                    if (model.Save_Booking(RoomId, CitizenID, now.ToString("yyyy-MM-dd HH:mm:ss"),
+                        checkin.ToString("yyyy-MM-dd HH:mm:ss"), checkout.ToString("yyyy-MM-dd HH:mm:ss"),
+                        Amount, Status, UserID, Deposit))
                     {
-                        MessageBox.Show("Booking Created", "Notify");
+                        MessageBox.Show("Booking Created","Notify");
                     }
                     RoomId = 0;
                     loadListRoom(checkin,checkout);
                 }
                 catch
                 {
-                    if (model.UpdateClient(Name, _nation, CitizenID, Phone, Address, Gender))
+                    if (model.Update_Client(Name, _nation, CitizenID, Phone, Address, Gender))
                     {
                         MessageBox.Show("Update info suscess", "Notify");
                     };
-                    if (model.Save_Booking(RoomId, CitizenID, now.ToString("yyyy-MM-dd HH:mm:ss"), checkin.ToString("yyyy-MM-dd HH:mm:ss"),
-                    checkout.ToString("yyyy-MM-dd HH:mm:ss"), Amount, Status, CreatorID, Deposit))
+                    if (model.Save_Booking(RoomId, CitizenID, now.ToString("yyyy-MM-dd HH:mm:ss"),
+                        checkin.ToString("yyyy-MM-dd HH:mm:ss"),checkout.ToString("yyyy-MM-dd HH:mm:ss"),
+                        Amount, Status, UserID, Deposit))
                     {
                         MessageBox.Show("Booking Created", "Notify");
                     }
