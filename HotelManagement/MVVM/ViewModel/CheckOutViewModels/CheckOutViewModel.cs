@@ -245,6 +245,7 @@ namespace HotelManagement.MVVM.ViewModel
             TenKH = "";
             GioiTinh = "";
             MaLoaiKhach = 0;
+            TenLoaiKhach = "";
             DiaChi = "";
             CMND = "";
             SoDienThoai = "";

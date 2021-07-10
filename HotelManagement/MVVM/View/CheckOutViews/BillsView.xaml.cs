@@ -35,5 +35,6 @@ namespace HotelManagement.MVVM.View.CheckOutViews
                 this.DragMove();
             }
         }
+
     }
 }
