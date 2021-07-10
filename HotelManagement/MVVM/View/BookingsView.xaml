@@ -113,11 +113,11 @@
                     </Border>
                     <!--ListView-->
                     <Grid Grid.Row="2">
-                        <ListView ItemsSource="{Binding Items}" Padding="0">
+                        <ListView x:Name="lvBooking" ItemsSource="{Binding Items}" Padding="0">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="ID" Width="Auto" DisplayMemberBinding="{Binding MaPhieuThue}" />
-                                    <GridViewColumn Header="Name" Width="130" DisplayMemberBinding="{Binding TenKH}"/>
+                                    <GridViewColumn Header="Client Name" Width="130" DisplayMemberBinding="{Binding TenKH}"/>
                                     <GridViewColumn Header="Phone" Width="90" DisplayMemberBinding="{Binding SoDienThoai}"/>
                                     <GridViewColumn Header="Room ID" Width="Auto" DisplayMemberBinding="{Binding MaPhong}"/>
                                     <GridViewColumn Header="Check-in date" Width="Auto" DisplayMemberBinding="{Binding NgayLapPhieu}"/>
@@ -175,7 +175,12 @@
                                     </Style.Triggers>
                                 </Style>
                             </ListView.ItemContainerStyle>
-
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding ListViewSelectionChangedCommand}"
+                                                           CommandParameter="{Binding ElementName=lvBooking}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                         </ListView>
                     </Grid>
                 </Grid>
@@ -224,12 +229,10 @@
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Center">
                             </TextBox>
-                            <ComboBox Grid.Column="1" Foreground="Red" VerticalAlignment="Center"
+                            <ComboBox Grid.Column="1" Foreground="Red" VerticalAlignment="Center" ItemsSource="{Binding ListNationality}"
                                 Name="cbbNationality" Margin="4,11,0,0" FontSize="13" IsEnabled="{Binding IsEnabled}"
                                     SelectedValue="{Binding Nationality}"
                                 materialDesign:HintAssist.Hint="Nationality:">
-                                <ComboBoxItem Content="Viet Nam" />
-                                <ComboBoxItem Content="Foreign " />
                             </ComboBox>
                         </Grid>
                         <Grid Grid.Row="2" Margin="0,2,0,2">
@@ -249,13 +252,10 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </TextBox>
-                            <ComboBox Grid.Column="1" Foreground="Red" VerticalAlignment="Center"
+                            <ComboBox Grid.Column="1" Foreground="Red" VerticalAlignment="Center" ItemsSource="{Binding ListGender}"
                                 Name="cbbGender" Margin="4,11,0,0" FontSize="13" IsEnabled="{Binding IsEnabled}"
                                       SelectedValue="{Binding Gender}"
                                 materialDesign:HintAssist.Hint="Gender:">
-                                <ComboBoxItem Content="Male" />
-                                <ComboBoxItem Content="Female" />
-                                <ComboBoxItem Content="Other" />
                             </ComboBox>
                         </Grid>
                         <TextBox Grid.Row="4" Name="tbAddress" Foreground="Red" Text="{Binding Address}"
@@ -287,13 +287,13 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <TextBox Grid.Column="0" Name="tbRoomID" Foreground="Red" 
+                            <TextBox Grid.Column="0" Name="tbRoomID" Foreground="Red" Text="{Binding RoomId}"
                                 MaxLength="12" Margin="0,0,4,0" IsReadOnly="True"
                                 materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                 materialDesign:HintAssist.Hint="Room ID:" FontSize="13"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Center"/>
-                            <TextBox Grid.Column="1" Name="tbRoomType" Foreground="Red" 
+                            <TextBox Grid.Column="1" Name="tbRoomType" Foreground="Red" Text="{Binding RoomType}"
                                 MaxLength="12" Margin="4,0,0,0" IsReadOnly="True"
                                 materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                 materialDesign:HintAssist.Hint="Room Type:" FontSize="13"
@@ -305,13 +305,13 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <TextBox Grid.Column="0" Name="tbPrice" Foreground="Red" 
+                            <TextBox Grid.Column="0" Name="tbPrice" Foreground="Red" Text="{Binding Price}"
                                 MaxLength="12" Margin="0,0,4,0" IsReadOnly="True"
                                 materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                 materialDesign:HintAssist.Hint="Price/Day:" FontSize="13"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Center"/>
-                            <TextBox Grid.Column="1" Name="tbDeposit" Foreground="Red" 
+                            <TextBox Grid.Column="1" Name="tbDeposit" Foreground="Red" Text="{Binding Deposit}"
                                 MaxLength="9" Margin="4,0,0,0" IsReadOnly="{Binding IsReadOnly}"
                                 materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                 materialDesign:HintAssist.Hint="Deposit:" FontSize="13"
@@ -329,13 +329,13 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <TextBox Grid.Column="0" Name="tbCreateDate" Foreground="Red" 
-                                MaxLength="12" Margin="0,0,4,0" IsReadOnly="True"
+                            <TextBox Grid.Column="0" Name="tbCreator" Foreground="Red" 
+                                MaxLength="12" IsReadOnly="True" Text="{Binding Creator}"
                                 materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
-                                materialDesign:HintAssist.Hint="Create Date:" FontSize="13"
+                                materialDesign:HintAssist.Hint="Creator:" FontSize="13"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Center"/>
-                            <TextBox Grid.Column="1" Name="tbAmountPeople" Foreground="Red" 
+                            <TextBox Grid.Column="1" Name="tbAmountPeople" Foreground="Red" Text="{Binding AmountPeople}"
                                 MaxLength="9" Margin="4,0,0,0" IsReadOnly="{Binding IsReadOnly}"
                                 materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                 materialDesign:HintAssist.Hint="Amount People:" FontSize="13"
@@ -349,22 +349,22 @@
                             </TextBox>
                         </Grid>
                         <Grid Grid.Row="3" Margin="0,2,0,2">
-                            <TextBox Grid.Column="1" Name="tbCreator" Foreground="Red" 
-                                MaxLength="12" IsReadOnly="True"
+                            <TextBox Name="tbCreateDate" Foreground="Red" Text="{Binding CreateDate}"
+                                MaxLength="12" Margin="0,0,4,0" IsReadOnly="True"
                                 materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
-                                materialDesign:HintAssist.Hint="Creator:" FontSize="13"
+                                materialDesign:HintAssist.Hint="Create Date:" FontSize="13"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Center"/>
                         </Grid>
                         <Grid Grid.Row="4" Margin="0,2,0,2">
-                            <TextBox Name="tbCheckIn" Foreground="Red" IsReadOnly="True"
+                            <TextBox Name="tbCheckIn" Foreground="Red" IsReadOnly="True" Text="{Binding CheckInDate}"
                                 materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                 materialDesign:HintAssist.Hint="Check-in Date:" FontSize="13"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Center"/>
                         </Grid>
                         <Grid Grid.Row="5" Margin="0,2,0,2">
-                            <TextBox Name="tbCheckOut" Foreground="Red" IsReadOnly="True"
+                            <TextBox Name="tbCheckOut" Foreground="Red" IsReadOnly="True" Text="{Binding CheckOutDate}"
                                 materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                 materialDesign:HintAssist.Hint="Check-out Date:" FontSize="13"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
