@@ -12,9 +12,9 @@ using System.Windows.Input;
 
 namespace HotelManagement.MVVM.ViewModel
 {
-    public class BookRoomItemViewModel : ObservableObject
+    public class NewBookingRoomItemViewModel : ObservableObject
     {
-        public static BookRoomItemViewModel Instance => new BookRoomItemViewModel();
+        public static NewBookingRoomItemViewModel Instance => new NewBookingRoomItemViewModel();
 
         private int _maphong;
         public int MaPhong { get { return _maphong; } set { _maphong = value; OnPropertyChanged(); } }

@@ -3,11 +3,10 @@
  *
  * v1.0
  *
- * 2011-11-29
+ * 2021-07-10
  * 
- * Copyright (c) 1994-1999 UIT Team.
+ * Copyright (c) 2020-2021 UIT Team.
  */
-
 
 using System;
 using System.Collections.Generic;
@@ -21,34 +20,36 @@ using System.Text.RegularExpressions;
 using System.Collections.ObjectModel;
 
 
-
 namespace HotelManagement.MVVM.ViewModel
 {
     /// <summary>
     /// BookingViewModel Class dùng để xử lý dữ liệu và các sự kiện ở cửa sở đặt phòng.
     /// </summary>
-    public class BookingViewModel : ObservableObject
+    public class NewBookingViewModel : ObservableObject
     {
 
-        public static BookingViewModel Insance => new BookingViewModel();
+        public static NewBookingViewModel Insance => new NewBookingViewModel();
 
-        
 
-        private ObservableCollection<BookRoomItemViewModel> _items = new ObservableCollection<BookRoomItemViewModel>();
-        public ObservableCollection<BookRoomItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged(); } }
 
-        #region Biến
+        private ObservableCollection<NewBookingRoomItemViewModel> _items = new ObservableCollection<NewBookingRoomItemViewModel>();
+        public ObservableCollection<NewBookingRoomItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged(); } }
+
+        #region Declare data
+        // CreatorID
         public int CreatorID = 1000;
+
+        //Checkin and Checkout Date
+        public DateTime checkin { get; set; }
+        public DateTime checkout { get; set; }
 
         //RoomID
         private int _id;
         public int RoomId { get { return _id; } set { _id = value; OnPropertyChanged(); } }
 
-
         //Phone
         private string _phone;
         public string Phone { get { return _phone; } set { _phone = value; OnPropertyChanged(); } }
-
 
         //Nationaly ( Client Type)
         private string _nation;
@@ -63,26 +64,70 @@ namespace HotelManagement.MVVM.ViewModel
         public string Gender { get { return _gender; } set { _gender = value; OnPropertyChanged(); } }
 
         //Deposit booking
-        private int _deposit;
-        public int Deposit { get { return _deposit; } set { _deposit = value; OnPropertyChanged(); } }
+        private string _deposit;
+        public string Deposit { get { return _deposit; } set { _deposit = value; OnPropertyChanged(); } }
 
         //Client ID
-        private int _citizenID;
-        public int CitizenID { get { return _citizenID; } set { _citizenID = value; OnPropertyChanged(); }   }
-        
+        private string _citizenID;
+        public string CitizenID { get { return _citizenID; } set { _citizenID = value; OnPropertyChanged(); } }
+
         //Address 
         private string _address;
         public string Address { get { return _address; } set { _address = value; OnPropertyChanged(); } }
 
         //Amout People/Room
-        private int _amount;
-        public int Amount { get { return _amount; } set { _amount = value; OnPropertyChanged(); } }
+        private string _amount;
+        public string Amount { get { return _amount; } set { _amount = value; OnPropertyChanged(); } }
 
         // Status Booked/Checkin
         private string _status;
         public string Status { get { return _status; } set { _status = value; OnPropertyChanged(); } }
 
+
+        #region Invalid textblock bottom textbox
+        private string _invalidCheckin;
+        public string InvalidCheckin { get { return _invalidCheckin; } set { _invalidCheckin = value; OnPropertyChanged(); } }
+        
+        private string _invalidCheckout;
+        public string InvalidCheckout { get { return _invalidCheckout; } set { _invalidCheckout = value; OnPropertyChanged(); } }
+
+        private string _invalidRoom;
+        public string InvalidRoom { get { return _invalidRoom; } set { _invalidRoom = value; OnPropertyChanged(); } }
+
+        private string _invalidName;
+        public string InvalidName { get { return _invalidName; } set { _invalidName = value; OnPropertyChanged(); } }
+
+        private string _invalidPhone;
+        public string InvalidPhone { get { return _invalidPhone; } set { _invalidPhone = value; OnPropertyChanged(); } }
+
+        private string _invalidCitizenID;
+        public string InvalidCitizenID { get { return _invalidCitizenID; } set { _invalidCitizenID = value; OnPropertyChanged(); } } 
+
+        private string _checkCitizent;
+        public string CheckCitizent { get { return _checkCitizent; } set { _checkCitizent = value; OnPropertyChanged(); } }
+
+        private string _invalidGender;
+        public string InvalidGender { get { return _invalidGender; } set { _invalidGender = value; OnPropertyChanged(); } }
+
+        private string _invalidAddress;
+        public string InvalidAddress { get { return _invalidAddress; } set { _invalidAddress = value; OnPropertyChanged(); } }
+
+        private string _invalidNationality;
+        public string InvalidNationality { get { return _invalidNationality; } set { _invalidNationality = value; OnPropertyChanged(); } }
+
+        private string _invalidDeposit;
+        public string InvalidDeposit { get { return _invalidDeposit; } set { _invalidDeposit = value; OnPropertyChanged(); } }
+
+        private string _invalidAmount;
+        public string InvalidAmount { get { return _invalidAmount; } set { _invalidAmount = value; OnPropertyChanged(); } }
+
+        private string _invalidStatus;
+        public string InvalidStatus { get { return _invalidStatus; } set { _invalidStatus = value; OnPropertyChanged(); } }
         #endregion
+
+        #endregion
+
+
         // Numberic Textbok funcition 
         public void IsAllowedInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
@@ -90,180 +135,109 @@ namespace HotelManagement.MVVM.ViewModel
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        /// <summary>
-        /// ICommand handle event in View.
-        /// </summary>
-        #region Icommand
-        public ICommand CheckOutDate { get; set; }
-        public ICommand CheckInDate { get; set; }
-        public ICommand SelectedChangedCommand { get; set; }
-        public ICommand HandleBooking { get; set; }
-        public ICommand HandleCheck { get; set; }
-        public ICommand GenderChanged { get; set; }
-        public ICommand StatusChanged { get; set; }
-        public ICommand NationalityChanged { get; set; }
-        public ICommand HandleOnlyNumber { get; set; }
-        #endregion
-        //Checkin and Checkout Date
-        public DateTime checkin { get; set; }
-        public DateTime checkout { get; set; }
-
-        //BookingView Method
-        public BookingViewModel()
+        //Funcition check valid client info
+        public bool IsValidInfo()
         {
-            DateTime today = DateTime.Today;
-            DateTime tomorow = DateTime.Today.AddDays(+1);
-            loadListRoom(today,tomorow);
-
-            #region Handle
-            GenderChanged = new RelayCommand<ComboBox>((p) =>
+             int i=0;
+            if (string.IsNullOrEmpty(Name)) { InvalidName = "Please enter deposit!"; i++; }
+            else
             {
-                return true;
-            }, (p) =>
+                InvalidName = "";
+            }
+
+            if (string.IsNullOrEmpty(CitizenID)){ InvalidCitizenID = "Please enter citizen Id!"; i++;  }
+            else
             {
-                var item = (ComboBoxItem)p.SelectedValue;
-                var content = (string)item.Content;
-                Gender = content;
-            });
+                InvalidCitizenID = "";
+            }
 
-
-            StatusChanged = new RelayCommand<ComboBox>((p) =>
+            if (string.IsNullOrEmpty(Phone)) { InvalidPhone = "Please enter phone number! "; i++;  }
+            else
             {
-                return true;
-            }, (p) =>
+                InvalidPhone = "";
+            }
+
+            if (string.IsNullOrEmpty(Gender)) { InvalidGender = "Please choose gender!"; i++;  }
+            else
             {
-                var item = (ComboBoxItem)p.SelectedValue;
-                var content = (string)item.Content;
-                Status = content;
-            });
+                InvalidGender = "";
+            }
 
-
-            NationalityChanged = new RelayCommand<ComboBox>((p) =>
+            if (string.IsNullOrEmpty(Nation)) { InvalidNationality = "Please choose nationality!"; i++;  }
+            else
             {
-                return true;
-            }, (p) =>
+                InvalidNationality = "";
+            }
+
+            if (string.IsNullOrEmpty(Deposit)) { InvalidDeposit = "Please enter deposit!"; i++;  }
+            else
             {
-                var item = (ComboBoxItem)p.SelectedValue;
-                var content = (string)item.Content;
-                Nation = content;
-            });
+                InvalidDeposit = "";
+            }
 
-
-            CheckOutDate = new RelayCommand<DatePicker>((p) =>
+            if (string.IsNullOrEmpty(Amount)) { InvalidAmount = "Please enter the amount!"; i++; }
+            else
             {
-                return true;
-            }, (p) =>
+                InvalidAmount = "";
+            }
+            
+            if (string.IsNullOrEmpty(Status)) { InvalidStatus = "Please choose status!"; i++;  }
+            else
             {
-                RoomId = 0;
-                checkout = p.SelectedDate.Value;               
-                if (checkin.ToString("yyyy-MM-dd HH:mm:ss") != "0001-01-01 00:00:00")
-                     loadListRoom(checkin, checkout);
-            });
+                InvalidStatus = "";
+            }
 
-            CheckInDate = new RelayCommand<DatePicker>((p) =>
-            {
-                return true;
-            }, (p) =>
-            {
-                RoomId = 0;
-                checkin = p.SelectedDate.Value;
-                if (checkout.ToString("yyyy-MM-dd HH:mm:ss") != "0001-01-01 00:00:00") 
-                      loadListRoom(checkin, checkout);
-            });
-
-            SelectedChangedCommand = new RelayCommand<ListView>((p) =>
-            {
-                return !p.Items.IsEmpty;
-
-            }, (p) =>
-            {
-                    var Item = p.SelectedItem as BookRoomItemViewModel;
-                    RoomId = Item.MaPhong;
-
-            });
-            HandleCheck = new RelayCommand<ComboBox>((p) =>
-            {
-                if (CitizenID == 0) return false;
-                return true;
-
-            }, (p) =>
-            {
-                BookingRoomModel model = new BookingRoomModel();
-                DataTable data = new DataTable();
-                data = model.CheckInfo(CitizenID);
-                foreach (DataRow row in data.Rows)
-                {
-                    Name = (string)row["TenKH"];
-                    Phone = (string)row["SoDienThoai"];
-                    Address = (string)row["DiaChi"];
-                }
-
-                p.SelectedIndex = 1;
-
-                
-
-
-            });
-            #endregion
-            HandleBooking = new RelayCommand<object>((p) =>
-            {
-
-                if ((Deposit == 0)||(Amount == 0)||(RoomId == 0)||(CitizenID == 0)||(Convert.ToInt32(Phone) == 0)
-                        || string.IsNullOrEmpty(Gender) || string.IsNullOrEmpty(Address)
-                        || string.IsNullOrEmpty(Nation) || string.IsNullOrEmpty(Name)
-                        || string.IsNullOrEmpty(Status) || checkout.ToString("yyyy-MM-dd HH:mm:ss") == "0001-01-01 00:00:00"
-                        || checkin.ToString("yyyy-MM-dd HH:mm:ss") == "0001-01-01 00:00:00" ) {  
-                    return false;
-                }             
-                return true;
-
-            }, (p) =>
-            {
-                int _nation = 2;
-                if (Nation == "Other") _nation = 1;
-                //MessageBox.Show(checkin,"Nhận phòng");
-                //MessageBox.Show( checkout,"Trả phòng");
-                BookingRoomModel md = new BookingRoomModel();
-                int i = md.Save_Client(Name,_nation, CitizenID, Phone, Address, Gender);
-                if (i != 0)
-                {
-                    MessageBox.Show("Client Created","Notify");
-                };
-
-                DateTime now = DateTime.Now;
-                #region Test
-                //MessageBox.Show(now.ToString("yyyy-MM-dd HH:mm:ss"));
-                //MessageBox.Show(CitizenID.ToString(),"CitizenID:");
-                //MessageBox.Show(Phone.ToString(),"Phone:");
-                //MessageBox.Show(Amount.ToString(),"Amount:");
-                //MessageBox.Show(Deposit.ToString(),"Deposit:");
-                #endregion
-                if (md.Save_Booking(RoomId,i,now.ToString("yyyy-MM-dd HH:mm:ss"),checkin.ToString("yyyy-MM-dd HH:mm:ss"),
-                                    checkout.ToString("yyyy-MM-dd HH:mm:ss"), Amount,Status,CreatorID,Deposit)) 
-                {
-                    MessageBox.Show("Booking Created","Notify");
-                }
-            })
-            {
-
-            };
+            if (i == 0) return true;
+            return false;
         }
 
-
-        //Load table room
-        void loadListRoom(DateTime _checkin, DateTime _checkout )
+        // Handle invalid condition when date pick
+        public void HandleValidDatePick(DateTime _checkin , DateTime _checkout)
         {
-         
+            if (DateTime.Compare(DateTime.Today, _checkin) > 0
+                     && _checkin.ToString("yyyy-MM-dd HH:mm:ss") != "0001-01-01 00:00:00")
+            {
+                InvalidCheckin = "Check-in date must be later than or same today";
+            }
+            else InvalidCheckin = "";
+            if (DateTime.Compare(_checkin, _checkout) > 0
+                    && _checkout.ToString("yyyy-MM-dd HH:mm:ss") != "0001-01-01 00:00:00") 
+            {
+                InvalidCheckout = "Check-out date must be later than or same as check-in and today";
+            }
+            else InvalidCheckout = "";
+
+            if ((_checkout.ToString("yyyy-MM-dd HH:mm:ss") != "0001-01-01 00:00:00") 
+                    && (_checkin.ToString("yyyy-MM-dd HH:mm:ss") != "0001-01-01 00:00:00"))
+                loadListRoom(checkin, checkout);
+            if (!(string.IsNullOrEmpty(InvalidCheckout) &&
+                    string.IsNullOrEmpty(InvalidCheckin)))
+                Items.Clear();
+        }
+
+        //Clear White Space in Numberic
+        public void ClearWhiteSpace()
+        {
+            if (!string.IsNullOrEmpty(CitizenID)) CitizenID = Regex.Replace(CitizenID, @"\s+", "");
+            if(!string.IsNullOrEmpty(Phone)) Phone = Regex.Replace(Phone, @"\s+", "");
+            if (!string.IsNullOrEmpty(Deposit)) Deposit = Regex.Replace(Deposit, @"\s+", "");
+            if (!string.IsNullOrEmpty(Amount)) Amount = Regex.Replace(Amount, @"\s+", "");
+        }
+
+        //Load list room according to check-in date and check-out date
+        public void loadListRoom(DateTime _checkin, DateTime _checkout)
+        {
+
             if (Items.Count > 0)
                 Items.Clear();
-            BookingRoomModel model = new BookingRoomModel();
+            NewBookingModel model = new NewBookingModel();
             DataTable data = new DataTable();
             data = model.Load_On(_checkin.ToString("yyyy-MM-dd HH:mm:ss"),
                                     _checkout.ToString("yyyy-MM-dd HH:mm:ss"));
-                
+
             foreach (DataRow row in data.Rows)
             {
-                var obj = new BookRoomItemViewModel()
+                var obj = new NewBookingRoomItemViewModel()
                 {
                     MaPhong = (int)row["MaPhong"],
                     TenPhong = (string)row["TenPhong"],
@@ -275,6 +249,186 @@ namespace HotelManagement.MVVM.ViewModel
                 Items.Add(obj);
             }
         }
+
+
+
+        //Declare ICommand: handle event in View.
+        #region Icommand
+        public ICommand CheckOutDate { get; set; }
+        public ICommand CheckInDate { get; set; }
+        public ICommand SelectedChangedCommand { get; set; }
+        public ICommand HandleBooking { get; set; }
+        public ICommand HandleCheck { get; set; }
+        public ICommand GenderChanged { get; set; }
+        public ICommand StatusChanged { get; set; }
+        public ICommand NationalityChanged { get; set; }
+        public ICommand CitizentIdTextChange { get; set; }
+
+        #endregion
+
+
+        //BookingViewModel Method
+        public NewBookingViewModel()
+        {
+            NewBookingModel model = new NewBookingModel();
+            DateTime today = DateTime.Today;
+            DateTime tomorow = DateTime.Today.AddDays(+1);
+            loadListRoom(today, tomorow);
+
+            #region Handle
+
+            CitizentIdTextChange = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+             {
+                 CheckCitizent = "";
+             });
+
+            GenderChanged = new RelayCommand<ComboBox>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                var item = (ComboBoxItem)p.SelectedValue;
+                var content = (string)item.Content;
+                Gender = content;
+            });
+
+            StatusChanged = new RelayCommand<ComboBox>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                var item = (ComboBoxItem)p.SelectedValue;
+                var content = (string)item.Content;
+                Status = content;
+            });
+
+            NationalityChanged = new RelayCommand<ComboBox>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                var item = (ComboBoxItem)p.SelectedValue;
+                var content = (string)item.Content;
+                Nation = content;
+            });
+
+            CheckOutDate = new RelayCommand<DatePicker>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                RoomId = 0;
+                checkout = p.SelectedDate.Value;
+                HandleValidDatePick(checkin, checkout);
+            });
+
+            CheckInDate = new RelayCommand<DatePicker>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                RoomId = 0;
+                checkin = p.SelectedDate.Value;
+                HandleValidDatePick(checkin, checkout);
+            });
+
+            SelectedChangedCommand = new RelayCommand<ListView>((p) =>
+            {
+                return !p.Items.IsEmpty;
+
+            }, (p) =>
+            {
+                var Item = p.SelectedItem as NewBookingRoomItemViewModel;
+                RoomId = Item.MaPhong;
+
+            });
+
+            HandleCheck = new RelayCommand<object[]>((p) =>
+            {
+                if (string.IsNullOrEmpty(CitizenID) 
+                     || CheckCitizent == "✔️") return false;
+                return true;
+
+            }, (p) =>
+            {
+                var value = (object[])p;
+                var cbbGender = (ComboBox)value[0];
+                var cbbNationlity = (ComboBox)value[1];
+
+                ClearWhiteSpace();
+                DataTable data = new DataTable();
+                data = model.CheckInfo(CitizenID);
+                if (data.Rows.Count == 0) { return; }
+                else { CheckCitizent = "✔️"; } ;
+                foreach (DataRow row in data.Rows)
+                {
+                    Name = (string)row["TenKH"];
+                    Phone = (string)row["SoDienThoai"];
+                    Address = (string)row["DiaChi"];
+                    Gender = (string)row["GioiTinh"];
+                    cbbNationlity.SelectedIndex = (int)row["MaLoaiKhach"] - 1;
+                }
+
+                if (Gender == "Male") { cbbGender.SelectedIndex = 0; return; };
+                if (Gender == "Female") cbbGender.SelectedIndex = 1;
+                else { cbbGender.SelectedIndex = 2; }                     
+            });
+
+            HandleBooking = new RelayCommand<object>((p) =>
+            {
+                if (checkout.ToString("yyyy-MM-dd HH:mm:ss") == "0001-01-01 00:00:00" || (RoomId == 0)
+                        || checkin.ToString("yyyy-MM-dd HH:mm:ss") == "0001-01-01 00:00:00" )
+                {
+                    return false;
+                }
+                return true;
+            }, (p) =>
+            {
+                ClearWhiteSpace();
+                if (!IsValidInfo()) { 
+                    return; 
+                };
+                int _nation = 2;
+                if (Nation == "Other") _nation = 1;
+                DateTime now = DateTime.Now;
+                try
+                {
+                    if (model.Save_Client(Name, _nation, CitizenID, Phone, Address, Gender))
+                    {
+                        MessageBox.Show("Client Created", "Notify");
+                    };
+                    if (model.Save_Booking(RoomId, CitizenID, now.ToString("yyyy-MM-dd HH:mm:ss"), checkin.ToString("yyyy-MM-dd HH:mm:ss"),
+                    checkout.ToString("yyyy-MM-dd HH:mm:ss"), Amount, Status, CreatorID, Deposit))
+                    {
+                        MessageBox.Show("Booking Created", "Notify");
+                    }
+                    RoomId = 0;
+                    loadListRoom(checkin,checkout);
+                }
+                catch
+                {
+                    if (model.UpdateClient(Name, _nation, CitizenID, Phone, Address, Gender))
+                    {
+                        MessageBox.Show("Update info suscess", "Notify");
+                    };
+                    if (model.Save_Booking(RoomId, CitizenID, now.ToString("yyyy-MM-dd HH:mm:ss"), checkin.ToString("yyyy-MM-dd HH:mm:ss"),
+                    checkout.ToString("yyyy-MM-dd HH:mm:ss"), Amount, Status, CreatorID, Deposit))
+                    {
+                        MessageBox.Show("Booking Created", "Notify");
+                    }
+                    RoomId = 0;
+                    loadListRoom(checkin, checkout);
+                }
+            });
+ 
+        }
+
+        #endregion
+
+        //Load table room
     }
 }
 
