@@ -121,15 +121,16 @@
                             BorderThickness="0"
                             Background="#F44336"
                             Foreground="White"
-                            ToolTip="Bill management"  >
+                            ToolTip="Receipt management"  >
                             <Grid Width="auto">
                                 <TextBlock 
                                     FontSize="18"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Bottom"
-                                    Text="Bills" Margin="0,0,0,0"/>
+                                    Text="Receipt" Margin="0,0,0,0"/>
                             </Grid>
                         </Button>
+
                         <Button
                             x:Name="btnEditSurcharge"
                             Margin="4,10"
@@ -151,10 +152,30 @@
                             </Grid>
                         </Button>
                         <Button
-                            x:Name="btnCheckOut"
-                            Margin="4,10"
+                            x:Name="btnExportBill"
+                            Margin="10,10"
                             Height="38"
-                            Width="165"
+                            Width="110"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Command="{Binding ExportBillCommand}"
+                            materialDesign:ButtonAssist.CornerRadius="10"
+                            BorderThickness="0"
+                            Background="#F44336"
+                            Foreground="White"
+                            ToolTip="Export bill"  >
+                            <Grid Width="auto">
+                                <TextBlock 
+                                    FontSize="18"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Bottom"
+                                    Text="Export bill" Margin="-4,0,-5.2,-0.4" Width="86"/>
+                            </Grid>
+                        </Button>
+                        <Button
+                            x:Name="btnCheckOut"
+                            Margin="4,10,4,9.6"
+                            Height="38"
+                            Width="106"
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             Command="{Binding CheckOutCommand}"
                             materialDesign:ButtonAssist.CornerRadius="10"
@@ -167,7 +188,7 @@
                                     FontSize="18"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Bottom"
-                                    Text="Check-out Now" Margin="0,0,0,0"/>
+                                    Text="Check-out" Margin="-6,0,-9.4,-0.4" Width="89"/>
                             </Grid>
                         </Button>
                     </StackPanel>

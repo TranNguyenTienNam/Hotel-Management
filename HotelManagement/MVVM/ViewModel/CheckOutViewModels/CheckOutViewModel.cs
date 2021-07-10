@@ -110,26 +110,35 @@ namespace HotelManagement.MVVM.ViewModel
         public ICommand RefreshCommand { get; set; }
         public ICommand SelectRowCommand { get; set; }
         public ICommand PickCheckOutDateCommand { get; set; }
+        public ICommand ExportBillCommand { get; set; }
 
         public CheckOutViewModel()
         {
             Items = new ObservableCollection<CheckOutItemViewModel>();
             LoadListRent();
 
-            CheckOutCommand = new RelayCommand<object>((p) =>
+            ExportBillCommand = new RelayCommand<object>((p) =>
             {
-                if (string.IsNullOrEmpty(CMND)) return false;
-                return true;
+                return !string.IsNullOrEmpty(CMND);
             }, (p) =>
             {
-                string message = "Tao hỏi mày lần cuối, có check-out hay không ?";
-                string title = "Đây không phải lời đe dọa nhé !";
+                ExportBill exportBill = new ExportBill();
+                exportBill.ShowDialog();
+            });
+
+            CheckOutCommand = new RelayCommand<object>((p) =>
+            {
+                return !string.IsNullOrEmpty(CMND);
+            }, (p) =>
+            {
+                string message = "Are you sure to check-out now ?";
+                string title = "Carefully!";
                 MessageBoxButtons buttons = MessageBoxButtons.YesNo;
                 DialogResult result = System.Windows.Forms.MessageBox.Show(message, title, buttons);
                 if(result == DialogResult.Yes)
                 {
                     Checkout();
-                    MessageBox.Show("Check out successful!");
+                    MessageBox.Show("Check-out successful!");
                     Items.Clear();
                     LoadListRent();
                     ClearInfo();
@@ -173,21 +182,15 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                try
+                if (SearchText == "") 
                 {
-                    if (SearchText == "") 
-                    {
-                        Items.Clear();
-                        ClearInfo();
-                        LoadListRent(); 
-                    }else
-                    {
-                        LoadSearchRoomName();
-                        ClearInfo();
-                    }
-                }catch (Exception ex)
+                    Items.Clear();
+                    ClearInfo();
+                    LoadListRent(); 
+                }else
                 {
-                    MessageBox.Show(ex.Message);
+                    LoadSearchRoomName();
+                    ClearInfo();
                 }
             });
 

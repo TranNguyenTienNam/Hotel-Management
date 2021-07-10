@@ -153,6 +153,9 @@
     <Compile Include="MVVM\View\CheckOutViews\CheckOutView.xaml.cs">
       <DependentUpon>CheckOutView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\View\CheckOutViews\ExportBill.xaml.cs">
+      <DependentUpon>ExportBill.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\CheckOutViews\SurchargeView.xaml.cs">
       <DependentUpon>SurchargeView.xaml</DependentUpon>
     </Compile>
@@ -222,6 +225,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\CheckOutViews\CheckOutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\CheckOutViews\ExportBill.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

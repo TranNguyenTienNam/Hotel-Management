@@ -146,22 +146,15 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                try
+                if (SearchText == "")
                 {
-                    if (SearchText == "")
-                    {
-                        Items.Clear();
-                        ClearInfo();
-                        LoadListBills();
-                    }
-                    else
-                    {
-                        LoadSearchByCMND();
-                    }
+                    Items.Clear();
+                    ClearInfo();
+                    LoadListBills();
                 }
-                catch (Exception ex)
+                else
                 {
-                    System.Windows.MessageBox.Show(ex.Message);
+                    LoadSearchByCMND();
                 }
             });
 
@@ -171,8 +164,8 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                string message = "Tao hỏi mày lần cuối, mày muốn xóa hóa đơn này thật à ?";
-                string title = "Đây không phải lời đe dọa nhé !";
+                string message = "Are you sure to delete this receipt ?";
+                string title = "Carefully!";
                 MessageBoxButtons buttons = MessageBoxButtons.YesNo;
                 DialogResult result = System.Windows.Forms.MessageBox.Show(message, title, buttons);
                 if (result == DialogResult.Yes)
