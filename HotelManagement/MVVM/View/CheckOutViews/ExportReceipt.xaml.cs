@@ -15,26 +15,30 @@ using System.Windows.Shapes;
 namespace HotelManagement.MVVM.View.CheckOutViews
 {
     /// <summary>
-    /// Interaction logic for SearchBill.xaml
+    /// Interaction logic for ExportReceipt.xaml
     /// </summary>
-    public partial class BillsView : Window
+    public partial class ExportReceipt : Window
     {
-        public BillsView()
+        public ExportReceipt()
         {
             InitializeComponent();
         }
 
-        private void btnExit_Click(object sender, RoutedEventArgs e)
+        private void btnPrint_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
-        }
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
+            try
             {
-                this.DragMove();
+                this.IsEnabled = false;
+                PrintDialog printDialog = new PrintDialog();
+                if (printDialog.ShowDialog() == true)
+                {
+                    printDialog.PrintVisual(receipt, "Receipt");
+                }
+            }
+            finally
+            {
+                this.IsEnabled = true;
             }
         }
-
     }
 }

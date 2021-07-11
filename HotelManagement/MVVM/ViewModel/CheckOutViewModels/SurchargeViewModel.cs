@@ -1,23 +1,16 @@
 ﻿using HotelManagement.Core;
-using HotelManagement.MVVM.Model;
 using HotelManagement.MVVM.Model.CheckOut;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace HotelManagement.MVVM.ViewModel.CheckOutViewModels
+namespace HotelManagement.MVVM.ViewModel
 {
     class SurchargeViewModel : ObservableObject
     {
         public static SurchargeViewModel Instance => new SurchargeViewModel();
-        private ObservableCollection<SurchargeItemViewModel> _items;
-        public ObservableCollection<SurchargeItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged("Items"); } }
+
+        private int _khachThu3;
+        public int KhachThu3 { get { return _khachThu3; } set { _khachThu3 = value; OnPropertyChanged(); } }
 
         public ICommand UpdateSrcharge { get; set; }
 
@@ -25,26 +18,32 @@ namespace HotelManagement.MVVM.ViewModel.CheckOutViewModels
         {
             LoadSurcharge();
 
-        }
-
-        void LoadSurcharge()
-        {
-            Items = new ObservableCollection<SurchargeItemViewModel>();
-            DataTable data = new DataTable();
-            SurchargeModel model = new SurchargeModel();
-
-            data = model.load_surcharge();
-
-            foreach (DataRow row in data.Rows)
+            UpdateSrcharge = new RelayCommand<object>((p) =>
             {
-                var obj = new SurchargeItemViewModel()
-                {
-                    KhachThu3 = (int)row["KhachThu3"],
-                    KhachNuocNgoai = (int)row["KhachNuocNgoai"]
-                };
-                Items.Add(obj);
-            }
+                return true;
+            }, (p) =>
+            {
+                Update(KhachThu3);
+            });
         }
 
+        private void Update(int khachThu3)
+        {
+            if (khachThu3 < 0)
+            {
+                MessageBox.Show("Phụ thu không được nhỏ hơn 0!");
+                LoadSurcharge();
+                return;
+            }
+            SurchargeModel model = new SurchargeModel();
+            model.Update_surcharge(khachThu3);
+            MessageBox.Show("Update successful!");
+        }
+
+        private void LoadSurcharge()
+        {
+            SurchargeModel model = new SurchargeModel();
+            KhachThu3 = model.Get_surcharge_more_client();
+        }
     }
 }
