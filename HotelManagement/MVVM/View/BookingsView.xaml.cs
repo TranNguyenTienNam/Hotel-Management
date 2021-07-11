@@ -25,27 +25,6 @@ namespace HotelManagement.MVVM.View
         public BookingsView()
         {
             InitializeComponent();
-            //DataContext = new BookingListViewModel();
-        }
-
-        private void searchRoom_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void tb_unit_price_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void tb_Deposits_Copy_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }

@@ -23,7 +23,7 @@
                 <view:DashboardView/>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type viewModel:NewBookingViewModel}">
+            <DataTemplate DataType="{x:Type viewModel:BookingViewModel}">
                 <view:BookingsView/>
             </DataTemplate>
 

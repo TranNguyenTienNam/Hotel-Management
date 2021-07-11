@@ -5,167 +5,406 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HotelManagement.MVVM.View"
              xmlns:viewModel="clr-namespace:HotelManagement.MVVM.ViewModel"
+             xmlns:core="clr-namespace:HotelManagement.Core"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Width="930" Height="615">
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             d:DesignHeight="600" d:DesignWidth="800">
 
-    <StackPanel Background="White" Orientation="Horizontal">
-        <StackPanel Width="643">
-            <StackPanel  Width="620" Height="614">
-                <Grid Height="100">
-                    <Grid Margin="0,54,0,0">
-                        <Grid.Background>
-                            <ImageBrush ImageSource="/HotelManagement;component/Images/Background.PNG"/>
-                        </Grid.Background>
+    <UserControl.Resources>
+        <core:PassThroughConverter x:Key="passThroughConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="290"/>
+        </Grid.ColumnDefinitions>
+        <!--Show Data-->
+        <Border Grid.Column="0" Background="Transparent" Visibility="{Binding Visibility}">
+            <Border Background="White" CornerRadius="12" HorizontalAlignment="Stretch" Margin="4">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!--title and mode-->
+                    <Grid Grid.Row="0" Margin="10">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50"/>
-                            <ColumnDefinition Width="57*"/>
-                            <ColumnDefinition Width="575*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="/Images/search.png" Width="25" Stretch="Uniform" Margin="12,0"/>
-                        <TextBlock Grid.Column="1" Margin="3,14,0,13" Text="Search retal..." FontWeight="Bold" VerticalAlignment="Center" Foreground="LightGray" Grid.ColumnSpan="2">
-                            <TextBlock.Style>
-                                <Style TargetType="{x:Type TextBlock}">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                    Text="Create A New Room" Margin="8" FontSize="22" FontWeight="Bold" Foreground="#F44336" />
+                        <Grid Grid.Column="1" HorizontalAlignment="Right">
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,10,0">
+                                <TextBlock Margin="5" Text="Check-in" FontWeight="Bold" VerticalAlignment="Center" Foreground="#F44336" FontSize="14"/>
+                                <ToggleButton VerticalAlignment="Center" x:Name="tgbtMode"
+                                    Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                    ToolTip="Change mode">
+                                    <materialDesign:PackIcon
+                                    Kind="CheckBold">
+                                    </materialDesign:PackIcon>
+                                    <materialDesign:ToggleButtonAssist.OnContent>
+                                        <materialDesign:PackIcon Kind="Pencil" />
+                                    </materialDesign:ToggleButtonAssist.OnContent>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click">
+                                            <i:InvokeCommandAction Command="{Binding ToggleButtonClickCommand}">
+                                                <i:InvokeCommandAction.CommandParameter>
+                                                    <MultiBinding Converter="{StaticResource passThroughConverter}">
+                                                        <MultiBinding.Bindings>
+                                                            <Binding ElementName="tgbtMode"/>
+                                                            <Binding ElementName="cbbGender"/>
+                                                            <Binding ElementName="cbbNationality"/>
+                                                            <Binding ElementName="tbName"/>
+                                                            <Binding ElementName="tbPhone"/>
+                                                            <Binding ElementName="tbAddress"/>
+                                                            <Binding ElementName="tbDeposit"/>
+                                                            <Binding ElementName="tbAmountPeople"/>
+                                                        </MultiBinding.Bindings>
+                                                    </MultiBinding>
+                                                </i:InvokeCommandAction.CommandParameter>
+                                            </i:InvokeCommandAction>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+
+                                </ToggleButton>
+                                <TextBlock Margin="5" Text="Edit" FontWeight="Bold" VerticalAlignment="Center" Foreground="#F44336" FontSize="14"/>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                    <!--Search box-->
+                    <Border Grid.Row="1" Background="Transparent" Visibility="{Binding Visibility}">
+                        <Border Background="White" Height="46" CornerRadius="12" HorizontalAlignment="Stretch" Margin="4">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="48"/>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox Name="cbbSearch" Margin="4"
+                                    FontSize="14" Foreground="#FE8704" Width="150"
+                                    materialDesign:TextFieldAssist.PrefixText="Search: "
+                                    SelectedValue="{Binding ItemSearchSelected}"
+                                    IsEditable="False">
+                                    <ComboBoxItem Content="Rental ID"/>
+                                    <ComboBoxItem Content="Client Name"/>
+                                    <ComboBoxItem Content="Phone"/>
+                                    <ComboBoxItem Content="Room ID"/>
+                                </ComboBox>
+                                <TextBox Grid.Column="1" x:Name="searchRoom" FontSize="14" Margin="2"
+                                         materialDesign:HintAssist.Hint="Type somthing..."
+                                    HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                    BorderThickness="0" Foreground="#F44336" Text="{Binding SearchText}"></TextBox>
+                                <Button Grid.Column="2" Width="42" Height="38" HorizontalAlignment="Right" Padding="0"
+                                    Style="{StaticResource MaterialDesignRaisedButton}" VerticalAlignment="Center"
+                                    Command="{Binding SearchCommand}"
+                                    materialDesign:ButtonAssist.CornerRadius="10"
+                                    ToolTip="Search">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="Magnify" Width="26" Height="26"/>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                        </Border>
+                    </Border>
+                    <!--ListView-->
+                    <Grid Grid.Row="2">
+                        <ListView x:Name="lvBooking" ItemsSource="{Binding Items}" Padding="0">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="ID" Width="Auto" DisplayMemberBinding="{Binding MaPhieuThue}" />
+                                    <GridViewColumn Header="Client Name" Width="130" DisplayMemberBinding="{Binding TenKH}"/>
+                                    <GridViewColumn Header="Phone" Width="90" DisplayMemberBinding="{Binding SoDienThoai}"/>
+                                    <GridViewColumn Header="Room ID" Width="Auto" DisplayMemberBinding="{Binding MaPhong}"/>
+                                    <GridViewColumn Header="Check-in date" Width="Auto" DisplayMemberBinding="{Binding NgayLapPhieu}"/>
+                                    <GridViewColumn Header="Deposit" Width="100" DisplayMemberBinding="{Binding TienCoc}"/>
+                                    <GridView.ColumnHeaderContainerStyle>
+                                        <Style TargetType="GridViewColumnHeader">
+                                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                            <Setter Property="FontWeight" Value="Bold"/>
+                                            <Setter Property="Foreground" Value="#F44336"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate
+                                                        TargetType="GridViewColumnHeader">
+                                                        <Grid>
+                                                            <Border Name="HeaderBorder"
+                                                                BorderThickness="0"
+                                                                BorderBrush="#F44336"
+                                                                Background="White"
+                                                                Padding="2,0,2,0">
+                                                                <ContentPresenter Name="HeaderContent"
+                                                                    TextElement.Foreground="#F44336"
+                                                                    TextElement.FontSize="14"
+                                                                    Margin="2,10,2,10"
+                                                                    VerticalAlignment="{TemplateBinding
+                                                                        VerticalContentAlignment}"
+                                                                    HorizontalAlignment="{TemplateBinding
+                                                                        HorizontalContentAlignment}"
+                                                                    RecognizesAccessKey="True"
+                                                                    SnapsToDevicePixels=
+                                                                    "{TemplateBinding SnapsToDevicePixels}"/>
+                                                            </Border>
+                                                        </Grid>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </GridView.ColumnHeaderContainerStyle>
+                                </GridView>
+                            </ListView.View>
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListViewItem}">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Foreground" Value="#FE8704"/>
+                                    <Setter Property="Height" Value="30"/>
+                                    <Setter Property="FontSize" Value="14"/>
+                                    <Setter Property="FontWeight" Value="Regular"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Text, ElementName=searchRoom}" Value="">
-                                            <Setter Property="Visibility" Value="Visible"/>
-                                            <Setter Property="FontSize" Value="14"/>
-                                        </DataTrigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="{StaticResource WordLightGreenBrush}" />
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="{StaticResource WordLightGreenBrush}" />
+                                        </Trigger>
                                     </Style.Triggers>
                                 </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                        <TextBox Grid.Column="1" Width="620" x:Name="searchRoom" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0" Grid.ColumnSpan="2" Margin="0,10,0,9"/>
+                            </ListView.ItemContainerStyle>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding ListViewSelectionChangedCommand}"
+                                                           CommandParameter="{Binding ElementName=lvBooking}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ListView>
                     </Grid>
-                    <Label Content="List Retals:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Height="30" Width="264" FontWeight="Bold" FontSize="16"/>
                 </Grid>
-                <Grid Height="414" DataContext="{x:Static viewModel:BookingListViewModel.Insance}">
-                    <ListView ItemsSource="{Binding Items}" HorizontalContentAlignment="Stretch" Margin="-11,0,-11,-116" VerticalContentAlignment="Stretch" FontSize="10" >
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Rental ID" Width="Auto" DisplayMemberBinding="{Binding MaPhieuThue}" />
-                                <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding TenKH}"/>
-                                <GridViewColumn Header="Phone" Width="Auto" DisplayMemberBinding="{Binding SoDienThoai}"/>
-                                <GridViewColumn Header="Room" Width="Auto" DisplayMemberBinding="{Binding MaPhong}"/>
-                                <GridViewColumn Header="Check-in date" Width="Auto" DisplayMemberBinding="{Binding NgayLapPhieu}"/>
-                                <GridViewColumn Header="Deposit" Width="Auto" DisplayMemberBinding="{Binding TienCoc}"/>
-
-                            </GridView>
-                        </ListView.View>
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="{x:Type ListViewItem}">
-                                <Setter Property="BorderBrush" Value="LightGray"/>
-                                <Setter Property="BorderThickness" Value="0"/>
-                                <Setter Property="Margin" Value="1"/>
-                                <Setter Property="FontSize" Value="14" />
-                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-
-                    </ListView>
-                </Grid>
-            </StackPanel>
-        </StackPanel>
-        <Border BorderBrush="Black" BorderThickness="1" Width="280">
-            <Grid Margin="-1,-1,-9,-1">
-                <Grid.Background>
-                    <ImageBrush ImageSource="/HotelManagement;component/Images/Background.PNG"/>
-                </Grid.Background>
-                <Grid Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0*"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox x:Name="tb_client_name" IsReadOnly="False"
-                        materialDesign:HintAssist.Hint="Name:"  Foreground="Black"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Top" Margin="10,61,147,0" Height="36" Grid.Column="1" FontWeight="Bold" />
-
-                </Grid>
-                <TextBox x:Name="tb_address" IsReadOnly="False"
-                    materialDesign:HintAssist.Hint="Address:"  Foreground="Black"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    VerticalAlignment="Top" Margin="10,97,10,0" Height="38" FontWeight="Bold" />
-                <TextBox x:Name="tb_cmnd" IsReadOnly="False"
-                    materialDesign:HintAssist.Hint="Identity Card Number:"  Foreground="Black"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    VerticalAlignment="Top" Margin="7,147,13,0" Height="39" FontWeight="Bold" />
-                <TextBox x:Name="tb_phone"                      
-
-                    materialDesign:HintAssist.Hint="Phone Number:"  Foreground="Black"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    VerticalAlignment="Top" Margin="7,194,149,0" Height="36" FontWeight="Bold" />
-                <TextBox x:Name="tb_client_type" IsReadOnly="False"
-                    materialDesign:HintAssist.Hint="Nationality:"  Foreground="Black"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    VerticalAlignment="Top" Margin="170,195,13,0" Height="35" FontWeight="Bold"/>
-                <TextBox x:Name="tb_room_name" IsReadOnly="False"
-                    materialDesign:HintAssist.Hint="Room ID:"  Foreground="Black"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    VerticalAlignment="Top" Margin="8,334,173,0" Height="38" FontWeight="Bold" />
-                <TextBox x:Name="tb_room_type" IsReadOnly="False"
-                    materialDesign:HintAssist.Hint="Type Room:"  Foreground="Black"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    VerticalAlignment="Top" Margin="144,334,13,0" Height="38" FontWeight="Bold"/>
-                <TextBox x:Name="tb_unit_price" IsReadOnly="False"
-                    materialDesign:HintAssist.Hint="Price:"  Foreground="Black"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    VerticalAlignment="Top" Margin="8,386,172,0" Height="35" TextChanged="tb_unit_price_TextChanged" FontWeight="Bold" />
-                <DatePicker x:Name="datepicker_checkout" Margin="84,485,13,0" VerticalAlignment="Top" Height="34"/>
-                <Label Content="Check Out:" HorizontalAlignment="Left" Height="27" Margin="9,494,0,0" VerticalAlignment="Top" Width="76" FontWeight="Bold"/>
-                <Label Content="CLIENT INFORMATION:" HorizontalAlignment="Left" Height="31" Margin="5,18,0,0" VerticalAlignment="Top" Width="243" FontWeight="Bold" FontSize="20"/>
-                <Label Content="RENTAL INFORMATION:" HorizontalAlignment="Left" Height="33" Margin="0,252,0,0" VerticalAlignment="Top" Width="243" FontWeight="Bold" FontSize="20" RenderTransformOrigin="0.494,0.97"/>
-                <TextBox x:Name="tb_Deposits" IsReadOnly="False"
-                    materialDesign:HintAssist.Hint="Deposit:"  Foreground="Black"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    VerticalAlignment="Top" Margin="144,386,0,0" Height="35" HorizontalAlignment="Left" Width="131" FontWeight="Bold"/>
-                <Label Content="Check In:" HorizontalAlignment="Left" Height="27" Margin="10,458,0,0" VerticalAlignment="Top" Width="76" FontWeight="Bold"/>
-                <DatePicker x:Name="datepicker_checkin" Margin="84,448,13,0" VerticalAlignment="Top" Height="33" />
-                <ComboBox x:Name="cbbGender" Foreground="Black"
-                    materialDesign:TextFieldAssist.PrefixText="Gender: "
-                    SelectedValue="{Binding Type}"
-                    IsEditable="False" Margin="170,74,13,518" VerticalAlignment="Stretch" RenderTransformOrigin="0.534,0.087">
-                    <ComboBoxItem Content="Male"/>
-                    <ComboBoxItem Content="Female"/>
-                    <ComboBoxItem Content="Other"/>
-
-                </ComboBox>
-                <TextBox x:Name="tbCreationDate" IsReadOnly="False"
-                    materialDesign:HintAssist.Hint="Creation date:"  Foreground="#DA000000"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    VerticalAlignment="Top" Margin="7,291,174,0" Height="38" FontStyle="Italic" FontWeight="Bold" />
-                <TextBox x:Name="tbCreator" IsReadOnly="False"
-                    materialDesign:HintAssist.Hint="Creator:"  Foreground="#D8000000"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    VerticalAlignment="Top" Margin="144,292,13,0" Height="36" FontStyle="Italic" FontWeight="Bold"/>
-                <Button Height="Auto" Margin="26,533,36,48"
-                    Style="{StaticResource MaterialDesignRaisedButton}"
-                    materialDesign:ButtonAssist.CornerRadius="10"
-                    ToolTip="MaterialDesignRaisedButton with Round Corners" Background="#FFF7B363" BorderBrush="LightGray" Foreground="{x:Null}">
-                    <TextBlock
-                        Text="Check-out Now" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
-                </Button>
-                <Button Width="87" Height="Auto" HorizontalAlignment="Right" Margin="0,579,173,10"
-                    Style="{StaticResource MaterialDesignRaisedButton}"
-                    materialDesign:ButtonAssist.CornerRadius="10"
-                    ToolTip="MaterialDesignRaisedButton with Round Corners" BorderBrush="#FF4D4D4D" Foreground="{x:Null}" Background="#FF323232">
-                    <TextBlock
-                        Text="Edit" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DDFFFFFF"/>
-                </Button>
-                <Button Width="87" Height="Auto" HorizontalAlignment="Right" Margin="0,579,42,10"
-                    Style="{StaticResource MaterialDesignRaisedButton}"
-                    materialDesign:ButtonAssist.CornerRadius="10"
-                    ToolTip="MaterialDesignRaisedButton with Round Corners" BorderBrush="#FF4D4D4D" Foreground="{x:Null}" Background="#FFEE8080">
-                    <TextBlock
-                        Text="Delete" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DDFFFFFF"/>
-                </Button>
-                <TextBox x:Name="tb_Deposits_Copy" IsReadOnly="False"
-                    materialDesign:HintAssist.Hint="Amount:"  Foreground="Black"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    VerticalAlignment="Top" Margin="9,419,0,0" Height="35" HorizontalAlignment="Left" Width="107" FontWeight="Bold" TextChanged="tb_Deposits_Copy_TextChanged"/>
-
-            </Grid>
+            </Border>
         </Border>
-    </StackPanel>
+        <!--Read and edit rental-->
+        <Border Grid.Column="1" Background="Transparent" Visibility="{Binding Visibility}">
+            <Border Background="White" CornerRadius="12" HorizontalAlignment="Stretch" Margin="0,4,4,4">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!--title-->
+                    <Grid Grid.Row="0" Margin="10">
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"
+                                    Text="Client Information" Margin="8,8,0,0" FontSize="22" FontWeight="Bold" Foreground="#F44336"/>
+                    </Grid>
+                    <!--Client infomation input-->
+                    <Grid Grid.Row="1" Margin="4">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBox Grid.Row="0" Name="tbName" Foreground="Red" Text="{Binding ClientName}"
+                            MaxLength="50" IsReadOnly="{Binding IsReadOnly}" Margin="0,2,0,2"
+                            materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                            materialDesign:HintAssist.Hint="Name:" FontSize="13"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            VerticalAlignment="Center">
+                        </TextBox>
+                        <Grid Grid.Row="1" Margin="0,2,0,2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Name="tbIdCardNumber" Foreground="Red" Text="{Binding IdCardNumber}"
+                                MaxLength="12" Margin="0,0,4,0" IsReadOnly="True"
+                                materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                materialDesign:HintAssist.Hint="ID Card Number:" FontSize="13"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Center">
+                            </TextBox>
+                            <ComboBox Grid.Column="1" Foreground="Red" VerticalAlignment="Center" ItemsSource="{Binding ListNationality}"
+                                Name="cbbNationality" Margin="4,11,0,0" FontSize="13" IsEnabled="{Binding IsEnabled}"
+                                    SelectedValue="{Binding Nationality}"
+                                materialDesign:HintAssist.Hint="Nationality:">
+                            </ComboBox>
+                        </Grid>
+                        <Grid Grid.Row="2" Margin="0,2,0,2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Name="tbPhone" Foreground="Red" Text="{Binding Phone}"
+                                MaxLength="10" Margin="0,0,4,0" IsReadOnly="{Binding IsReadOnly}"
+                                materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                materialDesign:HintAssist.Hint="Phone:" FontSize="13"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewTextInput">
+                                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewTextInputViewModel" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+                            <ComboBox Grid.Column="1" Foreground="Red" VerticalAlignment="Center" ItemsSource="{Binding ListGender}"
+                                Name="cbbGender" Margin="4,11,0,0" FontSize="13" IsEnabled="{Binding IsEnabled}"
+                                      SelectedValue="{Binding Gender}"
+                                materialDesign:HintAssist.Hint="Gender:">
+                            </ComboBox>
+                        </Grid>
+                        <TextBox Grid.Row="4" Name="tbAddress" Foreground="Red" Text="{Binding Address}"
+                            MaxLength="50" IsReadOnly="{Binding IsReadOnly}" Margin="0,2,0,2"
+                            materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                            materialDesign:HintAssist.Hint="Address:" FontSize="13"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            VerticalAlignment="Center"/>
+                    </Grid>
+                    <!--title-->
+                    <Grid Grid.Row="2" Margin="6">
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"
+                                    Text="Rental Information" Margin="8,8,0,0" FontSize="22" FontWeight="Bold" Foreground="#F44336"/>
+                    </Grid>
+                    <!--rental information input-->
+                    <Grid Grid.Row="3" Margin="4">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Margin="0,2,0,2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Name="tbRoomID" Foreground="Red" Text="{Binding RoomId}"
+                                MaxLength="12" Margin="0,0,4,0" IsReadOnly="True"
+                                materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                materialDesign:HintAssist.Hint="Room ID:" FontSize="13"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Center"/>
+                            <TextBox Grid.Column="1" Name="tbRoomType" Foreground="Red" Text="{Binding RoomType}"
+                                MaxLength="12" Margin="4,0,0,0" IsReadOnly="True"
+                                materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                materialDesign:HintAssist.Hint="Room Type:" FontSize="13"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Center"/>
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="0,2,0,2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Name="tbPrice" Foreground="Red" Text="{Binding Price}"
+                                MaxLength="12" Margin="0,0,4,0" IsReadOnly="True"
+                                materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                materialDesign:HintAssist.Hint="Price/Day:" FontSize="13"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Center"/>
+                            <TextBox Grid.Column="1" Name="tbDeposit" Foreground="Red" Text="{Binding Deposit}"
+                                MaxLength="9" Margin="4,0,0,0" IsReadOnly="{Binding IsReadOnly}"
+                                materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                materialDesign:HintAssist.Hint="Deposit:" FontSize="13"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewTextInput">
+                                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewTextInputViewModel" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+                        </Grid>
+                        <Grid Grid.Row="2" Margin="0,2,0,2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Name="tbCreator" Foreground="Red" 
+                                MaxLength="12" IsReadOnly="True" Text="{Binding Creator}"
+                                materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                materialDesign:HintAssist.Hint="Creator:" FontSize="13"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Center"/>
+                            <TextBox Grid.Column="1" Name="tbAmountPeople" Foreground="Red" Text="{Binding AmountPeople}"
+                                MaxLength="9" Margin="4,0,0,0" IsReadOnly="{Binding IsReadOnly}"
+                                materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                materialDesign:HintAssist.Hint="Amount People:" FontSize="13"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewTextInput">
+                                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewTextInputViewModel" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+                        </Grid>
+                        <Grid Grid.Row="3" Margin="0,2,0,2">
+                            <TextBox Name="tbCreateDate" Foreground="Red" Text="{Binding CreateDate}"
+                                MaxLength="12" Margin="0,0,4,0" IsReadOnly="True"
+                                materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                materialDesign:HintAssist.Hint="Create Date:" FontSize="13"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Center"/>
+                        </Grid>
+                        <Grid Grid.Row="4" Margin="0,2,0,2">
+                            <TextBox Name="tbCheckIn" Foreground="Red" IsReadOnly="True" Text="{Binding CheckInDate}"
+                                materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                materialDesign:HintAssist.Hint="Check-in Date:" FontSize="13"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Center"/>
+                        </Grid>
+                        <Grid Grid.Row="5" Margin="0,2,0,2">
+                            <TextBox Name="tbCheckOut" Foreground="Red" IsReadOnly="True" Text="{Binding CheckOutDate}"
+                                materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                materialDesign:HintAssist.Hint="Check-out Date:" FontSize="13"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Center"/>
+                        </Grid>
+                        <Grid Grid.Row="6" Margin="4,12,4,6">
+                            <Button Grid.Column="2" Width="180" Height="38" HorizontalAlignment="Center" Padding="0"
+                                    Style="{StaticResource MaterialDesignRaisedButton}" VerticalAlignment="Center"
+                                    materialDesign:ButtonAssist.CornerRadius="10" Visibility="{Binding VisibilityCheckinNow}"
+                                    ToolTip="Check-in Now" Background="#FE8704">
+                                <TextBlock Text="Check-in Now" FontSize="15"/>
+                            </Button>
+                        </Grid>
+                        <Grid Grid.Row="7" Margin="4,6,4,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Height="38" Padding="0" Width="100"
+                                    Style="{StaticResource MaterialDesignRaisedButton}" VerticalAlignment="Center"
+                                    materialDesign:ButtonAssist.CornerRadius="10"
+                                    ToolTip="Check-in Now" Visibility="{Binding VisibilityEdit}">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="ContentSave" Width="20" Height="20" Margin="0,0,8,0"/>
+                                    <TextBlock Text="Save" FontSize="15" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Grid.Column="1" Height="38" Padding="0" Width="100" 
+                                    Style="{StaticResource MaterialDesignRaisedButton}" VerticalAlignment="Center"
+                                    materialDesign:ButtonAssist.CornerRadius="10"
+                                    ToolTip="Delete" Visibility="{Binding VisibilityEdit}">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Delete" Width="20" Height="20" Margin="0,0,8,0"/>
+                                    <TextBlock Text="Delete" FontSize="15" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
 </UserControl>
