@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:HotelManagement.MVVM.View"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:viewModel="clr-namespace:HotelManagement.MVVM.ViewModel"
+        xmlns:viewModel="clr-namespace:HotelManagement.MVVM.ViewModel" 
         mc:Ignorable="d"
         Height="595" Width="910"
         WindowStyle="None"
@@ -70,7 +70,7 @@
                     </Border>
                     <Border Height="473" Margin="5,5,0,0" CornerRadius="12" Background="White">
                         <ListView x:Name="lv_bills" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"
-                              Foreground="#DD000000" BorderBrush="{x:Null}" ItemsSource="{Binding Items}" Width="475" Margin="10,0">
+                              Foreground="#DD000000" BorderBrush="{x:Null}" ItemsSource="{Binding Items}" Width="491" Margin="10,0,10.2,-0.2">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="Bill ID" x:Name="billID" Width="auto" DisplayMemberBinding="{Binding MaHoaDon}" />
@@ -115,6 +115,7 @@
                             Height="Auto"
                             Width="100"
                             Style="{StaticResource MaterialDesignRaisedButton}"
+                                Command="{Binding ExportReceiptCommand}"
                             materialDesign:ButtonAssist.CornerRadius="10"
                             BorderThickness="0"
                             Background="#F44336"
@@ -259,28 +260,28 @@
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Top" Margin="190,486,10,0" Height="38" HorizontalAlignment="Left" Width="199"
                                      Text="{Binding TienCoc}" />
-                            <TextBox x:Name="tb_total" FontSize="18" FontWeight="Bold" IsReadOnly="True"
+                            <TextBox x:Name="tb_total" FontSize="30" FontWeight="Bold" IsReadOnly="True"
                                 materialDesign:HintAssist.Hint=""  Foreground="Black"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                VerticalAlignment="Top" Margin="190,526,9.8,0" Height="50" 
-                                     Text="{Binding TongTien}"/>
+                                VerticalAlignment="Top" Margin="190,497,9.8,0" Height="74" 
+                                Text="{Binding TongTien}"/>
                             <Label Content="TOTAL:" HorizontalAlignment="Left" Height="33" Margin="110,532,0,0" VerticalAlignment="Top" Width="77" FontWeight="Bold" FontSize="20" Foreground="#F44336"/>
                             <Label Content="CLIENT INFORMATION:" HorizontalAlignment="Left" Height="33" Margin="9,85,0,0" VerticalAlignment="Top" Width="243" FontWeight="Bold" FontSize="20" Foreground="#F44336"/>
                             <TextBox x:Name="tb_bill_id" FontSize="14" IsReadOnly="True"
                                 materialDesign:HintAssist.Hint="Bill ID"  Foreground="Black"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Top" Margin="10,0,212.6,0" Height="38" 
-                                     Text="{Binding MaHoaDon}"/>
+                                Text="{Binding MaHoaDon}"/>
                             <TextBox x:Name="tb_rent_id" FontSize="14" IsReadOnly="True"
                                 materialDesign:HintAssist.Hint="Rental ID"  Foreground="Black"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Top" Margin="10,38,208.6,0" Height="38" 
-                                     Text="{Binding MaPhieuThue}"/>
+                                Text="{Binding MaPhieuThue}"/>
                             <TextBox x:Name="tb_checkout" FontSize="14" IsReadOnly="True"
                                 materialDesign:HintAssist.Hint=""  Foreground="Black"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Top" Margin="190,372,10,0" Height="38"
-                                     Text="{Binding NgayTraPhong}"/>
+                                Text="{Binding NgayTraPhong}"/>
                         </Grid>
                     </StackPanel>
                 </Border>

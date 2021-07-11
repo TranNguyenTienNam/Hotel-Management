@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelManagement.MVVM.View.CheckOutViews"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:viewmodel="clr-namespace:HotelManagement.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ExportBillViewModel}"
+        xmlns:viewmodel="clr-namespace:HotelManagement.MVVM.ViewModel" 
+        d:DataContext="{d:DesignInstance Type=viewmodel:ExportBillViewModel}"
         mc:Ignorable="d"
         Title="ExportBill" 
         Height="600" Width="600"
@@ -13,7 +14,7 @@
         WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow"
         >
     <Window.Background>
-        <SolidColorBrush Color="Gainsboro"/>
+        <SolidColorBrush Color="{DynamicResource BackgroundLight}"/>
     </Window.Background>
     <Grid x:Name="bill">
         <Grid Margin="0,0,-0.4,0.2" >
@@ -29,15 +30,16 @@
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0" Margin="0,0,10.8,-0.2">
                     <StackPanel Margin="10,0,0,0">
-                        <Label Content="HOTEL NAME" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="25" FontWeight="Bold"/>
-                        <Label Content="Address:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14"/>
-                        <Label Content="Telephone:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" />
-                        <Label Content="Fax:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" />
+                        <TextBlock Text="MINH HOTEL" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="25" FontWeight="Bold" Height="28"/>
+                        <TextBlock Text="Address: Binh Xuan- Go Cong- Tien Giang" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="20"/>
+                        <TextBlock Text="Telephone: 0969641857" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="20"/>
+                        <TextBlock Text="Fax: 38363432" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="20"/>
+                        <TextBlock Text="Email: minhhotel@gmail.com" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="20"/>
                     </StackPanel>
                 </Grid>
                 <Grid Grid.Column="1" Margin="1.2,0,-0.4,-0.2">
                     <StackPanel>
-                        <Label Content="CLIENT INFOMANTION" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="25" FontWeight="Bold"/>
+                        <TextBlock Text="CLIENT INFOMANTION" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="25" FontWeight="Bold"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"/>
@@ -45,10 +47,10 @@
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0">
                                 <StackPanel>
-                                    <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14"/>
-                                    <Label Content="ID Card:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" />
-                                    <Label Content="Address:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" />
-                                    <Label Content="Telephone:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" />
+                                    <TextBlock Text="Name:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="28" FontWeight="DemiBold"/>
+                                    <TextBlock Text="ID Card:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="28" FontWeight="DemiBold"/>
+                                    <TextBlock Text="Address:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="28" FontWeight="DemiBold"/>
+                                    <TextBlock Text="Phone:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="28" FontWeight="DemiBold"/>
                                 </StackPanel>
                             </Grid>
                             <Grid Grid.Column="1">
@@ -70,7 +72,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
                     <StackPanel>
-                        <Label Content="RENTAL INFOMANTION" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="25" FontWeight="Bold"/>
+                        <TextBlock Text="RENTAL INFOMANTION" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="25" FontWeight="Bold"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"/>
@@ -78,10 +80,10 @@
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0">
                                 <StackPanel>
-                                    <Label Content="Room:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" />
-                                    <Label Content="Type:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" />
-                                    <Label Content="Unit price:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" />
-                                    <Label Content="Max people:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" />
+                                    <TextBlock Text="Room:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="28" FontWeight="DemiBold"/>
+                                    <TextBlock Text="Type:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="28" FontWeight="DemiBold"/>
+                                    <TextBlock Text="Unit price:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="28" FontWeight="DemiBold"/>
+                                    <TextBlock Text="Max people:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="28" FontWeight="DemiBold"/>
                                 </StackPanel>
                             </Grid>
                             <Grid Grid.Column="1">
@@ -105,28 +107,28 @@
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0">
                                 <StackPanel>
-                                    <Label Content="" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="25"/>
-                                    <Label Content="Check-in:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14"/>
-                                    <Label Content="Check-out:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14"/>
-                                    <Label Content="Rental days:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14"/>
-                                    <Label Content="Amount People:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14"/>
-                                    <Label Content="Subtotal:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14"/>
-                                    <Label Content="Surcharge:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14"/>
-                                    <Label Content="Deposits:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14"/>
-                                    <Label Content="TOTAL:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="25" FontWeight="Bold"/>
+                                    <TextBlock Text="" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="25" Height="30"/>
+                                    <TextBlock Text="Check-in:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="29" FontWeight="DemiBold"/>
+                                    <TextBlock Text="Check-out:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="29" FontWeight="DemiBold"/>
+                                    <TextBlock Text="Days:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="29" FontWeight="DemiBold"/>
+                                    <TextBlock Text="Amount People:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="29" FontWeight="DemiBold"/>
+                                    <TextBlock Text="Subtotal:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="29" FontWeight="DemiBold"/>
+                                    <TextBlock Text="Surcharge:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="29" FontWeight="DemiBold"/>
+                                    <TextBlock Text="Deposits:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="29" FontWeight="DemiBold"/>
+                                    <TextBlock Text="TOTAL:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="25" FontWeight="Bold" Height="28" />
                                 </StackPanel>
                             </Grid>
                             <Grid Grid.Column="1">
                                 <StackPanel>
-                                    <TextBlock FontSize="14" Text="" Height="40"/>
-                                    <TextBlock FontSize="14" Text="{Binding NgayBatDau}" Height="27"/>
-                                    <TextBlock FontSize="14" Text="{Binding NgayTraPhong}" Height="27"/>
-                                    <TextBlock FontSize="14" Text="{Binding SoNgayThue}" Height="27"/>
-                                    <TextBlock FontSize="14" Text="{Binding SoLuongKhach}" Height="27"/>
-                                    <TextBlock FontSize="14" Text="{Binding TongTienPhong}" Height="27"/>
-                                    <TextBlock FontSize="14" Text="{Binding PhuThu}" Height="27"/>
-                                    <TextBlock FontSize="14" Text="{Binding TienCoc}" Height="27"/>
-                                    <TextBlock FontSize="25" Text="{Binding TongTien}" Height="39" FontWeight="Bold" />
+                                    <TextBlock FontSize="14" Text="" Height="30"/>
+                                    <TextBlock FontSize="14" Text="{Binding NgayBatDau}" Height="29"/>
+                                    <TextBlock FontSize="14" Text="{Binding NgayTraPhong}" Height="29"/>
+                                    <TextBlock FontSize="14" Text="{Binding SoNgayThue}" Height="29"/>
+                                    <TextBlock FontSize="14" Text="{Binding SoLuongKhach}" Height="29"/>
+                                    <TextBlock FontSize="14" Text="{Binding TongTienPhong}" Height="29"/>
+                                    <TextBlock FontSize="14" Text="{Binding PhuThu}" Height="29"/>
+                                    <TextBlock FontSize="14" Text="{Binding TienCoc}" Height="29"/>
+                                    <TextBlock FontSize="25" Text="{Binding TongTien}" Height="40" FontWeight="Bold" />
                                 </StackPanel>
                             </Grid>
                         </Grid>
@@ -134,8 +136,8 @@
                 </Grid>
             </Grid>
             <Grid Grid.Row="2">
-                <StackPanel Margin="0,0,16.2,0.2">
-                    <Label Content="Receptionnist" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="25" FontWeight="Bold"/>
+                <StackPanel Margin="10,0,16.2,0.2">
+                    <TextBlock Text="Receptionnist" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="25" FontWeight="Bold"/>
                     <Grid Height="66" Margin="0,0,-0.4,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
@@ -143,19 +145,18 @@
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0">
                             <StackPanel>
-                                <Label Content="Date of issue:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14"/>
-                                <Label Content="Creater:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14"/>
+                                <TextBlock Text="Date of issue:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="DemiBold"/>
+                                <TextBlock Text="Creater:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="DemiBold"/>
                             </StackPanel>
                         </Grid>
                         <Grid Grid.Column="1">
                             <StackPanel>
-                                <TextBlock FontSize="14" Text="" Height="5"/>
                                 <TextBlock FontSize="14" Text="{Binding DateOfIssue}" Height="28"/>
                                 <TextBlock FontSize="14" Text="{Binding NguoiLapPhieu}" Height="28"/>
                             </StackPanel>
                         </Grid>
                     </Grid>
-                    <Label Content="Note: Bill to client (unpaid)!" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock Text="Note: Bill to client (unpaid)!" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="DemiBold"/>
                 </StackPanel>
                 <Button
                 x:Name="btnPrint"

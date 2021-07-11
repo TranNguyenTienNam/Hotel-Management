@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
@@ -13,9 +12,17 @@ using HotelManagement.Object;
 
 namespace HotelManagement.MVVM.ViewModel
 {
-    class ExportBillViewModel : ObservableObject
+    class ExportReceiptViewModel : ObservableObject
     {
-        //thuộc tính phiếu thuê
+        private int _maHoaDon;
+        public int MaHoaDon { get { return _maHoaDon; } set { _maHoaDon = value; OnPropertyChanged(); } }
+
+        private int _phuThu;
+        public int PhuThu { get { return _phuThu; } set { _phuThu = value; OnPropertyChanged(); } }
+
+        private int _tongTien;
+        public int TongTien { get { return _tongTien; } set { _tongTien = value; OnPropertyChanged(); } }
+
         private int _maPhieuThue;
         public int MaPhieuThue { get { return _maPhieuThue; } set { _maPhieuThue = value; OnPropertyChanged(); } }
 
@@ -82,48 +89,41 @@ namespace HotelManagement.MVVM.ViewModel
         private String _tenLoaiPhong;
         public String TenLoaiPhong { get { return _tenLoaiPhong; } set { _tenLoaiPhong = value; OnPropertyChanged(); } }
 
-        // thuộc tính dựa vào phiếu thuê tính được 
         private int _soNgayThue;
         public int SoNgayThue { get { return _soNgayThue; } set { _soNgayThue = value; OnPropertyChanged(); } }
-
-        private int _phuThu;
-        public int PhuThu { get { return _phuThu; } set { _phuThu = value; OnPropertyChanged(); } }
 
         private int _tongTienPhong;
         public int TongTienPhong { get { return _tongTienPhong; } set { _tongTienPhong = value; OnPropertyChanged(); } }
 
-        private int _tongTien;
-        public int TongTien { get { return _tongTien; } set { _tongTien = value; OnPropertyChanged(); } }
-
-        //ngày tạo bill
         public String DateOfIssue { get; set; }
 
-        public ExportBillViewModel(Rental currentRental)
+        public ExportReceiptViewModel(Receipt currentReceipt)
         {
-            MaPhieuThue = currentRental.MaPhieuThue;
-            TenKH = currentRental.TenKH;
-            GioiTinh = currentRental.GioiTinh;
-            MaLoaiKhach = currentRental.MaLoaiKhach;
-            TenLoaiKhach = currentRental.TenLoaiKhach;
-            DiaChi = currentRental.DiaChi;
-            CMND = currentRental.CMND;
-            SoDienThoai = currentRental.SoDienThoai;
-            TenPhong = currentRental.TenPhong;
-            TenLoaiPhong = currentRental.TenLoaiPhong;
-            DonGia = currentRental.DonGia;
-            SoNgToiDa = currentRental.SoNgToiDa;
-            SoLuongKhach = currentRental.SoLuongKhach;
-            NgayLapPhieu = currentRental.NgayLapPhieu;
-            NgayBatDau = currentRental.NgayBatDau;
-            NgayTraPhong = currentRental.NgayTraPhong;
-            TienCoc = currentRental.TienCoc;
-            SoNgayThue = GetDays(currentRental.NgayBatDau, currentRental.NgayTraPhong);
-            TongTienPhong = currentRental.DonGia * SoNgayThue;
-            PhuThu = GetSurchargeMoney(SoLuongKhach, SoNgayThue, TongTienPhong, SoNgToiDa);
-            TongTien = TongTienPhong + PhuThu - TienCoc;
+            NguoiLapPhieu = currentReceipt.NguoiLapPhieu;
+            MaHoaDon = currentReceipt.MaHoaDon;
+            PhuThu = currentReceipt.PhuThu;
+            TongTien = currentReceipt.TongTien;
+            MaPhieuThue = currentReceipt.MaPhieuThue;
+            TenKH = currentReceipt.TenKH;
+            GioiTinh = currentReceipt.GioiTinh;
+            MaLoaiKhach = currentReceipt.MaLoaiKhach;
+            TenLoaiKhach = currentReceipt.TenLoaiKhach;
+            DiaChi = currentReceipt.DiaChi;
+            CMND = currentReceipt.CMND;
+            SoDienThoai = currentReceipt.SoDienThoai;
+            TenPhong = currentReceipt.TenPhong;
+            TenLoaiPhong = currentReceipt.TenLoaiPhong;
+            DonGia = currentReceipt.DonGia;
+            SoNgToiDa = currentReceipt.SoNgToiDa;
+            SoLuongKhach = currentReceipt.SoLuongKhach;
+            NgayLapPhieu = currentReceipt.NgayLapPhieu;
+            NgayBatDau = currentReceipt.NgayBatDau;
+            NgayTraPhong = currentReceipt.NgayTraPhong;
+            TienCoc = currentReceipt.TienCoc;
+            SoNgayThue = GetDays(currentReceipt.NgayBatDau, currentReceipt.NgayTraPhong);
+            TongTienPhong = currentReceipt.DonGia * SoNgayThue;
             DateOfIssue = DateTime.Now.ToString();
-            NguoiLapPhieu = currentRental.NguoiLapPhieu;
-            DateOfIssue = DateTime.Now.ToString();
+
         }
 
         private int GetDays(DateTime ngayBD, DateTime ngayTP)
@@ -132,17 +132,6 @@ namespace HotelManagement.MVVM.ViewModel
             DateTime tp = ngayTP.Date;
             string re = tp.Subtract(bd).TotalDays.ToString();
             return int.Parse(re);
-        }
-
-        private int GetSurchargeMoney(int soLuongkhach, int soNgayThue, int tongTienPhong, int soNguoiToiDa)
-        {
-            SurchargeModel surchargeModel = new SurchargeModel();
-            int tyLePhuThu = surchargeModel.Get_surcharge_more_client();
-            if (soLuongkhach > soNguoiToiDa)
-            {
-                return (soLuongkhach - soNguoiToiDa) * tyLePhuThu * tongTienPhong / 100;
-            }
-            return 0;
         }
     }
 }

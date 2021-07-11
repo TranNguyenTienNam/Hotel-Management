@@ -7,6 +7,7 @@ using HotelManagement.MVVM.Model.CheckOut;
 using System.Windows.Forms;
 using ListView = System.Windows.Controls.ListView;
 using HotelManagement.Object;
+using HotelManagement.MVVM.View.CheckOutViews;
 
 namespace HotelManagement.MVVM.ViewModel
 {
@@ -18,7 +19,7 @@ namespace HotelManagement.MVVM.ViewModel
 
         private string _searchText = "";
         public string SearchText { get { return _searchText; } set { _searchText = value; OnPropertyChanged(); } }
-        //props
+        // thuộc tính hóa đơn đầy đủ
         private int _maHoaDon;
         public int MaHoaDon { get { return _maHoaDon; } set { _maHoaDon = value; OnPropertyChanged(); } }
 
@@ -99,18 +100,33 @@ namespace HotelManagement.MVVM.ViewModel
 
         private int _tongTienPhong;
         public int TongTienPhong { get { return _tongTienPhong; } set { _tongTienPhong = value; OnPropertyChanged(); } }
+
         //command
         public ICommand SearchCommand { get; set; }
         public ICommand SelectRowCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
         public ICommand RefreshCommand { get; set; }
+        public ICommand ExportReceiptCommand { get; set; }
 
 
 
         public BillsViewModel()
         {
+            //biến phụ đểc chứa item được chọn từ listview
+            Receipt currentReceipt = new Receipt();
+
             Items = new ObservableCollection<Receipt>();
             LoadListBills();
+
+            ExportReceiptCommand  = new RelayCommand<object>((p) =>
+            {
+                return !string.IsNullOrEmpty(CMND);
+            }, (p) =>
+            {
+                ExportReceipt exportReceipt = new ExportReceipt();
+                exportReceipt.DataContext = new ExportReceiptViewModel(currentReceipt);
+                exportReceipt.ShowDialog();
+            });
 
             SelectRowCommand = new RelayCommand<ListView>((p) =>
             {
@@ -140,6 +156,8 @@ namespace HotelManagement.MVVM.ViewModel
                 TienCoc = Item.TienCoc;
                 SoNgayThue = GetDays(Item.NgayBatDau, Item.NgayTraPhong);
                 TongTienPhong = Item.DonGia * SoNgayThue;
+                //gán item được chọn hiện tại cho current receipt
+                currentReceipt = Item;
             });
 
             SearchCommand = new RelayCommand<object>((p) =>
@@ -267,6 +285,7 @@ namespace HotelManagement.MVVM.ViewModel
         }
         private void ClearInfo()
         {
+            SearchText = "";
             MaHoaDon = 0;
             MaPhieuThue = 0;
             TenKH = "";

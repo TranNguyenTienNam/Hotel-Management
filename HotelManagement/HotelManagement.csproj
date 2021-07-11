@@ -135,6 +135,7 @@
     <Compile Include="MVVM\ViewModel\BookRoomItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\BillsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\CheckOutViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\CheckOutViewModels\ExportReceiptViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\SurchargeViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\ExportBillViewModel.cs" />
     <Compile Include="MVVM\ViewModel\LoginViewModel.cs" />
@@ -154,6 +155,9 @@
     </Compile>
     <Compile Include="MVVM\View\CheckOutViews\ExportBill.xaml.cs">
       <DependentUpon>ExportBill.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\CheckOutViews\ExportReceipt.xaml.cs">
+      <DependentUpon>ExportReceipt.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\CheckOutViews\SurchargeView.xaml.cs">
       <DependentUpon>SurchargeView.xaml</DependentUpon>
@@ -230,6 +234,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\CheckOutViews\ExportBill.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\CheckOutViews\ExportReceipt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -373,6 +381,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Background.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\hotel.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets')" />

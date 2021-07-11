@@ -254,6 +254,7 @@ namespace HotelManagement.MVVM.ViewModel
 
         private void ClearInfo()
         {
+            SearchText = "";
             MaPhieuThue = 0;
             TenKH = "";
             GioiTinh = "";
