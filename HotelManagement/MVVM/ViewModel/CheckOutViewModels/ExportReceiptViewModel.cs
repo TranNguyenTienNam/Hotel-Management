@@ -1,31 +1,33 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HotelManagement.Core;
-using System.Data;
-using HotelManagement.MVVM.Model;
-using System.Collections.ObjectModel;
-using HotelManagement.Object;
 using System.Windows.Input;
-using HotelManagement.MVVM.View;
-using System.Windows;
-using System.Windows.Threading;
-using System;
+using HotelManagement.Core;
+using HotelManagement.MVVM.Model;
+using HotelManagement.MVVM.Model.CheckOut;
+using HotelManagement.Object;
 
-namespace HotelManagement.MVVM.ViewModel.CheckOutViewModels
+namespace HotelManagement.MVVM.ViewModel
 {
-    public class CheckOutItemViewModel : ObservableObject
+    class ExportReceiptViewModel : ObservableObject
     {
-        public static CheckOutItemViewModel Instance => new CheckOutItemViewModel();
+        private int _maHoaDon;
+        public int MaHoaDon { get { return _maHoaDon; } set { _maHoaDon = value; OnPropertyChanged(); } }
+
+        private int _phuThu;
+        public int PhuThu { get { return _phuThu; } set { _phuThu = value; OnPropertyChanged(); } }
+
+        private int _tongTien;
+        public int TongTien { get { return _tongTien; } set { _tongTien = value; OnPropertyChanged(); } }
 
         private int _maPhieuThue;
         public int MaPhieuThue { get { return _maPhieuThue; } set { _maPhieuThue = value; OnPropertyChanged(); } }
 
         private int _maphong;
         public int MaPhong { get { return _maphong; } set { _maphong = value; OnPropertyChanged(); } }
-
-        private int _maKH;
-        public int MaKH { get { return _maKH; } set { _maKH = value; OnPropertyChanged(); } }
 
         private DateTime _ngayBatDau;
         public DateTime NgayBatDau { get { return _ngayBatDau; } set { _ngayBatDau = value; OnPropertyChanged(); } }
@@ -87,6 +89,49 @@ namespace HotelManagement.MVVM.ViewModel.CheckOutViewModels
         private String _tenLoaiPhong;
         public String TenLoaiPhong { get { return _tenLoaiPhong; } set { _tenLoaiPhong = value; OnPropertyChanged(); } }
 
+        private int _soNgayThue;
+        public int SoNgayThue { get { return _soNgayThue; } set { _soNgayThue = value; OnPropertyChanged(); } }
 
+        private int _tongTienPhong;
+        public int TongTienPhong { get { return _tongTienPhong; } set { _tongTienPhong = value; OnPropertyChanged(); } }
+
+        public String DateOfIssue { get; set; }
+
+        public ExportReceiptViewModel(Receipt currentReceipt)
+        {
+            NguoiLapPhieu = currentReceipt.NguoiLapPhieu;
+            MaHoaDon = currentReceipt.MaHoaDon;
+            PhuThu = currentReceipt.PhuThu;
+            TongTien = currentReceipt.TongTien;
+            MaPhieuThue = currentReceipt.MaPhieuThue;
+            TenKH = currentReceipt.TenKH;
+            GioiTinh = currentReceipt.GioiTinh;
+            MaLoaiKhach = currentReceipt.MaLoaiKhach;
+            TenLoaiKhach = currentReceipt.TenLoaiKhach;
+            DiaChi = currentReceipt.DiaChi;
+            CMND = currentReceipt.CMND;
+            SoDienThoai = currentReceipt.SoDienThoai;
+            TenPhong = currentReceipt.TenPhong;
+            TenLoaiPhong = currentReceipt.TenLoaiPhong;
+            DonGia = currentReceipt.DonGia;
+            SoNgToiDa = currentReceipt.SoNgToiDa;
+            SoLuongKhach = currentReceipt.SoLuongKhach;
+            NgayLapPhieu = currentReceipt.NgayLapPhieu;
+            NgayBatDau = currentReceipt.NgayBatDau;
+            NgayTraPhong = currentReceipt.NgayTraPhong;
+            TienCoc = currentReceipt.TienCoc;
+            SoNgayThue = GetDays(currentReceipt.NgayBatDau, currentReceipt.NgayTraPhong);
+            TongTienPhong = currentReceipt.DonGia * SoNgayThue;
+            DateOfIssue = DateTime.Now.ToString();
+
+        }
+
+        private int GetDays(DateTime ngayBD, DateTime ngayTP)
+        {
+            DateTime bd = ngayBD.Date;
+            DateTime tp = ngayTP.Date;
+            string re = tp.Subtract(bd).TotalDays.ToString();
+            return int.Parse(re);
+        }
     }
 }

@@ -1,0 +1,198 @@
+﻿<Window x:Class="HotelManagement.MVVM.View.CheckOutViews.ExportReceipt"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HotelManagement.MVVM.View.CheckOutViews"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewmodel="clr-namespace:HotelManagement.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ExportReceiptViewModel}"
+        mc:Ignorable="d"
+        Title="ExportReceipt" Height="850" Width="700"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen" 
+        WindowStyle="SingleBorderWindow"
+        >
+    <Window.Background>
+        <SolidColorBrush Color="{DynamicResource BackgroundLight}"/>
+    </Window.Background>
+    <Grid>
+        <Grid Margin="0,0,-10,50" x:Name="receipt">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="160"/>
+                <RowDefinition Height="170"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="220"/>
+                <RowDefinition Height="150"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Border Background="#F44336" Margin="0,0,9.8,-0.2">
+                    <Image Source="/Images/hotel.png"
+                        Height="151"
+                        VerticalAlignment="Top"
+                        Margin="10,10,500,-0.2"
+                        Stretch="Fill"/>
+                </Border>
+                <TextBlock Text="MINH HOTEL RECEIPT" Foreground="White" FontSize="35" FontWeight="Bold" Margin="250,10,25.2,91.8"/>
+                <StackPanel Margin="250,55,0,0">
+                    <TextBlock Text="Address: Binh Xuan- Go Cong- Tien Giang" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                    <TextBlock Text="Phone: 0969641857" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                    <TextBlock Text="Fax: 38363432" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                    <TextBlock Text="Email: minhhotel@gmail.com" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <StackPanel Margin="10,0,0,0">
+                            <TextBlock Text="BILL TO" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="32" Height="40" FontWeight="Bold"/>
+                            <TextBlock Text="CLient ID:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                            <TextBlock Text="Name:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                            <TextBlock Text="Address: " HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                            <TextBlock Text="Phone: " HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                            <TextBlock Text="Payment:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <StackPanel>
+                            <TextBlock Text="" FontSize="32" Height="40"/>
+                            <TextBlock Text="{Binding CMND}" FontSize="16" Height="24"/>
+                            <TextBlock Text="{Binding TenKH}" FontSize="16" Height="24"/>
+                            <TextBlock Text="{Binding DiaChi}" FontSize="16" Height="24"/>
+                            <TextBlock Text="{Binding SoDienThoai}" FontSize="16" Height="24"/>
+                            <TextBlock Text="By Cash" FontSize="16" Height="24"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <StackPanel Margin="10,0,0,0">
+                            <TextBlock Text="" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="32" Height="40" FontWeight="Bold"/>
+                            <TextBlock Text="Receipt No:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                            <TextBlock Text="Issue date:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                            <TextBlock Text="Tax ID:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                            <TextBlock Text="Creator:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <StackPanel>
+                            <TextBlock Text="" FontSize="32" Height="40"/>
+                            <TextBlock Text="{Binding MaHoaDon}" FontSize="16" Height="24"/>
+                            <TextBlock Text="{Binding DateOfIssue}" FontSize="16" Height="24"/>
+                            <TextBlock Text="1001600222" FontSize="16" Height="24"/>
+                            <TextBlock Text="{Binding NguoiLapPhieu}" FontSize="16" Height="24"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+
+            </Grid>
+            <Grid Grid.Row="2" Margin="10,0,0,0">
+                <TextBlock Text="RENTAL INFOMMATION" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="32" Height="40" FontWeight="Bold"/>
+
+            </Grid>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <StackPanel Margin="10,0,0,0">
+                            <TextBlock Text="Room:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                            <TextBlock Text="Type:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                            <TextBlock Text="Unit Price:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                            <TextBlock Text="Max People:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <StackPanel>
+                            <TextBlock Text="{Binding TenPhong}" FontSize="16" Height="24"/>
+                            <TextBlock Text="{Binding TenLoaiPhong}" FontSize="16" Height="24"/>
+                            <TextBlock Text="{Binding DonGia}" FontSize="16" Height="24"/>
+                            <TextBlock Text="{Binding SoNgToiDa}" FontSize="16" Height="24"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <StackPanel Margin="10,0,0,0">
+                            <TextBlock Text="Check-in:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                            <TextBlock Text="Check-out" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                            <TextBlock Text="Days:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                            <TextBlock Text="Amount People:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                            <TextBlock Text="Subtotal:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                            <TextBlock Text="Surcharge:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                            <TextBlock Text="Deposits:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
+                            <TextBlock Text="TOTAL:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="32" Height="40" FontWeight="Bold" />
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <StackPanel>
+                            <TextBlock Text="{Binding NgayBatDau}" FontSize="16" Height="24"/>
+                            <TextBlock Text="{Binding NgayTraPhong}" FontSize="16" Height="24"/>
+                            <TextBlock Text="{Binding SoNgayThue}" FontSize="16" Height="24"/>
+                            <TextBlock Text="{Binding SoLuongKhach}" FontSize="16" Height="24"/>
+                            <TextBlock Text="{Binding TongTienPhong}" FontSize="16" Height="24"/>
+                            <TextBlock Text="{Binding PhuThu}" FontSize="16" Height="24"/>
+                            <TextBlock Text="{Binding TienCoc}" FontSize="16" Height="24"/>
+                            <TextBlock Text="{Binding TongTien}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="32" Height="40" FontWeight="Bold" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="4" Margin="0,0.2,-0.4,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <TextBlock Text="Cashier's Signature" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Height="24" FontWeight="Bold" Margin="60,0,0,0"/>
+                    <TextBlock Text="_____________________________" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Height="30" FontWeight="Bold" Margin="32,110,0,0"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <TextBlock Text="Client's Signature" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Height="24" FontWeight="Bold" Margin="65,0,0,0"/>
+                    <TextBlock Text="_____________________________" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Height="30" FontWeight="Bold" Margin="34,110,0,0"/>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid Margin="0,743,-10,-10">
+            <Button
+                x:Name="btnPrint"
+                Margin="600,0,43,28"
+                Height="50"
+                Width="50"
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                Command="{Binding PrintReceiptCommand}"
+                materialDesign:ButtonAssist.CornerRadius="10"
+                BorderThickness="0"
+                Background="#F44336"
+                Foreground="White"
+                ToolTip="Print or export file" Click="btnPrint_Click">
+                <Grid Width="auto">
+                    <Border>
+                        <materialDesign:PackIcon Kind="Printer" Width="26" Height="26" Margin="-10,0,-9.6,-0.4"/>
+                    </Border>
+                </Grid>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>
