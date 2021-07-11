@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 using System.Data;
 using HotelManagement.MVVM.ViewModel;
 using System.Windows;
+using System.Configuration;
+using System.Data.SqlClient;
+using HotelManagement.Object;
 
 namespace HotelManagement.MVVM.Model
 {
     class CheckOutModel
     {
+        public static string con_string = ConfigurationManager.ConnectionStrings["con"].ToString();
         public DataTable Load_List_Rent()
         {
             DataTable re;
@@ -60,5 +64,6 @@ namespace HotelManagement.MVVM.Model
             re = Process.createTable(query);
             return re;
         }
+
     }
 }

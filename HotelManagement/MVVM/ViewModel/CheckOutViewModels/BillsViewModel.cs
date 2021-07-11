@@ -6,14 +6,15 @@ using System.Windows.Input;
 using HotelManagement.MVVM.Model.CheckOut;
 using System.Windows.Forms;
 using ListView = System.Windows.Controls.ListView;
+using HotelManagement.Object;
 
 namespace HotelManagement.MVVM.ViewModel
 {
     class BillsViewModel : ObservableObject
     {
         public static BillsViewModel Instance => new BillsViewModel();
-        private ObservableCollection<BillsItemViewModel> _items;
-        public ObservableCollection<BillsItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged("Items"); } }
+        private ObservableCollection<Receipt> _items;
+        public ObservableCollection<Receipt> Items { get { return _items; } set { _items = value; OnPropertyChanged("Items"); } }
 
         private string _searchText = "";
         public string SearchText { get { return _searchText; } set { _searchText = value; OnPropertyChanged(); } }
@@ -108,7 +109,7 @@ namespace HotelManagement.MVVM.ViewModel
 
         public BillsViewModel()
         {
-            Items = new ObservableCollection<BillsItemViewModel>();
+            Items = new ObservableCollection<Receipt>();
             LoadListBills();
 
             SelectRowCommand = new RelayCommand<ListView>((p) =>
@@ -116,7 +117,7 @@ namespace HotelManagement.MVVM.ViewModel
                 return !p.Items.IsEmpty;
             }, (p) =>
             {
-                BillsItemViewModel Item = p.SelectedItem as BillsItemViewModel;
+                Receipt Item = p.SelectedItem as Receipt;
                 MaHoaDon = Item.MaHoaDon;
                 PhuThu = Item.PhuThu;
                 TongTien = Item.TongTien;
@@ -232,7 +233,7 @@ namespace HotelManagement.MVVM.ViewModel
         {
             foreach (DataRow row in data.Rows)
             {
-                var obj = new BillsItemViewModel()
+                var obj = new Receipt()
                 {
                     MaHoaDon = (int)row["MaHoaDon"],
                     PhuThu = (row["PhuThu"] == DBNull.Value) ? 0 : (int)row["PhuThu"],

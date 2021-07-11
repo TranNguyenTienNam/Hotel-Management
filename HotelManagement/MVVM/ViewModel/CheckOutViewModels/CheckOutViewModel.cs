@@ -10,14 +10,15 @@ using HotelManagement.MVVM.Model.CheckOut;
 using System.Windows.Forms;
 using MessageBox = System.Windows.MessageBox;
 using ListView = System.Windows.Controls.ListView;
+using HotelManagement.Object;
 
 namespace HotelManagement.MVVM.ViewModel
 {
     class CheckOutViewModel : ObservableObject
     {
         public static CheckOutViewModel Instance => new CheckOutViewModel();
-        private ObservableCollection<CheckOutItemViewModel> _items;
-        public ObservableCollection<CheckOutItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged("Items"); } }
+        private ObservableCollection<Rental> _items;
+        public ObservableCollection<Rental> Items { get { return _items; } set { _items = value; OnPropertyChanged("Items"); } }
 
         private string _searchText = "";
         public string SearchText { get { return _searchText; } set { _searchText = value; OnPropertyChanged(); } }
@@ -89,7 +90,7 @@ namespace HotelManagement.MVVM.ViewModel
         private String _tenLoaiPhong;
         public String TenLoaiPhong { get { return _tenLoaiPhong; } set { _tenLoaiPhong = value; OnPropertyChanged(); } }
 
-        // thuộc tính thêm 
+        // thuộc tính dựa vào phiếu thuê tính được tính được 
         private int _soNgayThue;
         public int SoNgayThue { get { return _soNgayThue; } set { _soNgayThue = value; OnPropertyChanged(); } }
 
@@ -114,15 +115,18 @@ namespace HotelManagement.MVVM.ViewModel
 
         public CheckOutViewModel()
         {
-            Items = new ObservableCollection<CheckOutItemViewModel>();
+     
+            Items = new ObservableCollection<Rental>();
             LoadListRent();
 
+            Rental currentRental = new Rental();
             ExportBillCommand = new RelayCommand<object>((p) =>
             {
                 return !string.IsNullOrEmpty(CMND);
             }, (p) =>
             {
                 ExportBill exportBill = new ExportBill();
+                exportBill.DataContext = new ExportBillViewModel(currentRental);
                 exportBill.ShowDialog();
             });
 
@@ -199,7 +203,7 @@ namespace HotelManagement.MVVM.ViewModel
                 return !p.Items.IsEmpty;
             }, (p) =>
             {
-                CheckOutItemViewModel Item = p.SelectedItem as CheckOutItemViewModel;
+                Rental Item = p.SelectedItem as Rental;
                 MaPhieuThue = Item.MaPhieuThue;
                 TenKH = Item.TenKH;
                 GioiTinh = Item.GioiTinh;
@@ -221,6 +225,9 @@ namespace HotelManagement.MVVM.ViewModel
                 TongTienPhong = Item.DonGia * SoNgayThue;
                 PhuThu = GetSurchargeMoney(SoLuongKhach, SoNgayThue, TongTienPhong, SoNgToiDa);
                 TongTien = TongTienPhong + PhuThu - TienCoc;
+                NguoiLapPhieu = Item.NguoiLapPhieu;
+                // gán item hiện tại để truyền vào export bill
+                currentRental = Item;
             });
 
             PickCheckOutDateCommand = new RelayCommand<DatePicker>((p) =>
@@ -233,11 +240,14 @@ namespace HotelManagement.MVVM.ViewModel
                 return !string.IsNullOrEmpty(CMND);
             }, (p) =>
             {
+                // tính lại ngày thuê, tiền thuê
                 NgayTraPhong = p.SelectedDate.HasValue ? p.SelectedDate.Value.Date : NgayBatDau;
                 SoNgayThue = GetDays(NgayBatDau, NgayTraPhong);
                 TongTienPhong = DonGia * SoNgayThue;
                 PhuThu = GetSurchargeMoney(SoLuongKhach, SoNgayThue, TongTienPhong, SoNgToiDa);
                 TongTien = TongTienPhong + (int)PhuThu - TienCoc;
+                //set lại ngày trả phòng của current rental
+                currentRental.NgayTraPhong = NgayTraPhong;
             });
 
         }
@@ -272,7 +282,7 @@ namespace HotelManagement.MVVM.ViewModel
             // set ngày trả phòng, tình trạng thành 'Checkout'
             CheckOutModel checkOutModel = new CheckOutModel();
             checkOutModel.Change_Checkout_Date_And_Set_Checkout(NgayTraPhong, MaPhieuThue);
-            //tạo hóa đơn xuống database
+            // tạo hóa đơn xuống database
             BillsModel billsModel = new BillsModel();
             billsModel.Insert_Bill(MaPhieuThue, PhuThu, TongTien);
         }
@@ -320,7 +330,7 @@ namespace HotelManagement.MVVM.ViewModel
         {
             foreach (DataRow row in data.Rows)
             {
-                var obj = new CheckOutItemViewModel()
+                var obj = new Rental()
                 {
                     MaPhieuThue = (int)row["MaPhieuThue"],
                     NgayLapPhieu = (DateTime)row["NgayLapPhieu"],

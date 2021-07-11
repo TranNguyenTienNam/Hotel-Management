@@ -133,11 +133,10 @@
     <Compile Include="MVVM\ViewModel\BookingListViewModel.cs" />
     <Compile Include="MVVM\ViewModel\BookingViewModel.cs" />
     <Compile Include="MVVM\ViewModel\BookRoomItemViewModel.cs" />
-    <Compile Include="MVVM\ViewModel\CheckOutViewModels\BillsItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\BillsViewModel.cs" />
-    <Compile Include="MVVM\ViewModel\CheckOutViewModels\CheckOutItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\CheckOutViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CheckOutViewModels\SurchargeViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\CheckOutViewModels\ExportBillViewModel.cs" />
     <Compile Include="MVVM\ViewModel\LoginViewModel.cs" />
     <Compile Include="MVVM\ViewModel\RegisterViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\EditRoomViewModel.cs" />
@@ -181,6 +180,8 @@
       <DependentUpon>RoomsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Object\client.cs" />
+    <Compile Include="Object\Receipt.cs" />
+    <Compile Include="Object\Rental.cs" />
     <Compile Include="Object\room.cs" />
     <Compile Include="Object\roomtype.cs" />
     <Compile Include="Object\user.cs" />
