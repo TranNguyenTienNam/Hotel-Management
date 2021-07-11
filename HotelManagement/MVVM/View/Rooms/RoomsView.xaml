@@ -145,7 +145,7 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="200"/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="120"/>
                         </Grid.ColumnDefinitions>
                         <ComboBox Name="cbbSearch" ItemsSource="{Binding ItemsSearch}" Margin="4"
@@ -167,7 +167,7 @@
                                 </Style>
                             </TextBlock.Style>
                         </TextBlock>
-                        <TextBox Grid.Column="1" Width="600" x:Name="searchRoom" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                        <TextBox Grid.Column="1" x:Name="searchRoom" FontSize="14" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                                  BorderThickness="0" Foreground="#F44336" Text="{Binding SearchText}"></TextBox>
                         <Button Grid.Column="2" Width="110" Height="38" HorizontalAlignment="Right" Padding="0"
                             Style="{StaticResource MaterialDesignRaisedButton}"
