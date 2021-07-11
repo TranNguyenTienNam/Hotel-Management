@@ -23,7 +23,7 @@ namespace HotelManagement.MVVM.ViewModel
         private string _searchText = "";
         public string SearchText { get { return _searchText; } set { _searchText = value; OnPropertyChanged(); } }
 
-        //thuộc tính phiếu thuê
+        //thuộc tính phiếu thuê đầy đủ
         private int _maPhieuThue;
         public int MaPhieuThue { get { return _maPhieuThue; } set { _maPhieuThue = value; OnPropertyChanged(); } }
 
@@ -115,11 +115,12 @@ namespace HotelManagement.MVVM.ViewModel
 
         public CheckOutViewModel()
         {
-     
+            //biến phụ để chứa item được chọn của listview
+            Rental currentRental = new Rental();
+
             Items = new ObservableCollection<Rental>();
             LoadListRent();
 
-            Rental currentRental = new Rental();
             ExportBillCommand = new RelayCommand<object>((p) =>
             {
                 return !string.IsNullOrEmpty(CMND);
@@ -240,16 +241,15 @@ namespace HotelManagement.MVVM.ViewModel
                 return !string.IsNullOrEmpty(CMND);
             }, (p) =>
             {
-                // tính lại ngày thuê, tiền thuê
+                // tính lại số ngày thuê, tiền thuê...
                 NgayTraPhong = p.SelectedDate.HasValue ? p.SelectedDate.Value.Date : NgayBatDau;
                 SoNgayThue = GetDays(NgayBatDau, NgayTraPhong);
                 TongTienPhong = DonGia * SoNgayThue;
                 PhuThu = GetSurchargeMoney(SoLuongKhach, SoNgayThue, TongTienPhong, SoNgToiDa);
                 TongTien = TongTienPhong + (int)PhuThu - TienCoc;
-                //set lại ngày trả phòng của current rental
+                //set lại ngày trả phòng cho current rental
                 currentRental.NgayTraPhong = NgayTraPhong;
             });
-
         }
 
         private void ClearInfo()
@@ -279,7 +279,7 @@ namespace HotelManagement.MVVM.ViewModel
 
         private void Checkout()
         {
-            // set ngày trả phòng, tình trạng thành 'Checkout'
+            // set lại ngày trả phòng, tình trạng thành 'Checkout'
             CheckOutModel checkOutModel = new CheckOutModel();
             checkOutModel.Change_Checkout_Date_And_Set_Checkout(NgayTraPhong, MaPhieuThue);
             // tạo hóa đơn xuống database
@@ -315,6 +315,7 @@ namespace HotelManagement.MVVM.ViewModel
             CheckOutModel model = new CheckOutModel();
             DataTable data = new DataTable();
             data = model.Load_List_Rent_By_Room(SearchText);
+            //gán giá trị cho các item listview từ datatable load được
             SetPropsFromData(data);
         }
 
@@ -358,6 +359,5 @@ namespace HotelManagement.MVVM.ViewModel
                 Items.Add(obj);
             }
         }
-
     }
 }
