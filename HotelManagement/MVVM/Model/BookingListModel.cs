@@ -34,6 +34,8 @@ namespace HotelManagement.MVVM.Model
             return Process.createTable(sql_select);
         }
 
+
+
         public bool Update_Rental(int RentalID,int Deposit,int Amount)
         {
             string sql_update = "UPDATE PHIEUTHUEPHONG " +
@@ -50,6 +52,13 @@ namespace HotelManagement.MVVM.Model
             if (Process.ExecutiveNonQuery(sql_update) > 0)
                 return true;
             return false;
+        }
+
+        public string GetUsernameAccount(int MaNgDung)
+        {
+            string sql_select = "SELECT TenTaiKhoan FROM NGUOIDUNG WHERE MaNgDung=" + MaNgDung;
+
+            return Process.getString(sql_select);
         }
 
 

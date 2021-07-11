@@ -88,8 +88,8 @@ namespace HotelManagement.MVVM.ViewModel
         private int _deposit;
         public int Deposit { get { return _deposit; } set { _deposit = value; OnPropertyChanged(); } }
 
-        private DateTime _createDate;
-        public DateTime CreateDate { get { return _createDate; } set { _createDate = value; OnPropertyChanged(); } }
+        private string _createDate;
+        public string CreateDate { get { return _createDate; } set { _createDate = value; OnPropertyChanged(); } }
 
         private int _amountPeople;
         public int AmountPeople { get { return _amountPeople; } set { _amountPeople = value; OnPropertyChanged(); } }
@@ -97,11 +97,11 @@ namespace HotelManagement.MVVM.ViewModel
         private string _creator;
         public string Creator { get { return _creator; } set { _creator = value; OnPropertyChanged(); } }
 
-        private DateTime _checkInDate;
-        public DateTime CheckInDate { get { return _checkInDate; } set { _checkInDate = value; OnPropertyChanged(); } }
+        private string _checkInDate;
+        public string CheckInDate { get { return _checkInDate; } set { _checkInDate = value; OnPropertyChanged(); } }
 
-        private DateTime _checkOutDate;
-        public DateTime CheckOutDate { get { return _checkOutDate; } set { _checkOutDate = value; OnPropertyChanged(); } }
+        private string _checkOutDate;
+        public string CheckOutDate { get { return _checkOutDate; } set { _checkOutDate = value; OnPropertyChanged(); } }
         #endregion
 
         //readonly of textbox
@@ -176,9 +176,9 @@ namespace HotelManagement.MVVM.ViewModel
                 NewBookingModel nbmodel = new NewBookingModel();
                 BookingListModel blmodel = new BookingListModel();
                 int n = (Nationality == "Vietnamese") ? 1 : 2;
-                if (UserID != userid)
+                if (UserID != userid && blmodel.GetUsernameAccount(UserID) != "admin")
                 {                                       
-                    MessageBox.Show("You must be the creator", "Access denied");
+                    MessageBox.Show("You must be the creator or admin!", "Access denied");
                     return;
                 }
                 if ((nbmodel.Update_Client(ClientName, n, IdCardNumber, Phone, Address, Gender)) && (blmodel.Update_Rental(RentalId, Deposit, AmountPeople)))
@@ -201,7 +201,6 @@ namespace HotelManagement.MVVM.ViewModel
 
         }
 
-
         void DefaultInfo()
         {
             ClientName = "";
@@ -211,11 +210,15 @@ namespace HotelManagement.MVVM.ViewModel
             Gender = "";
             Address = "";
             RentalId = 0;
+            RoomId ="";
             RoomType = "";
             Price = 0;
             Deposit = 0;
             Creator = "";
             AmountPeople = 0;
+            CheckInDate = "";
+            CheckOutDate = "";
+            CreateDate = "";
         }
 
         void initProperty()
@@ -290,10 +293,10 @@ namespace HotelManagement.MVVM.ViewModel
             RoomType = (string)row["TenLoaiPhong"];
             Price = (int)row["DonGia"];
             AmountPeople = (int)row["SoLuongKhach"];
-            CheckOutDate = (DateTime)row["NgayTraPhong"];
+            CheckOutDate = ((DateTime)row["NgayTraPhong"]).ToString("yyyy-MM-dd 23:59:59");
             Creator = ((row["Ten"] == DBNull.Value) ? "" : (string)row["Ten"]) + " (" + row["MaNgDung"].ToString() + ")";
-            CreateDate = createDate;
-            CheckInDate = checkInDate;
+            CreateDate = createDate.ToString("yyyy-MM-dd HH:mm:ss");
+            CheckInDate = checkInDate.ToString("yyyy-MM-dd 06:00:00");
             Deposit = deposit;
             userid = (int)row["MaNgDung"];
         }
