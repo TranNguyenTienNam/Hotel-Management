@@ -42,6 +42,8 @@ namespace HotelManagement.MVVM.ViewModel
 
         public ICommand ToggleButtonClickCommand { get; set; }
         public ICommand ListViewSelectionChangedCommand { get; set; }
+        public ICommand HandleSave { get; set; }
+        public ICommand HandleDel { get; set; }
         #endregion
 
         #region Checkin and Edit Information
@@ -72,6 +74,8 @@ namespace HotelManagement.MVVM.ViewModel
         #endregion
 
         #region Rental Information
+        public int RentalId;
+        public int userid;
         private string _roomId;
         public string RoomId { get { return _roomId; } set { _roomId = value; OnPropertyChanged(); } }
 
@@ -109,7 +113,7 @@ namespace HotelManagement.MVVM.ViewModel
         public bool IsEnabled { get { return _isEnabled; } set { _isEnabled = value; OnPropertyChanged(); } }
         #endregion
 
-        public BookingViewModel()
+        public BookingViewModel(int UserID)
         {
             initProperty();
             LoadBooking();
@@ -158,17 +162,68 @@ namespace HotelManagement.MVVM.ViewModel
             }, (p) =>
             {
                 var values = p.SelectedItem as BookingItemViewModel;
+                RentalId = values.MaPhieuThue;
                 loadClientInformation(values.CMND, values.TenKH);
                 loadRentalInformation(values.MaPhieuThue, values.NgayLapPhieu, values.NgayBatDau, values.TienCoc);
             });
+
+
+            HandleSave = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                NewBookingModel nbmodel = new NewBookingModel();
+                BookingListModel blmodel = new BookingListModel();
+                int n = (Nationality == "Vietnamese") ? 1 : 2;
+                if (UserID != userid)
+                {                                       
+                    MessageBox.Show("You must be the creator", "Access denied");
+                    return;
+                }
+                if ((nbmodel.Update_Client(ClientName, n, IdCardNumber, Phone, Address, Gender)) && (blmodel.Update_Rental(RentalId, Deposit, AmountPeople)))
+                    MessageBox.Show("Update Successful!");
+                LoadBooking();
+                DefaultInfo();
+
+            });
+            HandleDel = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                BookingListModel blmodel = new BookingListModel();
+                if (blmodel.Delete_Rental(RentalId)) MessageBox.Show("Delete Rental Suscess", "Notify");
+                LoadBooking();
+                DefaultInfo();
+            });
+
+
+        }
+
+
+        void DefaultInfo()
+        {
+            ClientName = "";
+            IdCardNumber = "";
+            Nationality = "";
+            Phone = "";
+            Gender = "";
+            Address = "";
+            RentalId = 0;
+            RoomType = "";
+            Price = 0;
+            Deposit = 0;
+            Creator = "";
+            AmountPeople = 0;
         }
 
         void initProperty()
         {
             Items = new ObservableCollection<BookingItemViewModel>();
             ListNationality = new List<string>();
-            ListNationality.Add("Viet Nam");
-            ListNationality.Add("Foreign");
+            ListNationality.Add("Vietnamese");
+            ListNationality.Add("Other");
             ListGender = new List<string>();
             ListGender.Add("Male");
             ListGender.Add("Female");
@@ -179,6 +234,7 @@ namespace HotelManagement.MVVM.ViewModel
             IsReadOnly = true;
             IsEnabled = false;
         }
+
 
         void LoadBooking()
         {
@@ -226,7 +282,7 @@ namespace HotelManagement.MVVM.ViewModel
         {
             BookingListModel model = new BookingListModel();
             DataTable data = new DataTable();
-            data = model.LoadRentalInformation(MaPhieuThue);
+            data = model.LoadRentalInformation(MaPhieuThue);           
 
             DataRow row = data.Rows[0];
 
@@ -239,6 +295,7 @@ namespace HotelManagement.MVVM.ViewModel
             CreateDate = createDate;
             CheckInDate = checkInDate;
             Deposit = deposit;
+            userid = (int)row["MaNgDung"];
         }
 
         #region View Event Handling
