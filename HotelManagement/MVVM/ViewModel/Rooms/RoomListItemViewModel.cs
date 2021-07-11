@@ -71,7 +71,8 @@ namespace HotelManagement.MVVM.ViewModel
 
         void showEditRoomView()
         {
-            EditRoomView wd = new EditRoomView(MaPhong, TenPhong, LoaiPhong, DonGia, SoNgToiDa, GhiChu);
+            EditRoomView wd = new EditRoomView();
+            wd.DataContext = new EditRoomViewModel(MaPhong);
             wd.ShowDialog();
         }
 

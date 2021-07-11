@@ -16,7 +16,6 @@ namespace HotelManagement.MVVM.ViewModel
     /// </summary>
     class EditRoomViewModel : ObservableObject
     {
-        public static EditRoomViewModel Instance => new EditRoomViewModel();
         private RoomListItemViewModel _item;
         public RoomListItemViewModel Item { get { return _item; } set { _item = value; OnPropertyChanged(); } }
 
@@ -49,14 +48,15 @@ namespace HotelManagement.MVVM.ViewModel
         public int MaxPeople { get { return _maxPeople; } set { _maxPeople = value; OnPropertyChanged(); } }
 
         public ICommand SaveEditCommand { get; set; }
-        public ICommand RIdLostFocusCommand { get; set; }
         public ICommand ClickExitCommand { get; set; }
         public ICommand RoomTypeSelectionChangedCommand { get; set; }
 
-        public EditRoomViewModel()
+        public EditRoomViewModel(int RoomID)
         {
             types = RoomsViewModel.Instance.Types;
             Item = RoomListItemViewModel.Instance;
+            ID = RoomID;
+            loadRoom(RoomID);
 
             SaveEditCommand = new RelayCommand<object>((p) =>
             {
@@ -66,15 +66,8 @@ namespace HotelManagement.MVVM.ViewModel
                     return true;
             }, (p) =>
             {
+                //MessageBox.Show(ID + RoomName + Type + Price + MaxPeople + Notes);
                 saveRoomEdited();
-            });
-
-            RIdLostFocusCommand = new RelayCommand<TextBox>((p) =>
-            {
-                return true;
-            }, (p) =>
-            {
-                loadRoom(ID);
             });
 
             ClickExitCommand = new RelayCommand<Window>((p) =>

@@ -16,9 +16,6 @@
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         MouseDown="Window_MouseDown">
-    <Window.DataContext>
-        <viewModel:EditRoomViewModel/>
-    </Window.DataContext>
     <Border Background="#F44336" BorderThickness="1" BorderBrush="#F44336">
         <Border.Clip>
             <RectangleGeometry 
@@ -58,7 +55,7 @@
             </Grid>
             <Border Grid.Row="1" Background="Transparent" Visibility="{Binding Visibility}">
                 <Border Background="White" HorizontalAlignment="Stretch">
-                    <Grid FocusManager.FocusedElement="{Binding ElementName=tbRoomId}">
+                    <Grid FocusManager.FocusedElement="{Binding ElementName=tbRoomName}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -72,12 +69,6 @@
                             materialDesign:HintAssist.Hint="Room ID: (Can't be modified)" FontSize="14" IsReadOnly="True"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                             VerticalAlignment="Center" Margin="8">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="LostFocus">
-                                    <i:InvokeCommandAction Command="{Binding RIdLostFocusCommand}"
-                                        CommandParameter="{Binding ElementName=tbRoomId}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
                         </TextBox>
                         <TextBox Grid.Row="1" Name="tbRoomName" Foreground="#F44336" Text="{Binding RoomName}"
                                  MaxLength="30"
