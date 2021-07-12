@@ -1,5 +1,6 @@
 ﻿using HotelManagement.Core;
 using HotelManagement.MVVM.Model.CheckOut;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 
@@ -38,6 +39,12 @@ namespace HotelManagement.MVVM.ViewModel
             SurchargeModel model = new SurchargeModel();
             model.Update_surcharge(khachThu3);
             MessageBox.Show("Update successful!");
+        }
+
+        public void IsAllowedInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         private void LoadSurcharge()
