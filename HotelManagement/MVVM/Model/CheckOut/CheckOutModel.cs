@@ -29,7 +29,7 @@ namespace HotelManagement.MVVM.Model
                 "inner join PHONG on PHONG.MaPhong=PHIEUTHUEPHONG.MaPhong " +
                 "inner join LOAIPHONG on LOAIPHONG.MaLoaiPhong=PHONG.MaLoaiPhong " +
                 "inner join TTNguoiDung on TTNguoiDung.MaNgDung=PHIEUTHUEPHONG.NguoiLapPhieu " +
-                "WHERE TinhTrang = 'Checkin'";
+                "WHERE TinhTrang = 'Check-in'";
             re = Process.createTable(query);
             return re;
         }
@@ -48,7 +48,7 @@ namespace HotelManagement.MVVM.Model
                 "inner join PHONG on PHONG.MaPhong=PHIEUTHUEPHONG.MaPhong " +
                 "inner join LOAIPHONG on LOAIPHONG.MaLoaiPhong=PHONG.MaLoaiPhong " +
                 "inner join TTNguoiDung on TTNguoiDung.MaNgDung=PHIEUTHUEPHONG.NguoiLapPhieu " +
-                "WHERE TinhTrang = 'Checkin' " +
+                "WHERE TinhTrang = 'Check-in' " +
                 "and CHARINDEX(N'" + _tenPhong + "', TenPhong) != 0";
             re = Process.createTable(query);
             return re;
@@ -59,7 +59,7 @@ namespace HotelManagement.MVVM.Model
             DataTable re;
             string query = "UPDATE PHIEUTHUEPHONG " +
                 "SET NgayTraPhong = '" + date + "', " +
-                "TinhTrang = 'Checkout' " +
+                "TinhTrang = 'Check-out' " +
                 "WHERE MaPhieuThue = " + maPhieuThue;
             re = Process.createTable(query);
             return re;
