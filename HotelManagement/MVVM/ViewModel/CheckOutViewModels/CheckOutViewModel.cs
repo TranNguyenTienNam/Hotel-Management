@@ -42,8 +42,8 @@ namespace HotelManagement.MVVM.ViewModel
         private String _tinhTrang;
         public String TinhTrang { get { return _tinhTrang; } set { _tinhTrang = value; OnPropertyChanged(); } }
 
-        private int _nguoiLapPhieu;
-        public int NguoiLapPhieu { get { return _nguoiLapPhieu; } set { _nguoiLapPhieu = value; OnPropertyChanged(); } }
+        private string _nguoiLapPhieu;
+        public string NguoiLapPhieu { get { return _nguoiLapPhieu; } set { _nguoiLapPhieu = value; OnPropertyChanged(); } }
 
         private int _tiencoc;
         public int TienCoc { get { return _tiencoc; } set { _tiencoc = value; OnPropertyChanged(); } }
@@ -341,7 +341,7 @@ namespace HotelManagement.MVVM.ViewModel
                     NgayTraPhong = (row["NgayTraPhong"] == DBNull.Value ? DateTime.Now.Date : (DateTime)row["NgayTraPhong"]),
                     SoLuongKhach = (row["SoLuongKhach"] == DBNull.Value ? 0 : (int)row["SoLuongKhach"]),
                     TinhTrang = (string)row["TinhTrang"],
-                    NguoiLapPhieu = (row["NguoiLapPhieu"] == DBNull.Value ? 0 : (int)row["NguoiLapPhieu"]),
+                    NguoiLapPhieu = (row["Ten"] == DBNull.Value ? string.Empty : (string)row["Ten"]),
                     TienCoc = (row["TienCoc"] == DBNull.Value ? 0 : (int)row["TienCoc"]),
                     TenKH = (string)row["TenKH"],
                     CMND = (string)row["CMND"],

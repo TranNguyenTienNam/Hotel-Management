@@ -19,8 +19,8 @@ namespace HotelManagement.MVVM.Model.CheckOut
         {
             DataTable re;
             string query = "SELECT MaHoaDon, PhuThu, TongTien, " +
-                "HOADON.MaPhieuThue, NgayLapPhieu, NgayBatDau, NgayTraPhong, SoLuongKhach, TinhTrang, NguoiLapPhieu, TienCoc, " +
-                "TenKH, PHIEUTHUEPHONG.CMND, SoDienThoai, DiaChi, GioiTinh, " +
+                "HOADON.MaPhieuThue, NgayLapPhieu, NgayBatDau, NgayTraPhong, SoLuongKhach, TinhTrang, TTNguoiDung.Ten, TienCoc, " +
+                "TenKH, PHIEUTHUEPHONG.CMND, KHACHHANG.SoDienThoai, DiaChi, KHACHHANG.GioiTinh, " +
                 "LOAIKHACHHANG.MaLoaiKhach, TenLoaiKhach, " +
                 "PHIEUTHUEPHONG.MaPhong, TenPhong, GhiChu, " +
                 "LOAIPHONG.MaLoaiPhong, TenLoaiPhong, DonGia,SoNgToiDa " +
@@ -30,7 +30,7 @@ namespace HotelManagement.MVVM.Model.CheckOut
                 "inner join LOAIKHACHHANG on LOAIKHACHHANG.MaLoaiKhach=KHACHHANG.MaLoaiKhach " +
                 "inner join PHONG on PHONG.MaPhong=PHIEUTHUEPHONG.MaPhong " +
                 "inner join LOAIPHONG on LOAIPHONG.MaLoaiPhong=PHONG.MaLoaiPhong " +
-                "inner join NGUOIDUNG on NGUOIDUNG.MaNgDung=PHIEUTHUEPHONG.NguoiLapPhieu ";
+                "inner join TTNguoiDung on TTNguoiDung.MaNgDung=PHIEUTHUEPHONG.NguoiLapPhieu ";
             re = Process.createTable(query);
             return re;
         }
@@ -38,8 +38,8 @@ namespace HotelManagement.MVVM.Model.CheckOut
         {
             DataTable re;
             string query = "SELECT MaHoaDon, PhuThu, TongTien, " +
-                "HOADON.MaPhieuThue, NgayLapPhieu, NgayBatDau, NgayTraPhong, SoLuongKhach, TinhTrang, NguoiLapPhieu, TienCoc, " +
-                "TenKH, PHIEUTHUEPHONG.CMND, SoDienThoai, DiaChi, GioiTinh, " +
+                "HOADON.MaPhieuThue, NgayLapPhieu, NgayBatDau, NgayTraPhong, SoLuongKhach, TinhTrang, TTNguoiDung.Ten, TienCoc, " +
+                "TenKH, PHIEUTHUEPHONG.CMND, KHACHHANG.SoDienThoai, DiaChi, KHACHHANG.GioiTinh, " +
                 "LOAIKHACHHANG.MaLoaiKhach, TenLoaiKhach, " +
                 "PHIEUTHUEPHONG.MaPhong, TenPhong, GhiChu, " +
                 "LOAIPHONG.MaLoaiPhong, TenLoaiPhong, DonGia,SoNgToiDa " +
@@ -49,7 +49,7 @@ namespace HotelManagement.MVVM.Model.CheckOut
                 "inner join LOAIKHACHHANG on LOAIKHACHHANG.MaLoaiKhach=KHACHHANG.MaLoaiKhach " +
                 "inner join PHONG on PHONG.MaPhong=PHIEUTHUEPHONG.MaPhong " +
                 "inner join LOAIPHONG on LOAIPHONG.MaLoaiPhong=PHONG.MaLoaiPhong " +
-                "inner join NGUOIDUNG on NGUOIDUNG.MaNgDung=PHIEUTHUEPHONG.NguoiLapPhieu " +
+                "inner join TTNguoiDung on TTNguoiDung.MaNgDung = PHIEUTHUEPHONG.NguoiLapPhieu " +
                 "and CHARINDEX(N'" + _cmnd + "', PHIEUTHUEPHONG.CMND) != 0";
             re = Process.createTable(query);
             return re;
