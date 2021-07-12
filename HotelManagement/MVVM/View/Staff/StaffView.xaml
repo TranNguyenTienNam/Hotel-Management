@@ -30,7 +30,7 @@
                         HorizontalAlignment="Left">
                     <Border Grid.Column="0" Background="White" CornerRadius="12" HorizontalAlignment="Left" Margin="4,4,4,0">
                         <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" 
-                               Text="Staff List" Margin="4,4,15,4" FontSize="20" FontWeight="Bold" Foreground="#F44336"/>
+                               Text="Employee List" Margin="4,4,15,4" FontSize="20" FontWeight="Bold" Foreground="#F44336"/>
                     </Border>
                     
                     <RadioButton 

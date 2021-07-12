@@ -12,6 +12,8 @@ using System.Windows.Input;
 using HotelManagement.MVVM.View;
 using System.Windows;
 using System.Windows.Threading;
+using HotelManagement.MVVM.View.Staff;
+using HotelManagement.MVVM.ViewModel.Staff;
 
 namespace HotelManagement.MVVM.ViewModel
 {
@@ -40,19 +42,27 @@ namespace HotelManagement.MVVM.ViewModel
         private string email;
         public string Email { get { return email; } set { email = value; OnPropertyChanged(); } }
 
-        private DateTime ngaySinh;
-        public DateTime NgaySinh { get { return ngaySinh; } set { ngaySinh = value; OnPropertyChanged(); } }
+        private string ngaySinh;
+        public string NgaySinh { get { return ngaySinh; } set { ngaySinh = value; OnPropertyChanged(); } }
 
         private bool isBlocked;
         public bool IsBlocked { get { return isBlocked; } set { isBlocked = value; OnPropertyChanged(); } }
 
         public bool IsSelected { get; set; }
 
-        public ICommand EditRoomCommand { get; set; }
+        public ICommand SendMailCommand { get; set; }
         public ICommand BlockOrUnblockStaffAccountCommand { get; set; }
 
         public StaffItemViewModel()
         {
+            SendMailCommand = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                SendMail();
+            });
+
             BlockOrUnblockStaffAccountCommand = new RelayCommand<object>((p) =>
             {
                 return true;
@@ -60,6 +70,13 @@ namespace HotelManagement.MVVM.ViewModel
             {
                 BlockOrUnblockStaffAccount();            
             });
+        }
+
+        void SendMail()
+        {
+            NewMessageView wd = new NewMessageView();
+            wd.DataContext = new NewMessageViewModel(Email);
+            wd.Show();
         }
 
         void BlockOrUnblockStaffAccount()

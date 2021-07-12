@@ -52,7 +52,7 @@
                                             </Grid.ColumnDefinitions>
 
                                             <Button Grid.Column="0" Background="#F44336" Padding="0" Margin="5,0,5,0"
-                                                Width="30" Height="30" Command="{Binding EditRoomCommand}"
+                                                Width="30" Height="30" Command="{Binding SendMailCommand}"
                                                 ToolTip="Click to edit room">
                                                 <materialDesign:PackIcon Kind="Gmail" Height="24" Width="24"/>
                                             </Button>
