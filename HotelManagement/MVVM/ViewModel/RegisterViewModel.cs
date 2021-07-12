@@ -161,9 +161,7 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                p.Hide();
-                (new LoginWindow()).Show();
-                p.Close();
+                Cancel(p);
             });
 
             FinishCommand = new RelayCommand<object[]>((p) =>
@@ -228,6 +226,16 @@ namespace HotelManagement.MVVM.ViewModel
                     return;
                 }    
             }
+        }
+
+        void Cancel(Window p)
+        {
+            if (p == null)
+                return;
+
+            p.Hide();
+            (new LoginWindow()).Show();
+            p.Close();
         }
     }
 }
