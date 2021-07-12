@@ -41,8 +41,8 @@ namespace HotelManagement.MVVM.ViewModel
         private String _tinhTrang;
         public String TinhTrang { get { return _tinhTrang; } set { _tinhTrang = value; OnPropertyChanged(); } }
 
-        private int _nguoiLapPhieu;
-        public int NguoiLapPhieu { get { return _nguoiLapPhieu; } set { _nguoiLapPhieu = value; OnPropertyChanged(); } }
+        private string _nguoiLapPhieu;
+        public string NguoiLapPhieu { get { return _nguoiLapPhieu; } set { _nguoiLapPhieu = value; OnPropertyChanged(); } }
 
         private int _tiencoc;
         public int TienCoc { get { return _tiencoc; } set { _tiencoc = value; OnPropertyChanged(); } }

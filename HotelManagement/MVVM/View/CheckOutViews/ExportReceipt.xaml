@@ -52,7 +52,7 @@
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <StackPanel Margin="10,0,0,0">
-                            <TextBlock Text="BILL TO" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="32" Height="40" FontWeight="Bold"/>
+                            <TextBlock Text="BILL TO" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="32" Height="40" FontWeight="Bold" Foreground="#FFF44336"/>
                             <TextBlock Text="CLient ID:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
                             <TextBlock Text="Name:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
                             <TextBlock Text="Address: " HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
@@ -98,7 +98,7 @@
 
             </Grid>
             <Grid Grid.Row="2" Margin="10,0,0,0">
-                <TextBlock Text="RENTAL INFOMMATION" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="32" Height="40" FontWeight="Bold"/>
+                <TextBlock Text="RENTAL INFOMMATION" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="32" Height="40" FontWeight="Bold" Foreground="#FFF44336"/>
 
             </Grid>
             <Grid Grid.Row="3">
@@ -142,7 +142,7 @@
                             <TextBlock Text="Subtotal:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
                             <TextBlock Text="Surcharge:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
                             <TextBlock Text="Deposits:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Height="24" FontWeight="DemiBold"/>
-                            <TextBlock Text="TOTAL:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="32" Height="40" FontWeight="Bold" />
+                            <TextBlock Text="TOTAL:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="32" Height="40" FontWeight="Bold" Foreground="#FFF44336"/>
                         </StackPanel>
                     </Grid>
                     <Grid Grid.Column="1">
@@ -154,7 +154,7 @@
                             <TextBlock Text="{Binding TongTienPhong}" FontSize="16" Height="24"/>
                             <TextBlock Text="{Binding PhuThu}" FontSize="16" Height="24"/>
                             <TextBlock Text="{Binding TienCoc}" FontSize="16" Height="24"/>
-                            <TextBlock Text="{Binding TongTien}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="32" Height="40" FontWeight="Bold" />
+                            <TextBlock Text="{Binding TongTien}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="32" Height="40" FontWeight="Bold" Foreground="#FFF44336"/>
                         </StackPanel>
                     </Grid>
                 </Grid>

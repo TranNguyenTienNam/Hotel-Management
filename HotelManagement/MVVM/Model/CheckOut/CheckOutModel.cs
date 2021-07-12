@@ -18,8 +18,8 @@ namespace HotelManagement.MVVM.Model
         public DataTable Load_List_Rent()
         {
             DataTable re;
-            string query = "SELECT MaPhieuThue, NgayLapPhieu, NgayBatDau, NgayTraPhong, SoLuongKhach, TinhTrang, NguoiLapPhieu, TienCoc, " +
-                "TenKH, PHIEUTHUEPHONG.CMND, SoDienThoai, DiaChi, GioiTinh, " +
+            string query = "SELECT MaPhieuThue, NgayLapPhieu, NgayBatDau, NgayTraPhong, SoLuongKhach, TinhTrang, TTNguoiDung.Ten, TienCoc, " +
+                "TenKH, PHIEUTHUEPHONG.CMND, KHACHHANG.SoDienThoai, DiaChi, KHACHHANG.GioiTinh, " +
                 "LOAIKHACHHANG.MaLoaiKhach, TenLoaiKhach, " +
                 "PHIEUTHUEPHONG.MaPhong, TenPhong, GhiChu, " +
                 "LOAIPHONG.MaLoaiPhong, TenLoaiPhong, DonGia, SoNgToiDa " +
@@ -28,7 +28,7 @@ namespace HotelManagement.MVVM.Model
                 "inner join LOAIKHACHHANG on LOAIKHACHHANG.MaLoaiKhach=KHACHHANG.MaLoaiKhach " +
                 "inner join PHONG on PHONG.MaPhong=PHIEUTHUEPHONG.MaPhong " +
                 "inner join LOAIPHONG on LOAIPHONG.MaLoaiPhong=PHONG.MaLoaiPhong " +
-                "inner join NGUOIDUNG on NGUOIDUNG.MaNgDung=PHIEUTHUEPHONG.NguoiLapPhieu " +
+                "inner join TTNguoiDung on TTNguoiDung.MaNgDung=PHIEUTHUEPHONG.NguoiLapPhieu " +
                 "WHERE TinhTrang = 'Checkin'";
             re = Process.createTable(query);
             return re;
@@ -37,8 +37,8 @@ namespace HotelManagement.MVVM.Model
         public DataTable Load_List_Rent_By_Room(string _tenPhong)
         {
             DataTable re;
-            string query = "SELECT MaPhieuThue, NgayLapPhieu, NgayBatDau, NgayTraPhong, SoLuongKhach, TinhTrang, NguoiLapPhieu, TienCoc, " +
-                "TenKH, PHIEUTHUEPHONG.CMND, SoDienThoai, DiaChi, GioiTinh, " +
+            string query = "SELECT MaPhieuThue, NgayLapPhieu, NgayBatDau, NgayTraPhong, SoLuongKhach, TinhTrang, TTNguoiDung.Ten, TienCoc, " +
+                "TenKH, PHIEUTHUEPHONG.CMND, KHACHHANG.SoDienThoai, DiaChi, KHACHHANG.GioiTinh, " +
                 "LOAIKHACHHANG.MaLoaiKhach, TenLoaiKhach, " +
                 "PHIEUTHUEPHONG.MaPhong, TenPhong, GhiChu, " +
                 "LOAIPHONG.MaLoaiPhong, TenLoaiPhong, DonGia,SoNgToiDa " +
@@ -47,7 +47,7 @@ namespace HotelManagement.MVVM.Model
                 "inner join LOAIKHACHHANG on LOAIKHACHHANG.MaLoaiKhach=KHACHHANG.MaLoaiKhach " +
                 "inner join PHONG on PHONG.MaPhong=PHIEUTHUEPHONG.MaPhong " +
                 "inner join LOAIPHONG on LOAIPHONG.MaLoaiPhong=PHONG.MaLoaiPhong " +
-                "inner join NGUOIDUNG on NGUOIDUNG.MaNgDung=PHIEUTHUEPHONG.NguoiLapPhieu " +
+                "inner join TTNguoiDung on TTNguoiDung.MaNgDung=PHIEUTHUEPHONG.NguoiLapPhieu " +
                 "WHERE TinhTrang = 'Checkin' " +
                 "and CHARINDEX(N'" + _tenPhong + "', TenPhong) != 0";
             re = Process.createTable(query);

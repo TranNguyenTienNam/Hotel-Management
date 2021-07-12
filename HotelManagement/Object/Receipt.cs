@@ -35,8 +35,8 @@ namespace HotelManagement.Object
         private String _tinhTrang;
         public String TinhTrang { get { return _tinhTrang; } set { _tinhTrang = value; } }
 
-        private int _nguoiLapPhieu;
-        public int NguoiLapPhieu { get { return _nguoiLapPhieu; } set { _nguoiLapPhieu = value; } }
+        private string _nguoiLapPhieu;
+        public string NguoiLapPhieu { get { return _nguoiLapPhieu; } set { _nguoiLapPhieu = value; } }
 
         private int _tiencoc;
         public int TienCoc { get { return _tiencoc; } set { _tiencoc = value; } }
