@@ -31,7 +31,11 @@ namespace HotelManagement.MVVM.ViewModel
         
         private string _gender;
         public string Gender { get { return _gender; } set { _gender = value; OnPropertyChanged(); } }
-        
+
+        public DateTime DateStart { get; set; }
+
+        public DateTime DateEnd { get; set; }
+
         private DateTime _birthday;
         public DateTime Birthday { get { return _birthday; } set { _birthday = value; OnPropertyChanged(); } }
 
@@ -128,8 +132,8 @@ namespace HotelManagement.MVVM.ViewModel
 
         public ProfileViewModel(int UserId)
         {
-            initProperty();
             loadProfile(UserId);
+            initProperty();
 
             SaveProfileCommand = new RelayCommand<object>((p) =>
             {
@@ -323,6 +327,8 @@ namespace HotelManagement.MVVM.ViewModel
 
         void initProperty()
         {
+            DateStart = new DateTime(1960,1,1);
+            DateEnd = DateTime.Now;
             ListGender = new List<string>();
             ListGender.Add("Male");
             ListGender.Add("Female");

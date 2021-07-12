@@ -129,7 +129,8 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Margin="8,0,0,0" Text="Birthday: " FontWeight="Bold" VerticalAlignment="Center" Foreground="#FE8704"/>
                             <DatePicker Grid.Column="1" IsEnabled="{Binding IsEnabled}"
-                                FontSize="16" Focusable="False"
+                                FontSize="16" Focusable="False" 
+                                DisplayDateStart="{Binding DateStart}" DisplayDateEnd="{Binding DateEnd}"
                                 Foreground="Black" Width="120" HorizontalAlignment="Left"
                                 SelectedDateFormat="Short"
                                 SelectedDate="{Binding Birthday}"
