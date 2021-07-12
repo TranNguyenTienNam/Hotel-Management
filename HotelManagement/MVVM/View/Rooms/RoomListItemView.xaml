@@ -52,7 +52,7 @@
                                             </Button>
                                             <Button Grid.Column="1" Background="#F44336" Padding="0"
                                                 Width="30" Height="30" Command="{Binding RemoveRoomCommand}"
-                                                ToolTip="Click to edit room">
+                                                ToolTip="Click to remove room">
                                                 <materialDesign:PackIcon Kind="Close" Height="24" Width="24"/>
                                             </Button>
                                         </Grid>
@@ -86,5 +86,5 @@
         </Style>
     </UserControl.Resources>
 
-    <ContentControl d:DataContext="{x:Static olocal:RoomListItemViewModel}" Style="{StaticResource ContentStyle}"/>
+    <ContentControl d:DataContext="{x:Static olocal:RoomListItemViewModel.Instance}" Style="{StaticResource ContentStyle}"/>
 </UserControl>

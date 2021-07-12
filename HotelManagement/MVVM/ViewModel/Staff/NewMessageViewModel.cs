@@ -96,11 +96,13 @@ namespace HotelManagement.MVVM.ViewModel.Staff
             mail.To.Add(Address);
             mail.Subject = Subject;
             mail.Body = Content;
-            SmtpClient client = new SmtpClient("smtp.gmail.com"); 
+            SmtpClient client = new SmtpClient("smtp.gmail.com");
+            client.EnableSsl = true;
             client.Host = "smtp.gmail.com";
             client.UseDefaultCredentials = false;
-            client.Port = 587; 
-            client.Credentials = new System.Net.NetworkCredential("nbtm072021@gmail.com", "loimeothitham");
+            client.Port = 587;
+            client.Credentials = new System.Net.NetworkCredential("nbtm072021@gmail.com", "rldizrdxvwywmsjl");
+
 
             foreach (AttachedFileViewModel files in AttachedFiles)
             {

@@ -130,32 +130,31 @@
                         <!--header-->
                         <Grid Grid.Row="0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50"/>
                                 <!--ID-->
-                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="50"/>
                                 <!--username-->
-                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="86"/>
                                 <!--last name-->
                                 <ColumnDefinition Width="100"/>
-                                <!--first name-->
-                                <ColumnDefinition Width="70"/>
-                                <!--sex-->
-                                <ColumnDefinition Width="110"/>
+                                <!--gender-->
+                                <ColumnDefinition Width="80"/>
                                 <!--date of birth-->
-                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="110"/>
                                 <!--telephone-->
-                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="100"/>
                                 <!--email-->
+                                <ColumnDefinition Width="145"/>
+                                <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="ID" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#F44336"/>
                             <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Username" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#F44336"/>
                             <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Last Name" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#F44336"/>
-                            <TextBlock Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="First Name" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#F44336"/>
-                            <TextBlock Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Gender" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#F44336"/>
-                            <TextBlock Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Date of Birth" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#F44336"/>
-                            <TextBlock Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Phone" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#F44336"/>
-                            <TextBlock Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Email" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#F44336"/>
+                            <TextBlock Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Gender" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#F44336"/>
+                            <TextBlock Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Date of Birth" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#F44336"/>
+                            <TextBlock Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Phone" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#F44336"/>
+                            <TextBlock Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Email" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#F44336"/>
+                            <TextBlock Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Position" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#F44336"/>
                             <Separator Grid.ColumnSpan="8" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1" BorderBrush="#F0F5F8"/>
                         </Grid>
                         

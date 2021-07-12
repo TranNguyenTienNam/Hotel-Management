@@ -141,6 +141,7 @@
                                 Width="100"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 Command="{Binding DeleteCommand}"
+                                Visibility="{Binding VisibilityAdmin}"
                                 materialDesign:ButtonAssist.CornerRadius="10"
                                 BorderThickness="0"
                                 Background="#F44336"

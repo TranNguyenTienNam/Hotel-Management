@@ -19,34 +19,43 @@
                                 <Button.Content>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
+                                            <!--ID-->
                                             <ColumnDefinition Width="50"/>
-                                            <ColumnDefinition Width="100"/>
-                                            <ColumnDefinition Width="100"/>
-                                            <ColumnDefinition Width="100"/>
-                                            <ColumnDefinition Width="70"/>
-                                            <ColumnDefinition Width="110"/>
+                                            <!--Username-->
+                                            <ColumnDefinition Width="86"/>
+                                            <!--Last Name-->
                                             <ColumnDefinition Width="90"/>
-                                            <ColumnDefinition Width="160"/>
+                                            <!--Gender-->
+                                            <ColumnDefinition Width="75"/>
+                                            <!--Birthday-->
+                                            <ColumnDefinition Width="110"/>
+                                            <!--Phone-->
+                                            <ColumnDefinition Width="98"/>
+                                            <!--Email-->
+                                            <ColumnDefinition Width="145"/>
+                                            <!--Position-->
+                                            <ColumnDefinition Width="100"/>
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock x:Name="foreground0" Grid.Column="0" Margin="3,0,0,0" Text="{Binding MaNguoiDung}" 
                                                    VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Left" Foreground="#FE8704"/>
-                                        <TextBlock x:Name="foreground1" Grid.Column="1" Margin="3,0,0,0" Text="{Binding TenTaiKhoan}" 
+                                        <TextBlock x:Name="foreground1" Grid.Column="1" Margin="3,0,0,0" Text="{Binding TenTaiKhoan}" TextTrimming="CharacterEllipsis"
                                                    VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Left" Foreground="#FE8704"/>
-                                        <TextBlock x:Name="foreground2" Grid.Column="2" Margin="3,0,0,0" Text="{Binding HoNhanVien}" 
+                                        <TextBlock x:Name="foreground3" Grid.Column="2" Margin="3,0,0,0" Text="{Binding TenNhanVien}" TextTrimming="CharacterEllipsis"
                                                    VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Left" Foreground="#FE8704"/>
-                                        <TextBlock x:Name="foreground3" Grid.Column="3" Margin="3,0,0,0" Text="{Binding TenNhanVien}" 
-                                                   VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Left" Foreground="#FE8704"/>
-                                        <TextBlock x:Name="foreground4" Grid.Column="4" Margin="0,0,0,0" Text="{Binding GioiTinh}" 
+                                        <TextBlock x:Name="foreground4" Grid.Column="3" Margin="0,0,0,0" Text="{Binding GioiTinh}" 
                                                    VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Center" Foreground="#FE8704"/>
-                                        <TextBlock x:Name="foreground5" Grid.Column="5" Margin="3,0,0,0" Text="{Binding NgaySinh}" 
-                                                   VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Left" Foreground="#FE8704"/>
-                                        <TextBlock x:Name="foreground6" Grid.Column="6" Margin="0,0,0,0" Text="{Binding SoDienThoai}" 
+                                        <TextBlock x:Name="foreground5" Grid.Column="4" Margin="3,0,0,0" Text="{Binding NgaySinh}" 
                                                    VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Center" Foreground="#FE8704"/>
-                                        <TextBlock x:Name="foreground7" Grid.Column="7" Margin="3,0,0,0" Text="{Binding Email}" TextTrimming="CharacterEllipsis"
+                                        <TextBlock x:Name="foreground6" Grid.Column="5" Margin="0,0,0,0" Text="{Binding SoDienThoai}" 
+                                                   VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Center" Foreground="#FE8704"/>
+                                        <TextBlock x:Name="foreground7" Grid.Column="6" Margin="3,0,0,0" Text="{Binding Email}" TextTrimming="CharacterEllipsis"
                                                    VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Left" Foreground="#FE8704"/>
+                                        <TextBlock x:Name="foreground8" Grid.Column="7" Margin="3,0,0,0" Text="{Binding QuyenHan}" TextTrimming="CharacterEllipsis"
+                                                   VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Center" Foreground="#FE8704"/>
                                         <Grid Grid.Column="8">
                                             <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
                                                 <ColumnDefinition/>
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
@@ -56,10 +65,13 @@
                                                 ToolTip="Click to edit room">
                                                 <materialDesign:PackIcon Kind="Gmail" Height="24" Width="24"/>
                                             </Button>
-
                                             <Button x:Name="btnLock" Grid.Column="1" Background="#F44336" Padding="0" Margin="5,0,5,0"
                                                 Width="30" Height="30" Command="{Binding BlockOrUnblockStaffAccountCommand}">
                                                 <materialDesign:PackIcon x:Name="kind_icon" Height="24" Width="24"/>
+                                            </Button>
+                                            <Button x:Name="btnPromote" Grid.Column="2" Background="#F44336" Padding="0" Margin="5,0,5,0"
+                                                Width="30" Height="30" Command="{Binding PromoteOrDemoteStaffAccountCommand}">
+                                                <materialDesign:PackIcon x:Name="promote_icon" Height="24" Width="24"/>
                                             </Button>
                                         </Grid>
                                     </Grid>
@@ -76,21 +88,31 @@
                                 <Setter Property="Background" TargetName="background" Value="#FF616D"/>
                                 <Setter Property="Foreground" TargetName="foreground0" Value="{StaticResource ForegroundLightBrush}"/>
                                 <Setter Property="Foreground" TargetName="foreground1" Value="{StaticResource ForegroundLightBrush}"/>
-                                <Setter Property="Foreground" TargetName="foreground2" Value="{StaticResource ForegroundLightBrush}"/>
                                 <Setter Property="Foreground" TargetName="foreground3" Value="{StaticResource ForegroundLightBrush}"/>
                                 <Setter Property="Foreground" TargetName="foreground4" Value="{StaticResource ForegroundLightBrush}"/>
                                 <Setter Property="Foreground" TargetName="foreground5" Value="{StaticResource ForegroundLightBrush}"/>
                                 <Setter Property="Foreground" TargetName="foreground6" Value="{StaticResource ForegroundLightBrush}"/>
                                 <Setter Property="Foreground" TargetName="foreground7" Value="{StaticResource ForegroundLightBrush}"/>
+                                <Setter Property="Foreground" TargetName="foreground8" Value="{StaticResource ForegroundLightBrush}"/>
                                 <Setter Property="Kind" TargetName="kind_icon" Value="Unlocked"/>
                                 <Setter Property="ToolTip" TargetName="btnLock" Value="Click to unlock staff"/>
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding IsPromoted}" Value="True">
+                                <Setter Property="Kind" TargetName="promote_icon" Value="ArrowDownBoldHexagonOutline"/>
+                                <Setter Property="ToolTip" TargetName="btnPromote" Value="Click to demote staff"/>
                             </DataTrigger>
 
                             <DataTrigger Binding="{Binding IsBlocked}" Value="False">
                                 <Setter Property="Kind" TargetName="kind_icon" Value="Lock"/>
                                 <Setter Property="ToolTip" TargetName="btnLock" Value="Click to lock staff"/>
                             </DataTrigger>
-                            
+
+                            <DataTrigger Binding="{Binding IsPromoted}" Value="False">
+                                <Setter Property="Kind" TargetName="promote_icon" Value="ArrowUpBoldHexagonOutline"/>
+                                <Setter Property="ToolTip" TargetName="btnPromote" Value="Click to promote staff"/>
+                            </DataTrigger>
+
                             <EventTrigger RoutedEvent="MouseEnter">
                                 <BeginStoryboard>
                                     <Storyboard>
@@ -113,5 +135,5 @@
         </Style>
     </UserControl.Resources>
 
-    <ContentControl d:DataContext="{x:Static olocal:StaffItemViewModel}" Style="{StaticResource ContentStyle}"/>
+    <ContentControl d:DataContext="{x:Static olocal:StaffItemViewModel.Instance}" Style="{StaticResource ContentStyle}"/>
 </UserControl>

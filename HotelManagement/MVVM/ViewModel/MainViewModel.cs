@@ -27,6 +27,12 @@ namespace HotelManagement.MVVM.ViewModel
         private string _visibility;
         public string Visibility { get { return _visibility; } set { _visibility = value; OnPropertyChanged(); } }
 
+        private bool _initCheckedAdmin;
+        public bool InitCheckedAdmin { get { return _initCheckedAdmin; } set { _initCheckedAdmin = value; OnPropertyChanged(); } }
+
+        private bool _initCheckedStaff;
+        public bool InitCheckedStaff { get { return _initCheckedStaff; } set { _initCheckedStaff = value; OnPropertyChanged(); } }
+
         #region View and Command Binding
 
         public ICommand DashboardViewCommand { get; set; }
@@ -73,34 +79,39 @@ namespace HotelManagement.MVVM.ViewModel
             MainModel model = new MainModel();
             DashboardVM = new DashboardViewModel();
             BookingsVM = new BookingViewModel(UserId);
-            RoomsVM = new RoomsViewModel();
             StaffVM = new StaffViewModel();
             CheckOutVM = new CheckOutViewModel();
             ProfileVM = new ProfileViewModel(UserId);
 
-
-            //Chưa phân quyền
+            //Get position
             PermissionOfAccount = model.GetPermissionAccount(UserId);
+            RoomsVM = new RoomsViewModel(PermissionOfAccount);
             if (PermissionOfAccount == 2)
             {
+                InitCheckedStaff = true;
+                CurrentView = RoomsVM;
                 NameContent = model.GetNameAccount(UserId);
                 Visibility = "Collapsed";
             }    
             else if (PermissionOfAccount == 1)
             {
-                
+                InitCheckedAdmin = true;
+                CurrentView = DashboardVM;
             }    
             else
             {
+                InitCheckedAdmin = true;
+                CurrentView = DashboardVM;
                 NameContent = "Admin";
             }    
-
-            CurrentView = DashboardVM;
 
             DashboardViewCommand = new RelayCommand<object>((o) =>
             {
                 return true;
-            }, (o) => { CurrentView = DashboardVM; });
+            }, (o) => 
+            { 
+                CurrentView = DashboardVM; 
+            });
 
             BookingsViewCommand = new RelayCommand<object>((o) =>
             {
@@ -110,7 +121,11 @@ namespace HotelManagement.MVVM.ViewModel
             RoomsViewCommand = new RelayCommand<object>((o) =>
             {
                 return true;
-            }, (o) => { CurrentView = RoomsVM; });
+            }, (o) => 
+            {
+                
+                CurrentView = RoomsVM; 
+            });
 
             ProfileViewCommand = new RelayCommand<object>((p) =>
             {

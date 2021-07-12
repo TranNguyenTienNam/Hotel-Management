@@ -40,8 +40,16 @@ namespace HotelManagement.MVVM.ViewModel
             {
                 if (string.IsNullOrEmpty(TypeName) || Price <= 1000 || MaxPeople <= 0)
                 {
-                    MessageBox.Show("Input field is empty");
+                    MessageBox.Show("Input field is wrong");
                     return;
+                }    
+                foreach (var rt in ListTypeViewModel.Instance.Items)
+                {
+                    if (TypeName == rt.TypeName && Price == (ulong)rt.Price && MaxPeople == rt.MaxPeople)
+                    {
+                        MessageBox.Show("This room type has already existed");
+                        return;
+                    }    
                 }    
                 addNewRoomType();
                 TypeAdded = 1;

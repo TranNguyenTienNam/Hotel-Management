@@ -16,7 +16,7 @@
              Background="#f4f5f7"
              FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
-        <Grid DataContext="{x:Static viewModel:RoomsViewModel.Instance}">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
@@ -37,6 +37,7 @@
                 <!--button-->
                 <Grid Grid.Column="1">
                     <Button Width="126" Height="38" HorizontalAlignment="Right" Margin="0,4,8,0"
+                            Visibility="{Binding VisibilityRegulations}"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                             Command="{Binding RegulationsCommand}"
                             CommandParameter="{Binding ElementName=cbbRoomType}"

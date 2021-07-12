@@ -135,7 +135,7 @@ namespace HotelManagement.MVVM.ViewModel
             loadProfile(UserId);
             initProperty();
 
-            SaveProfileCommand = new RelayCommand<object>((p) =>
+            SaveProfileCommand = new RelayCommand<TextBox>((p) =>
             {
                 if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName)
                     || string.IsNullOrEmpty(Phone) || string.IsNullOrEmpty(Email))
@@ -146,6 +146,15 @@ namespace HotelManagement.MVVM.ViewModel
             }, (p) => 
             {
                 ProfileModel model = new ProfileModel();
+                RegisterModel registerModel = new RegisterModel();
+
+                if (registerModel.CheckExistEmail(Email))
+                {
+                    EditedProfileMessage = "This email has already existed";
+                    p.Text = "";
+                    return;
+                }    
+
                 user user = new user()
                 {
                     MaNgDung = UserId,
@@ -221,7 +230,7 @@ namespace HotelManagement.MVVM.ViewModel
 
             EmailTextChangedCommand = new RelayCommand<TextBox>((p) =>
             {
-                return true;
+                return p.Text != "";
             }, (p) => 
             {
                 RegisterModel model = new RegisterModel();

@@ -16,8 +16,8 @@ namespace HotelManagement.MVVM.Model
             DataTable re;
             string sql_select = "select nd.MaNgDung as MaNguoiDung, nd.TenTaiKhoan as TenTaiKhoan, ttnd.Ho as Ho, ttnd.Ten as Ten, "
                 + "ttnd.SoDienThoai as SoDienThoai, ttnd.GioiTinh as GioiTinh, ttnd.Email as Email, ttnd.NgaySinh as NgaySinh, "
-                + "nd.TinhTrangTK as TinhTrang from NGUOIDUNG nd, TTNguoiDung ttnd "
-                + "where nd.MaNgDung = ttnd.MaNgDung and ttnd.QuyenHan = 2 "
+                + "nd.TinhTrangTK as TinhTrang, ttnd.QuyenHan as QuyenHan from NGUOIDUNG nd, TTNguoiDung ttnd "
+                + "where nd.MaNgDung = ttnd.MaNgDung and ttnd.QuyenHan in (2, 1) "
                 + SelectedMode(Mode) + "order by nd.TinhTrangTK desc"; 
             re = Process.createTable(sql_select);
             return re;  
@@ -25,18 +25,36 @@ namespace HotelManagement.MVVM.Model
 
         public bool BlockStaff(int MaNgDung)
         {
-            string sql_delete = "update NGUOIDUNG set TinhTrangTK = 0 where MaNgDung = " + MaNgDung;
+            string sql_update = "update NGUOIDUNG set TinhTrangTK = 0 where MaNgDung = " + MaNgDung;
 
-            if (Process.ExecutiveNonQuery(sql_delete) > 0)
+            if (Process.ExecutiveNonQuery(sql_update) > 0)
                 return true;
             return false;
         }
 
         public bool UnblockStaff(int MaNgDung)
         {
-            string sql_delete = "update NGUOIDUNG set TinhTrangTK = 1 where MaNgDung = " + MaNgDung;
+            string sql_update = "update NGUOIDUNG set TinhTrangTK = 1 where MaNgDung = " + MaNgDung;
 
-            if (Process.ExecutiveNonQuery(sql_delete) > 0)
+            if (Process.ExecutiveNonQuery(sql_update) > 0)
+                return true;
+            return false;
+        }
+
+        public bool PromoteStaff(int MaNgDung)
+        {
+            string sql_update = "update TTNguoiDung set QuyenHan = 1 where MaNgDung = " + MaNgDung;
+
+            if (Process.ExecutiveNonQuery(sql_update) > 0)
+                return true;
+            return false;
+        }
+
+        public bool DemoteStaff(int MaNgDung)
+        {
+            string sql_update = "update TTNguoiDung set QuyenHan = 2 where MaNgDung = " + MaNgDung;
+
+            if (Process.ExecutiveNonQuery(sql_update) > 0)
                 return true;
             return false;
         }
@@ -46,8 +64,8 @@ namespace HotelManagement.MVVM.Model
             DataTable re;
             string sql_select = "select nd.MaNgDung as MaNguoiDung, nd.TenTaiKhoan as TenTaiKhoan, ttnd.Ho as Ho, ttnd.Ten as Ten, "
                 + "ttnd.SoDienThoai as SoDienThoai, ttnd.GioiTinh as GioiTinh, ttnd.Email as Email, ttnd.NgaySinh as NgaySinh, "
-                + "nd.TinhTrangTK as TinhTrang from NGUOIDUNG nd, TTNguoiDung ttnd "
-                + "where nd.MaNgDung = ttnd.MaNgDung and ttnd.QuyenHan = 2 " + SelectedMode(Mode) 
+                + "nd.TinhTrangTK as TinhTrang, ttnd.QuyenHan as QuyenHan from NGUOIDUNG nd, TTNguoiDung ttnd "
+                + "where nd.MaNgDung = ttnd.MaNgDung and ttnd.QuyenHan in (2, 1) " + SelectedMode(Mode) 
                 + "and CHARINDEX('" + MaNgDung + "', nd.MaNgDung) != 0"
                 + "order by nd.TinhTrangTK desc";
             re = Process.createTable(sql_select);
@@ -59,34 +77,21 @@ namespace HotelManagement.MVVM.Model
             DataTable re;
             string sql_select = "select nd.MaNgDung as MaNguoiDung, nd.TenTaiKhoan as TenTaiKhoan, ttnd.Ho as Ho, ttnd.Ten as Ten, "
                 + "ttnd.SoDienThoai as SoDienThoai, ttnd.GioiTinh as GioiTinh, ttnd.Email as Email, ttnd.NgaySinh as NgaySinh, "
-                + "nd.TinhTrangTK as TinhTrang from NGUOIDUNG nd, TTNguoiDung ttnd "
-                + "where nd.MaNgDung = ttnd.MaNgDung and ttnd.QuyenHan = 2 " + SelectedMode(Mode)
-                + "and CHARINDEX('" + TenTK + "', ttnd.Ten) != 0"
+                + "nd.TinhTrangTK as TinhTrang, ttnd.QuyenHan as QuyenHan from NGUOIDUNG nd, TTNguoiDung ttnd "
+                + "where nd.MaNgDung = ttnd.MaNgDung and ttnd.QuyenHan in (2, 1) " + SelectedMode(Mode)
+                + "and CHARINDEX('" + TenTK + "', nd.TenTaiKhoan) != 0"
                 + "order by nd.TinhTrangTK desc";
             re = Process.createTable(sql_select);
             return re;
         }
 
-        public DataTable Search_StaffLastName(string Ho, string Mode)
+        public DataTable Search_StaffLastName(string Ten, string Mode)
         {
             DataTable re;
             string sql_select = "select nd.MaNgDung as MaNguoiDung, nd.TenTaiKhoan as TenTaiKhoan, ttnd.Ho as Ho, ttnd.Ten as Ten, "
                 + "ttnd.SoDienThoai as SoDienThoai, ttnd.GioiTinh as GioiTinh, ttnd.Email as Email, ttnd.NgaySinh as NgaySinh, "
-                + "nd.TinhTrangTK as TinhTrang from NGUOIDUNG nd, TTNguoiDung ttnd "
-                + "where nd.MaNgDung = ttnd.MaNgDung and ttnd.QuyenHan = 2 " + SelectedMode(Mode)
-                + "and CHARINDEX('" + Ho + "', ttnd.Ten) != 0"
-                + "order by nd.TinhTrangTK desc";
-            re = Process.createTable(sql_select);
-            return re;
-        }
-
-        public DataTable Search_StaffFirstName(string Ten, string Mode)
-        {
-            DataTable re;
-            string sql_select = "select nd.MaNgDung as MaNguoiDung, nd.TenTaiKhoan as TenTaiKhoan, ttnd.Ho as Ho, ttnd.Ten as Ten, "
-                + "ttnd.SoDienThoai as SoDienThoai, ttnd.GioiTinh as GioiTinh, ttnd.Email as Email, ttnd.NgaySinh as NgaySinh, "
-                + "nd.TinhTrangTK as TinhTrang from NGUOIDUNG nd, TTNguoiDung ttnd "
-                + "where nd.MaNgDung = ttnd.MaNgDung and ttnd.QuyenHan = 2 " + SelectedMode(Mode)
+                + "nd.TinhTrangTK as TinhTrang, ttnd.QuyenHan as QuyenHan from NGUOIDUNG nd, TTNguoiDung ttnd "
+                + "where nd.MaNgDung = ttnd.MaNgDung and ttnd.QuyenHan in (2, 1) " + SelectedMode(Mode)
                 + "and CHARINDEX('" + Ten + "', ttnd.Ten) != 0"
                 + "order by nd.TinhTrangTK desc";
             re = Process.createTable(sql_select);
@@ -98,9 +103,9 @@ namespace HotelManagement.MVVM.Model
             DataTable re;
             string sql_select = "select nd.MaNgDung as MaNguoiDung, nd.TenTaiKhoan as TenTaiKhoan, ttnd.Ho as Ho, ttnd.Ten as Ten, "
                  + "ttnd.SoDienThoai as SoDienThoai, ttnd.GioiTinh as GioiTinh, ttnd.Email as Email, ttnd.NgaySinh as NgaySinh, "
-                 + "nd.TinhTrangTK as TinhTrang from NGUOIDUNG nd, TTNguoiDung ttnd "
-                 + "where nd.MaNgDung = ttnd.MaNgDung and ttnd.QuyenHan = 2 " + SelectedMode(Mode)
-                 + "and CHARINDEX('" + sdt + "', ttnd.Ten) != 0"
+                 + "nd.TinhTrangTK as TinhTrang, ttnd.QuyenHan as QuyenHan from NGUOIDUNG nd, TTNguoiDung ttnd "
+                 + "where nd.MaNgDung = ttnd.MaNgDung and ttnd.QuyenHan in (2, 1) " + SelectedMode(Mode)
+                 + "and CHARINDEX('" + sdt + "', ttnd.SoDienThoai) != 0"
                  + "order by nd.TinhTrangTK desc";
             re = Process.createTable(sql_select);
             return re;

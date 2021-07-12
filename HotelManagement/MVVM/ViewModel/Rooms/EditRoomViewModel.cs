@@ -16,12 +16,10 @@ namespace HotelManagement.MVVM.ViewModel
     /// </summary>
     class EditRoomViewModel : ObservableObject
     {
-        private RoomListItemViewModel _item;
-        public RoomListItemViewModel Item { get { return _item; } set { _item = value; OnPropertyChanged(); } }
-
         //danh sach loai phong
         private int indexOfTypes { get; set; }
-        public ObservableCollection<string> types { get; set; }
+        public ObservableCollection<roomtype> RoomTypes { get; set; }
+        public ObservableCollection<string> TypeNames { get; set; }
 
         //Textbox Room ID
         private int _id;
@@ -53,8 +51,10 @@ namespace HotelManagement.MVVM.ViewModel
 
         public EditRoomViewModel(int RoomID)
         {
-            types = RoomsViewModel.Instance.Types;
-            Item = RoomListItemViewModel.Instance;
+            RoomTypes = new ObservableCollection<roomtype>();
+            TypeNames = new ObservableCollection<string>();
+            loadRoomTypes();
+            loadTypes();
             ID = RoomID;
             loadRoom(RoomID);
 
@@ -87,10 +87,10 @@ namespace HotelManagement.MVVM.ViewModel
                 try
                 {
                     indexOfTypes = p.SelectedIndex;
-                    if (indexOfTypes >= 0 && indexOfTypes < RoomsViewModel.Instance.RoomTypes.Count)
+                    if (indexOfTypes >= 0 && indexOfTypes < RoomTypes.Count)
                     {
-                        Price = RoomsViewModel.Instance.RoomTypes[indexOfTypes].DonGia;
-                        MaxPeople = RoomsViewModel.Instance.RoomTypes[indexOfTypes].SoNgToiDa;
+                        Price = RoomTypes[indexOfTypes].DonGia;
+                        MaxPeople = RoomTypes[indexOfTypes].SoNgToiDa;
                     }    
                 }
                 catch (Exception ex)
@@ -106,7 +106,7 @@ namespace HotelManagement.MVVM.ViewModel
             {
                 RoomListModel model = new RoomListModel();
 
-                if (model.Save_RoomEdited(ID, RoomName, RoomsViewModel.Instance.RoomTypes[indexOfTypes].MaLoaiPhong, Notes))
+                if (model.Save_RoomEdited(ID, RoomName, RoomTypes[indexOfTypes].MaLoaiPhong, Notes))
                 {
                     MessageBox.Show("Room has been edited.");
                 }
@@ -130,8 +130,54 @@ namespace HotelManagement.MVVM.ViewModel
                 Type = (string)row["TenLoaiPhong"];
                 Price = (int)row["DonGia"];
                 MaxPeople = (int)row["SoNgToiDa"];
+                foreach(var rt in RoomTypes)
+                {
+                    if (Type == rt.TenLoaiPhong && Price == rt.DonGia && MaxPeople == rt.SoNgToiDa)
+                        indexOfTypes = RoomTypes.IndexOf(rt);
+                }    
                 Notes = (row["GhiChu"] == DBNull.Value) ? "" : (string)row["GhiChu"];
             }    
+        }
+
+        void loadRoomTypes()
+        {
+            if (RoomTypes.Count > 0)
+                RoomTypes.Clear();
+
+            DataTable dataTable = new DataTable();
+            RoomsModel model = new RoomsModel();
+            dataTable = model.Load_RoomType();
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                var obj = new roomtype()
+                {
+                    MaLoaiPhong = (int)row["MaLoaiPhong"],
+                    TenLoaiPhong = (string)row["TenLoaiPhong"],
+                    DonGia = (int)row["DonGia"],
+                    SoNgToiDa = (int)row["SoNgToiDa"]
+                };
+                RoomTypes.Add(obj);
+            }
+        }
+
+        void loadTypes()
+        {
+            try
+            {
+                if (TypeNames.Count > 0)
+                    TypeNames.Clear();
+
+                foreach (roomtype rt in RoomTypes)
+                {
+                    string type = rt.TenLoaiPhong;
+                    TypeNames.Add(type);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("RoomsViewModel LoadTypes\n" + ex.Message);
+            }
         }
     }
 }

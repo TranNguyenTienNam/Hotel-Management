@@ -48,7 +48,6 @@ namespace HotelManagement.MVVM.ViewModel
             ItemsSearch.Add("Staff ID");
             ItemsSearch.Add("User Name");
             ItemsSearch.Add("Last Name");
-            ItemsSearch.Add("First Name");
             ItemsSearch.Add("Phone");
 
             SearchCommand = new RelayCommand<object>((p) =>
@@ -97,9 +96,6 @@ namespace HotelManagement.MVVM.ViewModel
                 case "Last Name":
                     LoadSearchStaffByLastName(SearchText);
                     break;
-                case "First Name":
-                    LoadSearchStaffByFirstName(SearchText);
-                    break;
                 case "Phone":
                     LoadSearchStaffByPhone(SearchText);
                     break;
@@ -116,12 +112,13 @@ namespace HotelManagement.MVVM.ViewModel
                 {
                     MaNguoiDung = (int)row["MaNguoiDung"],
                     TenTaiKhoan = (string)row["TenTaiKhoan"],
-                    HoNhanVien = (string)row["Ho"],
                     TenNhanVien = (string)row["Ten"],
                     SoDienThoai = (row["SoDienThoai"] == DBNull.Value) ? "" : (string)row["SoDienThoai"],
                     GioiTinh = (row["GioiTinh"] == DBNull.Value) ? "" : (string)row["GioiTinh"],
                     Email = (string)row["Email"],
                     NgaySinh = (row["NgaySinh"] == DBNull.Value) ? DateTime.Now.ToString("dd/MM/yyyy") : ((DateTime)row["NgaySinh"]).ToString("dd/MM/yyyy"),
+                    QuyenHan = definePosition((int)row["QuyenHan"]),
+                    IsPromoted = ((int)row["QuyenHan"] == 2) ? false : true,
                     IsBlocked = ((int)row["TinhTrang"] == 0) ? true : false,
                 };
                 Staff.Add(obj);
@@ -162,17 +159,6 @@ namespace HotelManagement.MVVM.ViewModel
             LoadData(data);
         }
 
-        void LoadSearchStaffByFirstName(string Ten)
-        {
-            if (Staff.Count > 0)
-                Staff.Clear();
-            StaffModel model = new StaffModel();
-            DataTable data = new DataTable();
-            data = model.Search_StaffFirstName(Ten, SelectedMode);
-
-            LoadData(data);
-        }
-
         void LoadSearchStaffByLastName(string Ho)
         {
             if (Staff.Count > 0)
@@ -193,6 +179,27 @@ namespace HotelManagement.MVVM.ViewModel
             data = model.Search_StaffPhone(sdt, SelectedMode);
 
             LoadData(data);
+        }
+
+        string definePosition(int posNumber)
+        {
+            string position = "";
+            switch (posNumber)
+            {
+                case 0:
+                    position = "Admin";
+                    break;
+                case 1:
+                    position = "Manager";
+                    break;
+                case 2:
+                    position = "Staff";
+                    break;
+                default:
+                    break;
+            }
+
+            return position;
         }
 
         private void OnPropertyChanged(string propertyName)
