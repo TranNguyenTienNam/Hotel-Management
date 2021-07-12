@@ -266,7 +266,7 @@
                         <TextBlock Text="{Binding SpecialCharConfirmPassword}" Margin="2,2,10,2" HorizontalAlignment="Right" FontSize="11" Foreground="Red"/>
                     </StackPanel>
                     <StackPanel Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-                        <Button Width="136" Height="38" HorizontalAlignment="Right" 
+                        <Button Width="130" Height="38" HorizontalAlignment="Right" 
                             Padding="0" Margin="10" Name="btChangePassword" 
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             Command="{Binding ChangePasswordCommand}"
@@ -274,7 +274,7 @@
                             ToolTip="Change Password">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="KeyChange" Width="26" Height="26" Margin="0,0,8,0"/>
-                                <TextBlock Text="KeyChange" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <TextBlock Text="Change" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </StackPanel>
                             <Button.Resources>
                                 <core:PassThroughConverter x:Key="passThroughConverter"/>

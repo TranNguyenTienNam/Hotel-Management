@@ -240,21 +240,7 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                RegisterModel model = new RegisterModel();
-                CurrentPassword = p.Password;
-
-                if (p.Password.Length > 0)  //remove message when re-type current password
-                {
-                    ChangePasswordErrorMessage = "";
-                }    
-                if (!model.IsVietKey(p.Password))
-                {
-                    SpecialCharCurrentPassword = "Password contains vietkey character";
-                }
-                else
-                {
-                    SpecialCharCurrentPassword = "";
-                }
+                CurrentPasswordChanged(p);
             });
 
             NewPasswordChangedCommand = new RelayCommand<PasswordBox>((p) =>
@@ -262,21 +248,7 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                RegisterModel model = new RegisterModel();
-                NewPassword = p.Password;
-
-                if (p.Password.Length > 0)  //remove message when re-type new password
-                {
-                    ChangePasswordErrorMessage = "";
-                }
-                if (!model.IsVietKey(p.Password))
-                {
-                    SpecialCharNewPassword = "Password contains vietkey character";
-                }
-                else
-                {
-                    SpecialCharNewPassword = "";
-                }
+                NewPasswordChanged(p);
             });
 
             ConfirmPasswordChangedCommand = new RelayCommand<PasswordBox>((p) =>
@@ -284,21 +256,7 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                RegisterModel model = new RegisterModel();
-                ConfirmPassword = p.Password;
-
-                if (p.Password.Length > 0)  //remove message when re-type confirm password
-                {
-                    ChangePasswordErrorMessage = "";
-                }
-                if (!model.IsVietKey(p.Password))
-                {
-                    SpecialCharConfirmPassword = "Password contains vietkey character";
-                }
-                else
-                {
-                    SpecialCharConfirmPassword = "";
-                }
+                ConfirmPasswordChanged(p);
             });
         }
 
@@ -318,6 +276,63 @@ namespace HotelManagement.MVVM.ViewModel
                 IsReadOnly = true;
                 NoticeInvalidEmail = "";
                 EditedProfileMessage = "";
+            }
+        }
+
+        void CurrentPasswordChanged(PasswordBox p)
+        {
+            RegisterModel model = new RegisterModel();
+            CurrentPassword = p.Password;
+
+            if (p.Password.Length > 0)  //remove message when re-type confirm password
+            {
+                ChangePasswordErrorMessage = "";
+            }
+            if (!model.IsVietKey(p.Password))
+            {
+                SpecialCharCurrentPassword = "Password contains vietkey character";
+            }
+            else
+            {
+                SpecialCharCurrentPassword = "";
+            }
+        }
+
+        void NewPasswordChanged(PasswordBox p)
+        {
+            RegisterModel model = new RegisterModel();
+            NewPassword = p.Password;
+
+            if (p.Password.Length > 0)  //remove message when re-type new password
+            {
+                ChangePasswordErrorMessage = "";
+            }
+            if (!model.IsVietKey(p.Password))
+            {
+                SpecialCharNewPassword = "Password contains vietkey character";
+            }
+            else
+            {
+                SpecialCharNewPassword = "";
+            }
+        }
+        
+        void ConfirmPasswordChanged(PasswordBox p)
+        {
+            RegisterModel model = new RegisterModel();
+            ConfirmPassword = p.Password;
+
+            if (p.Password.Length > 0)  //remove message when re-type confirm password
+            {
+                ChangePasswordErrorMessage = "";
+            }
+            if (!model.IsVietKey(p.Password))
+            {
+                SpecialCharConfirmPassword = "Password contains vietkey character";
+            }
+            else
+            {
+                SpecialCharConfirmPassword = "";
             }
         }
 
