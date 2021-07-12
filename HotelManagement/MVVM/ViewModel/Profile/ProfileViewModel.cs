@@ -216,19 +216,7 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                if (p.IsChecked == true)    //Edit mode
-                {
-                    IsEnabled = true;
-                    IsReadOnly = false;
-                }   
-                else                        //View mode
-                {
-                    loadProfile(UserId);
-                    IsEnabled = false;
-                    IsReadOnly = true;
-                    NoticeInvalidEmail = "";
-                    EditedProfileMessage = "";
-                }    
+                ToggleButtonClick(p, UserId);
             });
 
             EmailTextChangedCommand = new RelayCommand<TextBox>((p) =>
@@ -315,6 +303,23 @@ namespace HotelManagement.MVVM.ViewModel
         }
 
         #region View Event Handling
+
+        void ToggleButtonClick(ToggleButton p, int UserId)
+        {
+            if (p.IsChecked == true)    //Edit mode
+            {
+                IsEnabled = true;
+                IsReadOnly = false;
+            }
+            else                        //View mode
+            {
+                loadProfile(UserId);
+                IsEnabled = false;
+                IsReadOnly = true;
+                NoticeInvalidEmail = "";
+                EditedProfileMessage = "";
+            }
+        }
 
         //Không nhận ký tự khác ngoài số khi nhập textbox
         public void PreviewTextInputViewModel(object sender, System.Windows.Input.TextCompositionEventArgs e)
