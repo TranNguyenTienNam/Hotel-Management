@@ -23,12 +23,12 @@
         </Grid.ColumnDefinitions>
         <!--Show Data-->
         <Border Grid.Column="0" Background="Transparent" Visibility="{Binding Visibility}">
-            <Border Background="White" CornerRadius="12" HorizontalAlignment="Stretch" Margin="4">
+            <Border Background="White" CornerRadius="12" HorizontalAlignment="Stretch" Margin="0,4,4,4">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="54" MinHeight="50"/>
+                        <RowDefinition Height="50" MinHeight="50"/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <!--title and mode-->
                     <Grid Grid.Row="0" Margin="10">
@@ -88,12 +88,13 @@
                                 <ComboBox Name="cbbSearch" Margin="4"
                                     FontSize="14" Foreground="#FE8704" Width="150"
                                     materialDesign:TextFieldAssist.PrefixText="Search: "
-                                    SelectedValue="{Binding ItemSearchSelected}"
+                                    SelectedValue="{Binding ItemSearchSelected}"                                   
                                     IsEditable="False">
                                     <ComboBoxItem Content="Rental ID"/>
                                     <ComboBoxItem Content="Client Name"/>
-                                    <ComboBoxItem Content="Phone"/>
+                                    <ComboBoxItem Content="Citizent ID"/>
                                     <ComboBoxItem Content="Room ID"/>
+                                    <ComboBoxItem Content="Phone"/>
                                 </ComboBox>
                                 <TextBox Grid.Column="1" x:Name="searchRoom" FontSize="14" Margin="2"
                                          materialDesign:HintAssist.Hint="Type somthing..."
@@ -102,6 +103,7 @@
                                 <Button Grid.Column="2" Width="42" Height="38" HorizontalAlignment="Right" Padding="0"
                                     Style="{StaticResource MaterialDesignRaisedButton}" VerticalAlignment="Center"
                                     Command="{Binding SearchCommand}"
+                                    CommandParameter="{Binding ElementName=cbbSearch}"
                                     materialDesign:ButtonAssist.CornerRadius="10"
                                     ToolTip="Search">
                                     <StackPanel Orientation="Horizontal">
@@ -113,14 +115,15 @@
                     </Border>
                     <!--ListView-->
                     <Grid Grid.Row="2">
-                        <ListView x:Name="lvBooking" ItemsSource="{Binding Items}" Padding="0">
+                        <ListView x:Name="lvBooking" ItemsSource="{Binding Items}" Padding="0" FontSize="12" Margin="0,0,0,-9">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="ID" Width="Auto" DisplayMemberBinding="{Binding MaPhieuThue}" />
                                     <GridViewColumn Header="Client Name" Width="130" DisplayMemberBinding="{Binding TenKH}"/>
                                     <GridViewColumn Header="Phone" Width="90" DisplayMemberBinding="{Binding SoDienThoai}"/>
                                     <GridViewColumn Header="Room ID" Width="Auto" DisplayMemberBinding="{Binding MaPhong}"/>
-                                    <GridViewColumn Header="Check-in date" Width="Auto" DisplayMemberBinding="{Binding NgayLapPhieu}"/>
+                                    <GridViewColumn Header="Check-in date" Width="Auto" DisplayMemberBinding="{Binding NgayBatDau}"/>
+                                    <GridViewColumn Header="Status" Width="100" DisplayMemberBinding="{Binding TinhTrang}"/>
                                     <GridViewColumn Header="Deposit" Width="100" DisplayMemberBinding="{Binding TienCoc}"/>
                                     <GridView.ColumnHeaderContainerStyle>
                                         <Style TargetType="GridViewColumnHeader">
@@ -167,10 +170,10 @@
                                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
                                     <Style.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="{StaticResource WordLightGreenBrush}" />
+                                            <Setter Property="Background" Value="#F1F1F1" />
                                         </Trigger>
                                         <Trigger Property="IsSelected" Value="True">
-                                            <Setter Property="Background" Value="{StaticResource WordLightGreenBrush}" />
+                                            <Setter Property="Background" Value="#F1F1F1" />
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
@@ -336,7 +339,7 @@
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Center"/>
                             <TextBox Grid.Column="1" Name="tbAmountPeople" Foreground="Red" Text="{Binding AmountPeople}"
-                                MaxLength="9" Margin="4,0,0,0" IsReadOnly="{Binding IsReadOnly}"
+                                MaxLength="1" Margin="4,0,0,0" IsReadOnly="{Binding IsReadOnly}"
                                 materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                 materialDesign:HintAssist.Hint="Amount People:" FontSize="13"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -350,11 +353,23 @@
                         </Grid>
                         <Grid Grid.Row="3" Margin="0,2,0,2">
                             <TextBox Name="tbCreateDate" Foreground="Red" Text="{Binding CreateDate}"
-                                MaxLength="12" Margin="0,0,4,0" IsReadOnly="True"
+                                MaxLength="12" Margin="0,0,120,0" IsReadOnly="True"
                                 materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                 materialDesign:HintAssist.Hint="Create Date:" FontSize="13"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Center"/>
+                            <TextBox x:Name="tbStatus" Foreground="Red" Text="{Binding Status}"
+                                MaxLength="9" Margin="163,0,0,1" IsReadOnly="True"
+                                materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                materialDesign:HintAssist.Hint="Status:" FontSize="13"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewTextInput">
+                                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewTextInputViewModel" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
                         </Grid>
                         <Grid Grid.Row="4" Margin="0,2,0,2">
                             <TextBox Name="tbCheckIn" Foreground="Red" IsReadOnly="True" Text="{Binding CheckInDate}"
@@ -374,6 +389,7 @@
                             <Button Grid.Column="2" Width="180" Height="38" HorizontalAlignment="Center" Padding="0"
                                     Style="{StaticResource MaterialDesignRaisedButton}" VerticalAlignment="Center"
                                     materialDesign:ButtonAssist.CornerRadius="10" Visibility="{Binding VisibilityCheckinNow}"
+                                    Command="{Binding CheckinCommand}"                                    
                                     ToolTip="Check-in Now" Background="#FE8704">
                                 <TextBlock Text="Check-in Now" FontSize="15"/>
                             </Button>

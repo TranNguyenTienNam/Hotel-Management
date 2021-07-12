@@ -131,7 +131,7 @@ namespace HotelManagement.MVVM.ViewModel
         }
 
         //Funcition check valid client info
-        public bool IsValidInfo()
+        bool IsValidInfo()
         {
              int i=0;
             if (string.IsNullOrEmpty(Name)) { InvalidName = "Please enter deposit!"; i++; }
@@ -187,7 +187,7 @@ namespace HotelManagement.MVVM.ViewModel
         }
 
         // Handle invalid condition when date pick
-        public void HandleValidDatePick(DateTime _checkin , DateTime _checkout)
+        void HandleValidDatePick(DateTime _checkin , DateTime _checkout)
         {
             if (DateTime.Compare(DateTime.Today, _checkin) > 0
                      && _checkin.ToString("yyyy-MM-dd HH:mm:ss") != "0001-01-01 00:00:00")
@@ -211,7 +211,7 @@ namespace HotelManagement.MVVM.ViewModel
         }
 
         //Clear White Space in Numberic
-        public void ClearWhiteSpace()
+        void ClearWhiteSpace()
         {
             if (!string.IsNullOrEmpty(CitizenID)) CitizenID = Regex.Replace(CitizenID, @"\s+", "");
             if(!string.IsNullOrEmpty(Phone)) Phone = Regex.Replace(Phone, @"\s+", "");
@@ -220,7 +220,7 @@ namespace HotelManagement.MVVM.ViewModel
         }
 
         //Load list room according to check-in date and check-out date
-        public void loadListRoom(DateTime _checkin, DateTime _checkout)
+        void loadListRoom(DateTime _checkin, DateTime _checkout)
         {
 
             if (Items.Count > 0)
@@ -262,7 +262,10 @@ namespace HotelManagement.MVVM.ViewModel
         #endregion
 
 
-        //BookingViewModel Method
+       /// <summary>
+       /// NewBookingViewModel load view for New Booking Windows
+       /// </summary>
+       /// <param name="UserID"></param>
         public NewBookingViewModel(int UserID)
         {
             NewBookingModel model = new NewBookingModel();
@@ -389,14 +392,10 @@ namespace HotelManagement.MVVM.ViewModel
                 DateTime now = DateTime.Now;
                 try
                 {
-                    if (model.Save_Client(Name, _nation, CitizenID, Phone, Address, Gender))
-                    {
-                        MessageBox.Show("Client Created", "Notify");
-                    };
-                    if (model.Save_Booking(RoomId, CitizenID, now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    if (model.Save_Client(Name, _nation, CitizenID, Phone, Address, Gender) &&
+                        model.Save_Booking(RoomId, CitizenID, now.ToString("yyyy-MM-dd HH:mm:ss"),
                         checkin.ToString("yyyy-MM-dd HH:mm:ss"), checkout.ToString("yyyy-MM-dd HH:mm:ss"),
-                        Amount, Status, UserID, Deposit))
-                    {
+                        Amount, Status, UserID, Deposit)) {
                         MessageBox.Show("Booking Created","Notify");
                     }
                     RoomId = 0;
@@ -404,10 +403,8 @@ namespace HotelManagement.MVVM.ViewModel
                 }
                 catch
                 {
-                    if (model.Update_Client(Name, _nation, CitizenID, Phone, Address, Gender))
-                    {
-                        MessageBox.Show("Update info suscess", "Notify");
-                    };
+                    model.Update_Client(Name, _nation, CitizenID, Phone, Address, Gender);
+
                     if (model.Save_Booking(RoomId, CitizenID, now.ToString("yyyy-MM-dd HH:mm:ss"),
                         checkin.ToString("yyyy-MM-dd HH:mm:ss"),checkout.ToString("yyyy-MM-dd HH:mm:ss"),
                         Amount, Status, UserID, Deposit))
@@ -420,10 +417,9 @@ namespace HotelManagement.MVVM.ViewModel
             });
  
         }
-
+        
         #endregion
 
-        //Load table room
     }
 }
 

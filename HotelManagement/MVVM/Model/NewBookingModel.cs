@@ -21,7 +21,7 @@ namespace HotelManagement.MVVM.Model
                             + "WHERE ((NgayBatDau <= '" + checkin + "' and '" + checkin + "' <= NgayTraPhong) "
                             + "or (NgayBatDau <= '" + checkout + "' and '" + checkout + "' <= NgayTraPhong) "
                             + "or (NgayBatDau >= '" + checkin + "' and '" + checkout + "' >= NgayTraPhong)) " 
-                            + "and (TinhTrang = 'Booked' or TinhTrang= 'Checkin')) ";
+                            + "and (TinhTrang = 'Booked' or TinhTrang= 'Checkin' or TinhTrang = 'Check-in')) ";
 
             re = Process.createTable(sql_select);
             return re;
@@ -32,8 +32,8 @@ namespace HotelManagement.MVVM.Model
                                 string GioiTinh)
         {
             string sql_update = "UPDATE KHACHHANG " +
-                                "SET TenKH = '" + TenKH + "', MaLoaiKhach ="+ MaLoaiKhach +", " +
-                                "SoDienThoai = " + SDT + ", DiaChi = '" + DiaChi + "', " +
+                                "SET TenKH =N'" + TenKH + "', MaLoaiKhach ="+ MaLoaiKhach +", " +
+                                "SoDienThoai = " + SDT + ", DiaChi = N'" + DiaChi + "', " +
                                 "GioiTinh = '" + GioiTinh + "' WHERE CMND = '" + CMND + "';";
 
             if (Process.ExecutiveNonQuery(sql_update) > 0)
@@ -60,7 +60,7 @@ namespace HotelManagement.MVVM.Model
                                string GioiTinh){
 
             string sql_update = "insert KHACHHANG(TenKH,MaLoaiKhach,CMND,SoDienThoai,DiaChi,GioiTinh) values"
-                                + "('" + TenKH + "'," + MaLoaiKhach + ",'" + CMND + "'," + SDT + ",'" + DiaChi 
+                                + "(N'" + TenKH + "'," + MaLoaiKhach + ",'" + CMND + "'," + SDT + ",N'" + DiaChi 
                                 + "','" + GioiTinh + "')";
 
             if (Process.ExecutiveNonQuery(sql_update) > 0)

@@ -20,7 +20,7 @@ namespace HotelManagement.MVVM.ViewModel
     /// Interaction logic for BookingsView.xaml
     /// </summary>
     class BookingViewModel : ObservableObject
-    {
+    {   
         #region List Booking Element
         private ObservableCollection<BookingItemViewModel> _items;
         public ObservableCollection<BookingItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged(); } }
@@ -40,10 +40,13 @@ namespace HotelManagement.MVVM.ViewModel
         private string _visibilityEdit;
         public string VisibilityEdit { get { return _visibilityEdit; } set { _visibilityEdit = value; OnPropertyChanged(); } }
 
+        
         public ICommand ToggleButtonClickCommand { get; set; }
         public ICommand ListViewSelectionChangedCommand { get; set; }
         public ICommand HandleSave { get; set; }
         public ICommand HandleDel { get; set; }
+        public ICommand SearchCommand { get; set; }
+        public ICommand CheckinCommand { get; set; }
         #endregion
 
         #region Checkin and Edit Information
@@ -79,6 +82,9 @@ namespace HotelManagement.MVVM.ViewModel
         private string _roomId;
         public string RoomId { get { return _roomId; } set { _roomId = value; OnPropertyChanged(); } }
 
+        private string _status;
+        public string Status { get { return _status; } set { _status = value; OnPropertyChanged(); } }
+
         private string _roomType;
         public string RoomType { get { return _roomType; } set { _roomType = value; OnPropertyChanged(); } }
 
@@ -108,16 +114,22 @@ namespace HotelManagement.MVVM.ViewModel
         private bool _isReadOnly;
         public bool IsReadOnly { get { return _isReadOnly; } set { _isReadOnly = value; OnPropertyChanged(); } }
 
+        private string _searchText;
+        public string SearchText { get { return _searchText; } set { _searchText = value; OnPropertyChanged(); } }
+
         //enable of combobox
         private bool _isEnabled;
         public bool IsEnabled { get { return _isEnabled; } set { _isEnabled = value; OnPropertyChanged(); } }
         #endregion
 
+        /// <summary>
+        /// BookingViewModel Load View and handle event
+        /// </summary>
+        /// <param name="UserID"></param>
         public BookingViewModel(int UserID)
         {
             initProperty();
             LoadBooking();
-
             /// <summary>
             /// ChangePasswordCommand have 8 parameter (object[])
             /// 0 => <include file='BookingsView.xaml' path='[@ElementName="tgbtMode"]' type='ToggleButton'/>
@@ -181,7 +193,8 @@ namespace HotelManagement.MVVM.ViewModel
                     MessageBox.Show("You must be the creator or admin!", "Access denied");
                     return;
                 }
-                if ((nbmodel.Update_Client(ClientName, n, IdCardNumber, Phone, Address, Gender)) && (blmodel.Update_Rental(RentalId, Deposit, AmountPeople)))
+                if ((nbmodel.Update_Client(ClientName, n, IdCardNumber, Phone, Address, Gender)) &&
+                        (blmodel.Update_Rental(RentalId, Deposit, AmountPeople)))
                     MessageBox.Show("Update Successful!");
                 LoadBooking();
                 DefaultInfo();
@@ -197,29 +210,74 @@ namespace HotelManagement.MVVM.ViewModel
                 LoadBooking();
                 DefaultInfo();
             });
+            SearchCommand = new RelayCommand<ComboBox>((p) =>
+            {
+                if (SearchText == "") LoadBooking();
+                return true;
+            }, (p) =>
+            {
+                //(ComboBox)Index 0 : RentalID | 1: ClentName | 2: CitizentID | 3 RoomID | 4 Phone
+                if (string.IsNullOrWhiteSpace(SearchText) || string.IsNullOrEmpty(SearchText)) { 
+                          LoadBooking(); return; 
+                }
+                switch (p.SelectedIndex)
+                {
+                    case -1:
+                        LoadBookingbyString(SearchText);
+                        break;
+                    case 0:
+                        LoadBookingbyRentalId(SearchText);
+                        break;
+
+                    case 1:
+                        LoadBookingbyClientName(SearchText);
+                        break;
+
+                    case 2:
+                        LoadBookingbyCitizentID(SearchText);
+                        break;
+
+                    case 3:
+                        LoadBookingbyRoomId(SearchText);
+                        break;
+                    case 4:
+                        LoadBookingbyPhone(SearchText);
+                        break;
+
+                }
+
+
+
+            });
+            CheckinCommand = new RelayCommand<ComboBox>((p) =>
+            {   if (Status != "Booked") return false;
+                return true;
+            }, (p) =>
+            {
+                DateTime CheckinDATE = Convert.ToDateTime((Convert.ToDateTime(CheckInDate)).ToString("yyyy-MM-dd") );
+                if (DateTime.Compare(CheckinDATE, DateTime.Now.AddHours(12) ) <= 0)
+                {
+
+                    MessageBoxResult result = MessageBox.Show(
+                                "Press OK to check-in now or cancel",
+                                 "Are you sure ?",                                           
+                                 MessageBoxButton.OKCancel
+                                 );
+                    if (result == MessageBoxResult.OK)
+                    {
+                        BookingListModel blmodel = new BookingListModel();
+                        if (blmodel.Checkin_Rental(RentalId)) {
+                            Status = "Check-in";
+                            LoadBooking();
+                        }
+                        else MessageBox.Show("Something was wrong!!", "Error");
+                    }
+                } else MessageBox.Show("You can't check-in earlier than 12 hours", "Notify");
+            });
 
 
         }
 
-        void DefaultInfo()
-        {
-            ClientName = "";
-            IdCardNumber = "";
-            Nationality = "";
-            Phone = "";
-            Gender = "";
-            Address = "";
-            RentalId = 0;
-            RoomId ="";
-            RoomType = "";
-            Price = 0;
-            Deposit = 0;
-            Creator = "";
-            AmountPeople = 0;
-            CheckInDate = "";
-            CheckOutDate = "";
-            CreateDate = "";
-        }
 
         void initProperty()
         {
@@ -238,7 +296,168 @@ namespace HotelManagement.MVVM.ViewModel
             IsEnabled = false;
         }
 
+        #region Load booking and info
+        void LoadBookingbyRoomId(string RoomID)
+        {
+            if (Items.Count > 0)
+                Items.Clear();
 
+            BookingListModel model = new BookingListModel();
+            DataTable data = new DataTable();
+            data = model.LoadBookingbyRoomId(RoomID);
+
+            foreach (DataRow row in data.Rows)
+            {
+                var obj = new BookingItemViewModel()
+                {
+                    MaPhieuThue = (int)row["MaPhieuThue"],
+                    MaPhong = (int)row["MaPhong"],
+                    CMND = (string)row["CMND"],
+                    NgayBatDau = (DateTime)row["NgayBatDau"],
+                    NgayLapPhieu = (DateTime)row["NgayLapPhieu"],
+                    TienCoc = (int)row["TienCoc"],
+                    TenKH = (string)row["TenKH"],
+                    SoDienThoai = (string)row["SoDienThoai"],
+                    TinhTrang = (string)row["TinhTrang"]
+                };
+                Items.Add(obj);
+            }
+        }
+        
+        void LoadBookingbyCitizentID(string CitizentID)
+        {
+            if (Items.Count > 0)
+                Items.Clear();
+
+            BookingListModel model = new BookingListModel();
+            DataTable data = new DataTable();
+            data = model.LoadBookingbyCitizentID(CitizentID);
+
+            foreach (DataRow row in data.Rows)
+            {
+                var obj = new BookingItemViewModel()
+                {
+                    MaPhieuThue = (int)row["MaPhieuThue"],
+                    MaPhong = (int)row["MaPhong"],
+                    CMND = (string)row["CMND"],
+                    NgayBatDau = (DateTime)row["NgayBatDau"],
+                    NgayLapPhieu = (DateTime)row["NgayLapPhieu"],
+                    TienCoc = (int)row["TienCoc"],
+                    TenKH = (string)row["TenKH"],
+                    SoDienThoai = (string)row["SoDienThoai"],
+                    TinhTrang = (string)row["TinhTrang"]
+                };
+                Items.Add(obj);
+            }
+        }
+        
+        void LoadBookingbyRentalId(string ID)
+        {
+            if (Items.Count > 0)
+                Items.Clear();
+
+            BookingListModel model = new BookingListModel();
+            DataTable data = new DataTable();
+            data = model.LoadBookingbyRentalId(ID);
+
+            foreach (DataRow row in data.Rows)
+            {
+                var obj = new BookingItemViewModel()
+                {
+                    MaPhieuThue = (int)row["MaPhieuThue"],
+                    MaPhong = (int)row["MaPhong"],
+                    CMND = (string)row["CMND"],
+                    NgayBatDau = (DateTime)row["NgayBatDau"],
+                    NgayLapPhieu = (DateTime)row["NgayLapPhieu"],
+                    TienCoc = (int)row["TienCoc"],
+                    TenKH = (string)row["TenKH"],
+                    SoDienThoai = (string)row["SoDienThoai"],
+                    TinhTrang = (string)row["TinhTrang"]
+                };
+                Items.Add(obj);
+            }
+        }
+        
+        void LoadBookingbyClientName(string ClientName)
+        {
+            if (Items.Count > 0)
+                Items.Clear();
+
+            BookingListModel model = new BookingListModel();
+            DataTable data = new DataTable();
+            data = model.LoadBookingbyClientName(ClientName);
+
+            foreach (DataRow row in data.Rows)
+            {
+                var obj = new BookingItemViewModel()
+                {
+                    MaPhieuThue = (int)row["MaPhieuThue"],
+                    MaPhong = (int)row["MaPhong"],
+                    CMND = (string)row["CMND"],
+                    NgayBatDau = (DateTime)row["NgayBatDau"],
+                    NgayLapPhieu = (DateTime)row["NgayLapPhieu"],
+                    TienCoc = (int)row["TienCoc"],
+                    TenKH = (string)row["TenKH"],
+                    SoDienThoai = (string)row["SoDienThoai"],
+                    TinhTrang = (string)row["TinhTrang"]
+                };
+                Items.Add(obj);
+            }
+        }
+        
+        void LoadBookingbyPhone(string Phone)
+        {
+            if (Items.Count > 0)
+                Items.Clear();
+
+            BookingListModel model = new BookingListModel();
+            DataTable data = new DataTable();
+            data = model.LoadBookingbyPhone(Phone);
+
+            foreach (DataRow row in data.Rows)
+            {
+                var obj = new BookingItemViewModel()
+                {
+                    MaPhieuThue = (int)row["MaPhieuThue"],
+                    MaPhong = (int)row["MaPhong"],
+                    CMND = (string)row["CMND"],
+                    NgayBatDau = (DateTime)row["NgayBatDau"],
+                    NgayLapPhieu = (DateTime)row["NgayLapPhieu"],
+                    TienCoc = (int)row["TienCoc"],
+                    TenKH = (string)row["TenKH"],
+                    SoDienThoai = (string)row["SoDienThoai"],
+                    TinhTrang = (string)row["TinhTrang"]
+                };
+                Items.Add(obj);                
+            }
+        }
+        void LoadBookingbyString(string String)
+        {
+            if (Items.Count > 0)
+                Items.Clear();
+
+            BookingListModel model = new BookingListModel();
+            DataTable data = new DataTable();
+            data = model.LoadBookingbyString(String);
+
+            foreach (DataRow row in data.Rows)
+            {
+                var obj = new BookingItemViewModel()
+                {
+                    MaPhieuThue = (int)row["MaPhieuThue"],
+                    MaPhong = (int)row["MaPhong"],
+                    CMND = (string)row["CMND"],
+                    NgayBatDau = (DateTime)row["NgayBatDau"],
+                    NgayLapPhieu = (DateTime)row["NgayLapPhieu"],
+                    TienCoc = (int)row["TienCoc"],
+                    TenKH = (string)row["TenKH"],
+                    SoDienThoai = (string)row["SoDienThoai"],
+                    TinhTrang = (string)row["TinhTrang"]
+                };
+                Items.Add(obj);
+            }
+        }
+        
         void LoadBooking()
         {
             if (Items.Count > 0)
@@ -260,6 +479,7 @@ namespace HotelManagement.MVVM.ViewModel
                     TienCoc = (int)row["TienCoc"],
                     TenKH = (string)row["TenKH"],
                     SoDienThoai = (string)row["SoDienThoai"],
+                    TinhTrang = (string)row ["TinhTrang"]
                 };
                 Items.Add(obj);
             }
@@ -299,7 +519,31 @@ namespace HotelManagement.MVVM.ViewModel
             CheckInDate = checkInDate.ToString("yyyy-MM-dd 06:00:00");
             Deposit = deposit;
             userid = (int)row["MaNgDung"];
+            Status = (string)row["TinhTrang"];
         }
+
+        void DefaultInfo()
+        {
+            ClientName = "";
+            IdCardNumber = "";
+            Nationality = "";
+            Phone = "";
+            Gender = "";
+            Address = "";
+            RentalId = 0;
+            RoomId = "";
+            RoomType = "";
+            Price = 0;
+            Deposit = 0;
+            Creator = "";
+            AmountPeople = 0;
+            CheckInDate = "";
+            CheckOutDate = "";
+            CreateDate = "";
+        }
+
+
+        #endregion
 
         #region View Event Handling
 
