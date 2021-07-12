@@ -152,6 +152,8 @@
     <Compile Include="MVVM\ViewModel\Rooms\RoomListItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\RoomListViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Rooms\RoomsViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Staff\AttachedFileViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Staff\NewMessageViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\StaffItemViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\StaffViewModel.cs" />
     <Compile Include="MVVM\View\CheckOutViews\ExportBill.xaml.cs">
@@ -192,6 +194,12 @@
     </Compile>
     <Compile Include="MVVM\View\Rooms\RoomsView.xaml.cs">
       <DependentUpon>RoomsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Staff\AttachedFileView.xaml.cs">
+      <DependentUpon>AttachedFileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Staff\NewMessageView.xaml.cs">
+      <DependentUpon>NewMessageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Staff\StaffItemView.xaml.cs">
       <DependentUpon>StaffItemView.xaml</DependentUpon>
@@ -296,6 +304,14 @@
     <Page Include="MVVM\View\Rooms\RoomsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MVVM\View\Staff\AttachedFileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Staff\NewMessageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\Staff\StaffItemView.xaml">
       <Generator>MSBuild:Compile</Generator>

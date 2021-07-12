@@ -17,6 +17,7 @@ namespace HotelManagement.MVVM.ViewModel
     class StaffViewModel : ObservableObject
     {
         public static StaffViewModel Instance => new StaffViewModel();
+
         private ObservableCollection<StaffItemViewModel> staff;
         public ObservableCollection<StaffItemViewModel> Staff { get { return staff; } set { staff = value; OnPropertyChanged("Staff"); } }
 
@@ -44,7 +45,6 @@ namespace HotelManagement.MVVM.ViewModel
             LoadAllAcounts();
 
             ItemsSearch = new List<string>();
-            ItemsSearch.Add("All");
             ItemsSearch.Add("Staff ID");
             ItemsSearch.Add("User Name");
             ItemsSearch.Add("Last Name");
@@ -68,6 +68,8 @@ namespace HotelManagement.MVVM.ViewModel
             {
                 if (Staff.Count > 0)
                     Staff.Clear();
+                SelectedSearchItem = "";
+                SearchText = "";
                 LoadAllAcounts();
             });
         }
@@ -86,9 +88,6 @@ namespace HotelManagement.MVVM.ViewModel
         {
             switch (SelectedSearchItem)
             {
-                case "All":
-                    LoadAllAcounts();
-                    break;
                 case "Staff ID":
                     LoadSearchStaffById(SearchText);
                     break;
@@ -109,7 +108,7 @@ namespace HotelManagement.MVVM.ViewModel
             }
         }
 
-        void LoadData(ObservableCollection<StaffItemViewModel> Staff, DataTable dataTable)
+        void LoadData(DataTable dataTable)
         {
             foreach (DataRow row in dataTable.Rows)
             {
@@ -122,7 +121,7 @@ namespace HotelManagement.MVVM.ViewModel
                     SoDienThoai = (row["SoDienThoai"] == DBNull.Value) ? "" : (string)row["SoDienThoai"],
                     GioiTinh = (row["GioiTinh"] == DBNull.Value) ? "" : (string)row["GioiTinh"],
                     Email = (string)row["Email"],
-                    NgaySinh = (row["NgaySinh"] == DBNull.Value) ? DateTime.Now.Date : (DateTime)row["NgaySinh"],
+                    NgaySinh = (row["NgaySinh"] == DBNull.Value) ? DateTime.Now.ToString("dd/MM/yyyy") : ((DateTime)row["NgaySinh"]).ToString("dd/MM/yyyy"),
                     IsBlocked = ((int)row["TinhTrang"] == 0) ? true : false,
                 };
                 Staff.Add(obj);
@@ -138,7 +137,7 @@ namespace HotelManagement.MVVM.ViewModel
 
             dataTable = model.Load_Accounts(SelectedMode);
 
-            LoadData(Staff, dataTable);
+            LoadData(dataTable);
         }
 
         void LoadSearchStaffById(string MaNgDung)
@@ -149,7 +148,7 @@ namespace HotelManagement.MVVM.ViewModel
             DataTable data = new DataTable();
             data = model.Search_StaffID(MaNgDung, SelectedMode);
 
-            LoadData(Staff, data);
+            LoadData(data);
         }
 
         void LoadSearchStaffByUserName(string TenTK)
@@ -160,7 +159,7 @@ namespace HotelManagement.MVVM.ViewModel
             DataTable data = new DataTable();
             data = model.Search_StaffUsername(TenTK, SelectedMode);
 
-            LoadData(Staff, data);
+            LoadData(data);
         }
 
         void LoadSearchStaffByFirstName(string Ten)
@@ -171,7 +170,7 @@ namespace HotelManagement.MVVM.ViewModel
             DataTable data = new DataTable();
             data = model.Search_StaffFirstName(Ten, SelectedMode);
 
-            LoadData(Staff, data);
+            LoadData(data);
         }
 
         void LoadSearchStaffByLastName(string Ho)
@@ -182,7 +181,7 @@ namespace HotelManagement.MVVM.ViewModel
             DataTable data = new DataTable();
             data = model.Search_StaffLastName(Ho, SelectedMode);
 
-            LoadData(Staff, data);
+            LoadData(data);
         }
 
         void LoadSearchStaffByPhone(string sdt)
@@ -193,12 +192,18 @@ namespace HotelManagement.MVVM.ViewModel
             DataTable data = new DataTable();
             data = model.Search_StaffPhone(sdt, SelectedMode);
 
-            LoadData(Staff, data);
+            LoadData(data);
         }
 
         private void OnPropertyChanged(string propertyName)
         {
-            SearchStaff();
+            if (SelectedSearchItem == "" || SelectedSearchItem == null) {
+                LoadAllAcounts();
+            } 
+            else
+            {
+                SearchStaff();
+            }
         }
     }
 }
