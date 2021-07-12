@@ -206,9 +206,23 @@ namespace HotelManagement.MVVM.ViewModel
             }, (p) =>
             {
                 BookingListModel blmodel = new BookingListModel();
-                if (blmodel.Delete_Rental(RentalId)) MessageBox.Show("Delete Rental Suscess", "Notify");
-                LoadBooking();
-                DefaultInfo();
+                if (UserID != userid && blmodel.GetUsernameAccount(UserID) != "admin" || Status == "Check-out")
+                {
+                    MessageBox.Show("You must be the creator or admin!", "Access denied");
+                    return;
+                }
+                MessageBoxResult result = MessageBox.Show(
+                    "Press YES to delete Rentals",
+                     "Are you sure ?",
+                     MessageBoxButton.YesNo
+                     );
+                if (result == MessageBoxResult.Yes)
+                {
+                    if (blmodel.Delete_Rental(RentalId)) 
+                        MessageBox.Show("Delete Rental Suscess", "Notify");
+                    LoadBooking();
+                    DefaultInfo();
+                }
             });
             SearchCommand = new RelayCommand<ComboBox>((p) =>
             {
