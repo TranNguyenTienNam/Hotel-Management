@@ -72,7 +72,7 @@ namespace HotelManagement.MVVM.ViewModel
         {
             MainModel model = new MainModel();
             DashboardVM = new DashboardViewModel();
-            BookingsVM = new BookingViewModel();
+            BookingsVM = new BookingViewModel(UserId);
             RoomsVM = new RoomsViewModel();
             StaffVM = new StaffViewModel();
             CheckOutVM = new CheckOutViewModel();
