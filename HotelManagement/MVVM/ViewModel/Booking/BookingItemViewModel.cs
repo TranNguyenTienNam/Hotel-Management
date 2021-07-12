@@ -17,5 +17,6 @@ namespace HotelManagement.MVVM.ViewModel
         public int TienCoc { get; set; }
         public string TenKH { get; set; }
         public string SoDienThoai { get; set; }
+        public string TinhTrang { get; set; }
     }
 }
