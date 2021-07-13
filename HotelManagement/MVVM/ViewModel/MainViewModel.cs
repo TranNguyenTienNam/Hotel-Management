@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using HotelManagement.Core;
 using HotelManagement.MVVM.Model;
@@ -32,6 +33,8 @@ namespace HotelManagement.MVVM.ViewModel
 
         private bool _initCheckedStaff;
         public bool InitCheckedStaff { get { return _initCheckedStaff; } set { _initCheckedStaff = value; OnPropertyChanged(); } }
+
+        public ICommand ProfileClickCommand { get; set; }
 
         #region View and Command Binding
 
@@ -77,7 +80,6 @@ namespace HotelManagement.MVVM.ViewModel
         public MainViewModel(int UserId)
         {
             MainModel model = new MainModel();
-            DashboardVM = new DashboardViewModel();
             BookingsVM = new BookingViewModel(UserId);
             
             ProfileVM = new ProfileViewModel(UserId);
@@ -94,6 +96,7 @@ namespace HotelManagement.MVVM.ViewModel
             }    
             else if (PermissionOfAccount == 1)
             {
+                DashboardVM = new DashboardViewModel();
                 StaffVM = new StaffViewModel(PermissionOfAccount);
                 InitCheckedAdmin = true;
                 CurrentView = DashboardVM;
@@ -101,6 +104,7 @@ namespace HotelManagement.MVVM.ViewModel
             }    
             else
             {
+                DashboardVM = new DashboardViewModel();
                 StaffVM = new StaffViewModel(PermissionOfAccount);
                 InitCheckedAdmin = true;
                 CurrentView = DashboardVM;
@@ -153,6 +157,15 @@ namespace HotelManagement.MVVM.ViewModel
             {
                 return true;
             }, (o) => { CurrentView = StaffVM; });
+
+            ProfileClickCommand = new RelayCommand<RadioButton>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                p.IsChecked = true;
+                CurrentView = ProfileVM;
+            });
         }
     }
 }
