@@ -550,6 +550,7 @@ namespace HotelManagement.MVVM.ViewModel
             RoomType = "";
             Price = 0;
             Deposit = 0;
+            Status = "";
             Creator = "";
             AmountPeople = 0;
             CheckInDate = "";
