@@ -146,9 +146,8 @@ namespace HotelManagement.MVVM.ViewModel
             }, (p) => 
             {
                 ProfileModel model = new ProfileModel();
-                RegisterModel registerModel = new RegisterModel();
 
-                if (registerModel.CheckExistEmail(Email))
+                if (model.CheckExistEmail(UserId, Email))
                 {
                     EditedProfileMessage = "This email has already existed";
                     p.Text = "";
