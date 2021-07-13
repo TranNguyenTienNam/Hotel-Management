@@ -13,7 +13,7 @@ namespace HotelManagement.MVVM.Model
             int Revenue;
             string sql_select =
                 "SELECT count(*) from PHIEUTHUEPHONG where NgayBatDau = '" 
-                + ConvertTimeFormat(DateTime.Today) + "' and TinhTrang = 'Checkin'";
+                + ConvertTimeFormat(DateTime.Today) + "' and TinhTrang = 'Check-in'";
             Revenue = Process.getNumber(sql_select);
             return Revenue;
         }
@@ -22,7 +22,7 @@ namespace HotelManagement.MVVM.Model
             int value;
             string sql_select =
                 "SELECT count(*) from PHIEUTHUEPHONG where NgayTraPhong = '" 
-                + ConvertTimeFormat(DateTime.Today) + "' and TinhTrang = 'Checkout'";
+                + ConvertTimeFormat(DateTime.Today) + "' and TinhTrang = 'Check-out'";
             value = Process.getNumber(sql_select);
             return value;
         }

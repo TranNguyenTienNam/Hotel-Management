@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using HotelManagement.Core;
 using HotelManagement.MVVM.Model;
@@ -32,6 +33,8 @@ namespace HotelManagement.MVVM.ViewModel
 
         private bool _initCheckedStaff;
         public bool InitCheckedStaff { get { return _initCheckedStaff; } set { _initCheckedStaff = value; OnPropertyChanged(); } }
+
+        public ICommand ProfileClickCommand { get; set; }
 
         #region View and Command Binding
 
@@ -77,32 +80,35 @@ namespace HotelManagement.MVVM.ViewModel
         public MainViewModel(int UserId)
         {
             MainModel model = new MainModel();
-            DashboardVM = new DashboardViewModel();
             BookingsVM = new BookingViewModel(UserId);
-            StaffVM = new StaffViewModel();
-            CheckOutVM = new CheckOutViewModel();
+            
             ProfileVM = new ProfileViewModel(UserId);
 
             //Get position
             PermissionOfAccount = model.GetPermissionAccount(UserId);
             RoomsVM = new RoomsViewModel(PermissionOfAccount);
+            CheckOutVM = new CheckOutViewModel(PermissionOfAccount);
             if (PermissionOfAccount == 2)
             {
                 InitCheckedStaff = true;
                 CurrentView = RoomsVM;
-                NameContent = model.GetNameAccount(UserId);
                 Visibility = "Collapsed";
             }    
             else if (PermissionOfAccount == 1)
             {
+                DashboardVM = new DashboardViewModel();
+                StaffVM = new StaffViewModel(PermissionOfAccount);
                 InitCheckedAdmin = true;
                 CurrentView = DashboardVM;
+                NameContent = model.GetNameAccount(UserId) + "(Manager)";
             }    
             else
             {
+                DashboardVM = new DashboardViewModel();
+                StaffVM = new StaffViewModel(PermissionOfAccount);
                 InitCheckedAdmin = true;
                 CurrentView = DashboardVM;
-                NameContent = "Admin";
+                NameContent = model.GetNameAccount(UserId) + "(Admin)";
             }    
 
             DashboardViewCommand = new RelayCommand<object>((o) =>
@@ -151,6 +157,15 @@ namespace HotelManagement.MVVM.ViewModel
             {
                 return true;
             }, (o) => { CurrentView = StaffVM; });
+
+            ProfileClickCommand = new RelayCommand<RadioButton>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                p.IsChecked = true;
+                CurrentView = ProfileVM;
+            });
         }
     }
 }

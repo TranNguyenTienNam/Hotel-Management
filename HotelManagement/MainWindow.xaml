@@ -136,9 +136,7 @@
                             HorizontalAlignment="Center"
                             Foreground="Red">
                             <StackPanel Width="100">
-                                <Button Content="Profile"/>
-                                <Button Content="Settings"/>
-                                <Button Content="Full Screen"/>
+                                <Button x:Name="btnProfile" Content="Profile" Command="{Binding ProfileClickCommand}" CommandParameter="{Binding ElementName=rbtnProfile}"/>
                                 <Button x:Name="btnPopUpLogout" Content="Log out" Click="btnPopUpLogout_Click"/>
                                 <Button x:Name="btnPopUpExit" Content="Exit" Click="btnPopUpExit_Click"/>
                             </StackPanel>
@@ -160,7 +158,7 @@
                     Background="#FF616D">
                     <StackPanel Grid.Column="0"
                                 Margin="0,10,0,0">
-                        <RadioButton Content="Dashboard"
+                        <RadioButton Content="Statistics"
                                      Visibility="{Binding Visibility}"
                                      Style="{StaticResource MenuButtonTheme}"
                                      IsChecked="{Binding InitCheckedAdmin}"
@@ -179,7 +177,7 @@
                                      Visibility="{Binding Visibility}"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Command="{Binding StaffViewCommand}"/>
-                        <RadioButton Content="Profile"
+                        <RadioButton Content="Profile" Name="rbtnProfile"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Command="{Binding ProfileViewCommand}"/>
                     </StackPanel>

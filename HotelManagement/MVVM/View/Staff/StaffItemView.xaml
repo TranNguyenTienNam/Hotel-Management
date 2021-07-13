@@ -15,24 +15,24 @@
                     <ControlTemplate TargetType="{x:Type ContentControl}">
                         <!--content-->
                         <Grid x:Name="container" Background="{StaticResource ForegroundLightBrush}" Height="40">
-                            <Button x:Name="background" Background="Transparent" BorderThickness="0" Height="40">
+                            <Button x:Name="background" Background="Transparent" BorderThickness="0" Height="40" Padding="4">
                                 <Button.Content>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <!--ID-->
-                                            <ColumnDefinition Width="50"/>
+                                            <ColumnDefinition Width="56"/>
                                             <!--Username-->
-                                            <ColumnDefinition Width="86"/>
+                                            <ColumnDefinition Width="92"/>
                                             <!--Last Name-->
-                                            <ColumnDefinition Width="90"/>
+                                            <ColumnDefinition Width="92"/>
                                             <!--Gender-->
                                             <ColumnDefinition Width="75"/>
                                             <!--Birthday-->
-                                            <ColumnDefinition Width="110"/>
+                                            <ColumnDefinition Width="112"/>
                                             <!--Phone-->
                                             <ColumnDefinition Width="98"/>
-                                            <!--Email-->
-                                            <ColumnDefinition Width="145"/>
+                                            <!--Email default=145-->
+                                            <ColumnDefinition Width="{Binding WidthColumnEmail}"/> 
                                             <!--Position-->
                                             <ColumnDefinition Width="100"/>
                                             <ColumnDefinition Width="Auto"/>
@@ -62,7 +62,7 @@
 
                                             <Button Grid.Column="0" Background="#F44336" Padding="0" Margin="5,0,5,0"
                                                 Width="30" Height="30" Command="{Binding SendMailCommand}"
-                                                ToolTip="Click to edit room">
+                                                ToolTip="Click to send mail">
                                                 <materialDesign:PackIcon Kind="Gmail" Height="24" Width="24"/>
                                             </Button>
                                             <Button x:Name="btnLock" Grid.Column="1" Background="#F44336" Padding="0" Margin="5,0,5,0"
@@ -70,7 +70,8 @@
                                                 <materialDesign:PackIcon x:Name="kind_icon" Height="24" Width="24"/>
                                             </Button>
                                             <Button x:Name="btnPromote" Grid.Column="2" Background="#F44336" Padding="0" Margin="5,0,5,0"
-                                                Width="30" Height="30" Command="{Binding PromoteOrDemoteStaffAccountCommand}">
+                                                Width="30" Height="30" Command="{Binding PromoteOrDemoteStaffAccountCommand}"
+                                                    Visibility="{Binding VisibilityPromoteButton}">
                                                 <materialDesign:PackIcon x:Name="promote_icon" Height="24" Width="24"/>
                                             </Button>
                                         </Grid>
@@ -99,7 +100,7 @@
                             </DataTrigger>
 
                             <DataTrigger Binding="{Binding IsPromoted}" Value="True">
-                                <Setter Property="Kind" TargetName="promote_icon" Value="ArrowDownBoldHexagonOutline"/>
+                                <Setter Property="Kind" TargetName="promote_icon" Value="ChevronDoubleDown"/>
                                 <Setter Property="ToolTip" TargetName="btnPromote" Value="Click to demote staff"/>
                             </DataTrigger>
 
@@ -109,7 +110,7 @@
                             </DataTrigger>
 
                             <DataTrigger Binding="{Binding IsPromoted}" Value="False">
-                                <Setter Property="Kind" TargetName="promote_icon" Value="ArrowUpBoldHexagonOutline"/>
+                                <Setter Property="Kind" TargetName="promote_icon" Value="ChevronDoubleUp"/>
                                 <Setter Property="ToolTip" TargetName="btnPromote" Value="Click to promote staff"/>
                             </DataTrigger>
 

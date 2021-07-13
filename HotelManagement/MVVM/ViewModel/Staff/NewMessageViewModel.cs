@@ -100,9 +100,8 @@ namespace HotelManagement.MVVM.ViewModel.Staff
             client.EnableSsl = true;
             client.Host = "smtp.gmail.com";
             client.UseDefaultCredentials = false;
-            client.Port = 587;
+            client.Port = 587; 
             client.Credentials = new System.Net.NetworkCredential("nbtm072021@gmail.com", "rldizrdxvwywmsjl");
-
 
             foreach (AttachedFileViewModel files in AttachedFiles)
             {

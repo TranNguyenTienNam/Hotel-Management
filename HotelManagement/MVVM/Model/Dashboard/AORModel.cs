@@ -21,7 +21,7 @@ namespace HotelManagement.MVVM.Model
             int AOR;
             string sql_select =
                 "SELECT COUNT(PHONG.MaPhong) from PHONG inner join PHIEUTHUEPHONG on PHONG.MaPhong = PHIEUTHUEPHONG.MaPhong "
-                + "where NgayTraPhong >= '" + selectedDate + "' and NgayBatDau <= '" + selectedDate + "' and PHIEUTHUEPHONG.TinhTrang <> 'booked'";
+                + "where NgayTraPhong >= '" + selectedDate + "' and NgayBatDau <= '" + selectedDate + "' and PHIEUTHUEPHONG.TinhTrang <> 'Booked'";
             AOR = Process.getNumber(sql_select);
             return AOR;
         }
@@ -32,7 +32,7 @@ namespace HotelManagement.MVVM.Model
                 "SELECT COUNT(PHONG.MaPhong) from PHONG inner join PHIEUTHUEPHONG on PHONG.MaPhong = PHIEUTHUEPHONG.MaPhong "
                 + "where (MONTH(NgayTraPhong) = MONTH('" + selectedMonth + "') and YEAR(NgayTraPhong) = YEAR('" + selectedMonth
                 + "')) or (MONTH(NgayBatDau) = MONTH('" + selectedMonth + "') and YEAR(NgayBatDau) = YEAR('" 
-                + selectedMonth + "')) and PHIEUTHUEPHONG.TinhTrang <> 'booked'";
+                + selectedMonth + "')) and PHIEUTHUEPHONG.TinhTrang <> 'Booked'";
             AOR = Process.getNumber(sql_select);
             return AOR;
         }
@@ -42,7 +42,7 @@ namespace HotelManagement.MVVM.Model
             string sql_select =
                 "SELECT COUNT(PHONG.MaPhong) from PHONG inner join PHIEUTHUEPHONG on PHONG.MaPhong = PHIEUTHUEPHONG.MaPhong "
                 + "where (YEAR(NgayTraPhong) = YEAR('" + selectedYear + "') or YEAR(NgayBatDau) = YEAR('"                
-                + selectedYear + "')) and PHIEUTHUEPHONG.TinhTrang <> 'booked'";
+                + selectedYear + "')) and PHIEUTHUEPHONG.TinhTrang <> 'Booked'";
             AOR = Process.getNumber(sql_select);
             return AOR;
         }
@@ -52,7 +52,7 @@ namespace HotelManagement.MVVM.Model
             string sql_select =
                 "SELECT COUNT(PHONG.MaPhong) from PHONG inner join PHIEUTHUEPHONG on PHONG.MaPhong = PHIEUTHUEPHONG.MaPhong "
                 + "where NgayTraPhong >= DATEADD(DAY,-1,'" + selectedDate + "') and NgayBatDau <=  DATEADD(DAY,-1,'" 
-                + selectedDate + "') and PHIEUTHUEPHONG.TinhTrang <> 'booked'";
+                + selectedDate + "') and PHIEUTHUEPHONG.TinhTrang <> 'Booked'";
             AOR = Process.getNumber(sql_select);
             return AOR;
         }
@@ -63,7 +63,7 @@ namespace HotelManagement.MVVM.Model
                 "SELECT COUNT(PHONG.MaPhong) from PHONG inner join PHIEUTHUEPHONG on PHONG.MaPhong = PHIEUTHUEPHONG.MaPhong "
                 + "where (MONTH(NgayTraPhong) = MONTH(DATEADD(MONTH,-1,'" + selectedMonth + "')) and YEAR(NgayTraPhong) = YEAR('" + selectedMonth
                 + "')) or (MONTH(NgayBatDau) = MONTH(DATEADD(MONTH,-1,'" + selectedMonth + "')) and YEAR(NgayBatDau) = YEAR('"
-                + selectedMonth + "')) and PHIEUTHUEPHONG.TinhTrang <> 'booked'";
+                + selectedMonth + "')) and PHIEUTHUEPHONG.TinhTrang <> 'Booked'";
             AOR = Process.getNumber(sql_select);
             return AOR;
         }
@@ -73,7 +73,7 @@ namespace HotelManagement.MVVM.Model
             string sql_select =
                 "SELECT COUNT(PHONG.MaPhong) from PHONG inner join PHIEUTHUEPHONG on PHONG.MaPhong = PHIEUTHUEPHONG.MaPhong "
                 + "where (YEAR(NgayTraPhong) = YEAR(DATEADD(YEAR,-1,'" + selectedYear + "')) or YEAR(NgayBatDau) = YEAR(DATEADD(YEAR,-1,'"
-                + selectedYear + "'))) and PHIEUTHUEPHONG.TinhTrang <> 'booked'";
+                + selectedYear + "'))) and PHIEUTHUEPHONG.TinhTrang <> 'Booked'";
             AOR = Process.getNumber(sql_select);
             return AOR;
         }
