@@ -37,7 +37,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                    Text="Create A New Room" Margin="8" FontSize="22" FontWeight="Bold" Foreground="#F44336" />
+                                    Text="Rentals Manager" Margin="8,4,0,0" FontSize="22" FontWeight="Bold" Foreground="#F44336" Height="30" />
                         <Grid Grid.Column="1" HorizontalAlignment="Right">
                             <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,10,0">
                                 <TextBlock Margin="5" Text="Check-in" FontWeight="Bold" VerticalAlignment="Center" Foreground="#F44336" FontSize="14"/>
@@ -203,7 +203,7 @@
                     <!--title-->
                     <Grid Grid.Row="0" Margin="10">
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"
-                                    Text="Client Information" Margin="8,8,0,0" FontSize="22" FontWeight="Bold" Foreground="#F44336"/>
+                                    Text="Client Information" Margin="0,8,0,-1" FontSize="22" FontWeight="Bold" Foreground="#F44336"/>
                     </Grid>
                     <!--Client infomation input-->
                     <Grid Grid.Row="1" Margin="4">
@@ -271,10 +271,10 @@
                     <!--title-->
                     <Grid Grid.Row="2" Margin="6">
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"
-                                    Text="Rental Information" Margin="8,8,0,0" FontSize="22" FontWeight="Bold" Foreground="#F44336"/>
+                                    Text="Rental Information" Margin="5,0,0,7" FontSize="22" FontWeight="Bold" Foreground="#F44336"/>
                     </Grid>
                     <!--rental information input-->
-                    <Grid Grid.Row="3" Margin="4">
+                    <Grid Grid.Row="3" Margin="4,0,4,8">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
@@ -383,7 +383,8 @@
                                 materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
                                 materialDesign:HintAssist.Hint="Check-out Date:" FontSize="13"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                VerticalAlignment="Center"/>
+                                VerticalAlignment="Center" Margin="-1,-4,1,0" Height="40"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0,43,0,-9" TextWrapping="Wrap" Text="Note: To edit/delete you need to be the creator/manger/admin" VerticalAlignment="Top" Width="278" FontSize="9" Foreground="#FFFFBB00" FontStyle="Italic"/>
                         </Grid>
                         <Grid Grid.Row="6" Margin="4,12,4,6">
                             <Button Grid.Column="2" Width="180" Height="38" HorizontalAlignment="Center" Padding="0"
