@@ -53,6 +53,8 @@ namespace HotelManagement.MVVM.ViewModel
 
             LoginCommand = new RelayCommand<Window>((p) =>
             {
+                if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
+                    return false;
                 return true;
             }, (p) =>
             {
