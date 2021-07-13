@@ -160,7 +160,7 @@
                     Background="#FF616D">
                     <StackPanel Grid.Column="0"
                                 Margin="0,10,0,0">
-                        <RadioButton Content="Dashboard"
+                        <RadioButton Content="Statistics"
                                      Visibility="{Binding Visibility}"
                                      Style="{StaticResource MenuButtonTheme}"
                                      IsChecked="True"
