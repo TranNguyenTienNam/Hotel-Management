@@ -9,6 +9,7 @@ namespace HotelManagement.MVVM.Model
 {
     class BookingListModel
     {
+        #region LoadBooking by (...) Listview from Database
         public DataTable LoadBooking()
         {
             string sql_select = "select * from KHACHHANG k,PHIEUTHUEPHONG p where k.CMND = p.CMND";
@@ -61,8 +62,9 @@ namespace HotelManagement.MVVM.Model
 
             return Process.createTable(sql_select);
         }
+        #endregion
 
-
+        #region Info Rental from Database
         public DataTable LoadClientInformation(string CMND)
         {
             string sql_select = "select lkh.TenLoaiKhach as TenLoaiKhach, kh.SoDienThoai as SoDienThoai, kh.GioiTinh as GioiTinh, kh.DiaChi as DiaChi "
@@ -81,8 +83,10 @@ namespace HotelManagement.MVVM.Model
             return Process.createTable(sql_select);
         }
 
+        #endregion
 
 
+        #region Modify Rental
         public bool Update_Rental(int RentalID,int Deposit,int Amount)
         {
             string sql_update = "UPDATE PHIEUTHUEPHONG " +
@@ -100,14 +104,6 @@ namespace HotelManagement.MVVM.Model
                 return true;
             return false;
         }
-
-        public string GetUsernameAccount(int MaNgDung)
-        {
-            string sql_select = "SELECT TenTaiKhoan FROM NGUOIDUNG WHERE MaNgDung=" + MaNgDung;
-
-            return Process.getString(sql_select);
-        }
-
         public bool Checkin_Rental(int RentalID)
         {
             string sql_update = "UPDATE PHIEUTHUEPHONG " +
@@ -117,6 +113,16 @@ namespace HotelManagement.MVVM.Model
                 return true;
             return false;
         }
+        #endregion
+
+        //Get Username by Id
+        public int GetPermision(int MaNgDung)
+        {
+            string sql_select = "SELECT QuyenHan FROM TTNguoiDung WHERE MaNgDung=" + MaNgDung;
+
+            return Process.getNumber(sql_select);
+        }
+
 
     }
 }
