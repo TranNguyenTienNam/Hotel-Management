@@ -1,7 +1,13 @@
 # Hotel-Management
 Phần mềm giúp quản lý, thực hiện các nghiệp vụ của một khách sạn.
 ## Nội dung
-
+- [Đối tượng hướng đến](#Đối-tượng-hướng-đến)
+- [Chức năng](#Chức-năng)
+- [Yêu cầu thiết bị](#Yêu-cầu-thiết-bị)
+- [Thư viện và công nghệ](#Thư-viện-và-công-nghệ)
+- [Cơ sở dữ liệu](#Cơ-sở-dữ-liệu)
+- [Tác giả](#Tác-giả)
+- [Giấy phép](#Giấy-phép)
 ## Đối tượng hướng đén
 - Trưởng bộ phận lễ tân
 - Quản phòng khách sạn
