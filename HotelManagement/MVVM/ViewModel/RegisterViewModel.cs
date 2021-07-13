@@ -218,7 +218,7 @@ namespace HotelManagement.MVVM.ViewModel
                         int isID = model.RegisterWithUsernameAndPassword(Username, Password);
                         if (isID != -1)
                         {
-                            if (model.InsertInfoUser(isID, FirstName, LastName, Email))
+                            if (model.InsertInfoUser(isID, LastName, FirstName, Email))
                             {
                                 MessageBox.Show("Registration success", "Notice");
                                 registerWindow.Hide();
