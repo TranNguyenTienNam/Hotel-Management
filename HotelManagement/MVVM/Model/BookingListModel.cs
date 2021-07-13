@@ -116,11 +116,11 @@ namespace HotelManagement.MVVM.Model
         #endregion
 
         //Get Username by Id
-        public string GetUsernameAccount(int MaNgDung)
+        public int GetPermision(int MaNgDung)
         {
-            string sql_select = "SELECT TenTaiKhoan FROM NGUOIDUNG WHERE MaNgDung=" + MaNgDung;
+            string sql_select = "SELECT QuyenHan FROM TTNguoiDung WHERE MaNgDung=" + MaNgDung;
 
-            return Process.getString(sql_select);
+            return Process.getNumber(sql_select);
         }
 
 

@@ -188,9 +188,9 @@ namespace HotelManagement.MVVM.ViewModel
                 NewBookingModel nbmodel = new NewBookingModel();
                 BookingListModel blmodel = new BookingListModel();
                 int n = (Nationality == "Vietnamese") ? 1 : 2;
-                if (UserID != userid && blmodel.GetUsernameAccount(UserID) != "admin")
+                if (UserID != userid && blmodel.GetPermision(UserID) == 2 )
                 {                                       
-                    MessageBox.Show("You must be the creator or admin!", "Access denied");
+                    MessageBox.Show("You must be the creator or admin/manager!", "Access denied");
                     return;
                 }
                 if ((nbmodel.Update_Client(ClientName, n, IdCardNumber, Phone, Address, Gender)) &&
@@ -206,9 +206,9 @@ namespace HotelManagement.MVVM.ViewModel
             }, (p) =>
             {
                 BookingListModel blmodel = new BookingListModel();
-                if (UserID != userid && blmodel.GetUsernameAccount(UserID) != "admin" || Status == "Check-out")
+                if (UserID != userid && blmodel.GetPermision(UserID) == 2 || Status == "Check-out")
                 {
-                    MessageBox.Show("You must be the creator or admin!", "Access denied");
+                    MessageBox.Show("You must be the creator or admin/manager!", "Access denied");
                     return;
                 }
                 MessageBoxResult result = MessageBox.Show(
