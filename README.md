@@ -8,7 +8,7 @@ Phần mềm giúp quản lý, thực hiện các nghiệp vụ của một khá
 - [Cơ sở dữ liệu](#Cơ-sở-dữ-liệu)
 - [Tác giả](#Tác-giả)
 - [Giấy phép](#Giấy-phép)
-## Đối tượng hướng đén
+## Đối tượng hướng đến
 - Trưởng bộ phận lễ tân
 - Quản phòng khách sạn
 - Trợ lý trưởng bộ phận lễ tân
