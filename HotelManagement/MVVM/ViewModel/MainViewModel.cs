@@ -79,30 +79,32 @@ namespace HotelManagement.MVVM.ViewModel
             MainModel model = new MainModel();
             DashboardVM = new DashboardViewModel();
             BookingsVM = new BookingViewModel(UserId);
-            StaffVM = new StaffViewModel();
-            CheckOutVM = new CheckOutViewModel();
+            
             ProfileVM = new ProfileViewModel(UserId);
 
             //Get position
             PermissionOfAccount = model.GetPermissionAccount(UserId);
             RoomsVM = new RoomsViewModel(PermissionOfAccount);
+            CheckOutVM = new CheckOutViewModel(PermissionOfAccount);
             if (PermissionOfAccount == 2)
             {
                 InitCheckedStaff = true;
                 CurrentView = RoomsVM;
-                NameContent = model.GetNameAccount(UserId);
                 Visibility = "Collapsed";
             }    
             else if (PermissionOfAccount == 1)
             {
+                StaffVM = new StaffViewModel(PermissionOfAccount);
                 InitCheckedAdmin = true;
                 CurrentView = DashboardVM;
+                NameContent = model.GetNameAccount(UserId) + "(Manager)";
             }    
             else
             {
+                StaffVM = new StaffViewModel(PermissionOfAccount);
                 InitCheckedAdmin = true;
                 CurrentView = DashboardVM;
-                NameContent = "Admin";
+                NameContent = model.GetNameAccount(UserId) + "(Admin)";
             }    
 
             DashboardViewCommand = new RelayCommand<object>((o) =>

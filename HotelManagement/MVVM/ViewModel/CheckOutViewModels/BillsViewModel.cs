@@ -13,7 +13,6 @@ namespace HotelManagement.MVVM.ViewModel
 {
     class BillsViewModel : ObservableObject
     {
-        public static BillsViewModel Instance => new BillsViewModel();
         private ObservableCollection<Receipt> _items;
         public ObservableCollection<Receipt> Items { get { return _items; } set { _items = value; OnPropertyChanged("Items"); } }
 
@@ -101,6 +100,9 @@ namespace HotelManagement.MVVM.ViewModel
         private int _tongTienPhong;
         public int TongTienPhong { get { return _tongTienPhong; } set { _tongTienPhong = value; OnPropertyChanged(); } }
 
+        private string _visibilityAdmin;
+        public string VisibilityAdmin { get { return _visibilityAdmin; } set { _visibilityAdmin = value; OnPropertyChanged(); } }
+
         //command
         public ICommand SearchCommand { get; set; }
         public ICommand SelectRowCommand { get; set; }
@@ -109,12 +111,11 @@ namespace HotelManagement.MVVM.ViewModel
         public ICommand ExportReceiptCommand { get; set; }
 
 
-
-        public BillsViewModel()
+        public BillsViewModel(int position)
         {
             //biến phụ đểc chứa item được chọn từ listview
             Receipt currentReceipt = new Receipt();
-
+            VisibilityAdmin = (position == 2) ? "Collapsed" : "Visible";
             Items = new ObservableCollection<Receipt>();
             LoadListBills();
 

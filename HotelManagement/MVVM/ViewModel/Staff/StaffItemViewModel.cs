@@ -44,12 +44,18 @@ namespace HotelManagement.MVVM.ViewModel
 
         private string quyenHan;
         public string QuyenHan { get { return quyenHan; } set { quyenHan = value; OnPropertyChanged(); } }
+        
+        private string visibilityPromoteButton;
+        public string VisibilityPromoteButton { get { return visibilityPromoteButton; } set { visibilityPromoteButton = value; OnPropertyChanged(); } }
 
         private bool isBlocked;
         public bool IsBlocked { get { return isBlocked; } set { isBlocked = value; OnPropertyChanged(); } }
 
         private bool isPromoted;
         public bool IsPromoted { get { return isPromoted; } set { isPromoted = value; OnPropertyChanged(); } }
+
+        private int widthColumnEmail;
+        public int WidthColumnEmail { get { return widthColumnEmail; } set { widthColumnEmail = value; OnPropertyChanged(); } }
 
         public bool IsSelected { get; set; }
 
@@ -88,7 +94,7 @@ namespace HotelManagement.MVVM.ViewModel
         {
             NewMessageView wd = new NewMessageView();
             wd.DataContext = new NewMessageViewModel(Email);
-            wd.Show();
+            wd.ShowDialog();
         }
 
         void BlockOrUnblockStaffAccount()

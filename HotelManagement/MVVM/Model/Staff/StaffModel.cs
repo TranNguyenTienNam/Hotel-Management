@@ -11,13 +11,34 @@ namespace HotelManagement.MVVM.Model
 {
     class StaffModel
     {
-        public DataTable Load_Accounts(string Mode)   //Đầu vào cần 1 mã Ukey 
+        public string Position(int QuyenHan)
+        {
+            string sql = "";
+            switch (QuyenHan)
+            {
+                case 0:
+                    {
+                        sql = "ttnd.QuyenHan in (2, 1) ";
+                    }
+                    break;
+                case 1:
+                    {
+                        sql = "ttnd.QuyenHan = 2 ";
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return sql;
+        }
+
+        public DataTable Load_Accounts(string Mode, int position)   //Đầu vào cần 1 mã Ukey 
         {
             DataTable re;
             string sql_select = "select nd.MaNgDung as MaNguoiDung, nd.TenTaiKhoan as TenTaiKhoan, ttnd.Ho as Ho, ttnd.Ten as Ten, "
                 + "ttnd.SoDienThoai as SoDienThoai, ttnd.GioiTinh as GioiTinh, ttnd.Email as Email, ttnd.NgaySinh as NgaySinh, "
                 + "nd.TinhTrangTK as TinhTrang, ttnd.QuyenHan as QuyenHan from NGUOIDUNG nd, TTNguoiDung ttnd "
-                + "where nd.MaNgDung = ttnd.MaNgDung and ttnd.QuyenHan in (2, 1) "
+                + "where nd.MaNgDung = ttnd.MaNgDung and " + Position(position)
                 + SelectedMode(Mode) + "order by nd.TinhTrangTK desc"; 
             re = Process.createTable(sql_select);
             return re;  
@@ -59,52 +80,52 @@ namespace HotelManagement.MVVM.Model
             return false;
         }
 
-        public DataTable Search_StaffID(string MaNgDung, string Mode)
+        public DataTable Search_StaffID(string MaNgDung, string Mode, int position)
         {
             DataTable re;
             string sql_select = "select nd.MaNgDung as MaNguoiDung, nd.TenTaiKhoan as TenTaiKhoan, ttnd.Ho as Ho, ttnd.Ten as Ten, "
                 + "ttnd.SoDienThoai as SoDienThoai, ttnd.GioiTinh as GioiTinh, ttnd.Email as Email, ttnd.NgaySinh as NgaySinh, "
                 + "nd.TinhTrangTK as TinhTrang, ttnd.QuyenHan as QuyenHan from NGUOIDUNG nd, TTNguoiDung ttnd "
-                + "where nd.MaNgDung = ttnd.MaNgDung and ttnd.QuyenHan in (2, 1) " + SelectedMode(Mode) 
+                + "where nd.MaNgDung = ttnd.MaNgDung and " + Position(position) + SelectedMode(Mode) 
                 + "and CHARINDEX('" + MaNgDung + "', nd.MaNgDung) != 0"
                 + "order by nd.TinhTrangTK desc";
             re = Process.createTable(sql_select);
             return re;
         }
 
-        public DataTable Search_StaffUsername(string TenTK, string Mode)
+        public DataTable Search_StaffUsername(string TenTK, string Mode, int position)
         {
             DataTable re;
             string sql_select = "select nd.MaNgDung as MaNguoiDung, nd.TenTaiKhoan as TenTaiKhoan, ttnd.Ho as Ho, ttnd.Ten as Ten, "
                 + "ttnd.SoDienThoai as SoDienThoai, ttnd.GioiTinh as GioiTinh, ttnd.Email as Email, ttnd.NgaySinh as NgaySinh, "
                 + "nd.TinhTrangTK as TinhTrang, ttnd.QuyenHan as QuyenHan from NGUOIDUNG nd, TTNguoiDung ttnd "
-                + "where nd.MaNgDung = ttnd.MaNgDung and ttnd.QuyenHan in (2, 1) " + SelectedMode(Mode)
+                + "where nd.MaNgDung = ttnd.MaNgDung and " + Position(position) + SelectedMode(Mode)
                 + "and CHARINDEX('" + TenTK + "', nd.TenTaiKhoan) != 0"
                 + "order by nd.TinhTrangTK desc";
             re = Process.createTable(sql_select);
             return re;
         }
 
-        public DataTable Search_StaffLastName(string Ten, string Mode)
+        public DataTable Search_StaffFirstName(string Ten, string Mode, int position)
         {
             DataTable re;
             string sql_select = "select nd.MaNgDung as MaNguoiDung, nd.TenTaiKhoan as TenTaiKhoan, ttnd.Ho as Ho, ttnd.Ten as Ten, "
                 + "ttnd.SoDienThoai as SoDienThoai, ttnd.GioiTinh as GioiTinh, ttnd.Email as Email, ttnd.NgaySinh as NgaySinh, "
                 + "nd.TinhTrangTK as TinhTrang, ttnd.QuyenHan as QuyenHan from NGUOIDUNG nd, TTNguoiDung ttnd "
-                + "where nd.MaNgDung = ttnd.MaNgDung and ttnd.QuyenHan in (2, 1) " + SelectedMode(Mode)
+                + "where nd.MaNgDung = ttnd.MaNgDung and " + Position(position) + SelectedMode(Mode)
                 + "and CHARINDEX('" + Ten + "', ttnd.Ten) != 0"
                 + "order by nd.TinhTrangTK desc";
             re = Process.createTable(sql_select);
             return re;
         }
 
-        public DataTable Search_StaffPhone(string sdt, string Mode)
+        public DataTable Search_StaffPhone(string sdt, string Mode, int position)
         {
             DataTable re;
             string sql_select = "select nd.MaNgDung as MaNguoiDung, nd.TenTaiKhoan as TenTaiKhoan, ttnd.Ho as Ho, ttnd.Ten as Ten, "
                  + "ttnd.SoDienThoai as SoDienThoai, ttnd.GioiTinh as GioiTinh, ttnd.Email as Email, ttnd.NgaySinh as NgaySinh, "
                  + "nd.TinhTrangTK as TinhTrang, ttnd.QuyenHan as QuyenHan from NGUOIDUNG nd, TTNguoiDung ttnd "
-                 + "where nd.MaNgDung = ttnd.MaNgDung and ttnd.QuyenHan in (2, 1) " + SelectedMode(Mode)
+                 + "where nd.MaNgDung = ttnd.MaNgDung and " + Position(position) + SelectedMode(Mode)
                  + "and CHARINDEX('" + sdt + "', ttnd.SoDienThoai) != 0"
                  + "order by nd.TinhTrangTK desc";
             re = Process.createTable(sql_select);

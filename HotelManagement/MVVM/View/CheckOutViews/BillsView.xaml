@@ -16,9 +16,6 @@
         WindowStartupLocation="CenterScreen"
         MouseDown="Window_MouseDown"
         >
-    <Window.DataContext>
-        <viewModel:BillsViewModel/>
-    </Window.DataContext>
     <Border Background="#dfdfdf" CornerRadius="12" Margin="0,0,0,0">
         <Grid>
             <Grid.ColumnDefinitions>

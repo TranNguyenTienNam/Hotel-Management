@@ -158,8 +158,8 @@ namespace HotelManagement.MVVM.ViewModel
                 user user = new user()
                 {
                     MaNgDung = UserId,
-                    Ho = FirstName,
-                    Ten = LastName,
+                    Ho = LastName,
+                    Ten = FirstName,
                     SoDienThoai = Phone,
                     GioiTinh = Gender,
                     NgaySinh = Birthday,
@@ -379,8 +379,8 @@ namespace HotelManagement.MVVM.ViewModel
 
             //MessageBox.Show(user.NgaySinh.ToString());
 
-            FirstName = user.Ho;
-            LastName = user.Ten;
+            FirstName = user.Ten;
+            LastName = user.Ho;
             Phone = user.SoDienThoai;
             if (user.GioiTinh != null)
                 Gender = user.GioiTinh;

@@ -16,7 +16,6 @@ namespace HotelManagement.MVVM.ViewModel
 {
     class CheckOutViewModel : ObservableObject
     {
-        public static CheckOutViewModel Instance => new CheckOutViewModel();
         private ObservableCollection<Rental> _items;
         public ObservableCollection<Rental> Items { get { return _items; } set { _items = value; OnPropertyChanged("Items"); } }
 
@@ -113,7 +112,7 @@ namespace HotelManagement.MVVM.ViewModel
         public ICommand PickCheckOutDateCommand { get; set; }
         public ICommand ExportBillCommand { get; set; }
 
-        public CheckOutViewModel()
+        public CheckOutViewModel(int Position)
         {
             //biến phụ để chứa item được chọn của listview
             Rental currentRental = new Rental();
@@ -170,6 +169,7 @@ namespace HotelManagement.MVVM.ViewModel
             }, (p) =>
             {
                 BillsView bv = new BillsView();
+                bv.DataContext = new BillsViewModel(Position);
                 bv.ShowDialog();
             });
 

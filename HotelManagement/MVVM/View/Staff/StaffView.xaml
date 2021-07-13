@@ -15,7 +15,7 @@
              Background="#f4f5f7"
              FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
-        <Grid DataContext="{x:Static viewModel:StaffViewModel.Instance}">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
@@ -30,7 +30,7 @@
                         HorizontalAlignment="Left">
                     <Border Grid.Column="0" Background="White" CornerRadius="12" HorizontalAlignment="Left" Margin="4,4,4,0">
                         <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" 
-                               Text="Employee List" Margin="4,4,15,4" FontSize="20" FontWeight="Bold" Foreground="#F44336"/>
+                               Text="Employee Manager" Margin="4,4,15,4" FontSize="20" FontWeight="Bold" Foreground="#F44336"/>
                     </Border>
                     
                     <RadioButton 
@@ -133,7 +133,7 @@
                                 <!--ID-->
                                 <ColumnDefinition Width="50"/>
                                 <!--username-->
-                                <ColumnDefinition Width="86"/>
+                                <ColumnDefinition Width="90"/>
                                 <!--last name-->
                                 <ColumnDefinition Width="100"/>
                                 <!--gender-->
@@ -143,13 +143,13 @@
                                 <!--telephone-->
                                 <ColumnDefinition Width="100"/>
                                 <!--email-->
-                                <ColumnDefinition Width="145"/>
+                                <ColumnDefinition Width="{Binding WidthHeaderEmail}"/>
                                 <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="ID" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#F44336"/>
                             <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Username" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#F44336"/>
-                            <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Last Name" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#F44336"/>
+                            <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="First Name" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#F44336"/>
                             <TextBlock Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Gender" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#F44336"/>
                             <TextBlock Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Date of Birth" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#F44336"/>
                             <TextBlock Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Phone" Margin="12" FontSize="14" FontWeight="Bold" Foreground="#F44336"/>
