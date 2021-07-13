@@ -182,6 +182,7 @@ namespace HotelManagement.MVVM.ViewModel
 
             HandleSave = new RelayCommand<object>((p) =>
             {
+                if (string.IsNullOrEmpty(Phone) || string.IsNullOrEmpty(ClientName)) return false;
                 return true;
             }, (p) =>
             {
@@ -201,7 +202,7 @@ namespace HotelManagement.MVVM.ViewModel
 
             });
             HandleDel = new RelayCommand<object>((p) =>
-            {
+            {   if (RentalId == 0) return false;
                 return true;
             }, (p) =>
             {

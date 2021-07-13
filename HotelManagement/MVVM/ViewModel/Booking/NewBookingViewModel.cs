@@ -247,7 +247,7 @@ namespace HotelManagement.MVVM.ViewModel
         #region Icommand
         public ICommand CheckOutDate { get; set; }
         public ICommand CheckInDate { get; set; }
-        public ICommand SelectedChangedCommand { get; set; }
+        public ICommand SelectedListViewCommand { get; set; }
         public ICommand HandleBooking { get; set; }
         public ICommand HandleCheck { get; set; }
         public ICommand GenderChanged { get; set; }
@@ -329,7 +329,7 @@ namespace HotelManagement.MVVM.ViewModel
                 HandleValidDatePick(checkin, checkout);
             });
 
-            SelectedChangedCommand = new RelayCommand<ListView>((p) =>
+            SelectedListViewCommand = new RelayCommand<ListView>((p) =>
             {
                 return !p.Items.IsEmpty;
 
