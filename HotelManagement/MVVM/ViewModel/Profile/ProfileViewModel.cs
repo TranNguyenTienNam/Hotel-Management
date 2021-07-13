@@ -135,7 +135,7 @@ namespace HotelManagement.MVVM.ViewModel
             loadProfile(UserId);
             initProperty();
 
-            SaveProfileCommand = new RelayCommand<object>((p) =>
+            SaveProfileCommand = new RelayCommand<TextBox>((p) =>
             {
                 if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName)
                     || string.IsNullOrEmpty(Phone) || string.IsNullOrEmpty(Email))
@@ -146,11 +146,19 @@ namespace HotelManagement.MVVM.ViewModel
             }, (p) => 
             {
                 ProfileModel model = new ProfileModel();
+
+                if (model.CheckExistEmail(UserId, Email))
+                {
+                    EditedProfileMessage = "This email has already existed";
+                    p.Text = "";
+                    return;
+                }    
+
                 user user = new user()
                 {
                     MaNgDung = UserId,
-                    Ho = FirstName,
-                    Ten = LastName,
+                    Ho = LastName,
+                    Ten = FirstName,
                     SoDienThoai = Phone,
                     GioiTinh = Gender,
                     NgaySinh = Birthday,
@@ -221,7 +229,7 @@ namespace HotelManagement.MVVM.ViewModel
 
             EmailTextChangedCommand = new RelayCommand<TextBox>((p) =>
             {
-                return true;
+                return p.Text != "";
             }, (p) => 
             {
                 RegisterModel model = new RegisterModel();
@@ -240,21 +248,7 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                RegisterModel model = new RegisterModel();
-                CurrentPassword = p.Password;
-
-                if (p.Password.Length > 0)  //remove message when re-type current password
-                {
-                    ChangePasswordErrorMessage = "";
-                }    
-                if (!model.IsVietKey(p.Password))
-                {
-                    SpecialCharCurrentPassword = "Password contains vietkey character";
-                }
-                else
-                {
-                    SpecialCharCurrentPassword = "";
-                }
+                CurrentPasswordChanged(p);
             });
 
             NewPasswordChangedCommand = new RelayCommand<PasswordBox>((p) =>
@@ -262,21 +256,7 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                RegisterModel model = new RegisterModel();
-                NewPassword = p.Password;
-
-                if (p.Password.Length > 0)  //remove message when re-type new password
-                {
-                    ChangePasswordErrorMessage = "";
-                }
-                if (!model.IsVietKey(p.Password))
-                {
-                    SpecialCharNewPassword = "Password contains vietkey character";
-                }
-                else
-                {
-                    SpecialCharNewPassword = "";
-                }
+                NewPasswordChanged(p);
             });
 
             ConfirmPasswordChangedCommand = new RelayCommand<PasswordBox>((p) =>
@@ -284,21 +264,7 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                RegisterModel model = new RegisterModel();
-                ConfirmPassword = p.Password;
-
-                if (p.Password.Length > 0)  //remove message when re-type confirm password
-                {
-                    ChangePasswordErrorMessage = "";
-                }
-                if (!model.IsVietKey(p.Password))
-                {
-                    SpecialCharConfirmPassword = "Password contains vietkey character";
-                }
-                else
-                {
-                    SpecialCharConfirmPassword = "";
-                }
+                ConfirmPasswordChanged(p);
             });
         }
 
@@ -318,6 +284,63 @@ namespace HotelManagement.MVVM.ViewModel
                 IsReadOnly = true;
                 NoticeInvalidEmail = "";
                 EditedProfileMessage = "";
+            }
+        }
+
+        void CurrentPasswordChanged(PasswordBox p)
+        {
+            RegisterModel model = new RegisterModel();
+            CurrentPassword = p.Password;
+
+            if (p.Password.Length > 0)  //remove message when re-type confirm password
+            {
+                ChangePasswordErrorMessage = "";
+            }
+            if (!model.IsVietKey(p.Password))
+            {
+                SpecialCharCurrentPassword = "Password contains vietkey character";
+            }
+            else
+            {
+                SpecialCharCurrentPassword = "";
+            }
+        }
+
+        void NewPasswordChanged(PasswordBox p)
+        {
+            RegisterModel model = new RegisterModel();
+            NewPassword = p.Password;
+
+            if (p.Password.Length > 0)  //remove message when re-type new password
+            {
+                ChangePasswordErrorMessage = "";
+            }
+            if (!model.IsVietKey(p.Password))
+            {
+                SpecialCharNewPassword = "Password contains vietkey character";
+            }
+            else
+            {
+                SpecialCharNewPassword = "";
+            }
+        }
+        
+        void ConfirmPasswordChanged(PasswordBox p)
+        {
+            RegisterModel model = new RegisterModel();
+            ConfirmPassword = p.Password;
+
+            if (p.Password.Length > 0)  //remove message when re-type confirm password
+            {
+                ChangePasswordErrorMessage = "";
+            }
+            if (!model.IsVietKey(p.Password))
+            {
+                SpecialCharConfirmPassword = "Password contains vietkey character";
+            }
+            else
+            {
+                SpecialCharConfirmPassword = "";
             }
         }
 
@@ -355,8 +378,8 @@ namespace HotelManagement.MVVM.ViewModel
 
             //MessageBox.Show(user.NgaySinh.ToString());
 
-            FirstName = user.Ho;
-            LastName = user.Ten;
+            FirstName = user.Ten;
+            LastName = user.Ho;
             Phone = user.SoDienThoai;
             if (user.GioiTinh != null)
                 Gender = user.GioiTinh;

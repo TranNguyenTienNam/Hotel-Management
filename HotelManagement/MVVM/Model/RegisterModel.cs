@@ -19,6 +19,17 @@ namespace HotelManagement.MVVM.Model
             return false;
         }
 
+        public bool CheckExistEmail(string Email)
+        {
+            string sql_select = "select MaNgDung from TTNguoiDung where Email = '" + Email + "'";
+
+            if (Process.ExecutiveReader(sql_select) > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public int RegisterWithUsernameAndPassword(string Username, string Password)
         {
             string sql_insert = "insert NGUOIDUNG(TenTaiKhoan, MatKhau, TinhTrangTK) values " +

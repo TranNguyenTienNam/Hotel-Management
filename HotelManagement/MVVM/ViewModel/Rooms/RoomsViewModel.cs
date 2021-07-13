@@ -20,8 +20,6 @@ namespace HotelManagement.MVVM.ViewModel
     /// </summary>
     class RoomsViewModel : ObservableObject
     {
-        public static RoomsViewModel Instance => new RoomsViewModel();
-
         private ObservableCollection<roomtype> _roomTypes;
         public ObservableCollection<roomtype> RoomTypes { get { return _roomTypes; } set { _roomTypes = value; OnPropertyChanged(); } }
 
@@ -62,13 +60,25 @@ namespace HotelManagement.MVVM.ViewModel
         private string _maxPeople;
         public string MaxPeople { get { return _maxPeople; } set { _maxPeople = value; OnPropertyChanged(); } }
 
+        //Collapsed, Hidden, Visible
+        private string _visibilityRegulations;
+        public string VisibilityRegulations { get { return _visibilityRegulations; } set { _visibilityRegulations = value; OnPropertyChanged(); } }
+
         public ICommand AddRoomCommand { get; set; }
         public ICommand RegulationsCommand { get; set; }
         public ICommand SearchCommand { get; set; }
         public ICommand RoomTypeSelectionChangedCommand { get; set; }
 
-        public RoomsViewModel()
+        public RoomsViewModel(int Position)
         {
+            if (Position == 2)
+            {
+                VisibilityRegulations = "Collapsed";
+            }    
+            else
+            {
+                VisibilityRegulations = "Visible";
+            }    
             RoomTypes = new ObservableCollection<roomtype>();
             Types = new ObservableCollection<string>();
             ItemsSearch = new List<string>();

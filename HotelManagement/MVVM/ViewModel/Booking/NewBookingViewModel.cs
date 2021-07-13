@@ -30,9 +30,7 @@ namespace HotelManagement.MVVM.ViewModel
         private ObservableCollection<NewBookingRoomItemViewModel> _items = new ObservableCollection<NewBookingRoomItemViewModel>();
         public ObservableCollection<NewBookingRoomItemViewModel> Items { get { return _items; } set { _items = value; OnPropertyChanged(); } }
 
-        #region Declare data
-        // CreatorID
-        //public int CreatorID = 1000;
+        #region Info New Booking
 
         //Checkin and Checkout Date
         public DateTime checkin { get; set; }
@@ -78,6 +76,7 @@ namespace HotelManagement.MVVM.ViewModel
         private string _status;
         public string Status { get { return _status; } set { _status = value; OnPropertyChanged(); } }
 
+        #endregion 
 
         #region Invalid textblock bottom textbox
         private string _invalidCheckin;
@@ -120,18 +119,15 @@ namespace HotelManagement.MVVM.ViewModel
         public string InvalidStatus { get { return _invalidStatus; } set { _invalidStatus = value; OnPropertyChanged(); } }
         #endregion
 
-        #endregion
-
-
+        #region Some funcition
         // Numberic Textbok funcition 
         public void IsAllowedInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
-
         //Funcition check valid client info
-        public bool IsValidInfo()
+        bool IsValidInfo()
         {
              int i=0;
             if (string.IsNullOrEmpty(Name)) { InvalidName = "Please enter deposit!"; i++; }
@@ -187,7 +183,7 @@ namespace HotelManagement.MVVM.ViewModel
         }
 
         // Handle invalid condition when date pick
-        public void HandleValidDatePick(DateTime _checkin , DateTime _checkout)
+        void HandleValidDatePick(DateTime _checkin , DateTime _checkout)
         {
             if (DateTime.Compare(DateTime.Today, _checkin) > 0
                      && _checkin.ToString("yyyy-MM-dd HH:mm:ss") != "0001-01-01 00:00:00")
@@ -211,7 +207,7 @@ namespace HotelManagement.MVVM.ViewModel
         }
 
         //Clear White Space in Numberic
-        public void ClearWhiteSpace()
+        void ClearWhiteSpace()
         {
             if (!string.IsNullOrEmpty(CitizenID)) CitizenID = Regex.Replace(CitizenID, @"\s+", "");
             if(!string.IsNullOrEmpty(Phone)) Phone = Regex.Replace(Phone, @"\s+", "");
@@ -220,14 +216,14 @@ namespace HotelManagement.MVVM.ViewModel
         }
 
         //Load list room according to check-in date and check-out date
-        public void loadListRoom(DateTime _checkin, DateTime _checkout)
+        void loadListRoom(DateTime _checkin, DateTime _checkout)
         {
 
             if (Items.Count > 0)
                 Items.Clear();
             NewBookingModel model = new NewBookingModel();
             DataTable data = new DataTable();
-            data = model.Load_On(_checkin.ToString("yyyy-MM-dd HH:mm:ss"),
+            data = model.LoadAvailableRoom(_checkin.ToString("yyyy-MM-dd HH:mm:ss"),
                                     _checkout.ToString("yyyy-MM-dd HH:mm:ss"));
 
             foreach (DataRow row in data.Rows)
@@ -244,7 +240,7 @@ namespace HotelManagement.MVVM.ViewModel
                 Items.Add(obj);
             }
         }
-
+        #endregion
 
 
         //Declare ICommand: handle event in View.
@@ -262,7 +258,10 @@ namespace HotelManagement.MVVM.ViewModel
         #endregion
 
 
-        //BookingViewModel Method
+       /// <summary>
+       /// NewBookingViewModel load view for New Booking Windows
+       /// </summary>
+       /// <param name="UserID"></param>
         public NewBookingViewModel(int UserID)
         {
             NewBookingModel model = new NewBookingModel();
@@ -270,7 +269,7 @@ namespace HotelManagement.MVVM.ViewModel
             DateTime tomorow = DateTime.Today.AddDays(+1);
             loadListRoom(today, tomorow);
 
-            #region Handle
+            #region Handle Event
 
             CitizentIdTextChange = new RelayCommand<object>((p) =>
             {
@@ -346,7 +345,6 @@ namespace HotelManagement.MVVM.ViewModel
                 if (string.IsNullOrEmpty(CitizenID) 
                      || CheckCitizent == "✔️") return false;
                 return true;
-
             }, (p) =>
             {
                 var value = (object[])p;
@@ -389,14 +387,10 @@ namespace HotelManagement.MVVM.ViewModel
                 DateTime now = DateTime.Now;
                 try
                 {
-                    if (model.Save_Client(Name, _nation, CitizenID, Phone, Address, Gender))
-                    {
-                        MessageBox.Show("Client Created", "Notify");
-                    };
-                    if (model.Save_Booking(RoomId, CitizenID, now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    if (model.Save_Client(Name, _nation, CitizenID, Phone, Address, Gender) &&
+                        model.Save_Booking(RoomId, CitizenID, now.ToString("yyyy-MM-dd HH:mm:ss"),
                         checkin.ToString("yyyy-MM-dd HH:mm:ss"), checkout.ToString("yyyy-MM-dd HH:mm:ss"),
-                        Amount, Status, UserID, Deposit))
-                    {
+                        Amount, Status, UserID, Deposit)) {
                         MessageBox.Show("Booking Created","Notify");
                     }
                     RoomId = 0;
@@ -404,10 +398,8 @@ namespace HotelManagement.MVVM.ViewModel
                 }
                 catch
                 {
-                    if (model.Update_Client(Name, _nation, CitizenID, Phone, Address, Gender))
-                    {
-                        MessageBox.Show("Update info suscess", "Notify");
-                    };
+                    model.Update_Client(Name, _nation, CitizenID, Phone, Address, Gender);
+
                     if (model.Save_Booking(RoomId, CitizenID, now.ToString("yyyy-MM-dd HH:mm:ss"),
                         checkin.ToString("yyyy-MM-dd HH:mm:ss"),checkout.ToString("yyyy-MM-dd HH:mm:ss"),
                         Amount, Status, UserID, Deposit))
@@ -419,11 +411,8 @@ namespace HotelManagement.MVVM.ViewModel
                 }
             });
  
-        }
-
+        }        
         #endregion
-
-        //Load table room
     }
 }
 

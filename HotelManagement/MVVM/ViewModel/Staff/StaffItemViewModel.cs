@@ -30,9 +30,6 @@ namespace HotelManagement.MVVM.ViewModel
         private string tenNhanVien;
         public string TenNhanVien { get { return tenNhanVien; } set { tenNhanVien = value; OnPropertyChanged(); } }
 
-        private string hoNhanVien;
-        public string HoNhanVien { get { return hoNhanVien; } set { hoNhanVien = value; OnPropertyChanged(); } }
-
         private string soDienThoai;
         public string SoDienThoai { get { return soDienThoai; } set { soDienThoai = value; OnPropertyChanged(); } }
 
@@ -45,13 +42,26 @@ namespace HotelManagement.MVVM.ViewModel
         private string ngaySinh;
         public string NgaySinh { get { return ngaySinh; } set { ngaySinh = value; OnPropertyChanged(); } }
 
+        private string quyenHan;
+        public string QuyenHan { get { return quyenHan; } set { quyenHan = value; OnPropertyChanged(); } }
+        
+        private string visibilityPromoteButton;
+        public string VisibilityPromoteButton { get { return visibilityPromoteButton; } set { visibilityPromoteButton = value; OnPropertyChanged(); } }
+
         private bool isBlocked;
         public bool IsBlocked { get { return isBlocked; } set { isBlocked = value; OnPropertyChanged(); } }
+
+        private bool isPromoted;
+        public bool IsPromoted { get { return isPromoted; } set { isPromoted = value; OnPropertyChanged(); } }
+
+        private int widthColumnEmail;
+        public int WidthColumnEmail { get { return widthColumnEmail; } set { widthColumnEmail = value; OnPropertyChanged(); } }
 
         public bool IsSelected { get; set; }
 
         public ICommand SendMailCommand { get; set; }
         public ICommand BlockOrUnblockStaffAccountCommand { get; set; }
+        public ICommand PromoteOrDemoteStaffAccountCommand { get; set; }
 
         public StaffItemViewModel()
         {
@@ -70,13 +80,21 @@ namespace HotelManagement.MVVM.ViewModel
             {
                 BlockOrUnblockStaffAccount();            
             });
+
+            PromoteOrDemoteStaffAccountCommand = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) => 
+            {
+                PromoteOrDemoteStaffAccount();
+            });
         }
 
         void SendMail()
         {
             NewMessageView wd = new NewMessageView();
             wd.DataContext = new NewMessageViewModel(Email);
-            wd.Show();
+            wd.ShowDialog();
         }
 
         void BlockOrUnblockStaffAccount()
@@ -91,6 +109,23 @@ namespace HotelManagement.MVVM.ViewModel
             {
                 model.BlockStaff(MaNguoiDung);
                 IsBlocked = true;
+            }
+        }
+
+        void PromoteOrDemoteStaffAccount()
+        {
+            StaffModel model = new StaffModel();
+            if (IsPromoted)
+            {
+                model.DemoteStaff(MaNguoiDung);
+                QuyenHan = "Staff";
+                IsPromoted = false;
+            }
+            else
+            {
+                model.PromoteStaff(MaNguoiDung);
+                QuyenHan = "Manager";
+                IsPromoted = true;
             }
         }
     }

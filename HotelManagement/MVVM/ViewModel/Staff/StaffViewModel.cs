@@ -16,8 +16,6 @@ namespace HotelManagement.MVVM.ViewModel
 {
     class StaffViewModel : ObservableObject
     {
-        public static StaffViewModel Instance => new StaffViewModel();
-
         private ObservableCollection<StaffItemViewModel> staff;
         public ObservableCollection<StaffItemViewModel> Staff { get { return staff; } set { staff = value; OnPropertyChanged("Staff"); } }
 
@@ -36,18 +34,24 @@ namespace HotelManagement.MVVM.ViewModel
         public string SearchText { get { return searchText; } set { searchText = value; OnPropertyChanged(); } }
         #endregion
 
+        private int Position { get; set;}
+
+        private int _widthHeaderEmail;
+        public int WidthHeaderEmail { get { return _widthHeaderEmail; } set { _widthHeaderEmail = value; OnPropertyChanged(); } }
+
         public ICommand RefreshCommand { get; set; }
         public ICommand SearchCommand { get; set; }
 
-        public StaffViewModel()
+        public StaffViewModel(int position)
         {
+            WidthHeaderEmail = (position == 0) ? 145 : 188;
+            Position = position;
             Staff = new ObservableCollection<StaffItemViewModel>();
             LoadAllAcounts();
 
             ItemsSearch = new List<string>();
             ItemsSearch.Add("Staff ID");
             ItemsSearch.Add("User Name");
-            ItemsSearch.Add("Last Name");
             ItemsSearch.Add("First Name");
             ItemsSearch.Add("Phone");
 
@@ -73,6 +77,7 @@ namespace HotelManagement.MVVM.ViewModel
                 LoadAllAcounts();
             });
         }
+
         public DelegateCommand ModeRadCommand
         {
             get
@@ -94,9 +99,6 @@ namespace HotelManagement.MVVM.ViewModel
                 case "User Name":
                     LoadSearchStaffByUserName(SearchText);
                     break;
-                case "Last Name":
-                    LoadSearchStaffByLastName(SearchText);
-                    break;
                 case "First Name":
                     LoadSearchStaffByFirstName(SearchText);
                     break;
@@ -116,13 +118,16 @@ namespace HotelManagement.MVVM.ViewModel
                 {
                     MaNguoiDung = (int)row["MaNguoiDung"],
                     TenTaiKhoan = (string)row["TenTaiKhoan"],
-                    HoNhanVien = (string)row["Ho"],
                     TenNhanVien = (string)row["Ten"],
                     SoDienThoai = (row["SoDienThoai"] == DBNull.Value) ? "" : (string)row["SoDienThoai"],
                     GioiTinh = (row["GioiTinh"] == DBNull.Value) ? "" : (string)row["GioiTinh"],
                     Email = (string)row["Email"],
                     NgaySinh = (row["NgaySinh"] == DBNull.Value) ? DateTime.Now.ToString("dd/MM/yyyy") : ((DateTime)row["NgaySinh"]).ToString("dd/MM/yyyy"),
+                    QuyenHan = definePosition((int)row["QuyenHan"]),
+                    IsPromoted = ((int)row["QuyenHan"] == 2) ? false : true,
                     IsBlocked = ((int)row["TinhTrang"] == 0) ? true : false,
+                    WidthColumnEmail = (Position == 0) ? 145 : 188,
+                    VisibilityPromoteButton = (Position == 0) ? "Visible" : "Collapsed"
                 };
                 Staff.Add(obj);
             }
@@ -135,7 +140,7 @@ namespace HotelManagement.MVVM.ViewModel
             DataTable dataTable = new DataTable();
             StaffModel model = new StaffModel();
 
-            dataTable = model.Load_Accounts(SelectedMode);
+            dataTable = model.Load_Accounts(SelectedMode, Position);
 
             LoadData(dataTable);
         }
@@ -146,7 +151,7 @@ namespace HotelManagement.MVVM.ViewModel
                 Staff.Clear();
             StaffModel model = new StaffModel();
             DataTable data = new DataTable();
-            data = model.Search_StaffID(MaNgDung, SelectedMode);
+            data = model.Search_StaffID(MaNgDung, SelectedMode, Position);
 
             LoadData(data);
         }
@@ -157,7 +162,7 @@ namespace HotelManagement.MVVM.ViewModel
                 Staff.Clear();
             StaffModel model = new StaffModel();
             DataTable data = new DataTable();
-            data = model.Search_StaffUsername(TenTK, SelectedMode);
+            data = model.Search_StaffUsername(TenTK, SelectedMode, Position);
 
             LoadData(data);
         }
@@ -168,18 +173,7 @@ namespace HotelManagement.MVVM.ViewModel
                 Staff.Clear();
             StaffModel model = new StaffModel();
             DataTable data = new DataTable();
-            data = model.Search_StaffFirstName(Ten, SelectedMode);
-
-            LoadData(data);
-        }
-
-        void LoadSearchStaffByLastName(string Ho)
-        {
-            if (Staff.Count > 0)
-                Staff.Clear();
-            StaffModel model = new StaffModel();
-            DataTable data = new DataTable();
-            data = model.Search_StaffLastName(Ho, SelectedMode);
+            data = model.Search_StaffFirstName(Ten, SelectedMode, Position);
 
             LoadData(data);
         }
@@ -190,9 +184,30 @@ namespace HotelManagement.MVVM.ViewModel
                 Staff.Clear();
             StaffModel model = new StaffModel();
             DataTable data = new DataTable();
-            data = model.Search_StaffPhone(sdt, SelectedMode);
+            data = model.Search_StaffPhone(sdt, SelectedMode, Position);
 
             LoadData(data);
+        }
+
+        string definePosition(int posNumber)
+        {
+            string position = "";
+            switch (posNumber)
+            {
+                case 0:
+                    position = "Admin";
+                    break;
+                case 1:
+                    position = "Manager";
+                    break;
+                case 2:
+                    position = "Staff";
+                    break;
+                default:
+                    break;
+            }
+
+            return position;
         }
 
         private void OnPropertyChanged(string propertyName)

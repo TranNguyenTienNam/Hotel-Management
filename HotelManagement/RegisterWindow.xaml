@@ -249,6 +249,7 @@
                                         <Binding ElementName="txtUsername"/>
                                         <Binding ElementName="txtPassword"/>
                                         <Binding ElementName="txtConfirmPassword"/>
+                                        <Binding ElementName="txtEmail"/>
                                     </MultiBinding.Bindings>
                                 </MultiBinding>
                             </Button.CommandParameter>

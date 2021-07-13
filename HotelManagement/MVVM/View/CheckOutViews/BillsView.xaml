@@ -16,9 +16,6 @@
         WindowStartupLocation="CenterScreen"
         MouseDown="Window_MouseDown"
         >
-    <Window.DataContext>
-        <viewModel:BillsViewModel/>
-    </Window.DataContext>
     <Border Background="#dfdfdf" CornerRadius="12" Margin="0,0,0,0">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -141,6 +138,7 @@
                                 Width="100"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 Command="{Binding DeleteCommand}"
+                                Visibility="{Binding VisibilityAdmin}"
                                 materialDesign:ButtonAssist.CornerRadius="10"
                                 BorderThickness="0"
                                 Background="#F44336"

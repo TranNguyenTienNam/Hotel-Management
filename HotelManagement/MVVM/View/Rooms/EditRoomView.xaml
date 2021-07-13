@@ -78,7 +78,7 @@
                              VerticalAlignment="Center" Margin="8">
                         </TextBox>
                         <Grid Grid.Row="2" VerticalAlignment="Center" Margin="8,16,8,2">
-                            <ComboBox Name="cbbRoomType" ItemsSource="{Binding types}"
+                            <ComboBox Name="cbbRoomType" ItemsSource="{Binding TypeNames}"
                                 FontSize="14" Foreground="#F44336"
                                 materialDesign:TextFieldAssist.PrefixText="Room Type: "
                                 SelectedValue="{Binding Type}"

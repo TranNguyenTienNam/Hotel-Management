@@ -161,9 +161,7 @@ namespace HotelManagement.MVVM.ViewModel
                 return true;
             }, (p) =>
             {
-                p.Hide();
-                (new LoginWindow()).Show();
-                p.Close();
+                Cancel(p);
             });
 
             FinishCommand = new RelayCommand<object[]>((p) =>
@@ -186,17 +184,18 @@ namespace HotelManagement.MVVM.ViewModel
         /// 1 => <include file='RegisterWindow.xaml' path='[@ElementName="txtUsername"]'/>
         /// 2 => <include file='RegisterWindow.xaml' path='[@ElementName="txtPassword"]'/>
         /// 3 => <include file='RegisterWindow.xaml' path='[@ElementName="txtConfirmPassword"]'/>
+        /// 4 => <include file='RegisterWindow.xaml' path='[@ElementName="txtEmail"]'/>
         /// </summary>
         void Register(object[] p)
         {
             if (p == null)
                 return;
             //Get array parameter
-            var values = (object[])p;
-            Window registerWindow = values[0] as Window;    
-            TextBox txtUsername = values[1] as TextBox;
-            PasswordBox txtPassword = values[2] as PasswordBox;
-            PasswordBox txtConfirmPassword = values[3] as PasswordBox;
+            Window registerWindow = p[0] as Window;    
+            TextBox txtUsername = p[1] as TextBox;
+            PasswordBox txtPassword = p[2] as PasswordBox;
+            PasswordBox txtConfirmPassword = p[3] as PasswordBox;
+            TextBox txtEmail = p[4] as TextBox;
 
             if (model.CheckExistUsername(Username))
             {
@@ -208,16 +207,25 @@ namespace HotelManagement.MVVM.ViewModel
             {
                 if (Password == ConfirmPassword)
                 {
-                    int isID = model.RegisterWithUsernameAndPassword(Username, Password);
-                    if (isID != -1)
+                    if (model.CheckExistEmail(Email))
                     {
-                        if (model.InsertInfoUser(isID, FirstName, LastName, Email))
+                        RegisterErrorMessage = "This email has already existed";
+                        txtEmail.Text = "";
+                        return;
+                    }   
+                    else
+                    {
+                        int isID = model.RegisterWithUsernameAndPassword(Username, Password);
+                        if (isID != -1)
                         {
-                            MessageBox.Show("Registration success", "Notice");
-                            registerWindow.Hide();
-                            (new LoginWindow()).Show();
-                            registerWindow.Close();
-                        }    
+                            if (model.InsertInfoUser(isID, FirstName, LastName, Email))
+                            {
+                                MessageBox.Show("Registration success", "Notice");
+                                registerWindow.Hide();
+                                (new LoginWindow()).Show();
+                                registerWindow.Close();
+                            }
+                        }
                     }    
                 }
                 else
@@ -228,6 +236,16 @@ namespace HotelManagement.MVVM.ViewModel
                     return;
                 }    
             }
+        }
+
+        void Cancel(Window p)
+        {
+            if (p == null)
+                return;
+
+            p.Hide();
+            (new LoginWindow()).Show();
+            p.Close();
         }
     }
 }
