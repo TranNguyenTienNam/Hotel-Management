@@ -3,6 +3,14 @@ Phần mềm giúp quản lý, thực hiện các nghiệp vụ của một khá
 ## Nội dung
 - [Đối tượng hướng đến](#Đối-tượng-hướng-đến)
 - [Chức năng](#Chức-năng)
+  - [Đăng nhập / Đăng kí](#đăng-nhập--đăng-kí)
+  - [Quản lý phòng](#quản-lý-phòng)
+  - [Tạo phiếu thuê phòng](#Tạo-phiếu-thuê-phòng)
+  - [Quản lý phiếu thuê phòng](#Quản-lý-phiếu-thuê-phòng)
+  - [Quản lý hóa đơn](#Quản-lý-hóa-đơn)
+  - [Thông tin cá nhân](#Thông-tin-cá-nhân)
+  - [Quản lý nhân viên](#Quản-lý-nhân-viên)
+  - [Thống kê](#Thống-kê)
 - [Yêu cầu thiết bị](#Yêu-cầu-thiết-bị)
 - [Thư viện và công nghệ](#Thư-viện-và-công-nghệ)
 - [Cơ sở dữ liệu](#Cơ-sở-dữ-liệu)
@@ -17,6 +25,21 @@ Phần mềm giúp quản lý, thực hiện các nghiệp vụ của một khá
 - Nhân viên đặt phòng
 - Nhân viên hỗ trợ khách hàng
 ## Chức năng
+### Đăng nhập / Đăng kí
+
+### Quản lý phòng
+
+### Tạo phiếu thuê phòng
+
+### Quản lý phiếu thuê phòng
+
+### Quản lý hóa đơn
+
+### Thông tin cá nhân
+
+### Quản lý nhân viên
+
+### Thống kê
 
 ## Yêu cầu thiết bị
 - Window 7 - 10.
