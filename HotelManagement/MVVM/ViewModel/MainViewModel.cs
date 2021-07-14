@@ -91,6 +91,7 @@ namespace HotelManagement.MVVM.ViewModel
             if (PermissionOfAccount == 2)
             {
                 InitCheckedStaff = true;
+                NameContent = model.GetNameAccount(UserId);
                 CurrentView = RoomsVM;
                 Visibility = "Collapsed";
             }    
