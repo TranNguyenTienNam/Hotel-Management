@@ -50,7 +50,7 @@ Phần mềm giúp quản lý, thực hiện các nghiệp vụ của một khá
 
 ### Thông tin cá nhân
 
-  <img src="https://user-images.githubusercontent.com/55500268/125552584-76429e20-9d28-443e-b69f-51f4bc2fec49.png" width="850">
+  <img src="https://user-images.githubusercontent.com/55500268/125552809-acb9da49-15b6-4f63-afb8-dc5bf6358c17.png" width="850">
 
 ### Quản lý nhân viên
 
