@@ -27,19 +27,38 @@ Phần mềm giúp quản lý, thực hiện các nghiệp vụ của một khá
 ## Chức năng
 ### Đăng nhập / Đăng kí
 
+  <img src="https://user-images.githubusercontent.com/55500268/125548945-b2272bfd-0928-4d71-acff-93b2718f49b9.png" width="700"> 
+  <img src="https://user-images.githubusercontent.com/55500268/125548966-c7c048b0-676f-44d1-aa4a-9562140c68f3.png" width="700"> 
+
 ### Quản lý phòng
+
+  <img src="https://user-images.githubusercontent.com/55500268/125549076-60073e97-15e4-434b-a81d-e74b999883b8.png" width="850"> 
+  
+  <img src="https://user-images.githubusercontent.com/55500268/125549109-fed4e2de-9e06-4647-83da-354dffb205fd.png" width="500"> <img src="https://user-images.githubusercontent.com/55500268/125549160-d0b649f9-98aa-42a8-aa86-59013f8cbb31.png" width="364">
 
 ### Tạo phiếu thuê phòng
 
+  <img src="https://user-images.githubusercontent.com/55500268/125550209-d12aee7b-48ed-4a0e-9e3b-31b38314fe62.png" width="700"> 
+
 ### Quản lý phiếu thuê phòng
+
+  <img src="https://user-images.githubusercontent.com/55500268/125552291-4cb9dcfb-9c86-4196-a4f7-659bb2493c2e.png" width="850"> 
 
 ### Quản lý hóa đơn
 
+  <img src="https://user-images.githubusercontent.com/55500268/125552381-c8a14f48-bbd1-456c-bf2c-ce01f7ce317e.png" width="850">
+
 ### Thông tin cá nhân
+
+  <img src="https://user-images.githubusercontent.com/55500268/125552584-76429e20-9d28-443e-b69f-51f4bc2fec49.png" width="850">
 
 ### Quản lý nhân viên
 
+  <img src="https://user-images.githubusercontent.com/55500268/125552608-92f30b8a-4145-4dc7-b60b-a1baf4c125ca.png" width="850">
+
 ### Thống kê
+
+  <img src="https://user-images.githubusercontent.com/55500268/125549701-ab9d516e-fa4d-4212-8414-0e0f26c0bbe7.png" width="850">
 
 ## Yêu cầu thiết bị
 - Window 7 - 10.
