@@ -191,10 +191,10 @@ namespace HotelManagement.MVVM.ViewModel
                 InvalidCheckin = "Check-in date must be later than or same today";
             }
             else InvalidCheckin = "";
-            if (DateTime.Compare(_checkin, _checkout) > 0
+            if (DateTime.Compare(_checkin, _checkout) >= 0
                     && _checkout.ToString("yyyy-MM-dd HH:mm:ss") != "0001-01-01 00:00:00") 
             {
-                InvalidCheckout = "Check-out date must be later than or same as check-in and today";
+                InvalidCheckout = "Check-out date must be later than check-in";
             }
             else InvalidCheckout = "";
 
