@@ -47,6 +47,10 @@ Phần mềm giúp quản lý, thực hiện các nghiệp vụ của một khá
 ### Quản lý hóa đơn
 
   <img src="https://user-images.githubusercontent.com/55500268/125552381-c8a14f48-bbd1-456c-bf2c-ce01f7ce317e.png" width="850">
+  
+  <img src="https://user-images.githubusercontent.com/55500268/125553178-b5056922-33e5-4e45-af92-c87ef56f1770.png" width="750">
+
+  <img src="https://user-images.githubusercontent.com/55500268/125553024-b6fed185-0e19-490a-a6be-6a978ac858aa.png" width="500">
 
 ### Thông tin cá nhân
 
