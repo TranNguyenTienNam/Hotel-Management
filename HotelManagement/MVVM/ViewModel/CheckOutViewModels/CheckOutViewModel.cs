@@ -234,9 +234,19 @@ namespace HotelManagement.MVVM.ViewModel
 
             PickCheckOutDateCommand = new RelayCommand<DatePicker>((p) =>
             {
-                if (p.SelectedDate < NgayBatDau)
+                if (p.SelectedDate <= NgayBatDau)
                 {
                     MessageBox.Show("Ngày Check-out không được nhỏ hơn ngày Check-in !");
+                    p.SelectedDate = NgayTraPhong;
+                    // tính lại số ngày thuê, tiền thuê...
+                    NgayTraPhong = p.SelectedDate.HasValue ? p.SelectedDate.Value.Date : NgayBatDau;
+                    SoNgayThue = GetDays(NgayBatDau, NgayTraPhong);
+                    TongTienPhong = DonGia * SoNgayThue;
+                    PhuThu = GetSurchargeMoney(SoLuongKhach, SoNgayThue, TongTienPhong, SoNgToiDa);
+                    TongTien = TongTienPhong + (int)PhuThu - TienCoc;
+                    //set lại ngày trả phòng cho current rental
+                    currentRental.NgayTraPhong = NgayTraPhong;
+
                     return false;
                 }
                 return !string.IsNullOrEmpty(CMND);
